@@ -162,13 +162,13 @@ public class TestView extends TextView {
 
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
-        L.i("onWindowFocusChanged: ");
+        L.i("onWindowFocusChanged: " + hasWindowFocus);
         super.onWindowFocusChanged(hasWindowFocus);
     }
 
     @Override
     protected void onVisibilityChanged(View changedView, int visibility) {
-        L.i("onVisibilityChanged: ");
+        L.i("onVisibilityChanged: " + visibility);
         super.onVisibilityChanged(changedView, visibility);
     }
 
@@ -234,13 +234,13 @@ public class TestView extends TextView {
 
     @Override
     public void onVisibilityAggregated(boolean isVisible) {
-        L.i("onVisibilityAggregated: ");
+        L.i("onVisibilityAggregated: " + isVisible);
         super.onVisibilityAggregated(isVisible);
     }
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
-        L.i("onWindowVisibilityChanged: ");
+        L.i("onWindowVisibilityChanged: " + visibility);
         super.onWindowVisibilityChanged(visibility);
     }
 
