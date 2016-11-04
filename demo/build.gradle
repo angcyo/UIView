@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        angcyo {
+            keyAlias 'angcyo'
+            keyPassword 'angcyo'
+            storeFile file('../angcyo.jks')
+            storePassword 'angcyo'
+        }
+    }
     compileSdkVersion Integer.parseInt(rootProject.C_SDK)
     buildToolsVersion rootProject.B_TOOLS
-
     defaultConfig {
         applicationId "com.angcyo.demo"
         minSdkVersion Integer.parseInt(rootProject.M_SDK)
@@ -16,6 +23,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.angcyo
+        }
+        debug {
+            signingConfig signingConfigs.angcyo
         }
     }
 }
