@@ -21,12 +21,20 @@ android {
     }
     buildTypes {
         release {
+            //applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.angcyo
         }
         debug {
+            //applicationIdSuffix ".debug"
             signingConfig signingConfigs.angcyo
+        }
+    }
+    getApplicationVariants().all { variant ->
+        variant.outputs.each { output ->
+            def appName = "UIViewDemo-${variant.buildType.name}-${variant.versionName}.apk"
+            output.outputFile = new File(output.outputFile.parent, appName)
         }
     }
 }
