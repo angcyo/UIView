@@ -1,6 +1,7 @@
 package com.angcyo.uiview.resources;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -55,7 +56,7 @@ public class ResUtil {
         return stateList;
     }
 
-    public static ColorStateList generateTextColor(int pressColor, int checkColor,int defaultColor) {
+    public static ColorStateList generateTextColor(int pressColor, int checkColor, int defaultColor) {
         ColorStateList stateList = new ColorStateList(new int[][]{{android.R.attr.state_pressed}, {android.R.attr.state_checked}, {}},
                 new int[]{pressColor, checkColor, defaultColor});
         return stateList;
@@ -338,5 +339,15 @@ public class ResUtil {
      */
     public static int getScreenHeight(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    /**
+     * 判断是否包含属性
+     *
+     * @see android.view.View#SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+     */
+    public static boolean isLayoutFullscreen(Activity activity) {
+        final int visibility = activity.getWindow().getDecorView().getSystemUiVisibility();
+        return ((visibility & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }

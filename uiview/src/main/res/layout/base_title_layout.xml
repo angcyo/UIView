@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_title_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/action_bar_height"
+    android:orientation="horizontal">
+
+    <!--左边控制区-->
+    <LinearLayout
+        android:id="@+id/base_left_control_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/base_back_image_view"
+            android:layout_width="@dimen/base_title_bar_item_size"
+            android:layout_height="match_parent"
+            android:background="@drawable/base_bg_selector"
+            android:clickable="true"
+            android:src="@drawable/base_back_3"/>
+
+    </LinearLayout>
+
+    <!--中间标题区-->
+    <RelativeLayout
+        android:id="@+id/base_center_control_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/base_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/default_base_white"
+            android:textSize="@dimen/base_title_size"
+            tools:text="标题"/>
+    </RelativeLayout>
+
+
+    <!--右边控制区-->
+    <LinearLayout
+        android:id="@+id/base_right_control_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+</LinearLayout>
