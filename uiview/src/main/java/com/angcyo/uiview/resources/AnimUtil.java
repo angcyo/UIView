@@ -1,6 +1,7 @@
 package com.angcyo.uiview.resources;
 
 import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -26,5 +27,12 @@ public class AnimUtil {
         colorAnimator.setDuration(duration);
         colorAnimator.start();
         return colorAnimator;
+    }
+
+    public static ValueAnimator startValue(int from, int to, long duration, ValueAnimator.AnimatorUpdateListener listener) {
+        final ValueAnimator valueAnimator = ObjectAnimator.ofInt(from, to);
+        valueAnimator.setDuration(duration).addUpdateListener(listener);
+        valueAnimator.start();
+        return valueAnimator;
     }
 }

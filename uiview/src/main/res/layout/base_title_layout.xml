@@ -21,7 +21,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/base_bg_selector"
             android:clickable="true"
-            android:src="@drawable/base_back_3"/>
+            android:src="@drawable/base_back_3"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -51,6 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="right"
         android:orientation="horizontal">
 
 

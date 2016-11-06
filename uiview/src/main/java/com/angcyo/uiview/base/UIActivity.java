@@ -17,16 +17,19 @@ import com.angcyo.uiview.container.UIContainer;
  * Created by angcyo on 2016-11-05.
  */
 
-public class UIActivity extends AppCompatActivity {
+public abstract class UIActivity extends AppCompatActivity {
 
     protected UIContainer mUIContainer;
+
+    protected abstract void onLoadView();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadActivityStyle();
-
+        initWindow();
         mUIContainer = new UIContainer(this);
+        mUIContainer.attachToActivity(this);
         setContentView(mUIContainer, new ViewGroup.LayoutParams(-1, -1));
         initUIActivity();
         if (savedInstanceState == null) {
@@ -36,8 +39,21 @@ public class UIActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        onLoadView();
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (mUIContainer.canBack()) {
+            super.onBackPressed();
+        }
+    }
+
     protected void initUIActivity() {
-        enableLayoutFullScreen();
     }
 
     /**
@@ -50,6 +66,13 @@ public class UIActivity extends AppCompatActivity {
         if (supportActionBar != null) {
             supportActionBar.hide();
         }
+    }
+
+    /**
+     * 窗口样式
+     */
+    protected void initWindow() {
+        enableLayoutFullScreen();
     }
 
     /**

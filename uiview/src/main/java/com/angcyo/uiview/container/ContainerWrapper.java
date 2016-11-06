@@ -1,18 +1,23 @@
 package com.angcyo.uiview.container;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Parcelable;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
+import com.angcyo.uiview.R;
+import com.angcyo.uiview.resources.ResUtil;
 
 /**
  * Created by angcyo on 2016-11-05.
@@ -21,7 +26,15 @@ import com.angcyo.library.utils.L;
 public abstract class ContainerWrapper extends FrameLayout {
     private static final String TAG = "ContainerWrapper";
 
+    /**
+     * 整个布局的背景颜色
+     */
     protected static int mBackgroundColor = Color.WHITE;
+    /**
+     * 标题栏,最后一次的颜色, 颜色动画的开始值
+     */
+    @ColorInt
+    protected int mTitleBarBGColor = Color.WHITE;
     protected boolean isAttachedToWindow = false;
 
     /**
@@ -83,6 +96,21 @@ public abstract class ContainerWrapper extends FrameLayout {
         initContainer(context);
     }
 
+    /**
+     * 获取标题栏的高度
+     */
+    public static int getTitleBarHeight(Activity activity) {
+        final Resources resources = activity.getResources();
+        int height;
+        if (ResUtil.isLayoutFullscreen(activity)) {
+            height = resources.getDimensionPixelSize(R.dimen.title_bar_height);
+        } else {
+            height = resources.getDimensionPixelSize(R.dimen.action_bar_height);
+        }
+
+        return height;
+    }
+
     private void initContainer(Context context) {
         mContext = context;
         setWillNotDraw(false);
@@ -129,11 +157,11 @@ public abstract class ContainerWrapper extends FrameLayout {
     protected void onAttachedToWindow() {
         L.i(TAG, "onAttachedToWindow: ");
         super.onAttachedToWindow();
-        isAttachedToWindow = true;
         post(new Runnable() {
             @Override
             public void run() {
                 L.e("on post run onAttachedToWindow");
+                isAttachedToWindow = true;
                 loadOnAttachedToWindow();
             }
         });
@@ -213,13 +241,13 @@ public abstract class ContainerWrapper extends FrameLayout {
         super.onAnimationStart();
     }
 
+    //------------------------------共有方法--------------------------//
+
     @Override
     protected void onAnimationEnd() {
         L.i(TAG, "onAnimationEnd: ");
         super.onAnimationEnd();
     }
-
-    //------------------------------共有方法--------------------------//
 
     /**
      * 隐藏标题栏
@@ -232,14 +260,14 @@ public abstract class ContainerWrapper extends FrameLayout {
         mTitleBarLayout.setVisibility(VISIBLE);
     }
 
+    //------------------------------保护方法--------------------------//
+
     /**
      * 不加载标题栏,可以节约资源,请在显示之前调用.否则加载完成后, 无效果
      */
     public void setLoadTitleBar(boolean loadTitleBar) {
         this.loadTitleBar = loadTitleBar;
     }
-
-    //------------------------------保护方法--------------------------//
 
     protected void addContentLayout(Context context) {
         mContentLayout = new FrameLayout(context);
@@ -248,6 +276,12 @@ public abstract class ContainerWrapper extends FrameLayout {
 
     protected void addTitleBarLayout(Context context) {
         mTitleBarLayout = new FrameLayout(context);
+
+        mTitleBarLayout.setMinimumHeight(getTitleBarHeight((Activity) mContext));
+
+        mUITitleBarContainer = new UITitleBarContainer(context);
+        mTitleBarLayout.addView(mUITitleBarContainer, new LayoutParams(-1, -2));
+
         addView(mTitleBarLayout, new LayoutParams(-1, -2));
     }
 
