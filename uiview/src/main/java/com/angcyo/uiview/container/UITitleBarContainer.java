@@ -200,6 +200,9 @@ public class UITitleBarContainer extends FrameLayout {
         item.setScaleType(ImageView.ScaleType.CENTER);
         item.setBackgroundResource(R.drawable.base_bg_selector);
         item.setOnClickListener(listener);
+        if (listener == null) {
+            item.setClickable(false);
+        }
         return item;
     }
 
@@ -211,6 +214,9 @@ public class UITitleBarContainer extends FrameLayout {
         item.setGravity(Gravity.CENTER);
         item.setBackgroundResource(R.drawable.base_bg_selector);
         item.setOnClickListener(listener);
+        if (listener == null) {
+            item.setClickable(false);
+        }
         return item;
     }
 }

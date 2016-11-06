@@ -63,7 +63,7 @@ public class Demo3View implements IView {
         mContext = context;
         mUIContainer = uiContainer;
         final View view = inflater.inflate(R.layout.content_main3, container);
-        container.getChildAt(container.getChildCount() - 1).setOnClickListener(new View.OnClickListener() {
+        container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 T.show(mContext, "---Demo 3----");

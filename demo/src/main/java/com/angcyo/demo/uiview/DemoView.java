@@ -28,7 +28,7 @@ public class DemoView implements IView {
         mContext = context;
         TitleBarPattern pattern = new TitleBarPattern();
         pattern.setTitleString("测试标题1")
-                .setShowBackImageView(true)
+                .setShowBackImageView(false)
                 .setLeftItems(getLeftItems())
                 .setRightItems(getRightItems())
                 .setTitleBarBGColor(Color.GREEN);
@@ -38,12 +38,7 @@ public class DemoView implements IView {
     private ArrayList<TitleBarPattern.TitleBarItem> getRightItems() {
         ArrayList<TitleBarPattern.TitleBarItem> items = new ArrayList<>();
         items.add(TitleBarPattern.TitleBarItem.build()
-                .setRes(R.drawable.iconfontjixieqimo).setListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        T.show(mContext, "设置");
-                    }
-                }));
+                .setRes(R.drawable.iconfontjixieqimo));
         items.add(TitleBarPattern.TitleBarItem.build()
                 .setRes(R.drawable.wxbbiaowang).setListener(new View.OnClickListener() {
                     @Override
