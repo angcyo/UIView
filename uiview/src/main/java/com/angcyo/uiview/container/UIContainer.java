@@ -99,8 +99,10 @@ public class UIContainer extends ContainerWrapper {
         final View pop = mAttachViews.pop();
         mAddedIViews.pop();
 
+        pop.animate().translationY(pop.getMeasuredHeight()).setDuration(1000).start();
         mContentLayout.removeView(pop);
         loadTitleBar(mContext, mAddedIViews.lastElement());
+
     }
 
     /**
