@@ -23,6 +23,7 @@ import com.angcyo.uiview.resources.ResUtil;
 import java.util.ArrayList;
 
 /**
+ * 标题栏的封装
  * Created by angcyo on 2016-11-05.
  */
 

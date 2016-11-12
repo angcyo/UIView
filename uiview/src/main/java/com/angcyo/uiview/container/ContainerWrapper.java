@@ -20,6 +20,7 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.resources.ResUtil;
 
 /**
+ * 对FrameLayout进行分层显示, 不同层显示不同内容
  * Created by angcyo on 2016-11-05.
  */
 

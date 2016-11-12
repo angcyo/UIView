@@ -19,6 +19,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 /**
+ * 提供类似 内容管理
  * Created by angcyo on 2016-11-05.
  */
 
