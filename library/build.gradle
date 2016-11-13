@@ -22,6 +22,10 @@ android {
     }
 }
 
+def retrofit_version = "2.1.0"
+def okhttp_version = "3.4.2"
+def rxlifecycle_version = "1.0"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -33,4 +37,31 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:8.4.0'
 //    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    /*retrofit2相关依赖*/
+    compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
+//    compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
+    compile "com.squareup.retrofit2:converter-jackson:${retrofit_version}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
+
+    /*网络log输出拦截器 http://tech.youzan.com/android_http/*/
+    compile 'com.squareup.okhttp3:logging-interceptor:' + okhttp_version
+    compile 'com.squareup.okhttp3:okhttp:' + okhttp_version
+
+    compile 'io.reactivex:rxjava:1.2.2'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    /*https://github.com/JakeWharton/RxBinding*/
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+//    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
+//    compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.4.0'
+//    compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
+//    compile 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
+    /*https://github.com/trello/RxLifecycle*/
+    // compile 'com.trello:rxlifecycle-components:0.8.0'
+    // compile 'com.google.code.findbugs:jsr305:3.0.1'
+    compile 'com.hwangjr.rxbus:rxbus:1.0.5'
+
+    compile 'com.trello:rxlifecycle:' + rxlifecycle_version
+    compile 'com.trello:rxlifecycle-android:' + rxlifecycle_version
+    compile 'com.trello:rxlifecycle-components:' + rxlifecycle_version
 }
