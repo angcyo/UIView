@@ -112,6 +112,7 @@ public class ViewPagerView extends UIBaseView {
 //            layoutWrapper.setTextColor(Color.WHITE);
             layoutWrapper.setBackgroundColor(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
             container.addView(layoutWrapper, new ViewGroup.LayoutParams(-1, -1));
+//            layoutWrapper.setVisibility(View.GONE);
             return layoutWrapper;
         }
 
