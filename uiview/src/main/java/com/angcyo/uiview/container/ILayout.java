@@ -16,23 +16,43 @@ public interface ILayout {
      */
     View startIView(IView iView, boolean needAnim);
 
+    View startIView(IView iView);
+
     /**
      * 移除View
      */
     void finishIView(View view, boolean needAnim);
+
+    void finishIView(View view);
 
     /**
      * 显示一个View
      */
     void showIView(View view, boolean needAnim);
 
+    void showIView(View view);
+
     /**
      * 替换一个View
      */
     void replaceIView(IView iView, boolean needAnim);
 
+    void replaceIView(IView iView);
+
     /**
      * 隐藏一个View
      */
     void hideIView(View view, boolean needAnim);
+
+    void hideIView(View view);
+
+    /**
+     * 返回View
+     */
+    View getView();
+
+    /**
+     * 请求返回
+     */
+    boolean requestBackPressed();
 }

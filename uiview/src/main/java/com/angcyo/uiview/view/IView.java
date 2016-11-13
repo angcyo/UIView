@@ -14,6 +14,7 @@ import com.angcyo.uiview.model.TitleBarPattern;
  */
 
 public interface IView {
+
     /**
      * 不需要标题栏,请返回null, 请在实现的时候, 做好缓存
      */
@@ -21,9 +22,10 @@ public interface IView {
 
     /**
      * 显示内容,
-     * 注意:如果使用 inflate 方式填充试图, 第三个参数 请设置为 false, 否则返回的view == container.
      */
-    View loadContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
+    View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
+
+    void loadContentView(View rootView);
 
     /**
      * 当loadContentView完成之后会调用

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+//apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion Integer.parseInt(rootProject.C_SDK)
@@ -29,4 +30,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + rootProject.S_VER
     compile 'com.android.support:design:' + rootProject.S_VER
     testCompile 'junit:junit:4.12'
+
+    compile 'com.jakewharton:butterknife:8.4.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

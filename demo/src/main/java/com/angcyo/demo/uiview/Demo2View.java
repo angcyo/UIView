@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.container.UIContainer;
+import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
-import com.angcyo.uiview.view.IView;
 
 import java.util.ArrayList;
 
@@ -18,10 +18,10 @@ import java.util.ArrayList;
  * Created by angcyo on 2016-11-06.
  */
 
-public class Demo2View implements IView {
+public class Demo2View extends UIBaseView {
 
     private Context mContext;
-    private UIContainer mUIContainer;
+    private ILayout mUIContainer;
 
     @Override
     public TitleBarPattern loadTitleBar(Context context) {
@@ -59,41 +59,16 @@ public class Demo2View implements IView {
     }
 
     @Override
-    public View loadContentView(Context context, final UIContainer uiContainer, FrameLayout container, LayoutInflater inflater) {
+    public View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
         mContext = context;
-        mUIContainer = uiContainer;
+        mUIContainer = iLayout;
         final View view = inflater.inflate(R.layout.content_main2, container);
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uiContainer.startView(new Demo3View());
+                mUIContainer.startIView(new Demo3View(), false);
             }
         });
         return view;
-    }
-
-    @Override
-    public void onViewCreate() {
-
-    }
-
-    @Override
-    public void onViewLoad() {
-
-    }
-
-    @Override
-    public void onViewShow() {
-
-    }
-
-    @Override
-    public void onViewHide() {
-
-    }
-
-    @Override
-    public void onViewUnload() {
-
     }
 }

@@ -21,7 +21,8 @@ import java.util.Stack;
 
 public class UILayoutWrapper extends FrameLayout implements ILayout {
 
-    private static final java.lang.String TAG = "UILayoutWrapper";
+    private static final String TAG = "UILayoutWrapper";
+
     /**
      * 已经追加到内容层的View
      */
@@ -106,6 +107,8 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
 
         View rawView = loadViewInternal(iView);
 
+        iView.loadContentView(rawView);
+
         final ViewPattern lastViewPattern = getLastViewPattern();
         final ViewPattern newViewPattern = new ViewPattern(iView, rawView);
         mAttachViews.push(newViewPattern);
@@ -115,10 +118,15 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
         return rawView;
     }
 
+    @Override
+    public View startIView(IView iView) {
+        return startIView(iView, true);
+    }
+
     private View loadViewInternal(IView iView) {
         final Context context = getContext();
 
-        final View view = iView.loadContentView(context, this, this, LayoutInflater.from(context));
+        final View view = iView.inflateContentView(context, this, this, LayoutInflater.from(context));
         iView.onViewCreate();
 
         View rawView;
@@ -150,6 +158,11 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     }
 
     @Override
+    public void finishIView(View view) {
+        finishIView(view, true);
+    }
+
+    @Override
     public void showIView(final View view, boolean needAnim) {
         final ViewPattern viewPattern = findViewPatternByView(view);
         if (mLastShowViewPattern != null) {
@@ -171,8 +184,32 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     }
 
     @Override
+    public void showIView(View view) {
+        showIView(view, true);
+    }
+
+    @Override
     public void hideIView(final View view, boolean needAnim) {
 
+    }
+
+    @Override
+    public void hideIView(View view) {
+        hideIView(view, true);
+    }
+
+    @Override
+    public View getView() {
+        return this;
+    }
+
+    @Override
+    public boolean requestBackPressed() {
+        if (mAttachViews.size() < 2) {
+            return true;
+        }
+        finishIView(mLastShowViewPattern.mView);
+        return false;
     }
 
     @Override
@@ -203,6 +240,11 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
         });
     }
 
+    @Override
+    public void replaceIView(IView iView) {
+        replaceIView(iView, true);
+    }
+
     protected ViewPattern getLastViewPattern() {
         if (mAttachViews.isEmpty()) {
             return null;
@@ -212,9 +254,7 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
 
     private void startIViewAnim(final ViewPattern lastViewPattern, final ViewPattern newViewPattern, boolean needAnim) {
         if (isAttachedToWindow) {
-
             mLastShowViewPattern = newViewPattern;
-
             if (newViewPattern != null) {
                 newViewPattern.mIView.onViewLoad();
             }
@@ -284,7 +324,11 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
      * 安全的启动一个动画
      */
     private void safeStartAnim(final View view, final Animation animation, final Runnable endRunnable) {
-        if (animation == null || view == null) {
+        if (view == null) {
+            return;
+        }
+
+        if (animation == null) {
             if (endRunnable != null) {
                 endRunnable.run();
             }
@@ -340,5 +384,6 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     public void removeViewPattern(ViewPattern viewPattern) {
         viewPattern.mIView.onViewUnload();
         removeView(viewPattern.mView);
+        mAttachViews.remove(viewPattern);
     }
 }

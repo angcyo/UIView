@@ -42,5 +42,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':uiview')
-    compile 'com.android.support:appcompat-v7:24.2.1'
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

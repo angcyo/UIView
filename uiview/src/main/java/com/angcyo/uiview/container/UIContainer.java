@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.angcyo.library.utils.L;
@@ -140,12 +139,12 @@ public class UIContainer extends ContainerWrapper {
      * 加载内容
      */
     protected void loadContent(Context context, IView first) {
-        final View view = first.loadContentView(context, this, mContentLayout, LayoutInflater.from(context));
-        if (mContentLayout == view) {
-            mAttachViews.push(mContentLayout.getChildAt(mContentLayout.getChildCount() - 1));
-        } else {
-            mAttachViews.push(view);
-        }
+//        final View view = first.inflateContentView(context, this, mContentLayout, LayoutInflater.from(context));
+//        if (mContentLayout == view) {
+//            mAttachViews.push(mContentLayout.getChildAt(mContentLayout.getChildCount() - 1));
+//        } else {
+//            mAttachViews.push(view);
+//        }
     }
 
     /**
