@@ -146,8 +146,8 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
         ViewPattern lastViewPattern = findLastShowViewPattern();
         viewPattern.mIView.onViewHide();
         if (needAnim) {
-            startViewPatternAnim(viewPattern, false, false);
-            startViewPatternAnim(lastViewPattern, true, true);
+            startViewPatternAnim(viewPattern, lastViewPattern, true, true);
+            startViewPatternAnim(viewPattern, lastViewPattern, false, false);
         } else {
             if (lastViewPattern != null) {
                 lastViewPattern.mIView.onViewShow();
@@ -260,8 +260,8 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
             }
 
             if (needAnim) {
-                startViewPatternAnim(lastViewPattern, false, true);
-                startViewPatternAnim(newViewPattern, true, false);
+                startViewPatternAnim(newViewPattern, lastViewPattern, false, true);
+                startViewPatternAnim(newViewPattern, lastViewPattern, true, false);
             } else {
                 if (lastViewPattern != null) {
                     lastViewPattern.mIView.onViewHide();
@@ -274,46 +274,54 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     }
 
     /**
-     * 启动之前View的动画
+     * 启动之前, 开始View的动画
+     * 新界面, 播放启动动画;
+     * 旧界面, 播放伴随退出动画
      */
-    private void startViewPatternAnim(final ViewPattern viewPattern, boolean isStart, boolean withOther) {
-        if (viewPattern == null) {
+    private void startViewPatternAnim(final ViewPattern newViewPattern, final ViewPattern lastViewPattern, boolean isStart, boolean withOther) {
+        if (newViewPattern == null) {
             return;
         }
 
         if (withOther) {
+            //伴随, 需要产生的动画
             if (isStart) {
-                final Animation animation = viewPattern.mIView.loadOtherFinishEnterAnimation();
-                safeStartAnim(viewPattern.mView, animation, new Runnable() {
+                //上层的View退出, 下层的View进入的动画
+                final Animation animation = newViewPattern.mIView.loadOtherFinishEnterAnimation();
+                safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
                     @Override
                     public void run() {
-                        viewPattern.mIView.onViewShow();
+                        lastViewPattern.mIView.onViewShow();
                     }
                 });
-            } else {
-                final Animation animation = viewPattern.mIView.loadOtherStartExitAnimation();
-                safeStartAnim(viewPattern.mView, animation, new Runnable() {
+            } else if (lastViewPattern != null) {
+                //上层的View进入, 下层的View退出的动画
+                final Animation animation = newViewPattern.mIView.loadOtherStartExitAnimation();
+                safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
                     @Override
                     public void run() {
-                        viewPattern.mIView.onViewHide();
+                        lastViewPattern.mIView.onViewHide();
                     }
                 });
             }
         } else {
+            //自己的动画
             if (isStart) {
-                final Animation animation = viewPattern.mIView.loadStartAnimation();
-                safeStartAnim(viewPattern.mView, animation, new Runnable() {
+                //启动View的动画
+                final Animation animation = newViewPattern.mIView.loadStartAnimation();
+                safeStartAnim(newViewPattern.mView, animation, new Runnable() {
                     @Override
                     public void run() {
-                        viewPattern.mIView.onViewShow();
+                        newViewPattern.mIView.onViewShow();
                     }
                 });
             } else {
-                final Animation animation = viewPattern.mIView.loadFinishAnimation();
-                safeStartAnim(viewPattern.mView, animation, new Runnable() {
+                //finish View的动画
+                final Animation animation = newViewPattern.mIView.loadFinishAnimation();
+                safeStartAnim(newViewPattern.mView, animation, new Runnable() {
                     @Override
                     public void run() {
-                        removeViewPattern(viewPattern);
+                        removeViewPattern(newViewPattern);
                     }
                 });
             }

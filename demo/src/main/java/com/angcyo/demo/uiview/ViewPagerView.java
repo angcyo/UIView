@@ -128,5 +128,6 @@ public class ViewPagerView extends UIBaseView {
             return view == object;
         }
     }
+
 }
 
