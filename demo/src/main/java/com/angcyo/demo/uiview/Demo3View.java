@@ -59,9 +59,7 @@ public class Demo3View extends UIBaseView {
     }
 
     @Override
-    public View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
-        mContext = context;
-        mUIContainer = iLayout;
+    protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         final View view = inflater.inflate(R.layout.content_main3, container);
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override

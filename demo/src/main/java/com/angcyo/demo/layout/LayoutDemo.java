@@ -11,10 +11,10 @@ import com.angcyo.uiview.base.UILayoutActivity;
 public class LayoutDemo extends UILayoutActivity {
     @Override
     protected void onLoadView() {
-        mLayout.getView().post(new Runnable() {
+        mLayout.getLayout().post(new Runnable() {
             @Override
             public void run() {
-                final View view = mLayout.getView();
+                final View view = mLayout.getLayout();
                 final DisplayMetrics metrics = getResources().getDisplayMetrics();
                 Rect outRect = new Rect();
                 view.getHitRect(outRect);

@@ -70,5 +70,30 @@ public interface IView {
      */
     Animation loadOtherFinishEnterAnimation();
 
+    /**
+     * 是否是对话框, 对话框显示在对话框层
+     */
+    boolean isDialog();
 
+    /**
+     * 对话框背景是否变暗
+     */
+    boolean isDimBehind();
+
+    /**
+     * 点击变暗处,是否关闭对话框
+     */
+    boolean canCanceledOnOutside();
+
+    /**
+     * 窗口外是否可点击, 当此方法返回false时, 点击窗口外将不能关闭对话框
+     */
+    boolean canTouchOnOutside();
+
+    /**
+     * 是否可以关闭对话框
+     */
+    boolean canCancel();
+
+    View getView();
 }

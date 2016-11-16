@@ -1,6 +1,5 @@
 package com.angcyo.demo.uiview;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.support.v4.view.PagerAdapter;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
-import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UIContainer_back;
 
 import java.util.Random;
@@ -40,9 +38,9 @@ public class ViewPagerView extends UIBaseView {
     @BindView(R.id.home_radio)
     RadioButton mHomeRadio;
 
+
     @Override
-    public View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
-        super.inflateContentView(context, iLayout, container, inflater);
+    protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         return inflater.inflate(R.layout.view_pager_layout, container);
     }
 

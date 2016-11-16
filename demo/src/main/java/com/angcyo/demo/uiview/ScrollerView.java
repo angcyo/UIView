@@ -1,6 +1,5 @@
 package com.angcyo.demo.uiview;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -8,7 +7,8 @@ import android.widget.TextView;
 
 import com.angcyo.demo.R;
 import com.angcyo.uiview.base.UIBaseView;
-import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.dialog.UIDialog;
+import com.angcyo.uiview.utils.T;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,8 +26,7 @@ public class ScrollerView extends UIBaseView {
     }
 
     @Override
-    public View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
-        super.inflateContentView(context, iLayout, container, inflater);
+    protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         return inflater.inflate(R.layout.scroller_layout, container);
     }
 
@@ -35,5 +34,11 @@ public class ScrollerView extends UIBaseView {
     public void onJumpToViewPager() {
         //T.show(mContext, "onJumpToViewPager");
         mILayout.startIView(new ViewPagerView());
+    }
+
+    @OnClick(R.id.view)
+    public void onViewClick(View view) {
+        T.show(mContext, "你看到我了吗?");
+        mILayout.startIView(new UIDialog());
     }
 }

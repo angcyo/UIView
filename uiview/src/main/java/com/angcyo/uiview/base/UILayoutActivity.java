@@ -14,7 +14,7 @@ public abstract class UILayoutActivity extends StyleActivity {
     @Override
     protected void onCreateView() {
         mLayout = new UILayoutWrapper(this);
-        setContentView(mLayout.getView());
+        setContentView(mLayout.getLayout());
     }
 
     @Override

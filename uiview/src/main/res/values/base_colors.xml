@@ -9,4 +9,5 @@
     <color name="default_base_bg_dark">#333333</color>
     <color name="default_base_white">#ffffff</color>
     <color name="default_base_black">#000000</color>
+    <color name="default_base_line">#e3e3e3</color>
 </resources>

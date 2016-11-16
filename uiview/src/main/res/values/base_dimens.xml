@@ -10,4 +10,8 @@
     <dimen name="base_title_size">16sp</dimen>
     <!--标题上, 每个item的大小, 一般指的是宽度-->
     <dimen name="base_title_bar_item_size">45dp</dimen>
+    <!--对话框默认两边的距离-->
+    <dimen name="base_dialog_margin">30dp</dimen>
+    <!--线的大小-->
+    <dimen name="base_line">0.5dp</dimen>
 </resources>

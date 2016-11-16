@@ -19,12 +19,13 @@ import butterknife.ButterKnife;
  * Created by angcyo on 2016-11-12.
  */
 
-public class UIBaseView implements IView {
+public abstract class UIBaseView implements IView {
 
     public static final int DEFAULT_ANIM_TIME = 300;
 
     protected ILayout mILayout;
     protected Context mContext;
+    protected View mRootView;
 
     @Override
     public TitleBarPattern loadTitleBar(Context context) {
@@ -37,13 +38,16 @@ public class UIBaseView implements IView {
         L.i(this.getClass().getSimpleName(), "inflateContentView: ");
         mContext = context;
         mILayout = iLayout;
-        return null;
+        return inflateBaseView(container, inflater);
     }
+
+    protected abstract View inflateBaseView(FrameLayout container, LayoutInflater inflater);
 
     @Override
     public void loadContentView(View rootView) {
         L.i(this.getClass().getSimpleName(), "loadContentView: ");
-        ButterKnife.bind(this, rootView);
+        mRootView = rootView;
+        ButterKnife.bind(this, mRootView);
     }
 
     @Override
@@ -96,13 +100,13 @@ public class UIBaseView implements IView {
     @Override
     public Animation loadShowAnimation() {
         L.i(this.getClass().getSimpleName(), "loadShowAnimation: ");
-        return null;
+        return loadStartAnimation();
     }
 
     @Override
     public Animation loadHideAnimation() {
         L.i(this.getClass().getSimpleName(), "loadHideAnimation: ");
-        return null;
+        return loadFinishAnimation();
     }
 
     @Override
@@ -123,9 +127,39 @@ public class UIBaseView implements IView {
         return translateAnimation;
     }
 
-    private void setDefaultConfig(Animation animation) {
+    @Override
+    public boolean isDialog() {
+        return false;
+    }
+
+    @Override
+    public boolean isDimBehind() {
+        return true;
+    }
+
+    @Override
+    public boolean canCanceledOnOutside() {
+        return true;
+    }
+
+    @Override
+    public boolean canTouchOnOutside() {
+        return true;
+    }
+
+    @Override
+    public boolean canCancel() {
+        return true;
+    }
+
+    protected void setDefaultConfig(Animation animation) {
         animation.setDuration(DEFAULT_ANIM_TIME);
         animation.setInterpolator(new AccelerateInterpolator());
         animation.setFillAfter(true);
+    }
+
+    @Override
+    public View getView() {
+        return mRootView;
     }
 }

@@ -47,9 +47,9 @@ public interface ILayout {
     void hideIView(View view);
 
     /**
-     * 返回View
+     * 返回Layout
      */
-    View getView();
+    View getLayout();
 
     /**
      * 请求返回

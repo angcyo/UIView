@@ -2,17 +2,23 @@ package com.angcyo.uiview.container;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
 import com.angcyo.uiview.model.ViewPattern;
+import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.view.IView;
 
 import java.util.Stack;
+
+import static com.angcyo.uiview.base.UIBaseView.DEFAULT_ANIM_TIME;
 
 /**
  * 可以用来显示IView的布局, 每一层的管理
@@ -21,18 +27,17 @@ import java.util.Stack;
 
 public class UILayoutWrapper extends FrameLayout implements ILayout {
 
+    @ColorInt
+    public static final int DimColor = Color.parseColor("#40000000");
     private static final String TAG = "UILayoutWrapper";
-
     /**
      * 已经追加到内容层的View
      */
     protected Stack<ViewPattern> mAttachViews = new Stack<>();
-
     /**
      * 最前显示的View
      */
     protected ViewPattern mLastShowViewPattern;
-
     protected boolean isAttachedToWindow = false;
 
 
@@ -144,6 +149,12 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     public void finishIView(final View view, boolean needAnim) {
         ViewPattern viewPattern = findViewPatternByView(view);
         ViewPattern lastViewPattern = findLastShowViewPattern();
+
+        /*对话框的处理*/
+        if (viewPattern.mIView.isDialog() && !viewPattern.mIView.canCancel()) {
+            return;
+        }
+
         viewPattern.mIView.onViewHide();
         if (needAnim) {
             startViewPatternAnim(viewPattern, lastViewPattern, true, true);
@@ -165,22 +176,28 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     @Override
     public void showIView(final View view, boolean needAnim) {
         final ViewPattern viewPattern = findViewPatternByView(view);
-        if (mLastShowViewPattern != null) {
-            safeStartAnim(mLastShowViewPattern.mView, needAnim ? mLastShowViewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+        viewPattern.mView.setVisibility(VISIBLE);
+
+        if (viewPattern.mIView.isDialog()) {
+            startDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadShowAnimation() : null);
+        } else {
+            if (mLastShowViewPattern != null) {
+                safeStartAnim(mLastShowViewPattern.mView, needAnim ? mLastShowViewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+                    @Override
+                    public void run() {
+                        mLastShowViewPattern.mView.setVisibility(GONE);
+                        mLastShowViewPattern.mIView.onViewHide();
+                    }
+                });
+            }
+            safeStartAnim(view, needAnim ? viewPattern.mIView.loadShowAnimation() : null, new Runnable() {
                 @Override
                 public void run() {
-                    mLastShowViewPattern.mView.setVisibility(GONE);
-                    mLastShowViewPattern.mIView.onViewHide();
+                    viewPattern.mIView.onViewShow();
+                    mLastShowViewPattern = viewPattern;
                 }
             });
         }
-        safeStartAnim(view, needAnim ? viewPattern.mIView.loadShowAnimation() : null, new Runnable() {
-            @Override
-            public void run() {
-                view.setVisibility(VISIBLE);
-                viewPattern.mIView.onViewShow();
-            }
-        });
     }
 
     @Override
@@ -190,7 +207,25 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
 
     @Override
     public void hideIView(final View view, boolean needAnim) {
-
+        final ViewPattern viewPattern = findViewPatternByView(view);
+        if (viewPattern.mIView.isDialog()) {
+            finishDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+                @Override
+                public void run() {
+                    viewPattern.mView.setVisibility(GONE);
+                    viewPattern.mIView.onViewHide();
+                }
+            });
+        } else {
+            //隐藏的时候, 会错乱!!! 找不到之前显示的View, 慎用隐藏...
+            safeStartAnim(view, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+                @Override
+                public void run() {
+                    viewPattern.mView.setVisibility(GONE);
+                    viewPattern.mIView.onViewHide();
+                }
+            });
+        }
     }
 
     @Override
@@ -199,7 +234,7 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     }
 
     @Override
-    public View getView() {
+    public View getLayout() {
         return this;
     }
 
@@ -284,48 +319,112 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
         }
 
         if (withOther) {
-            //伴随, 需要产生的动画
-            if (isStart) {
-                //上层的View退出, 下层的View进入的动画
-                final Animation animation = newViewPattern.mIView.loadOtherFinishEnterAnimation();
-                safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
-                    @Override
-                    public void run() {
-                        lastViewPattern.mIView.onViewShow();
-                    }
-                });
-            } else if (lastViewPattern != null) {
-                //上层的View进入, 下层的View退出的动画
-                final Animation animation = newViewPattern.mIView.loadOtherStartExitAnimation();
-                safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
-                    @Override
-                    public void run() {
-                        lastViewPattern.mIView.onViewHide();
-                    }
-                });
+            if (newViewPattern.mIView.isDialog()) {
+                //对话框不产生伴随动画.
+            } else {
+                //伴随, 需要产生的动画
+                if (isStart) {
+                    //上层的View退出, 下层的View进入的动画
+                    final Animation animation = newViewPattern.mIView.loadOtherFinishEnterAnimation();
+
+                    safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
+                        @Override
+                        public void run() {
+                            lastViewPattern.mIView.onViewShow();
+                        }
+                    });
+                } else if (lastViewPattern != null) {
+                    //上层的View进入, 下层的View退出的动画
+                    final Animation animation = newViewPattern.mIView.loadOtherStartExitAnimation();
+                    safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
+                        @Override
+                        public void run() {
+                            lastViewPattern.mIView.onViewHide();
+                        }
+                    });
+                }
             }
         } else {
-            //自己的动画
-            if (isStart) {
-                //启动View的动画
-                final Animation animation = newViewPattern.mIView.loadStartAnimation();
-                safeStartAnim(newViewPattern.mView, animation, new Runnable() {
-                    @Override
-                    public void run() {
-                        newViewPattern.mIView.onViewShow();
-                    }
-                });
+            if (newViewPattern.mIView.isDialog()) {
+                if (isStart) {
+                    //对话框的启动动画,作用在第一个子View上
+                    startDialogAnim(newViewPattern, newViewPattern.mIView.loadStartAnimation());
+                } else {
+                    //finish View的动画
+                    finishDialogAnim(newViewPattern, newViewPattern.mIView.loadFinishAnimation(), new Runnable() {
+                        @Override
+                        public void run() {
+                            removeViewPattern(newViewPattern);
+                        }
+                    });
+                }
             } else {
-                //finish View的动画
-                final Animation animation = newViewPattern.mIView.loadFinishAnimation();
-                safeStartAnim(newViewPattern.mView, animation, new Runnable() {
-                    @Override
-                    public void run() {
-                        removeViewPattern(newViewPattern);
-                    }
-                });
+                //自己的动画
+                if (isStart) {
+                    //启动View的动画
+                    final Animation animation = newViewPattern.mIView.loadStartAnimation();
+                    safeStartAnim(newViewPattern.mView, animation, new Runnable() {
+                        @Override
+                        public void run() {
+                            newViewPattern.mIView.onViewShow();
+                        }
+                    });
+                } else {
+                    //finish View的动画
+                    final Animation animation = newViewPattern.mIView.loadFinishAnimation();
+                    safeStartAnim(newViewPattern.mView, animation, new Runnable() {
+                        @Override
+                        public void run() {
+                            removeViewPattern(newViewPattern);
+                        }
+                    });
+                }
             }
         }
+    }
+
+    /**
+     * 对话框的启动动画
+     */
+    private void startDialogAnim(final ViewPattern dialogPattern, final Animation animation) {
+        //对话框的启动动画,作用在第一个子View上
+
+        /*是否变暗*/
+        if (dialogPattern.mIView.isDimBehind()) {
+            AnimUtil.startArgb(dialogPattern.mView,
+                    Color.TRANSPARENT, DimColor, DEFAULT_ANIM_TIME);
+        }
+
+        if (dialogPattern.mIView.canTouchOnOutside()) {
+            dialogPattern.mView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialogPattern.mIView.canCanceledOnOutside()) {
+                        finishIView(dialogPattern.mView);
+                    }
+                }
+            });
+        }
+
+        safeStartAnim(((ViewGroup) dialogPattern.mView).getChildAt(0), animation, new Runnable() {
+            @Override
+            public void run() {
+                dialogPattern.mIView.onViewShow();
+            }
+        });
+    }
+
+    /**
+     * 销毁对话框的动画
+     */
+    private void finishDialogAnim(final ViewPattern dialogPattern, final Animation animation, Runnable end) {
+          /*是否变暗*/
+        if (dialogPattern.mIView.isDimBehind()) {
+            AnimUtil.startArgb(dialogPattern.mView,
+                    DimColor, Color.TRANSPARENT, DEFAULT_ANIM_TIME);
+        }
+
+        safeStartAnim(((ViewGroup) dialogPattern.mView).getChildAt(0), animation, end);
     }
 
     /**
