@@ -48,7 +48,7 @@ public class UIDialog extends UIBaseDialog {
         });
 
         mBaseDialogTitleView.setText("对话框标题");
-        mBaseDialogContentView.setText("对话框内容....");
+        mBaseDialogContentView.setText("对话框内容....!!!");
     }
 
     private void finishDialog() {
