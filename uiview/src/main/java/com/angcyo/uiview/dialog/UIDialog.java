@@ -2,8 +2,8 @@ package com.angcyo.uiview.dialog;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
@@ -21,7 +21,7 @@ public class UIDialog extends UIBaseDialog {
     LinearLayout mBaseDialogRootLayout;
 
     @Override
-    protected View inflateDialogView(FrameLayout dialogRootLayout, LayoutInflater inflater) {
+    protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
         return inflater.inflate(R.layout.base_dialog_layout, dialogRootLayout);
     }
 
@@ -49,6 +49,10 @@ public class UIDialog extends UIBaseDialog {
 
         mBaseDialogTitleView.setText("对话框标题");
         mBaseDialogContentView.setText("对话框内容....!!!");
+
+//        mDialogRootLayout.setForegroundGravity(Gravity.TOP);
+//        mBaseDialogRootLayout.setForegroundGravity(Gravity.TOP);
+//        mDialogRootLayout.setGravity(Gravity.TOP);
     }
 
     private void finishDialog() {
