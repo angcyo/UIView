@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class UITitleBarContainer extends FrameLayout {
 
-    protected UIContainer mUIContainer;
+    protected ILayout mILayout;
     protected ViewGroup mTitleBarLayout;
     protected LinearLayout mLeftControlLayout;
     protected ViewGroup mCenterControlLayout;
@@ -72,8 +72,8 @@ public class UITitleBarContainer extends FrameLayout {
         mTitleView = (TextView) root.findViewById(R.id.base_title_view);
     }
 
-    public void onAttachToContainer(UIContainer container) {
-        mUIContainer = container;
+    public void onAttachToLayout(ILayout container) {
+        mILayout = container;
     }
 
     /**
@@ -115,7 +115,9 @@ public class UITitleBarContainer extends FrameLayout {
             mBackImageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mUIContainer.onBackPressed();
+                    if (mILayout != null) {
+                        mILayout.requestBackPressed();
+                    }
                 }
             });
             ViewCompat.animate(mBackImageView).rotation(360).setDuration(animTime).start();

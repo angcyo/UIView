@@ -1,5 +1,6 @@
 package com.angcyo.demo.uiview;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,6 +40,11 @@ public class ScrollerView extends UIBaseView {
     @OnClick(R.id.view)
     public void onViewClick(View view) {
         T.show(mContext, "你看到我了吗?");
-        mILayout.startIView(new UIDialog());
+        mILayout.startIView(new UIDialog().setGravity(Gravity.CENTER));
+    }
+
+    @OnClick(R.id.view2)
+    public void onViewC2lick(View view) {
+        mILayout.startIView(new UIDialog().setDialogTitle("很帅的标题").setDialogContent("无知的内容"));
     }
 }

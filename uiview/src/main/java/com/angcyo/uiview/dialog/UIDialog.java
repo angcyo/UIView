@@ -1,5 +1,6 @@
 package com.angcyo.uiview.dialog;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -23,6 +24,8 @@ public class UIDialog extends UIBaseDialog {
     String dialogTitle, dialogContent;
 
     View.OnClickListener cancelListener, okListener;
+
+    int gravity = Gravity.BOTTOM;
 
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
@@ -52,6 +55,11 @@ public class UIDialog extends UIBaseDialog {
 
     public UIDialog setOkListener(View.OnClickListener listener) {
         this.okListener = listener;
+        return this;
+    }
+
+    public UIDialog setGravity(int gravity) {
+        this.gravity = gravity;
         return this;
     }
 
@@ -85,6 +93,8 @@ public class UIDialog extends UIBaseDialog {
 
         mBaseDialogTitleView.setText(dialogTitle);
         mBaseDialogContentView.setText(dialogContent);
+
+        mDialogRootLayout.setGravity(gravity);
     }
 
     private void finishDialog() {

@@ -5,7 +5,6 @@
     android:id="@+id/base_dialog_root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
     android:layout_marginLeft="@dimen/base_dialog_margin"
     android:layout_marginRight="@dimen/base_dialog_margin"
     android:background="@drawable/base_white_round_bg"

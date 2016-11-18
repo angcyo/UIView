@@ -166,7 +166,7 @@ public class UIContainer extends ContainerWrapper {
 
                 mTitleBarBGColor = titleBarBGColor;
 
-                mUITitleBarContainer.onAttachToContainer(this);
+                mUITitleBarContainer.onAttachToLayout(mContentLayout);
                 mUITitleBarContainer.setTitleBarPattern(titleBarPattern);
 
                 AnimUtil.startArgb(mTitleBarLayout, startColor, titleBarBGColor);
