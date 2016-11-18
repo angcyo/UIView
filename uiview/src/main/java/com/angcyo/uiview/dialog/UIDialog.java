@@ -20,9 +20,39 @@ public class UIDialog extends UIBaseDialog {
     TextView mBaseDialogOkView;
     LinearLayout mBaseDialogRootLayout;
 
+    String dialogTitle, dialogContent;
+
+    View.OnClickListener cancelListener, okListener;
+
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
         return inflater.inflate(R.layout.base_dialog_layout, dialogRootLayout);
+    }
+
+    /**
+     * 设置对话框的标题
+     */
+    public UIDialog setDialogTitle(String title) {
+        this.dialogTitle = title;
+        return this;
+    }
+
+    /**
+     * 设置对话框显示的内容
+     */
+    public UIDialog setDialogContent(String content) {
+        this.dialogContent = content;
+        return this;
+    }
+
+    public UIDialog setCancelListener(View.OnClickListener listener) {
+        this.cancelListener = listener;
+        return this;
+    }
+
+    public UIDialog setOkListener(View.OnClickListener listener) {
+        this.okListener = listener;
+        return this;
     }
 
     @Override
@@ -37,22 +67,24 @@ public class UIDialog extends UIBaseDialog {
         mBaseDialogOkView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (okListener != null) {
+                    okListener.onClick(v);
+                }
                 finishDialog();
             }
         });
         mBaseDialogCancelView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (cancelListener != null) {
+                    cancelListener.onClick(v);
+                }
                 finishDialog();
             }
         });
 
-        mBaseDialogTitleView.setText("对话框标题");
-        mBaseDialogContentView.setText("对话框内容....!!!");
-
-//        mDialogRootLayout.setForegroundGravity(Gravity.TOP);
-//        mBaseDialogRootLayout.setForegroundGravity(Gravity.TOP);
-//        mDialogRootLayout.setGravity(Gravity.TOP);
+        mBaseDialogTitleView.setText(dialogTitle);
+        mBaseDialogContentView.setText(dialogContent);
     }
 
     private void finishDialog() {
