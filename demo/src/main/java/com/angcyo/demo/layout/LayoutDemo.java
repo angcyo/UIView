@@ -5,6 +5,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.angcyo.demo.uiview.ScrollerView;
+import com.angcyo.demo.uiview.TestDemo;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UILayoutActivity;
 
@@ -33,6 +34,8 @@ public class LayoutDemo extends UILayoutActivity {
         });
 
         mLayout.startIView(new ScrollerView());
+
+        mLayout.startIView(new TestDemo());
     }
 
 //    @Override
