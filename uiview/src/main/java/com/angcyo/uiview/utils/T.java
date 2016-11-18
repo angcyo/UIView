@@ -38,7 +38,7 @@ public class T {
     public static void show(final Context content, CharSequence text) {
         final String safeText;
         if (TextUtils.isEmpty(text) || text.toString().contains("son")) {
-            safeText = "服务器异常,请稍后重试!";
+            safeText = "服务器异常, 请稍后重试!";
         } else {
             safeText = text.toString();
         }
