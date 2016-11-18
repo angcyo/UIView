@@ -49,7 +49,15 @@ public class TestLayout extends ViewGroup {
                         MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.AT_MOST));
                 maxHeight = Math.max(maxHeight, child.getMeasuredHeight());
             }
+        }
 
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+
+            if (!isRightView(child)) {
+                child.measure(MeasureSpec.makeMeasureSpec(widthSize - rightView.getMeasuredWidth(), MeasureSpec.AT_MOST),
+                        MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.EXACTLY));
+            }
         }
 
         setMeasuredDimension(widthSize, maxHeight);
