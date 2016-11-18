@@ -75,7 +75,7 @@ public class TestLayout extends ViewGroup {
             int measuredWidth = child.getMeasuredWidth();
             int measuredHeight = child.getMeasuredHeight();
             if (isRightView(child)) {
-                child.layout(r - measuredWidth, 0, r, measuredHeight);
+                child.layout(r - l - measuredWidth, 0, r - l, measuredHeight);
             } else {
                 child.layout(0, 0, measuredWidth, measuredHeight);
             }
