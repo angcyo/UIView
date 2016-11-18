@@ -18,7 +18,7 @@ import android.view.ViewGroup;
  */
 public class TestLayout extends ViewGroup {
 
-    private static final String TAG = "test";
+    private static final String TAG = "test1";
     View rightView;
 
     public TestLayout(Context context, AttributeSet attrs) {
