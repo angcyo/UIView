@@ -2,6 +2,9 @@ package com.angcyo.uiview.utils;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +26,7 @@ public class T {
     public static int T_HEIGHT = 40;//dp 默认的高度
     public static int T_OFFSET_Y = 40;//dp y轴偏移量
     public static int T_GRAVITY = Gravity.BOTTOM;//默认的对齐方式
+    public static Handler mainHandler = new Handler(Looper.getMainLooper());
     private static Toast toast;
 
     /**
@@ -31,9 +35,25 @@ public class T {
      * @param content the content
      * @param text    the text
      */
-    public static void show(Context content, CharSequence text) {
-        initToast(content.getApplicationContext(), text);
-        toast.show();
+    public static void show(final Context content, CharSequence text) {
+        final String safeText;
+        if (TextUtils.isEmpty(text) || text.toString().contains("son")) {
+            safeText = "服务器异常,请稍后重试!";
+        } else {
+            safeText = text.toString();
+        }
+
+        if (checkMainThread()) {
+            initToast(content.getApplicationContext(), safeText);
+            toast.show();
+        } else {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    show(content, safeText);
+                }
+            });
+        }
     }
 
     /**
@@ -120,5 +140,9 @@ public class T {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean checkMainThread() {
+        return Looper.getMainLooper().getThread() == Thread.currentThread();
     }
 }
