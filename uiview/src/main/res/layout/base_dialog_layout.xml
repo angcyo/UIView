@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:textStyle="bold"
         tools:text="对话框标题"/>
 
     <TextView
@@ -58,7 +59,8 @@
             android:clickable="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="确定"/>
+            android:text="确定"
+            android:textColor="@color/theme_color_accent"/>
 
     </LinearLayout>
 

@@ -16,7 +16,7 @@ import android.widget.TextView;
 import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
-import com.angcyo.uiview.container.UIContainer_back;
+import com.angcyo.uiview.container.UIContainer;
 
 import java.util.Random;
 
@@ -105,7 +105,7 @@ public class ViewPagerView extends UIBaseView {
         public Object instantiateItem(ViewGroup container, int position) {
             L.w("PagerAdapter", "instantiateItem: " + position);
             Random random = new Random(SystemClock.uptimeMillis());
-            View layoutWrapper = new UIContainer_back(mContext);
+            View layoutWrapper = new UIContainer(mContext);
 //            layoutWrapper.setText("当前页:" + position);
 //            layoutWrapper.setTextColor(Color.WHITE);
             layoutWrapper.setBackgroundColor(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
