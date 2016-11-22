@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,8 +26,8 @@ import java.lang.reflect.Field;
 public class T {
 
     public static int T_HEIGHT = 40;//dp 默认的高度
-    public static int T_OFFSET_Y = 40;//dp y轴偏移量
-    public static int T_GRAVITY = Gravity.BOTTOM;//默认的对齐方式
+    public static int T_OFFSET_Y = 65;//dp y轴偏移量
+    public static int T_GRAVITY = Gravity.TOP;//默认的对齐方式
     public static Handler mainHandler = new Handler(Looper.getMainLooper());
     private static Toast toast;
 
@@ -35,10 +37,10 @@ public class T {
      * @param content the content
      * @param text    the text
      */
-    public static void show(final Context content, CharSequence text) {
+    public static void show(final Context content, final CharSequence text) {
         final String safeText;
         if (TextUtils.isEmpty(text) || text.toString().contains("son")) {
-            safeText = "服务器异常, 请稍后重试!";
+            safeText = "服务器异常,请稍后重试!";
         } else {
             safeText = text.toString();
         }
@@ -62,10 +64,19 @@ public class T {
      * @param content the content
      * @param text    the text
      */
-    public static void showL(Context content, CharSequence text) {
-        initToast(content.getApplicationContext(), text);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.show();
+    public static void showL(final Context content, final CharSequence text) {
+        if (checkMainThread()) {
+            initToast(content.getApplicationContext(), text);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    showL(content, text);
+                }
+            });
+        }
     }
 
     /**
@@ -75,7 +86,7 @@ public class T {
      * @param text    the text
      * @return the toast
      */
-    public static Toast initToast(Context content, CharSequence text) {
+    private static Toast initToast(Context content, CharSequence text) {
         if (toast == null) {
             synchronized (T.class) {
                 if (toast == null) {
@@ -86,7 +97,19 @@ public class T {
                 }
             }
         }
-        ((TextView) toast.getView().findViewWithTag("text")).setText(text);
+        final View rootView = toast.getView().findViewWithTag("root");
+        TextView textView = (TextView) toast.getView().findViewWithTag("text");
+        textView.setText(text);
+        textView.post(new Runnable() {
+            @Override
+            public void run() {
+//                ViewCompat.setScaleY(rootView, 0);
+                if (rootView != null) {
+                    ViewCompat.setTranslationY(rootView, rootView.getMeasuredHeight());
+                    ViewCompat.animate(rootView).setInterpolator(new DecelerateInterpolator()).translationY(0)/*.scaleY(1)*/.setDuration(300).start();
+                }
+            }
+        });
         return toast;
     }
 
@@ -137,7 +160,7 @@ public class T {
             WindowManager.LayoutParams params = (WindowManager.LayoutParams) mParams.get(mTNObj);
             params.width = -1;
             params.height = (int) dpToPx(context, T_HEIGHT);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
