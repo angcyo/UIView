@@ -3,6 +3,7 @@ package com.angcyo.uiview.base;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.view.IView;
 
 import butterknife.ButterKnife;
@@ -47,6 +49,15 @@ public abstract class UIBaseView implements IView {
     public void loadContentView(View rootView) {
         L.i(this.getClass().getSimpleName(), "loadContentView: ");
         mRootView = rootView;
+        if (mRootView instanceof ViewGroup) {
+            final int childCount = ((ViewGroup) mRootView).getChildCount();
+            if (childCount == 1) {
+                final View firstView = ((ViewGroup) mRootView).getChildAt(0);
+                if (firstView instanceof ViewGroup) {
+                    AnimUtil.applyLayoutAnimation((ViewGroup) firstView);
+                }
+            }
+        }
         ButterKnife.bind(this, mRootView);
     }
 
