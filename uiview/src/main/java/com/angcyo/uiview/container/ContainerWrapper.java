@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.view.IView;
 
 /**
  * 对FrameLayout进行分层显示, 不同层显示不同内容
@@ -261,8 +262,37 @@ public abstract class ContainerWrapper extends FrameLayout {
         mTitleBarLayout.setVisibility(VISIBLE);
     }
 
-    public void startIView() {
+    /**
+     * 启动一个普通的IView
+     */
+    public void startIView(final IView iView, boolean anim) {
+        mContentLayout.startIView(iView, anim);
+    }
 
+    public void startIView(final IView iView) {
+        startIView(iView, true);
+    }
+
+    /**
+     * 启动一个Dialog层的IView
+     */
+    public void startDialogIView(final IView iView, boolean anim) {
+        mDialogLayout.startIView(iView, anim);
+    }
+
+    public void startDialogIView(final IView iView) {
+        startDialogIView(iView, true);
+    }
+
+    /**
+     * 启动一个Overlay层的IView
+     */
+    public void startOverlayIView(final IView iView, boolean anim) {
+        mOverlayLayout.startIView(iView, anim);
+    }
+
+    public void startOverlayIView(final IView iView) {
+        startOverlayIView(iView, true);
     }
 
     //------------------------------保护方法--------------------------//
