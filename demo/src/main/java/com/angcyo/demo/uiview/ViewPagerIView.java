@@ -15,9 +15,11 @@ import android.widget.TextView;
 
 import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
 import com.angcyo.uiview.container.UIContainer;
+import com.angcyo.uiview.utils.Reflect;
+import com.angcyo.uiview.view.UIBaseIViewImpl;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -71,6 +73,16 @@ public class ViewPagerIView extends UIBaseIViewImpl {
             @Override
             public void onPageSelected(int position) {
                 L.w("PagerAdapter", "onPageSelected: " + position);
+                final ArrayList<Object> mItems = (ArrayList<Object>) Reflect.getMember(mViewPager, "mItems");
+                if (mItems.size() == 0) {
+                    mViewPager.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            final ArrayList<Object> mItems2 = (ArrayList<Object>) Reflect.getMember(mViewPager, "mItems");
+                            L.w("PagerAdapter", "onPageSelected: ");
+                        }
+                    });
+                }
             }
 
             @Override

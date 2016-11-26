@@ -13,6 +13,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.resources.AnimUtil;
+import com.angcyo.uiview.widget.UIViewPager;
 
 import butterknife.ButterKnife;
 
@@ -28,15 +29,21 @@ public abstract class UIBaseIViewImpl implements IView {
     protected Context mContext;
     protected View mRootView;
 
+    public static void setDefaultConfig(Animation animation) {
+        animation.setDuration(DEFAULT_ANIM_TIME);
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.setFillAfter(true);
+    }
+
     @Override
     public TitleBarPattern loadTitleBar(Context context) {
-        L.i(this.getClass().getSimpleName(), "loadTitleBar: ");
+        L.d(this.getClass().getSimpleName(), "loadTitleBar: ");
         return null;
     }
 
     @Override
     public View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
-        L.i(this.getClass().getSimpleName(), "inflateContentView: ");
+        L.d(this.getClass().getSimpleName(), "inflateContentView: ");
         mContext = context;
         mILayout = iLayout;
         return inflateBaseView(container, inflater);
@@ -46,7 +53,7 @@ public abstract class UIBaseIViewImpl implements IView {
 
     @Override
     public void loadContentView(View rootView) {
-        L.i(this.getClass().getSimpleName(), "loadContentView: ");
+        L.d(this.getClass().getSimpleName(), "loadContentView: ");
         mRootView = rootView;
         if (mRootView instanceof ViewGroup) {
             final int childCount = ((ViewGroup) mRootView).getChildCount();
@@ -62,36 +69,32 @@ public abstract class UIBaseIViewImpl implements IView {
 
     @Override
     public void onViewCreate() {
-        L.i(this.getClass().getSimpleName(), "onViewCreate: ");
-
+        L.d(this.getClass().getSimpleName(), "onViewCreate: ");
     }
 
     @Override
     public void onViewLoad() {
-        L.i(this.getClass().getSimpleName(), "onViewLoad: ");
-
+        L.d(this.getClass().getSimpleName(), "onViewLoad: ");
     }
 
     @Override
     public void onViewShow() {
-        L.i(this.getClass().getSimpleName(), "onViewShow: ");
-
+        L.d(this.getClass().getSimpleName(), "onViewShow: ");
     }
 
     @Override
     public void onViewHide() {
-        L.i(this.getClass().getSimpleName(), "onViewHide: ");
-
+        L.d(this.getClass().getSimpleName(), "onViewHide: ");
     }
 
     @Override
     public void onViewUnload() {
-        L.i(this.getClass().getSimpleName(), "onViewUnload: ");
+        L.d(this.getClass().getSimpleName(), "onViewUnload: ");
     }
 
     @Override
     public Animation loadStartAnimation() {
-        L.i(this.getClass().getSimpleName(), "loadStartAnimation: ");
+        L.d(this.getClass().getSimpleName(), "loadStartAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
@@ -100,7 +103,7 @@ public abstract class UIBaseIViewImpl implements IView {
 
     @Override
     public Animation loadFinishAnimation() {
-        L.i(this.getClass().getSimpleName(), "loadFinishAnimation: ");
+        L.d(this.getClass().getSimpleName(), "loadFinishAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1f,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
@@ -109,19 +112,19 @@ public abstract class UIBaseIViewImpl implements IView {
 
     @Override
     public Animation loadShowAnimation() {
-        L.i(this.getClass().getSimpleName(), "loadShowAnimation: ");
+        L.d(this.getClass().getSimpleName(), "loadShowAnimation: ");
         return loadStartAnimation();
     }
 
     @Override
     public Animation loadHideAnimation() {
-        L.i(this.getClass().getSimpleName(), "loadHideAnimation: ");
+        L.d(this.getClass().getSimpleName(), "loadHideAnimation: ");
         return loadFinishAnimation();
     }
 
     @Override
     public Animation loadOtherStartExitAnimation() {
-        L.i(this.getClass().getSimpleName(), "loadOtherStartExitAnimation: ");
+        L.d(this.getClass().getSimpleName(), "loadOtherStartExitAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1f,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
@@ -130,7 +133,7 @@ public abstract class UIBaseIViewImpl implements IView {
 
     @Override
     public Animation loadOtherFinishEnterAnimation() {
-        L.i(this.getClass().getSimpleName(), "loadOtherFinishEnterAnimation: ");
+        L.d(this.getClass().getSimpleName(), "loadOtherFinishEnterAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
@@ -139,6 +142,7 @@ public abstract class UIBaseIViewImpl implements IView {
 
     @Override
     public Animation loadLayoutAnimation() {
+        L.d(this.getClass().getSimpleName(), "loadLayoutAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
                 Animation.RELATIVE_TO_PARENT, 0f,
                 Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
@@ -171,14 +175,26 @@ public abstract class UIBaseIViewImpl implements IView {
         return true;
     }
 
-    protected void setDefaultConfig(Animation animation) {
-        animation.setDuration(DEFAULT_ANIM_TIME);
-        animation.setInterpolator(new DecelerateInterpolator());
-        animation.setFillAfter(true);
-    }
-
     @Override
     public View getView() {
         return mRootView;
+    }
+
+    /**
+     * 在inflateContentView之前调用, 返回的都是null
+     */
+    @Override
+    public ILayout getILayout() {
+        return mILayout;
+    }
+
+    @Override
+    public void onShowInPager(UIViewPager viewPager) {
+
+    }
+
+    @Override
+    public void onHideInPager(UIViewPager viewPager) {
+
     }
 }

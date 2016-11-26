@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+    <com.angcyo.uiview.widget.UIViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View
+        style="@style/HLine"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <RadioButton
+            android:id="@+id/home_radio"
+            style="@style/HomeRadioButtonStyle"
+            android:drawableTop="@drawable/home_radio_selector"
+            android:text="主页"/>
+
+        <RadioButton
+            android:id="@+id/shop_radio"
+            style="@style/HomeRadioButtonStyle"
+            android:drawableTop="@drawable/shop_radio_selector"
+            android:text="商城"/>
+
+        <RadioButton
+            android:id="@+id/live_radio"
+            style="@style/HomeRadioButtonStyle"
+            android:drawableTop="@drawable/live_radio_selector"
+            android:text="直播"/>
+
+        <RadioButton
+            android:id="@+id/message_radio"
+            style="@style/HomeRadioButtonStyle"
+            android:drawableTop="@drawable/message_radio_selector"
+            android:text="消息"/>
+
+        <RadioButton
+            android:id="@+id/me_radio"
+            style="@style/HomeRadioButtonStyle"
+            android:drawableTop="@drawable/me_radio_selector"
+            android:text="个人"/>
+
+    </RadioGroup>
+
+</LinearLayout>

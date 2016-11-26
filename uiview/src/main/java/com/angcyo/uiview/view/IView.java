@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.widget.UIViewPager;
 
 /**
  * Created by angcyo on 2016-11-05.
@@ -100,5 +101,17 @@ public interface IView {
      */
     boolean canCancel();
 
+    /**
+     * 获取对应的RootView
+     */
     View getView();
+
+    /**
+     * 获取对应的ILayout接口
+     */
+    ILayout getILayout();
+
+    void onShowInPager(UIViewPager viewPager);//2016-11-26
+
+    void onHideInPager(UIViewPager viewPager);//2016-11-26
 }

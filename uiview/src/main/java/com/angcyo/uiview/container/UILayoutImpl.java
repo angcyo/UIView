@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.view.IView;
+import com.angcyo.uiview.widget.UIViewPager;
 
 import java.util.Stack;
 
@@ -25,7 +26,7 @@ import static com.angcyo.uiview.view.UIBaseIViewImpl.DEFAULT_ANIM_TIME;
  * Created by angcyo on 2016-11-12.
  */
 
-public class UILayoutImpl extends FrameLayout implements ILayout {
+public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.OnPagerShowListener {
 
     @ColorInt
     public static final int DimColor = Color.parseColor("#40000000");
@@ -47,6 +48,11 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
 
     public UILayoutImpl(Context context) {
         super(context);
+    }
+
+    public UILayoutImpl(Context context, IView iView) {
+        super(context);
+        startIView(iView, false);
     }
 
     public UILayoutImpl(Context context, AttributeSet attrs) {
@@ -91,26 +97,6 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
         }
     }
 
-    /**
-     * 加载IView
-     */
-    protected void loadViewInternal() {
-        ViewPattern lastViewPattern = null;
-        for (ViewPattern viewPattern : mAttachViews) {
-            if (lastViewPattern != null) {
-                lastViewPattern.mIView.onViewHide();
-            }
-            lastViewPattern = viewPattern;
-            lastViewPattern.mIView.onViewLoad();
-        }
-
-        if (lastViewPattern != null) {
-            lastViewPattern.mIView.onViewShow();
-        }
-
-        mLastShowViewPattern = lastViewPattern;
-    }
-
     @Override
     public View startIView(final IView iView, boolean needAnim) {
 
@@ -133,6 +119,31 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
         return startIView(iView, true);
     }
 
+
+    /**
+     * 加载所有添加的IView
+     */
+    protected void loadViewInternal() {
+        ViewPattern lastViewPattern = null;
+        for (ViewPattern viewPattern : mAttachViews) {
+            if (lastViewPattern != null) {
+                lastViewPattern.mIView.onViewHide();
+            }
+            lastViewPattern = viewPattern;
+            lastViewPattern.mIView.onViewLoad();
+        }
+
+        if (lastViewPattern != null) {
+            lastViewPattern.mIView.onViewShow();
+        }
+
+        mLastShowViewPattern = lastViewPattern;
+    }
+
+
+    /**
+     * 加载IView
+     */
     private View loadViewInternal(IView iView) {
         final Context context = getContext();
 
@@ -525,5 +536,43 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
         removeView(viewPattern.mView);
         mAttachViews.remove(viewPattern);
         isFinishing = false;
+    }
+
+    @Override
+    public void onShowInPager(final UIViewPager viewPager) {
+        if (needDelay()) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    onShowInPager(viewPager);
+                }
+            });
+            return;
+        }
+        mLastShowViewPattern.mIView.onShowInPager(viewPager);
+    }
+
+    @Override
+    public void onHideInPager(final UIViewPager viewPager) {
+        if (needDelay()) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    onShowInPager(viewPager);
+                }
+            });
+            return;
+        }
+        mLastShowViewPattern.mIView.onHideInPager(viewPager);
+    }
+
+    private boolean needDelay() {
+        if (!isAttachedToWindow) {
+            return true;
+        }
+        if (mAttachViews.size() > 0 && mLastShowViewPattern == null) {
+            return true;
+        }
+        return false;
     }
 }

@@ -16,12 +16,24 @@
             android:scaleType="centerCrop"
             android:src="@drawable/image_demo"/>
 
-        <Button
-            android:id="@+id/jump_to_view_pager"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="JumpToViewPagerDemo"
-            android:textAllCaps="false"/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/jump_to_view_pager"
+                style="@style/BaseAvgHStyle"
+                android:text="JumpToViewPagerDemo"
+                android:textAllCaps="false"/>
+
+            <Button
+                android:id="@+id/jump_to_ui_view_pager"
+                style="@style/BaseAvgHStyle"
+                android:text="UIViewPagerDemo"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
 
         <View
             android:id="@+id/view"
