@@ -54,12 +54,12 @@ public abstract class ContainerWrapper extends FrameLayout {
     protected FrameLayout mTitleBarLayout;
 
     /**
-     * 覆盖层, 在最上面
+     * 覆盖层, 在标题层上面
      */
     protected UILayoutWrapper mOverlayLayout;
 
     /**
-     * 对话框弹出层, 在标题层上面
+     * 对话框弹出层, 在最上面
      */
     protected UILayoutWrapper mDialogLayout;
 
@@ -117,10 +117,10 @@ public abstract class ContainerWrapper extends FrameLayout {
         setWillNotDraw(false);
         setBackgroundColor(mBackgroundColor);
 
-        addContentLayout(context);
-        addTitleBarLayout(context);
-        addDialogLayout(context);
-        addOverlayLayout(context);
+        addContentLayout(context);//内容
+        addTitleBarLayout(context);//标题
+        addOverlayLayout(context);//覆盖
+        addDialogLayout(context);//对话框
 
         post(new Runnable() {
             @Override
@@ -259,6 +259,10 @@ public abstract class ContainerWrapper extends FrameLayout {
 
     public void showTitleBar() {
         mTitleBarLayout.setVisibility(VISIBLE);
+    }
+
+    public void startIView() {
+
     }
 
     //------------------------------保护方法--------------------------//

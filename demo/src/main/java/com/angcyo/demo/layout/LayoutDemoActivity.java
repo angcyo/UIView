@@ -8,7 +8,7 @@ import com.angcyo.demo.uiview.ScrollerView;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UILayoutActivity;
 
-public class LayoutDemo extends UILayoutActivity {
+public class LayoutDemoActivity extends UILayoutActivity {
     @Override
     protected void onLoadView() {
         mLayout.getLayout().post(new Runnable() {

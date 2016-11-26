@@ -80,7 +80,9 @@ public class ScrollerView extends UIBaseView {
     @OnClick(R.id.view)
     public void onViewClick(View view) {
         T.show(mContext, "你看到我了吗?");
-        mILayout.startIView(new UIDialog().setGravity(Gravity.CENTER));
+        mILayout.startIView(new UIDialog().setDialogContent("内容测试").setGravity(Gravity.CENTER));
+        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setGravity(Gravity.CENTER));
+        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setDialogContent("标题测试").setGravity(Gravity.CENTER));
     }
 
     @OnClick(R.id.view2)

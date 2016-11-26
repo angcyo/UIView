@@ -59,4 +59,13 @@ public abstract class UIBaseDialog extends UIBaseView {
         animationSet.addAnimation(translateAnimation);
         return animationSet;
     }
+
+    @Override
+    public Animation loadLayoutAnimation() {
+        TranslateAnimation translateAnimation = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f,
+                Animation.RELATIVE_TO_PARENT, 1f, Animation.RELATIVE_TO_PARENT, 0f);
+        translateAnimation.setDuration(DEFAULT_ANIM_TIME);
+        return translateAnimation;
+    }
 }

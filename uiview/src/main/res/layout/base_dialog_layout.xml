@@ -15,7 +15,7 @@
         android:id="@+id/base_dialog_title_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         tools:text="对话框标题"/>
 
@@ -23,12 +23,14 @@
         android:id="@+id/base_dialog_content_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         tools:text="对话框内容对话框内容对话框内容"/>
 
     <View
+        android:id="@+id/line_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_line"
+        android:layout_marginTop="10dp"
         android:background="@drawable/line"/>
 
     <LinearLayout

@@ -71,6 +71,11 @@ public interface IView {
     Animation loadOtherFinishEnterAnimation();
 
     /**
+     * 布局动画
+     */
+    Animation loadLayoutAnimation();
+
+    /**
      * 是否是对话框, 对话框显示在对话框层
      */
     boolean isDialog();

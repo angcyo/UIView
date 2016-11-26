@@ -50,12 +50,22 @@ public class AnimUtil {
     /**
      * 应用一个布局动画
      */
-    public static void applyLayoutAnimation(ViewGroup viewGroup) {
+    public static void applyLayoutAnimation(final ViewGroup viewGroup) {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
                 Animation.RELATIVE_TO_PARENT, 0f,
                 Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
         translateAnimation.setDuration(300);
-        final LayoutAnimationController layoutAnimationController = new LayoutAnimationController(translateAnimation);
+        applyLayoutAnimation(viewGroup, translateAnimation);
+    }
+
+    /**
+     * 应用一个布局动画
+     */
+    public static void applyLayoutAnimation(final ViewGroup viewGroup, final Animation animation) {
+        if (animation == null) {
+            viewGroup.setLayoutAnimation(null);
+        }
+        final LayoutAnimationController layoutAnimationController = new LayoutAnimationController(animation);
         viewGroup.setLayoutAnimation(layoutAnimationController);
     }
 }

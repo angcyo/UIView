@@ -1,5 +1,6 @@
 package com.angcyo.uiview.dialog;
 
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ public class UIDialog extends UIBaseDialog {
     TextView mBaseDialogCancelView;
     TextView mBaseDialogOkView;
     LinearLayout mBaseDialogRootLayout;
+    View mLineLayout;
 
     String dialogTitle, dialogContent;
 
@@ -71,6 +73,7 @@ public class UIDialog extends UIBaseDialog {
         mBaseDialogRootLayout = (LinearLayout) rootView.findViewById(R.id.base_dialog_root_layout);
         mBaseDialogOkView = (TextView) rootView.findViewById(R.id.base_dialog_ok_view);
         mBaseDialogCancelView = (TextView) rootView.findViewById(R.id.base_dialog_cancel_view);
+        mLineLayout = rootView.findViewById(R.id.line_layout);
 
         mBaseDialogOkView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +93,10 @@ public class UIDialog extends UIBaseDialog {
                 finishDialog();
             }
         });
+
+        mBaseDialogTitleView.setVisibility(TextUtils.isEmpty(dialogTitle) ? View.GONE : View.VISIBLE);
+        mBaseDialogContentView.setVisibility(TextUtils.isEmpty(dialogContent) ? View.GONE : View.VISIBLE);
+        mLineLayout.setVisibility((TextUtils.isEmpty(dialogTitle) && TextUtils.isEmpty(dialogContent)) ? View.GONE : View.VISIBLE);
 
         mBaseDialogTitleView.setText(dialogTitle);
         mBaseDialogContentView.setText(dialogContent);

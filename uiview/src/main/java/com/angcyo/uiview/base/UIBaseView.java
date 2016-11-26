@@ -54,7 +54,7 @@ public abstract class UIBaseView implements IView {
             if (childCount == 1) {
                 final View firstView = ((ViewGroup) mRootView).getChildAt(0);
                 if (firstView instanceof ViewGroup) {
-                    AnimUtil.applyLayoutAnimation((ViewGroup) firstView);
+                    AnimUtil.applyLayoutAnimation((ViewGroup) firstView, loadLayoutAnimation());
                 }
             }
         }
@@ -135,6 +135,15 @@ public abstract class UIBaseView implements IView {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
+        return translateAnimation;
+    }
+
+    @Override
+    public Animation loadLayoutAnimation() {
+        TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
+                Animation.RELATIVE_TO_PARENT, 0f,
+                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+        translateAnimation.setDuration(DEFAULT_ANIM_TIME);
         return translateAnimation;
     }
 

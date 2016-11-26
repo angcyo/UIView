@@ -40,6 +40,10 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
     protected ViewPattern mLastShowViewPattern;
     protected boolean isAttachedToWindow = false;
 
+    /**
+     * 是否正在退出
+     */
+    private boolean isFinishing = false;
 
     public UILayoutWrapper(Context context) {
         super(context);
@@ -150,6 +154,12 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
         ViewPattern viewPattern = findViewPatternByView(view);
         ViewPattern lastViewPattern = findLastShowViewPattern();
 
+        if (viewPattern.isAnimToEnd || isFinishing) {
+            return;
+        }
+
+        isFinishing = true;
+
         /*对话框的处理*/
         if (viewPattern.mIView.isDialog() && !viewPattern.mIView.canCancel()) {
             return;
@@ -157,6 +167,7 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
 
         viewPattern.mIView.onViewHide();
         if (needAnim) {
+            viewPattern.isAnimToEnd = true;
             startViewPatternAnim(viewPattern, lastViewPattern, true, true);
             startViewPatternAnim(viewPattern, lastViewPattern, false, false);
         } else {
@@ -492,5 +503,6 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
         viewPattern.mIView.onViewUnload();
         removeView(viewPattern.mView);
         mAttachViews.remove(viewPattern);
+        isFinishing = false;
     }
 }
