@@ -1,4 +1,4 @@
-package com.angcyo.uiview.base;
+package com.angcyo.uiview.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,6 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.resources.AnimUtil;
-import com.angcyo.uiview.view.IView;
 
 import butterknife.ButterKnife;
 
@@ -21,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by angcyo on 2016-11-12.
  */
 
-public abstract class UIBaseView implements IView {
+public abstract class UIBaseIViewImpl implements IView {
 
     public static final int DEFAULT_ANIM_TIME = 300;
 

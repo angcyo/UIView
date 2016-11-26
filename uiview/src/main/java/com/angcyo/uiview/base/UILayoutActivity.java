@@ -1,7 +1,7 @@
 package com.angcyo.uiview.base;
 
 import com.angcyo.uiview.container.ILayout;
-import com.angcyo.uiview.container.UILayoutWrapper;
+import com.angcyo.uiview.container.UILayoutImpl;
 
 /**
  * Created by angcyo on 2016-11-12.
@@ -13,7 +13,7 @@ public abstract class UILayoutActivity extends StyleActivity {
 
     @Override
     protected void onCreateView() {
-        mLayout = new UILayoutWrapper(this);
+        mLayout = new UILayoutImpl(this);
         setContentView(mLayout.getLayout());
     }
 

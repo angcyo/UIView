@@ -10,11 +10,13 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uiview.view.UIBaseIViewImpl;
+
 /**
  * Created by angcyo on 2016-11-15.
  */
 
-public abstract class UIBaseDialog extends UIBaseView {
+public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
 
     protected RelativeLayout mDialogRootLayout;
 

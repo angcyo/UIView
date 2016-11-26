@@ -13,8 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.dialog.UIDialog;
+import com.angcyo.uiview.view.UIBaseIViewImpl;
 import com.angcyo.uiview.utils.T;
 
 import butterknife.BindView;
@@ -24,12 +24,12 @@ import butterknife.OnClick;
  * Created by angcyo on 2016-11-12.
  */
 
-public class ScrollerView extends UIBaseView {
+public class ScrollerIViewImpl extends UIBaseIViewImpl {
 
     @BindView(R.id.jump_to_view_pager)
     TextView mTextView;
 
-    public ScrollerView() {
+    public ScrollerIViewImpl() {
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ScrollerView extends UIBaseView {
     @OnClick(R.id.jump_to_view_pager)
     public void onJumpToViewPager() {
         //T.show(mContext, "onJumpToViewPager");
-        mILayout.startIView(new ViewPagerView());
+        mILayout.startIView(new ViewPagerIViewImpl());
     }
 
     @OnClick(R.id.view)

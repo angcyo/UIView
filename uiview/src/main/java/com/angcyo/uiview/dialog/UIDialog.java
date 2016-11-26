@@ -9,13 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
-import com.angcyo.uiview.base.UIBaseDialog;
+import com.angcyo.uiview.base.UIBaseIDialogImpl;
 
 /**
  * Created by angcyo on 2016-11-16.
  */
 
-public class UIDialog extends UIBaseDialog {
+public class UIDialog extends UIBaseIDialogImpl {
     TextView mBaseDialogTitleView;
     TextView mBaseDialogContentView;
     TextView mBaseDialogCancelView;

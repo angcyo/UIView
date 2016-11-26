@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.view.UIBaseIViewImpl;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by angcyo on 2016-11-06.
  */
 
-public class Demo3View extends UIBaseView {
+public class Demo2IViewImpl extends UIBaseIViewImpl {
 
     private Context mContext;
     private ILayout mUIContainer;
@@ -27,12 +27,12 @@ public class Demo3View extends UIBaseView {
     public TitleBarPattern loadTitleBar(Context context) {
         mContext = context;
         TitleBarPattern pattern = new TitleBarPattern();
-        pattern.setTitleString("测试标题3")
+        pattern.setTitleString("测试标题2")
                 .setShowBackImageView(true)
                 .setLeftItems(getLeftItems())
                 .setRightItems(getRightItems())
                 .setTitleBarBGColor(Color.BLUE);
-        return null;
+        return pattern;
     }
 
     private ArrayList<TitleBarPattern.TitleBarItem> getRightItems() {
@@ -60,11 +60,11 @@ public class Demo3View extends UIBaseView {
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        final View view = inflater.inflate(R.layout.content_main3, container);
+        final View view = inflater.inflate(R.layout.content_main2, container);
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                T.show(mContext, "---Demo 3----");
+                mUIContainer.startIView(new Demo3IViewImpl(), false);
             }
         });
         return view;

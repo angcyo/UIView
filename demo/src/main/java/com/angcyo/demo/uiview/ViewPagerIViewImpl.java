@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
-import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.view.UIBaseIViewImpl;
 import com.angcyo.uiview.container.UIContainer;
 
 import java.util.Random;
@@ -27,7 +27,7 @@ import butterknife.OnCheckedChanged;
  * Created by angcyo on 2016-11-13.
  */
 
-public class ViewPagerView extends UIBaseView {
+public class ViewPagerIViewImpl extends UIBaseIViewImpl {
 
     @BindView(R.id.view_pager)
     ViewPager mViewPager;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.view.UIBaseIViewImpl;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by angcyo on 2016-11-06.
  */
 
-public class DemoView extends UIBaseView {
+public class Demo3IViewImpl extends UIBaseIViewImpl {
 
     private Context mContext;
     private ILayout mUIContainer;
@@ -27,30 +27,28 @@ public class DemoView extends UIBaseView {
     public TitleBarPattern loadTitleBar(Context context) {
         mContext = context;
         TitleBarPattern pattern = new TitleBarPattern();
-        pattern.setTitleString("测试标题1")
-                .setShowBackImageView(false)
+        pattern.setTitleString("测试标题3")
+                .setShowBackImageView(true)
                 .setLeftItems(getLeftItems())
                 .setRightItems(getRightItems())
-                .setTitleBarBGColor(Color.GREEN);
-        return pattern;
+                .setTitleBarBGColor(Color.BLUE);
+        return null;
     }
 
     private ArrayList<TitleBarPattern.TitleBarItem> getRightItems() {
         ArrayList<TitleBarPattern.TitleBarItem> items = new ArrayList<>();
         items.add(TitleBarPattern.TitleBarItem.build()
-                .setRes(R.drawable.iconfontjixieqimo));
-        items.add(TitleBarPattern.TitleBarItem.build()
-                .setRes(R.drawable.wxbbiaowang).setListener(new View.OnClickListener() {
+                .setText("Demo").setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "皇冠");
+                        T.show(mContext, "Demo");
                     }
                 }));
         items.add(TitleBarPattern.TitleBarItem.build()
-                .setRes(R.drawable.wxbgongju).setListener(new View.OnClickListener() {
+                .setText("Item").setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "扳手");
+                        T.show(mContext, "Item");
                     }
                 }));
         return items;
@@ -62,11 +60,11 @@ public class DemoView extends UIBaseView {
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        final View view = inflater.inflate(R.layout.content_main, container);
+        final View view = inflater.inflate(R.layout.content_main3, container);
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUIContainer.startIView(new Demo2View());
+                T.show(mContext, "---Demo 3----");
             }
         });
         return view;

@@ -18,14 +18,14 @@ import com.angcyo.uiview.view.IView;
 
 import java.util.Stack;
 
-import static com.angcyo.uiview.base.UIBaseView.DEFAULT_ANIM_TIME;
+import static com.angcyo.uiview.view.UIBaseIViewImpl.DEFAULT_ANIM_TIME;
 
 /**
  * 可以用来显示IView的布局, 每一层的管理
  * Created by angcyo on 2016-11-12.
  */
 
-public class UILayoutWrapper extends FrameLayout implements ILayout {
+public class UILayoutImpl extends FrameLayout implements ILayout {
 
     @ColorInt
     public static final int DimColor = Color.parseColor("#40000000");
@@ -45,20 +45,20 @@ public class UILayoutWrapper extends FrameLayout implements ILayout {
      */
     private boolean isFinishing = false;
 
-    public UILayoutWrapper(Context context) {
+    public UILayoutImpl(Context context) {
         super(context);
     }
 
-    public UILayoutWrapper(Context context, AttributeSet attrs) {
+    public UILayoutImpl(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public UILayoutWrapper(Context context, AttributeSet attrs, int defStyleAttr) {
+    public UILayoutImpl(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public UILayoutWrapper(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public UILayoutImpl(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

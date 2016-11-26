@@ -47,7 +47,7 @@ public abstract class ContainerWrapper extends FrameLayout {
     /**
      * 内容层, 用来呈现内容
      */
-    protected UILayoutWrapper mContentLayout;
+    protected UILayoutImpl mContentLayout;
 
     /**
      * 标题层, 用来呈现标题, 需要在 内容层上面
@@ -57,12 +57,12 @@ public abstract class ContainerWrapper extends FrameLayout {
     /**
      * 覆盖层, 在标题层上面
      */
-    protected UILayoutWrapper mOverlayLayout;
+    protected UILayoutImpl mOverlayLayout;
 
     /**
      * 对话框弹出层, 在最上面
      */
-    protected UILayoutWrapper mDialogLayout;
+    protected UILayoutImpl mDialogLayout;
 
     /**
      * {@link #loadTitleBar }为true时, 才会创建标题栏
@@ -305,7 +305,7 @@ public abstract class ContainerWrapper extends FrameLayout {
     }
 
     protected void addContentLayout(Context context) {
-        mContentLayout = new UILayoutWrapper(context);
+        mContentLayout = new UILayoutImpl(context);
         addView(mContentLayout, new LayoutParams(-1, -1));
     }
 
@@ -321,12 +321,12 @@ public abstract class ContainerWrapper extends FrameLayout {
     }
 
     protected void addOverlayLayout(Context context) {
-        mOverlayLayout = new UILayoutWrapper(context);
+        mOverlayLayout = new UILayoutImpl(context);
         addView(mOverlayLayout, new LayoutParams(-1, -1));
     }
 
     protected void addDialogLayout(Context context) {
-        mDialogLayout = new UILayoutWrapper(context);
+        mDialogLayout = new UILayoutImpl(context);
         addView(mDialogLayout, new LayoutParams(-1, -1));
     }
 
