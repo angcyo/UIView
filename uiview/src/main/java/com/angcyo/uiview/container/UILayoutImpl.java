@@ -428,14 +428,30 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
     /**
      * 销毁对话框的动画
      */
-    private void finishDialogAnim(final ViewPattern dialogPattern, final Animation animation, Runnable end) {
+    private void finishDialogAnim(final ViewPattern dialogPattern, final Animation animation, final Runnable end) {
           /*是否变暗*/
         if (dialogPattern.mIView.isDimBehind()) {
             AnimUtil.startArgb(dialogPattern.mView,
                     DimColor, Color.TRANSPARENT, DEFAULT_ANIM_TIME);
         }
 
-        safeStartAnim(((ViewGroup) dialogPattern.mView).getChildAt(0), animation, end);
+        final View animView;
+        if (dialogPattern.mView instanceof ViewGroup) {
+            animView = ((ViewGroup) dialogPattern.mView).getChildAt(0);
+        } else {
+            animView = dialogPattern.mView;
+        }
+
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                dialogPattern.mView.setAlpha(0);
+                dialogPattern.mView.setVisibility(GONE);
+                end.run();
+            }
+        };
+
+        safeStartAnim(animView, animation, endRunnable);
     }
 
     /**

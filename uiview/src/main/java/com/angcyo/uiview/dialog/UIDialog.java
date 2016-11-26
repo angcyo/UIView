@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -106,5 +107,10 @@ public class UIDialog extends UIBaseIDialogImpl {
 
     private void finishDialog() {
         mILayout.finishIView(getView());
+    }
+
+    @Override
+    public Animation loadLayoutAnimation() {
+        return null;
     }
 }

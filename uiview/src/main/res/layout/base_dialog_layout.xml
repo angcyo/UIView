@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:divider="@drawable/line"
         android:dividerPadding="4dp"
+        android:layoutAnimation="@anim/base_layout_tran_to_top"
         android:orientation="horizontal"
         android:showDividers="middle">
 

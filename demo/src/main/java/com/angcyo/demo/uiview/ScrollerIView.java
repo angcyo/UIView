@@ -24,12 +24,12 @@ import butterknife.OnClick;
  * Created by angcyo on 2016-11-12.
  */
 
-public class ScrollerIViewImpl extends UIBaseIViewImpl {
+public class ScrollerIView extends UIBaseIViewImpl {
 
     @BindView(R.id.jump_to_view_pager)
     TextView mTextView;
 
-    public ScrollerIViewImpl() {
+    public ScrollerIView() {
     }
 
     @Override
@@ -74,7 +74,7 @@ public class ScrollerIViewImpl extends UIBaseIViewImpl {
     @OnClick(R.id.jump_to_view_pager)
     public void onJumpToViewPager() {
         //T.show(mContext, "onJumpToViewPager");
-        mILayout.startIView(new ViewPagerIViewImpl());
+        mILayout.startIView(new ViewPagerIView());
     }
 
     @OnClick(R.id.view)

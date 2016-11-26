@@ -27,7 +27,7 @@ import butterknife.OnCheckedChanged;
  * Created by angcyo on 2016-11-13.
  */
 
-public class ViewPagerIViewImpl extends UIBaseIViewImpl {
+public class ViewPagerIView extends UIBaseIViewImpl {
 
     @BindView(R.id.view_pager)
     ViewPager mViewPager;

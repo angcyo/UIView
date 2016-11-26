@@ -67,7 +67,7 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         TranslateAnimation translateAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f,
                 Animation.RELATIVE_TO_PARENT, 1f, Animation.RELATIVE_TO_PARENT, 0f);
-        translateAnimation.setDuration(DEFAULT_ANIM_TIME);
+        setDefaultConfig(translateAnimation);
         return translateAnimation;
     }
 }

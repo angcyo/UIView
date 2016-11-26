@@ -64,6 +64,7 @@ public class AnimUtil {
     public static void applyLayoutAnimation(final ViewGroup viewGroup, final Animation animation) {
         if (animation == null) {
             viewGroup.setLayoutAnimation(null);
+            return;
         }
         final LayoutAnimationController layoutAnimationController = new LayoutAnimationController(animation);
         viewGroup.setLayoutAnimation(layoutAnimationController);

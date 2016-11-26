@@ -4,8 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
@@ -142,7 +142,7 @@ public abstract class UIBaseIViewImpl implements IView {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
                 Animation.RELATIVE_TO_PARENT, 0f,
                 Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-        translateAnimation.setDuration(DEFAULT_ANIM_TIME);
+        setDefaultConfig(translateAnimation);
         return translateAnimation;
     }
 
@@ -173,7 +173,7 @@ public abstract class UIBaseIViewImpl implements IView {
 
     protected void setDefaultConfig(Animation animation) {
         animation.setDuration(DEFAULT_ANIM_TIME);
-        animation.setInterpolator(new AccelerateInterpolator());
+        animation.setInterpolator(new DecelerateInterpolator());
         animation.setFillAfter(true);
     }
 

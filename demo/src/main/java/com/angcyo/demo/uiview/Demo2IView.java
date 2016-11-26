@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by angcyo on 2016-11-06.
  */
 
-public class Demo2IViewImpl extends UIBaseIViewImpl {
+public class Demo2IView extends UIBaseIViewImpl {
 
     private Context mContext;
     private ILayout mUIContainer;
@@ -64,7 +64,7 @@ public class Demo2IViewImpl extends UIBaseIViewImpl {
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUIContainer.startIView(new Demo3IViewImpl(), false);
+                mUIContainer.startIView(new Demo3IView(), false);
             }
         });
         return view;
