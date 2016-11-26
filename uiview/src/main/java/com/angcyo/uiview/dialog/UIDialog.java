@@ -1,10 +1,8 @@
 package com.angcyo.uiview.dialog;
 
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,11 +22,16 @@ public class UIDialog extends UIBaseIDialogImpl {
     LinearLayout mBaseDialogRootLayout;
     View mLineLayout;
 
+    /**
+     * 对话框标题和内容,为空不显示
+     */
     String dialogTitle, dialogContent;
 
+    /**
+     * 2个监听事件
+     */
     View.OnClickListener cancelListener, okListener;
 
-    int gravity = Gravity.BOTTOM;
 
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
@@ -58,11 +61,6 @@ public class UIDialog extends UIBaseIDialogImpl {
 
     public UIDialog setOkListener(View.OnClickListener listener) {
         this.okListener = listener;
-        return this;
-    }
-
-    public UIDialog setGravity(int gravity) {
-        this.gravity = gravity;
         return this;
     }
 
@@ -103,14 +101,5 @@ public class UIDialog extends UIBaseIDialogImpl {
         mBaseDialogContentView.setText(dialogContent);
 
         mDialogRootLayout.setGravity(gravity);
-    }
-
-    private void finishDialog() {
-        mILayout.finishIView(getView());
-    }
-
-    @Override
-    public Animation loadLayoutAnimation() {
-        return null;
     }
 }

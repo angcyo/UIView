@@ -1,5 +1,6 @@
 package com.angcyo.uiview.base;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,41 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
 
     protected RelativeLayout mDialogRootLayout;
 
+    /**
+     * 对话框显示的重力
+     */
+    protected int gravity = Gravity.BOTTOM;
+
+    /**
+     * 是否激活布局动画
+     */
+    protected boolean layoutAnim = true;
+
+    /**
+     * 是否可以取消对话框
+     */
+    protected boolean canCancel = true;
+
+    /**
+     * 窗口外是否可点击
+     */
+    protected boolean canTouchOnOutside = true;
+
+    /**
+     * 点击窗口外,是否可以取消对话框, 需要 {@link #canTouchOnOutside} 为true
+     */
+    protected boolean canCanceledOnOutside = true;
+
+    /**
+     * 对话框外, 是否变暗
+     */
+    protected boolean isDimBehind = true;
+
+    /**
+     * 设置布局动画
+     */
+    protected Animation layoutAnimation = null;
+
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         mDialogRootLayout = new RelativeLayout(mContext);
@@ -27,6 +63,9 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         return inflateDialogView(mDialogRootLayout, inflater);
     }
 
+    /**
+     * 需要实现的方法
+     */
     protected abstract View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater);
 
     @Override
@@ -34,6 +73,71 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         return true;
     }
 
+    public UIBaseIDialogImpl setGravity(int gravity) {
+        this.gravity = gravity;
+        return this;
+    }
+
+    public UIBaseIDialogImpl setLayoutAnim(boolean layoutAnim) {
+        this.layoutAnim = layoutAnim;
+        return this;
+    }
+
+    public UIBaseIDialogImpl setCanCancel(boolean canCancel) {
+        this.canCancel = canCancel;
+        return this;
+    }
+
+    public UIBaseIDialogImpl setCanTouchOnOutside(boolean canTouchOnOutside) {
+        this.canTouchOnOutside = canTouchOnOutside;
+        return this;
+    }
+
+    public UIBaseIDialogImpl setCanCanceledOnOutside(boolean canCanceledOnOutside) {
+        this.canCanceledOnOutside = canCanceledOnOutside;
+        return this;
+    }
+
+    public UIBaseIDialogImpl setLayoutAnimation(Animation layoutAnimation) {
+        this.layoutAnimation = layoutAnimation;
+        return this;
+    }
+
+    /**
+     * 结束对话框
+     */
+    protected void finishDialog() {
+        mILayout.finishIView(getView());
+    }
+
+    @Override
+    public boolean canCancel() {
+        return canCancel;
+    }
+
+    @Override
+    public boolean canTouchOnOutside() {
+        return canTouchOnOutside;
+    }
+
+    @Override
+    public boolean canCanceledOnOutside() {
+        return canCanceledOnOutside;
+    }
+
+    @Override
+    public boolean isDimBehind() {
+        return isDimBehind;
+    }
+
+    public UIBaseIDialogImpl setDimBehind(boolean dimBehind) {
+        isDimBehind = dimBehind;
+        return this;
+    }
+
+    /**
+     * 对话框启动时的动画
+     */
     @Override
     public Animation loadStartAnimation() {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0,
@@ -48,6 +152,9 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         return animationSet;
     }
 
+    /**
+     * 对话框结束时的动画
+     */
     @Override
     public Animation loadFinishAnimation() {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0f,
@@ -62,12 +169,22 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         return animationSet;
     }
 
+    /**
+     * 对话框的布局动画
+     */
     @Override
     public Animation loadLayoutAnimation() {
-        TranslateAnimation translateAnimation = new TranslateAnimation(
-                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f,
-                Animation.RELATIVE_TO_PARENT, 1f, Animation.RELATIVE_TO_PARENT, 0f);
-        setDefaultConfig(translateAnimation);
-        return translateAnimation;
+        if (layoutAnim) {
+            if (layoutAnimation == null) {
+                TranslateAnimation translateAnimation = new TranslateAnimation(
+                        Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f,
+                        Animation.RELATIVE_TO_PARENT, 1f, Animation.RELATIVE_TO_PARENT, 0f);
+                setDefaultConfig(translateAnimation);
+                return translateAnimation;
+            } else {
+                return layoutAnimation;
+            }
+        }
+        return null;
     }
 }

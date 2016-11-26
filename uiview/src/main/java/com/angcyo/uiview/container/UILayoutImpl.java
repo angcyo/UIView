@@ -114,8 +114,9 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
     @Override
     public View startIView(final IView iView, boolean needAnim) {
 
+        //1:inflateContentView, 会返回对应IView的RootLayout
         View rawView = loadViewInternal(iView);
-
+        //2:loadContentView
         iView.loadContentView(rawView);
 
         final ViewPattern lastViewPattern = getLastViewPattern();
@@ -135,11 +136,14 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
     private View loadViewInternal(IView iView) {
         final Context context = getContext();
 
+        //首先调用IView接口的inflateContentView方法,(inflateContentView请不要初始化View)
+        //其次会调用loadContentView方法,用来初始化View.(此方法调用之后, 就支持ButterKnife了)
         final View view = iView.inflateContentView(context, this, this, LayoutInflater.from(context));
         iView.onViewCreate();
 
         View rawView;
 
+        //返回真实的RootView, 防止连续追加2个相同的IView之后, id重叠的情况
         if (this == view) {
             rawView = getChildAt(getChildCount() - 1);
         } else {
@@ -161,7 +165,8 @@ public class UILayoutImpl extends FrameLayout implements ILayout {
         isFinishing = true;
 
         /*对话框的处理*/
-        if (viewPattern.mIView.isDialog() && !viewPattern.mIView.canCancel()) {
+        if (viewPattern.mIView.isDialog() &&
+                !viewPattern.mIView.canCancel()) {
             return;
         }
 
