@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.angcyo.demo.R;
 import com.angcyo.uiview.dialog.UIDialog;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
 import com.angcyo.uiview.utils.T;
+import com.angcyo.uiview.view.UIBaseIViewImpl;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -80,14 +80,18 @@ public class ScrollerIView extends UIBaseIViewImpl {
     @OnClick(R.id.view)
     public void onViewClick(View view) {
         T.show(mContext, "你看到我了吗?");
+        mILayout.startIView(new UIDialog());
+        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setGravity(Gravity.TOP));
         mILayout.startIView(new UIDialog().setDialogContent("内容测试").setGravity(Gravity.CENTER));
-        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setGravity(Gravity.CENTER));
-        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setDialogContent("标题测试").setGravity(Gravity.CENTER));
+        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setDialogContent("标题测试"));
     }
 
     @OnClick(R.id.view2)
     public void onViewC2lick(View view) {
-//        mILayout.startIView(new UIDialog().setDialogTitle("很帅的标题").setDialogContent("无知的内容"));
+        mILayout.startIView(new UIDialog()
+                .setDialogTitle("很帅的标题很帅的标题很帅的标题很帅的标题很帅的标题很帅的标题")
+                .setDialogContent("无知的内容无知的内容无知的内容无知的内容无知的内容无知的内容无知的内容无知的内容"));
+
         final ViewGroup rootView = (ViewGroup) ((ViewGroup) mRootView).getChildAt(0);
         TextView textView = new TextView(mContext);
         textView.setText("刚创建的VIEW");

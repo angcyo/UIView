@@ -13,25 +13,19 @@
 
     <TextView
         android:id="@+id/base_dialog_title_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        style="@style/BaseDialogTextStyle"
         android:textStyle="bold"
         tools:text="对话框标题"/>
 
     <TextView
         android:id="@+id/base_dialog_content_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        style="@style/BaseDialogTextStyle"
         tools:text="对话框内容对话框内容对话框内容"/>
 
     <View
         android:id="@+id/line_layout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/base_line"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/line"/>
+        style="@style/BaseHLine"
+        android:layout_marginTop="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,24 +38,16 @@
 
         <TextView
             android:id="@+id/base_dialog_cancel_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/BaseAvgHTextStyle"
             android:background="@drawable/base_left_button_round_selector"
             android:clickable="true"
-            android:gravity="center"
-            android:padding="10dp"
             android:text="取消"/>
 
         <TextView
             android:id="@+id/base_dialog_ok_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            style="@style/BaseAvgHTextStyle"
             android:background="@drawable/base_right_button_round_selector"
             android:clickable="true"
-            android:gravity="center"
-            android:padding="10dp"
             android:text="确定"
             android:textColor="@color/theme_color_accent"/>
 

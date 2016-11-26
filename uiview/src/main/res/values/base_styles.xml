@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseDialogBaseTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BaseDialogTextStyle" parent="BaseDialogBaseTextStyle">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <!--竖线-->
+    <style name="BaseVLine">
+        <item name="android:layout_width">@dimen/base_line</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/line</item>
+    </style>
+
+    <!--横线-->
+    <style name="BaseHLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/base_line</item>
+        <item name="android:background">@drawable/line</item>
+    </style>
+
+    <!--平分的横向文本按钮-->
+    <style name="BaseAvgHTextStyle">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+    </style>
+</resources>
