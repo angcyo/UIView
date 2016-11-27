@@ -55,6 +55,8 @@ public abstract class UIBaseView extends UIIViewImpl {
         mBaseRootLayout = new FrameLayout(mContext);
         mBaseContentLayout = new RelativeLayout(mContext);
         mBaseContentLayout.setId(View.generateViewId());
+
+        mBaseRootLayout.addView(mBaseContentLayout, new ViewGroup.LayoutParams(-1, -1));
         mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseRootLayout,
                 inflateEmptyLayout(mBaseRootLayout, inflater));
         mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseRootLayout,
@@ -150,7 +152,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         rotateAnimation.setInterpolator(new LinearInterpolator());
         rotateAnimation.setRepeatMode(Animation.RESTART);
         rotateAnimation.setRepeatCount(Animation.INFINITE);
-        rotateAnimation.setDuration(700);
+        rotateAnimation.setDuration(1000);
         return rotateAnimation;
     }
 
