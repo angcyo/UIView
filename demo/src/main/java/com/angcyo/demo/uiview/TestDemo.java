@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
+import com.angcyo.uiview.view.UIIViewImpl;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -18,7 +18,7 @@ import com.angcyo.uiview.view.UIBaseIViewImpl;
  * 修改备注：
  * Version: 1.0.0
  */
-public class TestDemo extends UIBaseIViewImpl {
+public class TestDemo extends UIIViewImpl {
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         return inflater.inflate(R.layout.test_layout, container);

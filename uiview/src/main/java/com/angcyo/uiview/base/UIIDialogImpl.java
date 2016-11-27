@@ -11,13 +11,13 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import com.angcyo.uiview.view.UIBaseIViewImpl;
+import com.angcyo.uiview.view.UIIViewImpl;
 
 /**
  * Created by angcyo on 2016-11-15.
  */
 
-public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
+public abstract class UIIDialogImpl extends UIIViewImpl {
 
     protected RelativeLayout mDialogRootLayout;
 
@@ -73,32 +73,32 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         return true;
     }
 
-    public UIBaseIDialogImpl setGravity(int gravity) {
+    public UIIDialogImpl setGravity(int gravity) {
         this.gravity = gravity;
         return this;
     }
 
-    public UIBaseIDialogImpl setLayoutAnim(boolean layoutAnim) {
+    public UIIDialogImpl setLayoutAnim(boolean layoutAnim) {
         this.layoutAnim = layoutAnim;
         return this;
     }
 
-    public UIBaseIDialogImpl setCanCancel(boolean canCancel) {
+    public UIIDialogImpl setCanCancel(boolean canCancel) {
         this.canCancel = canCancel;
         return this;
     }
 
-    public UIBaseIDialogImpl setCanTouchOnOutside(boolean canTouchOnOutside) {
+    public UIIDialogImpl setCanTouchOnOutside(boolean canTouchOnOutside) {
         this.canTouchOnOutside = canTouchOnOutside;
         return this;
     }
 
-    public UIBaseIDialogImpl setCanCanceledOnOutside(boolean canCanceledOnOutside) {
+    public UIIDialogImpl setCanCanceledOnOutside(boolean canCanceledOnOutside) {
         this.canCanceledOnOutside = canCanceledOnOutside;
         return this;
     }
 
-    public UIBaseIDialogImpl setLayoutAnimation(Animation layoutAnimation) {
+    public UIIDialogImpl setLayoutAnimation(Animation layoutAnimation) {
         this.layoutAnimation = layoutAnimation;
         return this;
     }
@@ -130,7 +130,7 @@ public abstract class UIBaseIDialogImpl extends UIBaseIViewImpl {
         return isDimBehind;
     }
 
-    public UIBaseIDialogImpl setDimBehind(boolean dimBehind) {
+    public UIIDialogImpl setDimBehind(boolean dimBehind) {
         isDimBehind = dimBehind;
         return this;
     }

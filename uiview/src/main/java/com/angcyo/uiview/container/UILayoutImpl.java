@@ -19,7 +19,7 @@ import com.angcyo.uiview.widget.UIViewPager;
 
 import java.util.Stack;
 
-import static com.angcyo.uiview.view.UIBaseIViewImpl.DEFAULT_ANIM_TIME;
+import static com.angcyo.uiview.view.UIIViewImpl.DEFAULT_ANIM_TIME;
 
 /**
  * 可以用来显示IView的布局, 每一层的管理
@@ -66,6 +66,21 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public UILayoutImpl(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    /**
+     * inflate之后, 有时会返回 父布局, 这个时候需要处理一下, 才能拿到真实的RootView
+     */
+    public static View safeAssignView(final View parentView, final View childView) {
+        if (parentView == childView) {
+            if (parentView instanceof ViewGroup) {
+                final ViewGroup viewGroup = (ViewGroup) parentView;
+                return viewGroup.getChildAt(viewGroup.getChildCount() - 1);
+            }
+            return childView;
+        } else {
+            return childView;
+        }
     }
 
     @Override
@@ -119,7 +134,6 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         return startIView(iView, true);
     }
 
-
     /**
      * 加载所有添加的IView
      */
@@ -130,16 +144,15 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                 lastViewPattern.mIView.onViewHide();
             }
             lastViewPattern = viewPattern;
-            lastViewPattern.mIView.onViewLoad();
+            lastViewPattern.mIView.onViewLoad();//1:
         }
 
         if (lastViewPattern != null) {
-            lastViewPattern.mIView.onViewShow();
+            lastViewPattern.mIView.onViewShow();//2:
         }
 
         mLastShowViewPattern = lastViewPattern;
     }
-
 
     /**
      * 加载IView

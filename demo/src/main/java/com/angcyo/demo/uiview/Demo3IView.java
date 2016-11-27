@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
+import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by angcyo on 2016-11-06.
  */
 
-public class Demo3IView extends UIBaseIViewImpl {
+public class Demo3IView extends UIIViewImpl {
 
     private Context mContext;
     private ILayout mUIContainer;

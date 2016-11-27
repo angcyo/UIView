@@ -17,7 +17,7 @@ import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.UIContainer;
 import com.angcyo.uiview.utils.Reflect;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
+import com.angcyo.uiview.view.UIIViewImpl;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,7 +29,7 @@ import butterknife.OnCheckedChanged;
  * Created by angcyo on 2016-11-13.
  */
 
-public class ViewPagerIView extends UIBaseIViewImpl {
+public class ViewPagerIView extends UIIViewImpl {
 
     @BindView(R.id.view_pager)
     ViewPager mViewPager;

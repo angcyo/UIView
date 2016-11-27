@@ -12,7 +12,7 @@ import com.angcyo.demo.R;
 import com.angcyo.demo.uiview2.UIViewPagerIView;
 import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.utils.T;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
+import com.angcyo.uiview.view.UIIViewImpl;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * Created by angcyo on 2016-11-12.
  */
 
-public class ScrollerIView extends UIBaseIViewImpl {
+public class ScrollerIView extends UIIViewImpl {
 
     @BindView(R.id.jump_to_view_pager)
     TextView mTextView;

@@ -6,6 +6,7 @@
 
     <!--默认的圆角大小-->
     <dimen name="base_round_radius">6dp</dimen>
+    <dimen name="base_big_round_radius">40dp</dimen>
     <!--标题的字体大小-->
     <dimen name="base_title_size">16sp</dimen>
     <!--标题上, 每个item的大小, 一般指的是宽度-->
@@ -14,4 +15,6 @@
     <dimen name="base_dialog_margin">30dp</dimen>
     <!--线的大小-->
     <dimen name="base_line">0.5dp</dimen>
+    <!--默认的线框大小-->
+    <dimen name="base_border_size">2dp</dimen>
 </resources>

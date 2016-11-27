@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/base_nonet_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/base_nonet_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/base_nonet"/>
+
+        <TextView
+            android:id="@+id/base_nonet_tip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="~请检查网络, 否则小二不会回来的~"
+            android:textColor="@color/default_base_border"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/base_setting_view"
+                style="@style/BaseButtonStyle"
+                android:background="@drawable/base_big_round_border_selector"
+                android:text="打开网络设置"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:id="@+id/base_refresh_view"
+                style="@style/BaseButtonStyle"
+                android:background="@drawable/base_big_round_border_selector"
+                android:text="刷新试试"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

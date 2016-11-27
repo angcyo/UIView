@@ -21,12 +21,15 @@ import butterknife.ButterKnife;
  * Created by angcyo on 2016-11-12.
  */
 
-public abstract class UIBaseIViewImpl implements IView {
+public abstract class UIIViewImpl implements IView {
 
     public static final int DEFAULT_ANIM_TIME = 300;
 
     protected ILayout mILayout;
     protected Context mContext;
+    /**
+     * 根布局
+     */
     protected View mRootView;
 
     public static void setDefaultConfig(Animation animation) {
@@ -55,12 +58,13 @@ public abstract class UIBaseIViewImpl implements IView {
     public void loadContentView(View rootView) {
         L.d(this.getClass().getSimpleName(), "loadContentView: ");
         mRootView = rootView;
-        if (mRootView instanceof ViewGroup) {
+        final Animation layoutAnimation = loadLayoutAnimation();
+        if (layoutAnimation != null && mRootView instanceof ViewGroup) {
             final int childCount = ((ViewGroup) mRootView).getChildCount();
             if (childCount == 1) {
                 final View firstView = ((ViewGroup) mRootView).getChildAt(0);
                 if (firstView instanceof ViewGroup) {
-                    AnimUtil.applyLayoutAnimation((ViewGroup) firstView, loadLayoutAnimation());
+                    AnimUtil.applyLayoutAnimation((ViewGroup) firstView, layoutAnimation);
                 }
             }
         }
@@ -196,5 +200,17 @@ public abstract class UIBaseIViewImpl implements IView {
     @Override
     public void onHideInPager(UIViewPager viewPager) {
 
+    }
+
+    public void post(Runnable action) {
+        if (mRootView != null) {
+            mRootView.post(action);
+        }
+    }
+
+    public void postDelayed(Runnable action, long delayMillis) {
+        if (mRootView != null) {
+            mRootView.postDelayed(action, delayMillis);
+        }
     }
 }

@@ -8,7 +8,7 @@ import android.widget.RadioGroup;
 
 import com.angcyo.demo.R;
 import com.angcyo.uiview.view.IView;
-import com.angcyo.uiview.view.UIBaseIViewImpl;
+import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.widget.UIPagerAdapter;
 import com.angcyo.uiview.widget.UIViewPager;
 
@@ -19,7 +19,7 @@ import butterknife.OnClick;
  * Created by angcyo on 2016-11-26.
  */
 
-public class UIViewPagerIView extends UIBaseIViewImpl {
+public class UIViewPagerIView extends UIIViewImpl {
     @BindView(R.id.view_pager)
     UIViewPager mViewPager;
     @BindView(R.id.radio_group)
@@ -33,6 +33,7 @@ public class UIViewPagerIView extends UIBaseIViewImpl {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
+//        mViewPager.setOffscreenPageLimit(5);
         mViewPager.setAdapter(new UIPagerAdapter() {
             @Override
             protected IView getIView(int position) {
