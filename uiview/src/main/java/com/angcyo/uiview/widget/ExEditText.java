@@ -22,6 +22,8 @@ public class ExEditText extends AppCompatEditText {
     boolean isDownIn = false;//是否在按钮区域按下
     Drawable clearDrawable;
 
+    boolean showClear = true;//是否显示删除按钮
+
     public ExEditText(Context context) {
         super(context);
     }
@@ -37,17 +39,33 @@ public class ExEditText extends AppCompatEditText {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if ("emoji".equalsIgnoreCase(String.valueOf(getTag()))) {
-            final InputFilter[] filters = getFilters();
-            final InputFilter[] newFilters = new InputFilter[filters.length + 1];
-            System.arraycopy(filters, 0, newFilters, 0, filters.length);
-            newFilters[filters.length] = new EmojiFilter();
-            setFilters(newFilters);
+        Object tag = getTag();
+        if (tag != null) {
+            String tagString = String.valueOf(tag);
+            if (tagString.contains("emoji")) {
+                //激活emoji表情过滤
+                final InputFilter[] filters = getFilters();
+                final InputFilter[] newFilters = new InputFilter[filters.length + 1];
+                System.arraycopy(filters, 0, newFilters, 0, filters.length);
+                newFilters[filters.length] = new EmojiFilter();
+                setFilters(newFilters);
+            }
+
+            if (tagString.contains("hide")) {
+                //隐藏删除按钮
+                showClear = false;
+            }
+
+            if (tagString.contains("show")) {
+                //显示删除按钮
+                showClear = true;
+
+                clearDrawable = ResourcesCompat.getDrawable(
+                        getResources(),
+                        R.drawable.base_edit_delete_selector,
+                        getContext().getTheme());
+            }
         }
-        clearDrawable = ResourcesCompat.getDrawable(
-                getResources(),
-                R.drawable.base_edit_delete_selector,
-                getContext().getTheme());
     }
 
     @Override
@@ -59,12 +77,15 @@ public class ExEditText extends AppCompatEditText {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        clearRect.set(w - getPaddingRight() - clearDrawable.getIntrinsicWidth(), getPaddingTop(), w - getPaddingRight(), Math.min(w, h) - getPaddingBottom());
+        if (showClear) {
+            clearRect.set(w - getPaddingRight() - clearDrawable.getIntrinsicWidth(),
+                    getPaddingTop(), w - getPaddingRight(), Math.min(w, h) - getPaddingBottom());
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (isFocused()) {
+        if (showClear && isFocused()) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 isDownIn = checkClear(event.getX(), event.getY());
                 updateState(isDownIn);
@@ -100,10 +121,12 @@ public class ExEditText extends AppCompatEditText {
     }
 
     private void checkEdit(boolean focused) {
-        if (TextUtils.isEmpty(getText()) || !focused) {
-            setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-        } else {
-            setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, clearDrawable, null);
+        if (showClear) {
+            if (TextUtils.isEmpty(getText()) || !focused) {
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            } else {
+                setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, clearDrawable, null);
+            }
         }
     }
 
