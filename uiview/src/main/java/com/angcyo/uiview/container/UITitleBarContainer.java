@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,13 +56,13 @@ public class UITitleBarContainer extends FrameLayout {
     }
 
     private void initTitleBar(Context context) {
-        if (context instanceof Activity) {
-            if (ResUtil.isLayoutFullscreen((Activity) context)) {
-                setPadding(getPaddingLeft(),
-                        getPaddingTop() + getResources().getDimensionPixelSize(R.dimen.status_bar_height),
-                        getPaddingRight(), getPaddingBottom());
-            }
-        }
+//        if (context instanceof Activity) {
+//            if (ResUtil.isLayoutFullscreen((Activity) context)) {
+//                setPadding(getPaddingLeft(),
+//                        getPaddingTop() + getResources().getDimensionPixelSize(R.dimen.status_bar_height),
+//                        getPaddingRight(), getPaddingBottom());
+//            }
+//        }
 
         final View root = LayoutInflater.from(context).inflate(R.layout.base_title_layout, this);
         mTitleBarLayout = (ViewGroup) root.findViewById(R.id.base_title_bar_layout);
@@ -70,6 +71,20 @@ public class UITitleBarContainer extends FrameLayout {
         mRightControlLayout = (LinearLayout) root.findViewById(R.id.base_right_control_layout);
         mBackImageView = (ImageView) root.findViewById(R.id.base_back_image_view);
         mTitleView = (TextView) root.findViewById(R.id.base_title_view);
+
+        if (context instanceof Activity) {
+            if (ResUtil.isLayoutFullscreen((Activity) context)) {
+                int statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                mTitleBarLayout.setClipToPadding(false);
+                mTitleBarLayout.setClipChildren(false);
+                mTitleBarLayout.setPadding(getPaddingLeft(),
+                        getPaddingTop() + statusBarHeight,
+                        getPaddingRight(), getPaddingBottom());
+                ViewGroup.LayoutParams layoutParams = mTitleBarLayout.getLayoutParams();
+                layoutParams.height += statusBarHeight;
+                mTitleBarLayout.setLayoutParams(layoutParams);
+            }
+        }
     }
 
     public void onAttachToLayout(ILayout container) {
@@ -93,9 +108,7 @@ public class UITitleBarContainer extends FrameLayout {
             @Override
             public void run() {
                 isAttachedToWindow = true;
-                if (mTitleBarPattern != null) {
-                    loadTitleBar();
-                }
+                loadTitleBar();
             }
         });
     }
@@ -107,8 +120,21 @@ public class UITitleBarContainer extends FrameLayout {
     }
 
     private void loadTitleBar() {
+        if (mTitleBarPattern == null) {
+            mLeftControlLayout.removeAllViews();
+            mRightControlLayout.removeAllViews();
+//            mCenterControlLayout.removeAllViews();
+            setVisibility(GONE);
+            return;
+        }
+
+        setVisibility(VISIBLE);
+
         int itemSize = getResources().getDimensionPixelSize(R.dimen.base_title_bar_item_size);
         int animTime = 300;
+
+        setBackgroundColor(mTitleBarPattern.mTitleBarBGColor);
+
         /*返回按钮*/
         if (mTitleBarPattern.isShowBackImageView) {
             mBackImageView.setVisibility(VISIBLE);
@@ -120,7 +146,9 @@ public class UITitleBarContainer extends FrameLayout {
                     }
                 }
             });
-            ViewCompat.animate(mBackImageView).rotation(360).setDuration(animTime).start();
+            ViewCompat.animate(mBackImageView).rotation(360)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(animTime).start();
         } else {
             mBackImageView.setVisibility(GONE);
         }
@@ -128,7 +156,9 @@ public class UITitleBarContainer extends FrameLayout {
         mTitleView.setText(mTitleBarPattern.mTitleString);
         if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString)) {
             ViewCompat.setTranslationY(mTitleView, -itemSize);
-            ViewCompat.animate(mTitleView).translationY(0).setDuration(animTime).start();
+            ViewCompat.animate(mTitleView).translationY(0)
+                    .setInterpolator(new DecelerateInterpolator())
+                    .setDuration(animTime).start();
         }
 
         clearViews(mLeftControlLayout, mLeftViews);
@@ -153,13 +183,17 @@ public class UITitleBarContainer extends FrameLayout {
             for (int j = 0; j < size; j++) {
                 final View view = views.get(j);
                 ViewCompat.setTranslationX(view, itemSize);
-                ViewCompat.animate(view).translationX(0).setDuration(animTime).start();
+                ViewCompat.animate(view).translationX(0)
+                        .setInterpolator(new DecelerateInterpolator())
+                        .setDuration(animTime).start();
             }
         } else {
             for (int i = 0; i < size; i++) {
                 final View view = views.get(i);
                 ViewCompat.setTranslationX(view, -itemSize);
-                ViewCompat.animate(view).setStartDelay(delayTime * (size - i - 1)).translationX(0).setDuration(animTime).start();
+                ViewCompat.animate(view).setStartDelay(delayTime * (size - i - 1)).translationX(0)
+                        .setInterpolator(new DecelerateInterpolator())
+                        .setDuration(animTime).start();
             }
         }
     }

@@ -4,6 +4,8 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.view.View;
 
+import com.angcyo.uiview.R;
+
 import java.util.ArrayList;
 
 /**
@@ -15,7 +17,7 @@ public class TitleBarPattern {
      * 标题栏背景颜色
      */
     @ColorInt
-    public int mTitleBarBGColor = -1;
+    public int mTitleBarBGColor = R.color.theme_color_primary;
 
     /**
      * 是否显示返回按钮
@@ -42,7 +44,7 @@ public class TitleBarPattern {
         return new TitleBarPattern();
     }
 
-    public TitleBarPattern setTitleBarBGColor(int titleBarBGColor) {
+    public TitleBarPattern setTitleBarBGColor(@ColorInt int titleBarBGColor) {
         mTitleBarBGColor = titleBarBGColor;
         return this;
     }
