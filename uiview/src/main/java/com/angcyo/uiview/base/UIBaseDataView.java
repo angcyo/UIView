@@ -12,4 +12,8 @@ package com.angcyo.uiview.base;
  * Version: 1.0.0
  */
 public abstract class UIBaseDataView extends UIBaseView {
+    /**
+     * 最后一次加载数据的时间
+     */
+    protected long mLastLoadTime = 0;
 }

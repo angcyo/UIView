@@ -57,6 +57,7 @@ public class UIViewPager extends ViewPager implements Runnable {
         checkPageChanged();
     }
 
+    @SuppressWarnings("Unchecked")
     private void checkPageChanged() {
         final ArrayList<Object> mItems = (ArrayList<Object>) Reflect.getMember(
                 getSuperclass(),
