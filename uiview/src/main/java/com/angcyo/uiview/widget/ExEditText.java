@@ -144,10 +144,13 @@ public class ExEditText extends AppCompatEditText {
 
     private void checkEdit(boolean focused) {
         if (showClear) {
+            final Drawable[] compoundDrawables = getCompoundDrawables();
             if (TextUtils.isEmpty(getText()) || !focused) {
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                setCompoundDrawablesWithIntrinsicBounds(compoundDrawables[0], compoundDrawables[1],
+                        null, compoundDrawables[3]);
             } else {
-                setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, clearDrawable, null);
+                setCompoundDrawablesWithIntrinsicBounds(compoundDrawables[0], compoundDrawables[1],
+                        clearDrawable, compoundDrawables[3]);
             }
         }
     }
