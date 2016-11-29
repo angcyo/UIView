@@ -195,11 +195,17 @@ public abstract class UIIViewImpl implements IView {
         return mILayout;
     }
 
+    /**
+     * 此方法只在UIVIewPager中会调用, 当前IView显示时
+     */
     @Override
     public void onShowInPager(UIViewPager viewPager) {
 
     }
 
+    /**
+     * 此方法只在UIVIewPager中会调, 当前IView隐藏时
+     */
     @Override
     public void onHideInPager(UIViewPager viewPager) {
 
