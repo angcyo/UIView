@@ -1,10 +1,11 @@
 package com.angcyo.uiview.model;
 
+import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.text.TextUtils;
 import android.view.View;
-
-import com.angcyo.uiview.R;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -13,35 +14,61 @@ import java.util.ArrayList;
  */
 
 public class TitleBarPattern {
+
     /**
      * 标题栏背景颜色
      */
-    @ColorInt
-    public int mTitleBarBGColor = R.color.theme_color_primary;
-
+    public int mTitleBarBGColor = Color.TRANSPARENT;
     /**
      * 是否显示返回按钮
      */
     public boolean isShowBackImageView;
-
     /**
      * 标题
      */
     public String mTitleString;
-
-
+    public float mTitleSize = -1;
     /**
      * 左边的按钮
      */
     public ArrayList<TitleBarItem> mLeftItems = new ArrayList<>();
-
     /**
      * 右边的按钮
      */
     public ArrayList<TitleBarItem> mRightItems = new ArrayList<>();
 
+    private TitleBarPattern(String titleString) {
+        mTitleString = titleString;
+    }
+
+    public static void fix(TitleBarPattern from, TitleBarPattern to) {
+        if (to == null) {
+            to = from;
+        }
+        to.isShowBackImageView = from.isShowBackImageView;
+        if (to.mTitleSize == -1) {
+            to.mTitleSize = from.mTitleSize;
+        }
+        if (TextUtils.isEmpty(to.mTitleString)) {
+            to.mTitleString = from.mTitleString;
+        }
+        if (to.mTitleBarBGColor == Color.TRANSPARENT) {
+            to.mTitleBarBGColor = from.mTitleBarBGColor;
+        }
+        if (to.mLeftItems.size() == 0) {
+            to.mLeftItems.addAll(from.mLeftItems);
+        }
+        if (to.mRightItems.size() == 0) {
+            to.mRightItems.addAll(from.mRightItems);
+        }
+    }
+
     public static TitleBarPattern build() {
-        return new TitleBarPattern();
+        return build("");
+    }
+
+    public static TitleBarPattern build(String title) {
+        return new TitleBarPattern(title);
     }
 
     public TitleBarPattern setTitleBarBGColor(@ColorInt int titleBarBGColor) {
@@ -56,6 +83,18 @@ public class TitleBarPattern {
 
     public TitleBarPattern setTitleString(String titleString) {
         mTitleString = titleString;
+        return this;
+    }
+
+    public TitleBarPattern setTitleSize(float size) {
+        this.mTitleSize = size;
+        return this;
+    }
+
+    public TitleBarPattern setTextViewSize(TextView textView) {
+        if (mTitleSize != -1) {
+            textView.setTextSize(mTitleSize);
+        }
         return this;
     }
 
@@ -75,6 +114,10 @@ public class TitleBarPattern {
         public int res = -1;
 
         public View.OnClickListener listener;
+
+        private TitleBarItem() {
+
+        }
 
         public static TitleBarItem build() {
             return new TitleBarItem();

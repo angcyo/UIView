@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
+import com.angcyo.uiview.view.UIIViewImpl;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class Demo2IView extends UIIViewImpl {
     @Override
     public TitleBarPattern loadTitleBar(Context context) {
         mContext = context;
-        TitleBarPattern pattern = new TitleBarPattern();
+        TitleBarPattern pattern = TitleBarPattern.build();
         pattern.setTitleString("测试标题2")
                 .setShowBackImageView(true)
                 .setLeftItems(getLeftItems())

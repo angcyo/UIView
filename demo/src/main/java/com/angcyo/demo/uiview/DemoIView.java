@@ -26,7 +26,7 @@ public class DemoIView extends UIIViewImpl {
     @Override
     public TitleBarPattern loadTitleBar(Context context) {
         mContext = context;
-        TitleBarPattern pattern = new TitleBarPattern();
+        TitleBarPattern pattern = TitleBarPattern.build();
         pattern.setTitleString("测试标题1")
                 .setShowBackImageView(false)
                 .setLeftItems(getLeftItems())

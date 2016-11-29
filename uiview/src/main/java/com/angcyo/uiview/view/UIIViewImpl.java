@@ -68,7 +68,10 @@ public abstract class UIIViewImpl implements IView {
                 }
             }
         }
-        ButterKnife.bind(this, mRootView);
+        try {
+            ButterKnife.bind(this, mRootView);
+        } catch (Exception e) {
+        }
     }
 
     @Override

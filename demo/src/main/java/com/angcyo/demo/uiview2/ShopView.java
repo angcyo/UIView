@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.container.UITitleBarContainer;
@@ -49,7 +50,9 @@ public class ShopView extends UIBaseView {
             @Override
             public void run() {
                 showContentLayout();
-                mTitleBarContainer.setTitleBarPattern(TitleBarPattern.build().setTitleString("商城列表").setTitleBarBGColor(Color.RED));
+                mTitleBarContainer.setTitleBarPattern(TitleBarPattern.build()
+                        .setTitleString("商城列表")
+                        .setTitleBarBGColor(mContext.getResources().getColor(R.color.theme_color_primary)));
             }
         }, 1000);
     }

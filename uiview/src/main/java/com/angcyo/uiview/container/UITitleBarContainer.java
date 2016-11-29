@@ -2,7 +2,10 @@ package com.angcyo.uiview.container;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
@@ -52,8 +55,71 @@ public class UITitleBarContainer extends FrameLayout {
 
     public UITitleBarContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.UITitleBarContainer);
+        if (mTitleBarPattern == null) {
+            //标题文本
+            mTitleBarPattern = TitleBarPattern.build(typedArray.getString(R.styleable.UITitleBarContainer_title_text));
+            //标题背景颜色
+            Drawable background = getBackground();
+            if (background != null && background instanceof ColorDrawable) {
+                mTitleBarPattern.setTitleBarBGColor(((ColorDrawable) background).getColor());
+            }
+            //标题大小
+            mTitleBarPattern.setTitleSize(typedArray.getFloat(R.styleable.UITitleBarContainer_title_text_size, -1));
+        }
+        typedArray.recycle();
+
         initTitleBar(context);
     }
+
+    //----------------------------公共方法-----------------------------
+
+    public void onAttachToLayout(ILayout container) {
+        mILayout = container;
+    }
+
+    /**
+     * 标题栏的信息
+     */
+    public void setTitleBarPattern(TitleBarPattern titleBarPattern) {
+        mTitleBarPattern = titleBarPattern;
+        if (isAttachedToWindow) {
+            loadTitleBar();
+        }
+    }
+
+    /**
+     * 在旧的标题栏上, 应用一个新的标题栏的信息
+     */
+    public void appendTitleBarPattern(TitleBarPattern titleBarPattern) {
+        TitleBarPattern.fix(titleBarPattern, mTitleBarPattern);
+        if (isAttachedToWindow) {
+            loadTitleBar();
+        }
+    }
+
+    //----------------------------保护方法-----------------------------
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                isAttachedToWindow = true;
+                loadTitleBar();
+            }
+        });
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        isAttachedToWindow = false;
+    }
+
+    //----------------------------私有方法-----------------------------
+
 
     private void initTitleBar(Context context) {
 //        if (context instanceof Activity) {
@@ -85,38 +151,6 @@ public class UITitleBarContainer extends FrameLayout {
                 mTitleBarLayout.setLayoutParams(layoutParams);
             }
         }
-    }
-
-    public void onAttachToLayout(ILayout container) {
-        mILayout = container;
-    }
-
-    /**
-     * 标题栏的信息
-     */
-    public void setTitleBarPattern(TitleBarPattern titleBarPattern) {
-        mTitleBarPattern = titleBarPattern;
-        if (isAttachedToWindow) {
-            loadTitleBar();
-        }
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        post(new Runnable() {
-            @Override
-            public void run() {
-                isAttachedToWindow = true;
-                loadTitleBar();
-            }
-        });
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        isAttachedToWindow = false;
     }
 
     private void loadTitleBar() {
@@ -154,6 +188,7 @@ public class UITitleBarContainer extends FrameLayout {
         }
         /*标题*/
         mTitleView.setText(mTitleBarPattern.mTitleString);
+        mTitleBarPattern.setTextViewSize(mTitleView);
         if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString)) {
             ViewCompat.setTranslationY(mTitleView, -itemSize);
             ViewCompat.animate(mTitleView).translationY(0)
@@ -235,7 +270,7 @@ public class UITitleBarContainer extends FrameLayout {
         ImageView item = new ImageView(getContext());
         item.setImageResource(res);
         item.setScaleType(ImageView.ScaleType.CENTER);
-        item.setBackgroundResource(R.drawable.base_bg_selector);
+        item.setBackgroundResource(R.drawable.base_bg2_selector);
         item.setOnClickListener(listener);
         if (listener == null) {
             item.setClickable(false);
@@ -249,7 +284,7 @@ public class UITitleBarContainer extends FrameLayout {
         item.setText(text);
         item.setTextColor(Color.WHITE);
         item.setGravity(Gravity.CENTER);
-        item.setBackgroundResource(R.drawable.base_bg_selector);
+        item.setBackgroundResource(R.drawable.base_bg2_selector);
         item.setOnClickListener(listener);
         if (listener == null) {
             item.setClickable(false);

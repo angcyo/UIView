@@ -13,6 +13,8 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.view.UIIViewImpl;
 
+import butterknife.ButterKnife;
+
 import static android.view.View.GONE;
 
 /**
@@ -63,8 +65,6 @@ public abstract class UIBaseView extends UIIViewImpl {
                 inflateNonetLayout(mBaseRootLayout, inflater));
         mBaseLoadLayout = UILayoutImpl.safeAssignView(mBaseRootLayout,
                 inflateLoadLayout(mBaseRootLayout, inflater));
-
-        inflateContentLayout(mBaseContentLayout, inflater);
 
         safeSetView(mBaseContentLayout);
         safeSetView(mBaseEmptyLayout);
@@ -142,6 +142,10 @@ public abstract class UIBaseView extends UIIViewImpl {
      * 显示内容布局
      */
     public void showContentLayout() {
+        if (mBaseContentLayout.getChildCount() == 0) {
+            inflateContentLayout(mBaseContentLayout, LayoutInflater.from(mContext));
+            ButterKnife.bind(this, mBaseContentLayout);
+        }
         changeState(mLayoutState, LayoutState.CONTENT);
     }
 
