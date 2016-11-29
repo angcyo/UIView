@@ -53,5 +53,25 @@
             android:text="@string/content"
             android:visibility="visible"/>
 
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.angcyo.uiview.widget.ExEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="测试专用"
+                android:inputType="textPassword"
+                android:tag="emoji|show|password"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="测试专用"
+            android:inputType="textPassword"
+            android:tag="emoji|show|password"/>
+
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

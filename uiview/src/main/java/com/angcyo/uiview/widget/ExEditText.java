@@ -7,6 +7,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -23,6 +24,10 @@ public class ExEditText extends AppCompatEditText {
     Drawable clearDrawable;
 
     boolean showClear = true;//是否显示删除按钮
+
+    boolean isPassword = false;//隐藏显示密码
+
+    boolean handleTouch = false;
 
     public ExEditText(Context context) {
         super(context);
@@ -51,20 +56,24 @@ public class ExEditText extends AppCompatEditText {
                 setFilters(newFilters);
             }
 
+            if (tagString.contains("password")) {
+                //隐藏显示密码
+                isPassword = true;
+            }
+
             if (tagString.contains("hide")) {
                 //隐藏删除按钮
                 showClear = false;
-            }
-
-            if (tagString.contains("show")) {
+            } else if (tagString.contains("show")) {
                 //显示删除按钮
                 showClear = true;
-
-                clearDrawable = ResourcesCompat.getDrawable(
-                        getResources(),
-                        R.drawable.base_edit_delete_selector,
-                        getContext().getTheme());
             }
+        }
+        if (showClear) {
+            clearDrawable = ResourcesCompat.getDrawable(
+                    getResources(),
+                    R.drawable.base_edit_delete_selector,
+                    getContext().getTheme());
         }
     }
 
@@ -105,6 +114,19 @@ public class ExEditText extends AppCompatEditText {
                 isDownIn = false;
             }
         }
+
+        if (isPassword) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                handleTouch = !checkClear(event.getX(), event.getY());
+                if (handleTouch) {
+                    passwordVisibilityToggleRequested();
+                }
+            } else if (event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
+                if (handleTouch) {
+                    passwordVisibilityToggleRequested();
+                }
+            }
+        }
         return super.onTouchEvent(event);
     }
 
@@ -138,5 +160,22 @@ public class ExEditText extends AppCompatEditText {
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         checkEdit(true);
+    }
+
+    private boolean hasPasswordTransformation() {
+        return this.getTransformationMethod() instanceof PasswordTransformationMethod;
+    }
+
+    void passwordVisibilityToggleRequested() {
+        final int selection = getSelectionEnd();
+
+        if (hasPasswordTransformation()) {
+            setTransformationMethod(null);
+        } else {
+            setTransformationMethod(PasswordTransformationMethod.getInstance());
+        }
+
+        // And restore the cursor position
+        setSelection(selection);
     }
 }
