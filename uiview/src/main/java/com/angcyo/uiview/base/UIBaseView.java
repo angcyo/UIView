@@ -18,6 +18,10 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 
 /**
+ * 实现了 空布局, 无网络布局, 数据加载布局, 内容布局之间的切换
+ * <p>
+ * 内容布局会在 {@link #showContentLayout()} 之后才显示
+ * <p>
  * Created by angcyo on 2016-11-27.
  */
 

@@ -18,6 +18,9 @@ import com.angcyo.uiview.widget.UIViewPager;
 import butterknife.ButterKnife;
 
 /**
+ * 接口的实现, 仅处理了一些动画, 其他实现都为空
+ * 对对话框做了区分处理
+ * <p>
  * Created by angcyo on 2016-11-12.
  */
 
