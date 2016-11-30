@@ -9,6 +9,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.net.Network;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.widget.UIViewPager;
@@ -42,13 +43,13 @@ public class MineView extends UIBaseView {
                 items.add(TitleBarPattern.TitleBarItem.build().setRes(R.drawable.home_48).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "Home");
+                        T.show(mContext, "Home " + Network.getNetTypeName(mContext));
                     }
                 }));
                 items.add(TitleBarPattern.TitleBarItem.build().setRes(R.drawable.live_48).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "Love");
+                        T.show(mContext, "Love " + Network.isConnected(mContext));
                     }
                 }));
                 ArrayList<TitleBarPattern.TitleBarItem> items2 = new ArrayList<TitleBarPattern.TitleBarItem>();
