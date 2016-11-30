@@ -15,6 +15,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 public class RRetrofit {
     public static String BASE_URL = "http://192.168.1.12:8082";
+    public static boolean DEBUG = true;
 
     public static <T> T create(final Class<T> cls) {
         Converter.Factory factory = getFactory();
@@ -63,7 +64,13 @@ public class RRetrofit {
 
     private static OkHttpClient defaultClient() {
         // create an instance of OkLogInterceptor using a builder()
-        OkLogInterceptor okLogInterceptor = OkLogInterceptor.builder().withAllLogData().build();
+        OkLogInterceptor okLogInterceptor;
+        OkLogInterceptor.Builder builder = OkLogInterceptor.builder();
+        if (DEBUG) {
+            okLogInterceptor = builder.withAllLogData().build();
+        } else {
+            okLogInterceptor = builder.withNoLogData().build();
+        }
 
         // create an instance of OkHttpClient builder
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
