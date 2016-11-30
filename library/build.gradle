@@ -36,10 +36,7 @@ dependencies {
     compile 'com.android.support:design:' + rootProject.S_VER
     testCompile 'junit:junit:4.12'
 
-    compile 'com.jakewharton:butterknife:8.4.0'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-
-    /*retrofit2相关依赖*/
+    /*https://github.com/square/retrofit*/
     compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
 //    compile "com.squareup.retrofit2:converter-gson:${retrofit_version}"
     compile "com.squareup.retrofit2:converter-jackson:${retrofit_version}"
@@ -47,10 +44,25 @@ dependencies {
 
     /*网络log输出拦截器 http://tech.youzan.com/android_http/*/
     compile 'com.squareup.okhttp3:logging-interceptor:' + okhttp_version
+    /*https://github.com/square/okhttp*/
     compile 'com.squareup.okhttp3:okhttp:' + okhttp_version
+
+    /*https://github.com/square/picasso*/
+    //compile 'com.squareup.picasso:picasso:2.5.2'
+
+    /*https://github.com/bumptech/glide*/
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    /*https://github.com/square/haha*/
+    //compile 'com.squareup.haha:haha:2.0.3'
 
     compile 'io.reactivex:rxjava:1.2.2'
     compile 'io.reactivex:rxandroid:1.2.1'
+
+    /*https://github.com/JakeWharton/butterknife*/
+    compile 'com.jakewharton:butterknife:8.4.0'
+//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
     /*https://github.com/JakeWharton/RxBinding*/
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
 //    compile 'com.jakewharton.rxbinding:rxbinding-support-v4:0.4.0'
