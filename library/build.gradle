@@ -43,7 +43,7 @@ dependencies {
     compile "com.squareup.retrofit2:adapter-rxjava:${retrofit_version}"
 
     /*网络log输出拦截器 http://tech.youzan.com/android_http/*/
-    compile 'com.squareup.okhttp3:logging-interceptor:' + okhttp_version
+    //compile 'com.squareup.okhttp3:logging-interceptor:' + okhttp_version
     /*https://github.com/square/okhttp*/
     compile 'com.squareup.okhttp3:okhttp:' + okhttp_version
 
@@ -56,7 +56,10 @@ dependencies {
     /*https://github.com/square/haha*/
     //compile 'com.squareup.haha:haha:2.0.3'
 
-    compile 'io.reactivex:rxjava:1.2.2'
+    /*https://github.com/simonpercic/OkLog*/
+    compile 'com.github.simonpercic:oklog3:2.0.0'
+
+    compile 'io.reactivex:rxjava:1.2.3'
     compile 'io.reactivex:rxandroid:1.2.1'
 
     /*https://github.com/JakeWharton/butterknife*/
