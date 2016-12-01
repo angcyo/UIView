@@ -8,6 +8,7 @@ import com.github.simonpercic.oklog3.OkLogInterceptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
@@ -83,9 +84,23 @@ public class RRetrofit {
 
         okHttpBuilder.cookieJar(new CookieJarImpl(new PersistentCookieStore(RApplication.getApp())));
 
+        //okHttpBuilder.cache()
         // build
         OkHttpClient okHttpClient = okHttpBuilder.build();
 
         return okHttpClient;
+    }
+
+    public static void cancelTag(Object tag) {
+        for (Call call : defaultClient().dispatcher().queuedCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
+        for (Call call : defaultClient().dispatcher().runningCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
     }
 }

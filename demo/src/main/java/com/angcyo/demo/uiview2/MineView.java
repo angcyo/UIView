@@ -9,7 +9,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.model.TitleBarPattern;
-import com.angcyo.uiview.net.Network;
+import com.angcyo.uiview.net.base.Network;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.widget.UIViewPager;

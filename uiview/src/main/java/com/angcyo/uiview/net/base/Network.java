@@ -1,4 +1,4 @@
-package com.angcyo.uiview.net;
+package com.angcyo.uiview.net.base;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -25,6 +25,7 @@ import java.util.Enumeration;
  * Version: 1.0.0
  */
 public class Network {
+
     /**
      * 判断网络是否连接
      */

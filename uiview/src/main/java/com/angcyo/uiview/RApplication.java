@@ -115,6 +115,7 @@ public class RApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        app = this;
         /*65535限制*/
         //MultiDex.install(this);
     }
