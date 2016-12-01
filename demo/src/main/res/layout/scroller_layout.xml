@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/first_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -16,22 +17,35 @@
             android:scaleType="centerCrop"
             android:src="@drawable/image_demo"/>
 
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/edit_text_view3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="测试专用"
+            android:inputType="textPassword"
+            android:tag="emoji|show|password"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/test_button"
+                style="@style/BaseAvgHStyle"
+                android:text="Test"/>
 
             <Button
                 android:id="@+id/jump_to_view_pager"
                 style="@style/BaseAvgHStyle"
-                android:text="JumpToViewPagerDemo"
-                android:textAllCaps="false"/>
+                android:text="JumpToViewPagerDemo"/>
 
             <Button
                 android:id="@+id/jump_to_ui_view_pager"
                 style="@style/BaseAvgHStyle"
-                android:text="UIViewPagerDemo"
-                android:textAllCaps="false"/>
+                android:text="UIViewPagerDemo"/>
         </LinearLayout>
 
 
@@ -59,6 +73,7 @@
             android:layout_height="wrap_content">
 
             <com.angcyo.uiview.widget.ExEditText
+                android:id="@+id/edit_text_view1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="测试专用"
@@ -67,6 +82,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/edit_text_view2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="测试专用"

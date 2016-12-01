@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.angcyo.demo.R;
@@ -13,6 +14,7 @@ import com.angcyo.demo.uiview2.UIViewPagerIView;
 import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.view.UIIViewImpl;
+import com.angcyo.uiview.widget.ExEditText;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,13 +28,35 @@ public class ScrollerIView extends UIIViewImpl {
     @BindView(R.id.jump_to_view_pager)
     TextView mTextView;
 
+    @BindView(R.id.edit_text_view2)
+    ExEditText mExEditText2;
+    @BindView(R.id.edit_text_view3)
+    ExEditText mExEditText3;
+    @BindView(R.id.first_layout)
+    LinearLayout mFirstLayout;
+
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         return inflater.inflate(R.layout.scroller_layout, container);
     }
 
+    @OnClick(R.id.edit_text_view1)
+    public void onEditText1Click() {
+        mFirstLayout.removeView(mExEditText2);
+    }
+
+    @OnClick(R.id.test_button)
+    public void onTestButtonClick() {
+        if (mExEditText3.getParent() == null) {
+            mFirstLayout.addView(mExEditText3, 2);
+        } else {
+            mFirstLayout.removeView(mExEditText3);
+        }
+    }
+
     @OnClick(R.id.jump_to_view_pager)
     public void onJumpToViewPager() {
+
         //T.show(mContext, "onJumpToViewPager");
         mILayout.startIView(new ViewPagerIView());
     }

@@ -29,6 +29,8 @@ public class ExEditText extends AppCompatEditText {
 
     boolean handleTouch = false;
 
+    long downTime = 0;//按下的时间
+
     public ExEditText(Context context) {
         super(context);
     }
@@ -39,6 +41,11 @@ public class ExEditText extends AppCompatEditText {
 
     public ExEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
     }
 
     @Override
@@ -94,13 +101,15 @@ public class ExEditText extends AppCompatEditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+
         if (showClear && isFocused()) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (action == MotionEvent.ACTION_DOWN) {
                 isDownIn = checkClear(event.getX(), event.getY());
                 updateState(isDownIn);
-            } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            } else if (action == MotionEvent.ACTION_MOVE) {
                 updateState(checkClear(event.getX(), event.getY()));
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            } else if (action == MotionEvent.ACTION_UP) {
                 updateState(false);
                 if (isDownIn && checkClear(event.getX(), event.getY())) {
                     if (!TextUtils.isEmpty(getText())) {
@@ -109,22 +118,25 @@ public class ExEditText extends AppCompatEditText {
                     }
                 }
                 isDownIn = false;
-            } else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+            } else if (action == MotionEvent.ACTION_CANCEL) {
                 updateState(false);
                 isDownIn = false;
             }
         }
 
         if (isPassword) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                handleTouch = !checkClear(event.getX(), event.getY());
-                if (handleTouch) {
-                    passwordVisibilityToggleRequested();
+            if (action == MotionEvent.ACTION_DOWN) {
+                downTime = System.currentTimeMillis();
+            } else if (action == MotionEvent.ACTION_MOVE) {
+                if ((System.currentTimeMillis() - downTime) > 100) {
+                    if (isDownIn) {
+                        hidePassword();
+                    } else {
+                        showPassword();
+                    }
                 }
-            } else if (event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP) {
-                if (handleTouch) {
-                    passwordVisibilityToggleRequested();
-                }
+            } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
+                hidePassword();
             }
         }
         return super.onTouchEvent(event);
@@ -167,6 +179,18 @@ public class ExEditText extends AppCompatEditText {
 
     private boolean hasPasswordTransformation() {
         return this.getTransformationMethod() instanceof PasswordTransformationMethod;
+    }
+
+    void showPassword() {
+        final int selection = getSelectionEnd();
+        setTransformationMethod(null);
+        setSelection(selection);
+    }
+
+    void hidePassword() {
+        final int selection = getSelectionEnd();
+        setTransformationMethod(PasswordTransformationMethod.getInstance());
+        setSelection(selection);
     }
 
     void passwordVisibilityToggleRequested() {
