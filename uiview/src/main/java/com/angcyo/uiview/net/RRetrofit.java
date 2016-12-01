@@ -1,5 +1,8 @@
 package com.angcyo.uiview.net;
 
+import com.angcyo.uiview.RApplication;
+import com.angcyo.uiview.net.cookie.CookieJarImpl;
+import com.angcyo.uiview.net.cookie.store.PersistentCookieStore;
 import com.github.simonpercic.oklog3.OkLogInterceptor;
 
 import java.lang.reflect.InvocationTargetException;
@@ -77,6 +80,8 @@ public class RRetrofit {
 
         // add OkLogInterceptor to OkHttpClient's application interceptors
         okHttpBuilder.addInterceptor(okLogInterceptor);
+
+        okHttpBuilder.cookieJar(new CookieJarImpl(new PersistentCookieStore(RApplication.getApp())));
 
         // build
         OkHttpClient okHttpClient = okHttpBuilder.build();

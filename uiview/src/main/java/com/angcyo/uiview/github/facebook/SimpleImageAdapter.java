@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.angcyo.rsen.R;
+import com.angcyo.uiview.R;
+import com.angcyo.uiview.recycler.RBaseAdapter;
+import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.utils.T;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.rsen.base.RBaseAdapter;
-import com.rsen.base.RBaseViewHolder;
-import com.rsen.util.ResUtil;
-import com.rsen.util.T;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,13 +160,13 @@ public class SimpleImageAdapter extends RBaseAdapter<SimpleImageAdapter.Image> {
     }
 
     @Override
-    protected void onBindView(RBaseViewHolder holder, int position, Image bean) {
+    protected void onBindView(RBaseViewHolder holder, final int position, final Image bean) {
         SimpleDraweeView draweeView = (SimpleDraweeView) ((ViewGroup) holder.itemView).getChildAt(0);
         View clickView = ((ViewGroup) holder.itemView).getChildAt(1);
         if (isResData()) {
-            DraweeViewUtil.setDraweeViewRes(draweeView, R.drawable.face800);
+            DraweeViewUtil.setDraweeViewRes(draweeView, R.drawable.base_back);
         } else {
-            DraweeViewUtil.setDraweeViewRes(draweeView, R.drawable.face800);
+            DraweeViewUtil.setDraweeViewRes(draweeView, R.drawable.base_back);
         }
         if (mBorder) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

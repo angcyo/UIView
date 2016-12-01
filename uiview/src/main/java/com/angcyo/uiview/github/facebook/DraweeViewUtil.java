@@ -6,7 +6,8 @@ import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
-import com.angcyo.rsen.R;
+import com.angcyo.uiview.R;
+import com.angcyo.uiview.resources.ResUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -16,7 +17,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.rsen.util.ResUtil;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.

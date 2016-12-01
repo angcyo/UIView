@@ -90,4 +90,8 @@ dependencies {
     compile 'com.trello:rxlifecycle:' + rxlifecycle_version
     compile 'com.trello:rxlifecycle-android:' + rxlifecycle_version
     compile 'com.trello:rxlifecycle-components:' + rxlifecycle_version
+
+    /*https://github.com/orhanobut/hawk*/
+    compile 'com.orhanobut:hawk:2.0.1'
+
 }
