@@ -2,7 +2,6 @@ package com.angcyo.demo.uiview;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.base.UIBaseView;
@@ -26,8 +25,9 @@ public class EditTextView extends UIBaseView {
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         mExEditText = new ExEditText(mContext);
-        mExEditText.setPadding(0, 1000, 0, 0);
-        baseContentLayout.addView(mExEditText, new ViewGroup.LayoutParams(-1, -2));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -2);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        baseContentLayout.addView(mExEditText, params);
     }
 
     @Override

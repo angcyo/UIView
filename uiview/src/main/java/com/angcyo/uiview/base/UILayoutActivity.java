@@ -14,6 +14,7 @@ public abstract class UILayoutActivity extends StyleActivity {
     @Override
     protected void onCreateView() {
         mLayout = new UILayoutImpl(this);
+        mLayout.getLayout().setFitsSystemWindows(true);
         setContentView(mLayout.getLayout());
     }
 

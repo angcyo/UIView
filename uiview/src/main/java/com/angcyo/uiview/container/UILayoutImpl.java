@@ -2,13 +2,16 @@ package com.angcyo.uiview.container;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
@@ -45,6 +48,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      * 是否正在退出
      */
     private boolean isFinishing = false;
+    private OnWindowInsetsListener mOnWindowInsetsListener;
 
     public UILayoutImpl(Context context) {
         super(context);
@@ -590,7 +594,66 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     }
 
     @Override
-    public void dispatchWindowFocusChanged(boolean hasFocus) {
-        super.dispatchWindowFocusChanged(hasFocus);
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int insetBottom = insets.getSystemWindowInsetBottom();
+
+            if (insetBottom > 100) {
+                setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight() - insetBottom);
+            } else {
+                setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight() + insetBottom);
+            }
+
+            if (mOnWindowInsetsListener != null) {
+                mOnWindowInsetsListener.onWindowInsets(insets.getSystemWindowInsetLeft(),
+                        insets.getSystemWindowInsetTop(),
+                        insets.getSystemWindowInsetRight(),
+                        insetBottom);
+            }
+        }
+        return super.onApplyWindowInsets(insets);
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
+    public UILayoutImpl setOnWindowInsetsListener(OnWindowInsetsListener listener) {
+        this.mOnWindowInsetsListener = listener;
+        return this;
+    }
+
+    /**
+     * 当窗口需要插入装饰空间时,回调. 比如显示键盘,显示状态栏的时候.
+     */
+    public interface OnWindowInsetsListener {
+        void onWindowInsets(int insetLeft, int insetTop, int insetRight, int insetBottom);
+    }
+
 }
