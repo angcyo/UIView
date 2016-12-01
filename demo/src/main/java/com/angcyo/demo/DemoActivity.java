@@ -1,11 +1,11 @@
 package com.angcyo.demo;
 
-import com.angcyo.demo.uiview.DemoIView;
-import com.angcyo.uiview.base.UIActivity;
+import com.angcyo.demo.uiview.EditTextView;
+import com.angcyo.uiview.base.UILayoutActivity;
 
-public class DemoActivity extends UIActivity {
+public class DemoActivity extends UILayoutActivity {
     @Override
     protected void onLoadView() {
-        mUIContainer.startView(new DemoIView());
+        mLayout.startIView(new EditTextView());
     }
 }

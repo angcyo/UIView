@@ -48,6 +48,28 @@
                 android:text="UIViewPagerDemo"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/login_button"
+                style="@style/BaseAvgHStyle"
+                android:text="登录测试"/>
+
+            <!--<Button-->
+            <!--android:id="@+id/jump_to_view_pager"-->
+            <!--style="@style/BaseAvgHStyle"-->
+            <!--android:text="JumpToViewPagerDemo"/>-->
+
+            <!--<Button-->
+            <!--android:id="@+id/jump_to_ui_view_pager"-->
+            <!--style="@style/BaseAvgHStyle"-->
+            <!--android:text="UIViewPagerDemo"/>-->
+        </LinearLayout>
+
 
         <View
             android:id="@+id/view"

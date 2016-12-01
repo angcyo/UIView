@@ -588,4 +588,9 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         }
         return false;
     }
+
+    @Override
+    public void dispatchWindowFocusChanged(boolean hasFocus) {
+        super.dispatchWindowFocusChanged(hasFocus);
+    }
 }

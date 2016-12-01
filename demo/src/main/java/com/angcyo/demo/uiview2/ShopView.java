@@ -8,11 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
-import com.angcyo.uiview.container.UITitleBarContainer;
-import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.widget.UIViewPager;
 
@@ -22,15 +19,11 @@ import com.angcyo.uiview.widget.UIViewPager;
 
 public class ShopView extends UIBaseView {
 
-    private UITitleBarContainer mTitleBarContainer;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         LinearLayout linearLayout = new LinearLayout(mContext);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-        mTitleBarContainer = new UITitleBarContainer(mContext);
-        linearLayout.addView(mTitleBarContainer, new ViewGroup.LayoutParams(-1, -2));
 
         TextView textView = new TextView(mContext);
         textView.setText(this.getClass().getSimpleName());
@@ -55,9 +48,8 @@ public class ShopView extends UIBaseView {
             @Override
             public void run() {
                 showContentLayout();
-                mTitleBarContainer.setTitleBarPattern(TitleBarPattern.build()
-                        .setTitleString("商城列表")
-                        .setTitleBarBGColor(mContext.getResources().getColor(R.color.theme_color_primary)));
+                mUITitleBarContainer.set().setTitleString("商城列表");
+
             }
         }, 1000);
     }

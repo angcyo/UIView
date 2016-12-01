@@ -18,7 +18,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * Created by angcyo on 2016-03-20 23:53.
  */
 public class RRetrofit {
-    public static String BASE_URL = "http://192.168.1.12:8082";
+    public static String BASE_URL = "http://192.168.1.156:8081/app/";
     public static boolean DEBUG = true;
 
     public static <T> T create(final Class<T> cls) {

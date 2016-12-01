@@ -79,16 +79,6 @@ public class UITitleBarContainer extends FrameLayout {
     }
 
     /**
-     * 标题栏的信息
-     */
-    public void setTitleBarPattern(TitleBarPattern titleBarPattern) {
-        mTitleBarPattern = titleBarPattern;
-        if (isAttachedToWindow) {
-            loadTitleBar();
-        }
-    }
-
-    /**
      * 在旧的标题栏上, 应用一个新的标题栏的信息
      */
     public void appendTitleBarPattern(TitleBarPattern titleBarPattern) {
@@ -97,8 +87,6 @@ public class UITitleBarContainer extends FrameLayout {
             loadTitleBar();
         }
     }
-
-    //----------------------------保护方法-----------------------------
 
     @Override
     protected void onAttachedToWindow() {
@@ -112,14 +100,13 @@ public class UITitleBarContainer extends FrameLayout {
         });
     }
 
+    //----------------------------保护方法-----------------------------
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         isAttachedToWindow = false;
     }
-
-    //----------------------------私有方法-----------------------------
-
 
     private void initTitleBar(Context context) {
 //        if (context instanceof Activity) {
@@ -152,6 +139,8 @@ public class UITitleBarContainer extends FrameLayout {
             }
         }
     }
+
+    //----------------------------私有方法-----------------------------
 
     private void loadTitleBar() {
         if (mTitleBarPattern == null) {
@@ -278,7 +267,6 @@ public class UITitleBarContainer extends FrameLayout {
         return item;
     }
 
-
     private TextView createTextItem(String text, View.OnClickListener listener) {
         TextView item = new TextView(getContext());
         item.setText(text);
@@ -290,5 +278,32 @@ public class UITitleBarContainer extends FrameLayout {
             item.setClickable(false);
         }
         return item;
+    }
+
+    public TitleBarPattern getTitleBarPattern() {
+        return mTitleBarPattern;
+    }
+
+    /**
+     * 标题栏的信息
+     */
+    public void setTitleBarPattern(TitleBarPattern titleBarPattern) {
+        mTitleBarPattern = titleBarPattern;
+        if (isAttachedToWindow) {
+            loadTitleBar();
+        }
+    }
+
+    public TitleBarPattern set() {
+        if (mTitleBarPattern == null) {
+            return TitleBarPattern.build();
+        }
+        post(new Runnable() {
+            @Override
+            public void run() {
+                loadTitleBar();
+            }
+        });
+        return mTitleBarPattern;
     }
 }

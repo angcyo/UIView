@@ -214,6 +214,20 @@ public abstract class UIIViewImpl implements IView {
 
     }
 
+    public void startIView(IView iView) {
+        startIView(iView, true);
+    }
+
+    public void startIView(IView iView, boolean anim) {
+        if (iView == null) {
+            return;
+        }
+        if (mILayout == null) {
+            throw new IllegalArgumentException("ILayout 还未初始化");
+        }
+        mILayout.startIView(iView, anim);
+    }
+
     public void post(Runnable action) {
         if (mRootView != null) {
             mRootView.post(action);

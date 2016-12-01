@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.angcyo.demo.R;
 import com.angcyo.demo.uiview2.UIViewPagerIView;
+import com.angcyo.demo.uiview3.view.LoginView;
 import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.view.UIIViewImpl;
@@ -93,5 +94,10 @@ public class ScrollerIView extends UIIViewImpl {
             }
         });
         rootView.addView(textView, new ViewGroup.LayoutParams(-1, 500));
+    }
+
+    @OnClick(R.id.login_button)
+    public void onLoginClick(View view) {
+        startIView(new LoginView());
     }
 }

@@ -7,7 +7,6 @@ import android.widget.RelativeLayout;
 import com.angcyo.demo.R;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
-import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.base.Network;
 import com.angcyo.uiview.utils.Reflect;
@@ -16,16 +15,11 @@ import com.angcyo.uiview.widget.UIViewPager;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
 /**
  * Created by angcyo on 2016-11-26.
  */
 
 public class MineView extends UIBaseView {
-
-    @BindView(R.id.base_title_bar_container)
-    UITitleBarContainer mBaseTitleBarContainer;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
@@ -59,7 +53,10 @@ public class MineView extends UIBaseView {
                 }));
                 ArrayList<TitleBarPattern.TitleBarItem> items2 = new ArrayList<TitleBarPattern.TitleBarItem>();
                 items2.addAll(items);
-                mBaseTitleBarContainer.appendTitleBarPattern(TitleBarPattern.build().setRightItems(items).setLeftItems(items2));
+
+                mUITitleBarContainer.setTitleBarPattern(
+                        TitleBarPattern.fix(mUITitleBarContainer.getTitleBarPattern(),
+                                TitleBarPattern.build().setRightItems(items).setLeftItems(items2).setTitleString("个人中心")));
             }
         }, 1000);
     }

@@ -1,5 +1,7 @@
 package com.angcyo.uiview.base;
 
+import android.support.annotation.LayoutRes;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.UILayoutImpl;
+import com.angcyo.uiview.container.UITitleBarContainer;
+import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.view.UIIViewImpl;
 
 import butterknife.ButterKnife;
@@ -28,9 +32,14 @@ import static android.view.View.GONE;
 public abstract class UIBaseView extends UIIViewImpl {
 
     /**
-     * 根布局,和父类中的 {@link #mRootView} 相同
+     * 根布局,和父类中的 {@link #mRootView} 相同, 包含标题栏
      */
-    protected FrameLayout mBaseRootLayout;
+    protected RelativeLayout mBaseRootLayout;
+
+    /**
+     * 所有内容的根布局, 不包含标题栏
+     */
+    protected FrameLayout mBaseContentRootLayout;
 
     /**
      * 空布局
@@ -52,28 +61,63 @@ public abstract class UIBaseView extends UIIViewImpl {
      */
     protected RelativeLayout mBaseContentLayout;
 
+    /**
+     * 标题
+     */
+    protected UITitleBarContainer mUITitleBarContainer;
+
     protected LayoutState mLayoutState = LayoutState.NORMAL;
 
     protected View.OnClickListener mNonetSettingClickListener, mNonetRefreshClickListener;
 
+    private int mUITitleBarId = View.NO_ID;
+
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        mBaseRootLayout = new FrameLayout(mContext);
+        //包含标题栏的根布局
+        mBaseRootLayout = new RelativeLayout(mContext);
+        mBaseRootLayout.setClickable(true);
+        mBaseRootLayout.setEnabled(true);
+        mBaseRootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        TitleBarPattern titleBarPattern = initTitleBar();
+        if (titleBarPattern != null) {
+            mUITitleBarContainer = new UITitleBarContainer(mContext);
+            mUITitleBarId = View.generateViewId();
+            mUITitleBarContainer.setId(mUITitleBarId);
+            mUITitleBarContainer.setTitleBarPattern(titleBarPattern);
+            mBaseRootLayout.addView(mUITitleBarContainer, new ViewGroup.LayoutParams(-1, -2));
+        }
+
+        //内容根布局
+        mBaseContentRootLayout = new FrameLayout(mContext);
+
         mBaseContentLayout = new RelativeLayout(mContext);
         mBaseContentLayout.setId(View.generateViewId());
 
-        mBaseRootLayout.addView(mBaseContentLayout, new ViewGroup.LayoutParams(-1, -1));
-        mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseRootLayout,
-                inflateEmptyLayout(mBaseRootLayout, inflater));
-        mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseRootLayout,
-                inflateNonetLayout(mBaseRootLayout, inflater));
-        mBaseLoadLayout = UILayoutImpl.safeAssignView(mBaseRootLayout,
-                inflateLoadLayout(mBaseRootLayout, inflater));
+        mBaseContentRootLayout.addView(mBaseContentLayout, new ViewGroup.LayoutParams(-1, -1));
+        mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+                inflateEmptyLayout(mBaseContentRootLayout, inflater));
+        mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+                inflateNonetLayout(mBaseContentRootLayout, inflater));
+        mBaseLoadLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+                inflateLoadLayout(mBaseContentRootLayout, inflater));
 
         safeSetView(mBaseContentLayout);
         safeSetView(mBaseEmptyLayout);
         safeSetView(mBaseNonetLayout);
         safeSetView(mBaseLoadLayout);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
+        if (titleBarPattern != null) {
+            params.addRule(RelativeLayout.BELOW, mUITitleBarId);
+        }
+        mBaseRootLayout.addView(mBaseContentRootLayout, params);
 
         container.addView(mBaseRootLayout, new ViewGroup.LayoutParams(-1, -1));
         return mBaseRootLayout;
@@ -85,9 +129,21 @@ public abstract class UIBaseView extends UIIViewImpl {
         changeState(mLayoutState, LayoutState.LOAD);
     }
 
+    /**
+     * 请不要在此方法中初始化内容, 因为ButterKnife.bind(this, mBaseContentLayout);还么有执行
+     */
     protected abstract void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater);
 
-    protected abstract void initContentLayout();
+    /**
+     * 初始化内容
+     */
+    protected void initContentLayout() {
+
+    }
+
+    protected void inflate(@LayoutRes int layoutId) {
+        LayoutInflater.from(mContext).inflate(layoutId, mBaseContentLayout);
+    }
 
     protected View inflateLoadLayout(FrameLayout baseRootLayout, LayoutInflater inflater) {
         return inflater.inflate(R.layout.base_load_layout, baseRootLayout);
@@ -99,6 +155,14 @@ public abstract class UIBaseView extends UIIViewImpl {
 
     protected View inflateEmptyLayout(FrameLayout baseRootLayout, LayoutInflater inflater) {
         return inflater.inflate(R.layout.base_empty_layout, baseRootLayout);
+    }
+
+    protected TitleBarPattern initTitleBar() {
+        return TitleBarPattern.build(getTitle()).setTitleBarBGColor(mContext.getResources().getColor(R.color.theme_color_primary));
+    }
+
+    protected String getTitle() {
+        return ((AppCompatActivity) mContext).getTitle().toString();
     }
 
     /**
@@ -225,6 +289,10 @@ public abstract class UIBaseView extends UIIViewImpl {
         if (view != null) {
             view.setVisibility(visibility);
         }
+    }
+
+    public UITitleBarContainer getUITitleBarContainer() {
+        return mUITitleBarContainer;
     }
 
     /**

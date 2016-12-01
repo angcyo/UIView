@@ -41,7 +41,7 @@ public class TitleBarPattern {
         mTitleString = titleString;
     }
 
-    public static void fix(TitleBarPattern from, TitleBarPattern to) {
+    public static TitleBarPattern fix(TitleBarPattern from, TitleBarPattern to) {
         if (to == null) {
             to = from;
         }
@@ -61,6 +61,7 @@ public class TitleBarPattern {
         if (to.mRightItems.size() == 0) {
             to.mRightItems.addAll(from.mRightItems);
         }
+        return to;
     }
 
     public static TitleBarPattern build() {
