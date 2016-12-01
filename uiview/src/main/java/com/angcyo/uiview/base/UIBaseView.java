@@ -87,6 +87,8 @@ public abstract class UIBaseView extends UIIViewImpl {
 
     protected abstract void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater);
 
+    protected abstract void initContentLayout();
+
     protected View inflateLoadLayout(FrameLayout baseRootLayout, LayoutInflater inflater) {
         return inflater.inflate(R.layout.base_load_layout, baseRootLayout);
     }
@@ -149,6 +151,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         if (mBaseContentLayout.getChildCount() == 0) {
             inflateContentLayout(mBaseContentLayout, LayoutInflater.from(mContext));
             ButterKnife.bind(this, mBaseContentLayout);
+            initContentLayout();
         }
         changeState(mLayoutState, LayoutState.CONTENT);
     }

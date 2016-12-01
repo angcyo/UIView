@@ -26,6 +26,11 @@ public class HomeView extends UIBaseView {
     }
 
     @Override
+    protected void initContentLayout() {
+
+    }
+
+    @Override
     public void onShowInPager(UIViewPager viewPager) {
         L.w(this.getClass().getSimpleName() + " " + Reflect.getMethodName());
         postDelayed(new Runnable() {
