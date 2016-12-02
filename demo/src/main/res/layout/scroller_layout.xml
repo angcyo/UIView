@@ -59,6 +59,11 @@
                 style="@style/BaseAvgHStyle"
                 android:text="登录测试"/>
 
+            <Button
+                android:id="@+id/dialog_login_button"
+                style="@style/BaseAvgHStyle"
+                android:text="对话框登录测试"/>
+
             <!--<Button-->
             <!--android:id="@+id/jump_to_view_pager"-->
             <!--style="@style/BaseAvgHStyle"-->

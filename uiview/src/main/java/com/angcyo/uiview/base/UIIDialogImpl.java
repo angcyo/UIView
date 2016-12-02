@@ -1,5 +1,6 @@
 package com.angcyo.uiview.base;
 
+import android.support.annotation.LayoutRes;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +12,19 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.view.UIIViewImpl;
+import com.angcyo.uiview.widget.SoftInputLayout;
 
 /**
+ * 自定义对话框的基类
+ * <p>
  * Created by angcyo on 2016-11-15.
  */
 
 public abstract class UIIDialogImpl extends UIIViewImpl {
 
-    protected RelativeLayout mDialogRootLayout;
+    protected SoftInputLayout mDialogRootLayout;
 
     /**
      * 对话框显示的重力
@@ -58,9 +63,16 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        mDialogRootLayout = new RelativeLayout(mContext);
+        mDialogRootLayout = new SoftInputLayout(mContext);
         container.addView(mDialogRootLayout, new ViewGroup.LayoutParams(-1, -1));
-        return inflateDialogView(mDialogRootLayout, inflater);
+        View assignView = UILayoutImpl.safeAssignView(mDialogRootLayout,
+                inflateDialogView(mDialogRootLayout, inflater));
+        assignView.setClickable(true);
+        return mDialogRootLayout;
+    }
+
+    protected View inflate(@LayoutRes int layoutId) {
+        return LayoutInflater.from(mContext).inflate(layoutId, mDialogRootLayout);
     }
 
     /**

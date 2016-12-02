@@ -24,6 +24,10 @@ public class TitleBarPattern {
      */
     public boolean isShowBackImageView;
     /**
+     * 标题进入的动画
+     */
+    public boolean titleAnim = false;
+    /**
      * 标题
      */
     public String mTitleString;
@@ -46,6 +50,7 @@ public class TitleBarPattern {
             to = from;
         }
         to.isShowBackImageView = from.isShowBackImageView;
+        to.titleAnim = from.titleAnim;
         if (to.mTitleSize == -1) {
             to.mTitleSize = from.mTitleSize;
         }

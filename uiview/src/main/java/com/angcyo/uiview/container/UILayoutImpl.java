@@ -7,17 +7,20 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.resources.AnimUtil;
+import com.angcyo.uiview.view.ILifecycle;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.widget.UIViewPager;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 import static com.angcyo.uiview.view.UIIViewImpl.DEFAULT_ANIM_TIME;
@@ -46,7 +49,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      * 是否正在退出
      */
     private boolean isFinishing = false;
-    private OnWindowInsetsListener mOnWindowInsetsListener;
+    private ArrayList<OnWindowInsetsListener> mOnWindowInsetsListeners;
 
     private int[] mInsets = new int[4];
 
@@ -95,6 +98,8 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        setFocusable(true);
+        setFocusableInTouchMode(true);
         isAttachedToWindow = true;
         post(new Runnable() {
             @Override
@@ -123,6 +128,8 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
 
     @Override
     public View startIView(final IView iView, boolean needAnim) {
+
+        hideSoftInput();
 
         //1:inflateContentView, 会返回对应IView的RootLayout
         View rawView = loadViewInternal(iView);
@@ -202,14 +209,19 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             return;
         }
 
-        viewPattern.mIView.onViewHide();
         if (needAnim) {
             viewPattern.isAnimToEnd = true;
-            startViewPatternAnim(viewPattern, lastViewPattern, true, true);
-            startViewPatternAnim(viewPattern, lastViewPattern, false, false);
+            //startViewPatternAnim(viewPattern, lastViewPattern, true, true);
+            //startViewPatternAnim(viewPattern, lastViewPattern, false, false);
+            topViewFinish(viewPattern, needAnim);
+            bottomViewStart(lastViewPattern, viewPattern, needAnim);
         } else {
             if (lastViewPattern != null) {
                 lastViewPattern.mIView.onViewShow();
+
+                if (lastViewPattern.mView instanceof ILifecycle) {
+                    ((ILifecycle) lastViewPattern.mView).onViewShow();
+                }
             }
             removeViewPattern(viewPattern);
         }
@@ -227,7 +239,12 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         viewPattern.mView.setVisibility(VISIBLE);
 
         if (viewPattern.mIView.isDialog()) {
-            startDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadShowAnimation() : null);
+            startDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadShowAnimation() : null, new Runnable() {
+                @Override
+                public void run() {
+                    viewPattern.mIView.onViewShow();
+                }
+            });
         } else {
             if (mLastShowViewPattern != null) {
                 safeStartAnim(mLastShowViewPattern.mView, needAnim ? mLastShowViewPattern.mIView.loadHideAnimation() : null, new Runnable() {
@@ -342,25 +359,148 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                 newViewPattern.mIView.onViewLoad();
             }
 
-            if (needAnim) {
-                startViewPatternAnim(newViewPattern, lastViewPattern, false, true);
-                startViewPatternAnim(newViewPattern, lastViewPattern, true, false);
-            } else {
-                if (lastViewPattern != null) {
-                    lastViewPattern.mIView.onViewHide();
-                }
-                if (newViewPattern != null) {
-                    newViewPattern.mIView.onViewShow();
+            if (lastViewPattern != null) {
+                lastViewPattern.mView.clearFocus();
+                View focus = lastViewPattern.mView.findFocus();
+                if (focus != null) {
+                    focus.clearFocus();
                 }
             }
+
+            //startViewPatternAnim(newViewPattern, lastViewPattern, false, true);
+            //startViewPatternAnim(newViewPattern, lastViewPattern, true, false);
+            topViewStart(newViewPattern, needAnim);
+            bottomViewFinish(lastViewPattern, newViewPattern, needAnim);
         }
     }
+
+    /**
+     * 顶上视图进入的动画
+     */
+    private void topViewStart(final ViewPattern topViewPattern, boolean anim) {
+        final Animation animation = topViewPattern.mIView.loadStartAnimation();
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                topViewPattern.mIView.onViewShow();
+            }
+        };
+
+        if (topViewPattern.mView instanceof ILifecycle) {
+            ((ILifecycle) topViewPattern.mView).onViewShow();
+        }
+
+        if (!anim) {
+            endRunnable.run();
+        }
+
+        if (topViewPattern.mIView.isDialog()) {
+            //对话框的启动动画,作用在第一个子View上
+            startDialogAnim(topViewPattern, animation, endRunnable);
+        } else {
+            safeStartAnim(topViewPattern.mView, animation, endRunnable);
+        }
+    }
+
+    /**
+     * 顶上视图退出的动画
+     */
+    private void topViewFinish(final ViewPattern topViewPattern, boolean anim) {
+        final Animation animation = topViewPattern.mIView.loadFinishAnimation();
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                removeViewPattern(topViewPattern);
+            }
+        };
+
+        topViewPattern.mIView.onViewHide();
+
+        if (topViewPattern.mView instanceof ILifecycle) {
+            ((ILifecycle) topViewPattern.mView).onViewHide();
+        }
+
+        if (!anim) {
+            endRunnable.run();
+        }
+
+        if (topViewPattern.mIView.isDialog()) {
+            //对话框的启动动画,作用在第一个子View上
+            finishDialogAnim(topViewPattern, animation, endRunnable);
+        } else {
+            safeStartAnim(topViewPattern.mView, animation, endRunnable);
+        }
+    }
+
+    /**
+     * 底部视图进入动画
+     */
+    private void bottomViewStart(final ViewPattern bottomViewPattern, final ViewPattern topViewPattern, boolean anim) {
+        if (bottomViewPattern == null) {
+            return;
+        }
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                bottomViewPattern.mIView.onViewShow();
+            }
+        };
+
+        if (bottomViewPattern.mView instanceof ILifecycle) {
+            ((ILifecycle) bottomViewPattern.mView).onViewShow();
+        }
+
+        if (!anim) {
+            endRunnable.run();
+        }
+
+        if (topViewPattern.mIView.isDialog()) {
+            endRunnable.run();
+        } else {
+            final Animation animation = topViewPattern.mIView.loadOtherFinishEnterAnimation();
+            safeStartAnim(bottomViewPattern.mView, animation, endRunnable);
+        }
+    }
+
+    /**
+     * 底部视图退出动画
+     */
+    private void bottomViewFinish(final ViewPattern bottomViewPattern, final ViewPattern topViewPattern, boolean anim) {
+        if (bottomViewPattern == null) {
+            return;
+        }
+
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                bottomViewPattern.mIView.onViewHide();
+            }
+        };
+
+        if (bottomViewPattern.mView instanceof ILifecycle) {
+            ((ILifecycle) bottomViewPattern.mView).onViewHide();
+        }
+
+        if (!anim) {
+            endRunnable.run();
+        }
+
+        if (topViewPattern.mIView.isDialog()) {
+            endRunnable.run();
+        } else {
+            final Animation animation = topViewPattern.mIView.loadOtherStartExitAnimation();
+            safeStartAnim(bottomViewPattern.mView, animation, endRunnable);
+        }
+    }
+
 
     /**
      * 启动之前, 开始View的动画
      * 新界面, 播放启动动画;
      * 旧界面, 播放伴随退出动画
+     * 2016-12-2 太复杂了, 拆成4个方法
      */
+    @Deprecated
     private void startViewPatternAnim(final ViewPattern newViewPattern, final ViewPattern lastViewPattern, boolean isStart, boolean withOther) {
         if (newViewPattern == null) {
             return;
@@ -369,6 +509,15 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         if (withOther) {
             if (newViewPattern.mIView.isDialog()) {
                 //对话框不产生伴随动画.
+                if (isStart) {
+                    if (lastViewPattern != null) {
+                        lastViewPattern.mIView.onViewShow();
+                    }
+                } else {
+                    if (lastViewPattern != null) {
+                        lastViewPattern.mIView.onViewHide();
+                    }
+                }
             } else {
                 //伴随, 需要产生的动画
                 if (isStart) {
@@ -379,6 +528,10 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                         @Override
                         public void run() {
                             lastViewPattern.mIView.onViewShow();
+
+                            if (lastViewPattern.mView instanceof ILifecycle) {
+                                ((ILifecycle) lastViewPattern.mView).onViewShow();
+                            }
                         }
                     });
                 } else if (lastViewPattern != null) {
@@ -388,6 +541,10 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                         @Override
                         public void run() {
                             lastViewPattern.mIView.onViewHide();
+
+                            if (lastViewPattern.mView instanceof ILifecycle) {
+                                ((ILifecycle) lastViewPattern.mView).onViewHide();
+                            }
                         }
                     });
                 }
@@ -396,7 +553,12 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             if (newViewPattern.mIView.isDialog()) {
                 if (isStart) {
                     //对话框的启动动画,作用在第一个子View上
-                    startDialogAnim(newViewPattern, newViewPattern.mIView.loadStartAnimation());
+                    startDialogAnim(newViewPattern, newViewPattern.mIView.loadStartAnimation(), new Runnable() {
+                        @Override
+                        public void run() {
+                            newViewPattern.mIView.onViewShow();
+                        }
+                    });
                 } else {
                     //finish View的动画
                     finishDialogAnim(newViewPattern, newViewPattern.mIView.loadFinishAnimation(), new Runnable() {
@@ -434,7 +596,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     /**
      * 对话框的启动动画
      */
-    private void startDialogAnim(final ViewPattern dialogPattern, final Animation animation) {
+    private void startDialogAnim(final ViewPattern dialogPattern, final Animation animation, final Runnable endRunnable) {
         //对话框的启动动画,作用在第一个子View上
 
         /*是否变暗*/
@@ -454,12 +616,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             });
         }
 
-        safeStartAnim(((ViewGroup) dialogPattern.mView).getChildAt(0), animation, new Runnable() {
-            @Override
-            public void run() {
-                dialogPattern.mIView.onViewShow();
-            }
-        });
+        safeStartAnim(((ViewGroup) dialogPattern.mView).getChildAt(0), animation, endRunnable);
     }
 
     /**
@@ -494,16 +651,16 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     /**
      * 安全的启动一个动画
      */
-    private void safeStartAnim(final View view, final Animation animation, final Runnable endRunnable) {
+    private boolean safeStartAnim(final View view, final Animation animation, final Runnable endRunnable) {
         if (view == null) {
-            return;
+            return false;
         }
 
         if (animation == null) {
             if (endRunnable != null) {
                 endRunnable.run();
             }
-            return;
+            return false;
         }
 
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -526,6 +683,8 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         });
 
         view.startAnimation(animation);
+
+        return true;
     }
 
     public ViewPattern findViewPatternByView(View view) {
@@ -597,30 +756,73 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         return false;
     }
 
-    @Override
-    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mInsets[0] = insets.getSystemWindowInsetLeft();
-            mInsets[1] = insets.getSystemWindowInsetTop();
-            mInsets[2] = insets.getSystemWindowInsetRight();
-            mInsets[3] = insets.getSystemWindowInsetBottom();
+//    @Override
+//    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            mInsets[0] = insets.getSystemWindowInsetLeft();
+//            mInsets[1] = insets.getSystemWindowInsetTop();
+//            mInsets[2] = insets.getSystemWindowInsetRight();
+//            mInsets[3] = insets.getSystemWindowInsetBottom();
+//
+//            post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    notifyListener();
+//                }
+//            });
+//            return super.onApplyWindowInsets(insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
+//                    insets.getSystemWindowInsetRight(), lockHeight ? 0 : insets.getSystemWindowInsetBottom()));
+//        } else {
+//            return super.onApplyWindowInsets(insets);
+//        }
+//    }
 
-            /*键盘弹出监听事件*/
-            if (mOnWindowInsetsListener != null) {
-                mOnWindowInsetsListener.onWindowInsets(insets.getSystemWindowInsetLeft(),
-                        insets.getSystemWindowInsetTop(),
-                        insets.getSystemWindowInsetRight(),
-                        insets.getSystemWindowInsetBottom());
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void notifyListener() {
+         /*键盘弹出监听事件*/
+        if (mOnWindowInsetsListeners != null) {
+            for (OnWindowInsetsListener listener : mOnWindowInsetsListeners) {
+                listener.onWindowInsets(mInsets[0], mInsets[1], mInsets[2], mInsets[3]);
             }
-            return super.onApplyWindowInsets(insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
-                    insets.getSystemWindowInsetRight(), lockHeight ? 0 : insets.getSystemWindowInsetBottom()));
-        } else {
-            return super.onApplyWindowInsets(insets);
         }
     }
 
-    public UILayoutImpl setOnWindowInsetsListener(OnWindowInsetsListener listener) {
-        this.mOnWindowInsetsListener = listener;
+    public UILayoutImpl addOnWindowInsetsListener(OnWindowInsetsListener listener) {
+        if (listener == null) {
+            return this;
+        }
+        if (mOnWindowInsetsListeners == null) {
+            mOnWindowInsetsListeners = new ArrayList<>();
+        }
+        this.mOnWindowInsetsListeners.add(listener);
+        return this;
+    }
+
+    public UILayoutImpl removeOnWindowInsetsListener(OnWindowInsetsListener listener) {
+        if (listener == null || mOnWindowInsetsListeners == null) {
+            return this;
+        }
+        this.mOnWindowInsetsListeners.remove(listener);
         return this;
     }
 
@@ -629,10 +831,27 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     }
 
     /**
+     * 获取底部装饰物的高度 , 通常是键盘的高度
+     */
+    public int getInsersBottom() {
+        return mInsets[3];
+    }
+
+    public void hideSoftInput() {
+        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(getWindowToken(), 0);
+    }
+
+    public void showSoftInput() {
+        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.showSoftInputFromInputMethod(getWindowToken(), 0);
+    }
+
+
+    /**
      * 当窗口需要插入装饰空间时,回调. 比如显示键盘,显示状态栏的时候.
      */
     public interface OnWindowInsetsListener {
         void onWindowInsets(int insetLeft, int insetTop, int insetRight, int insetBottom);
     }
-
 }

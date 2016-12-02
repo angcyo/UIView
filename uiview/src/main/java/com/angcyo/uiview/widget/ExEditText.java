@@ -205,4 +205,12 @@ public class ExEditText extends AppCompatEditText {
         // And restore the cursor position
         setSelection(selection);
     }
+
+    /**
+     * 判断是否是手机号码
+     */
+    public boolean isPhone() {
+        final String phone = getText().toString();
+        return !TextUtils.isEmpty(phone) && phone.matches("^1[3-8]\\d{9}$");
+    }
 }

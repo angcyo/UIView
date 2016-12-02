@@ -16,6 +16,7 @@ import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.view.UIIViewImpl;
+import com.angcyo.uiview.widget.SoftInputLayout;
 
 import butterknife.ButterKnife;
 
@@ -34,7 +35,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     /**
      * 根布局,和父类中的 {@link #mRootView} 相同, 包含标题栏
      */
-    protected RelativeLayout mBaseRootLayout;
+    protected SoftInputLayout mBaseRootLayout;
 
     /**
      * 所有内容的根布局, 不包含标题栏
@@ -77,7 +78,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         //包含标题栏的根布局
-        mBaseRootLayout = new RelativeLayout(mContext);
+        mBaseRootLayout = new SoftInputLayout(mContext);
         mBaseRootId = View.generateViewId();
         mBaseRootLayout.setId(mBaseRootId);
         mBaseRootLayout.setClickable(true);

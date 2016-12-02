@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:orientation="vertical">
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"/>-->
+    android:layout_centerInParent="true"
+    android:tag="view_dialog_login_layout"
+    android:layout_margin="10dp"
+    android:background="@drawable/base_white_round_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <include
         android:id="@+id/login_base_layout"
@@ -23,15 +22,5 @@
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:text="登录"/>
-
-    <TextView
-        android:id="@+id/dialog_login_button"
-        style="@style/BaseMainColorButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="10dp"
-        android:text="对话框形式登录"/>
 
 </LinearLayout>

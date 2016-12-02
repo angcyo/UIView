@@ -11,6 +11,9 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.base.UIIDialogImpl;
 
 /**
+ *
+ * 标准形式的对话框
+ *
  * Created by angcyo on 2016-11-16.
  */
 

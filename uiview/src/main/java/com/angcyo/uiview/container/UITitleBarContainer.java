@@ -178,7 +178,7 @@ public class UITitleBarContainer extends FrameLayout {
         /*标题*/
         mTitleView.setText(mTitleBarPattern.mTitleString);
         mTitleBarPattern.setTextViewSize(mTitleView);
-        if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString)) {
+        if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString) && mTitleBarPattern.titleAnim) {
             ViewCompat.setTranslationY(mTitleView, -itemSize);
             ViewCompat.animate(mTitleView).translationY(0)
                     .setInterpolator(new DecelerateInterpolator())
