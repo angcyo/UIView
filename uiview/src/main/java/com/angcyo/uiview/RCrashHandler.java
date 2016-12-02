@@ -322,6 +322,12 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
 
         ex.printStackTrace();
 
+        try {
+            saveToSDCard(ex);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 //        if (!isShow) {
             /*注意下面的代码, 不能少哦*/
 //            if (defaultUncaughtExceptionHandler != null) {
@@ -331,7 +337,13 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
 //            }
 //        }
 
-//        System.exit(0);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.exit(0);
         Process.killProcess(Process.myPid());
     }
 
@@ -342,8 +354,15 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     private void saveToSDCard(Throwable ex) throws Exception {
-        File file = new File(getSaveFolder(context.getPackageName() + File.separator + DEFAULT_LOG_DIR,
-                getDataTime("yyyy-MM-dd-HH-mm-ss") + FILE_NAME_SUFFIX));
+        String saveFolder = Environment.getExternalStorageDirectory().getAbsoluteFile() +
+                File.separator + "UIView" + File.separator + DEFAULT_LOG_DIR;
+        File folder = new File(saveFolder);
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                return;
+            }
+        }
+        File file = new File(saveFolder, getDataTime("yyyy-MM-dd-HH-mm-ss") + FILE_NAME_SUFFIX);
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
         // 导出发生异常的时间
         pw.println(getDataTime("yyyy-MM-dd-HH-mm-ss"));

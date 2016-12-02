@@ -70,12 +70,16 @@ public abstract class UIBaseView extends UIIViewImpl {
 
     protected View.OnClickListener mNonetSettingClickListener, mNonetRefreshClickListener;
 
-    private int mUITitleBarId = View.NO_ID;
+    public static int mUITitleBarId = View.NO_ID;
+    public static int mBaseRootId = View.NO_ID;
+    public static int mBaseContentRootId = View.NO_ID;
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         //包含标题栏的根布局
         mBaseRootLayout = new RelativeLayout(mContext);
+        mBaseRootId = View.generateViewId();
+        mBaseRootLayout.setId(mBaseRootId);
         mBaseRootLayout.setClickable(true);
         mBaseRootLayout.setEnabled(true);
         mBaseRootLayout.setOnClickListener(new View.OnClickListener() {
@@ -94,11 +98,13 @@ public abstract class UIBaseView extends UIIViewImpl {
             mBaseRootLayout.addView(mUITitleBarContainer, new ViewGroup.LayoutParams(-1, -2));
         }
 
-        //内容根布局
+        //内容根布局, 包含空布局,加载布局等
         mBaseContentRootLayout = new FrameLayout(mContext);
+        mBaseContentRootId = View.generateViewId();
+        mBaseContentRootLayout.setId(mBaseContentRootId);
 
+        //内容包裹布局
         mBaseContentLayout = new RelativeLayout(mContext);
-        mBaseContentLayout.setId(View.generateViewId());
 
         mBaseContentRootLayout.addView(mBaseContentLayout, new ViewGroup.LayoutParams(-1, -1));
         mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,

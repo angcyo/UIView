@@ -2,13 +2,11 @@ package com.angcyo.uiview.container;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -49,6 +47,13 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      */
     private boolean isFinishing = false;
     private OnWindowInsetsListener mOnWindowInsetsListener;
+
+    private int[] mInsets = new int[4];
+
+    /**
+     * 锁定高度, 当键盘弹出的时候, 可以不改变size
+     */
+    private boolean lockHeight = false;
 
     public UILayoutImpl(Context context) {
         super(context);
@@ -154,7 +159,6 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         if (lastViewPattern != null) {
             lastViewPattern.mIView.onViewShow();//2:
         }
-
         mLastShowViewPattern = lastViewPattern;
     }
 
@@ -594,59 +598,34 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
-
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    @Override
     public WindowInsets onApplyWindowInsets(WindowInsets insets) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int insetBottom = insets.getSystemWindowInsetBottom();
+            mInsets[0] = insets.getSystemWindowInsetLeft();
+            mInsets[1] = insets.getSystemWindowInsetTop();
+            mInsets[2] = insets.getSystemWindowInsetRight();
+            mInsets[3] = insets.getSystemWindowInsetBottom();
 
-            if (insetBottom > 100) {
-                setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight() - insetBottom);
-            } else {
-                setMeasuredDimension(getMeasuredWidth(), getMeasuredHeight() + insetBottom);
-            }
-
+            /*键盘弹出监听事件*/
             if (mOnWindowInsetsListener != null) {
                 mOnWindowInsetsListener.onWindowInsets(insets.getSystemWindowInsetLeft(),
                         insets.getSystemWindowInsetTop(),
                         insets.getSystemWindowInsetRight(),
-                        insetBottom);
+                        insets.getSystemWindowInsetBottom());
             }
+            return super.onApplyWindowInsets(insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
+                    insets.getSystemWindowInsetRight(), lockHeight ? 0 : insets.getSystemWindowInsetBottom()));
+        } else {
+            return super.onApplyWindowInsets(insets);
         }
-        return super.onApplyWindowInsets(insets);
-    }
-
-    @Override
-    protected void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
     }
 
     public UILayoutImpl setOnWindowInsetsListener(OnWindowInsetsListener listener) {
         this.mOnWindowInsetsListener = listener;
         return this;
+    }
+
+    public void setLockHeight(boolean lockHeight) {
+        this.lockHeight = lockHeight;
     }
 
     /**
