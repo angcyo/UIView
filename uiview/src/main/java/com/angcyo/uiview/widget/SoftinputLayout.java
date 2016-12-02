@@ -10,6 +10,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uiview.container.IWindowInsetsListener;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.view.ILifecycle;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  */
 public class SoftInputLayout extends RelativeLayout implements ILifecycle {
     boolean isViewShow = false;
-    private ArrayList<SoftInputLayout.OnWindowInsetsListener> mOnWindowInsetsListeners;
+    private ArrayList<IWindowInsetsListener> mOnWindowInsetsListeners;
     private int[] mInsets = new int[4];
     /**
      * 锁定高度, 当键盘弹出的时候, 可以不改变size
@@ -118,13 +119,13 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
     private void notifyListener() {
          /*键盘弹出监听事件*/
         if (mOnWindowInsetsListeners != null) {
-            for (SoftInputLayout.OnWindowInsetsListener listener : mOnWindowInsetsListeners) {
+            for (IWindowInsetsListener listener : mOnWindowInsetsListeners) {
                 listener.onWindowInsets(mInsets[0], mInsets[1], mInsets[2], mInsets[3]);
             }
         }
     }
 
-    public SoftInputLayout addOnWindowInsetsListener(SoftInputLayout.OnWindowInsetsListener listener) {
+    public SoftInputLayout addOnWindowInsetsListener(IWindowInsetsListener listener) {
         if (listener == null) {
             return this;
         }
@@ -135,7 +136,7 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
         return this;
     }
 
-    public SoftInputLayout removeOnWindowInsetsListener(SoftInputLayout.OnWindowInsetsListener listener) {
+    public SoftInputLayout removeOnWindowInsetsListener(IWindowInsetsListener listener) {
         if (listener == null || mOnWindowInsetsListeners == null) {
             return this;
         }
@@ -174,13 +175,5 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
     public void onViewHide() {
         isViewShow = false;
         lockHeight = true;
-    }
-
-
-    /**
-     * 当窗口需要插入装饰空间时,回调. 比如显示键盘,显示状态栏的时候.
-     */
-    public interface OnWindowInsetsListener {
-        void onWindowInsets(int insetLeft, int insetTop, int insetRight, int insetBottom);
     }
 }

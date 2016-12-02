@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.demo.R;
 import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.container.IWindowInsetsListener;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.utils.T;
 
@@ -26,7 +27,7 @@ import butterknife.OnClick;
  */
 public class LoginView extends UIBaseView {
 
-    private UILayoutImpl.OnWindowInsetsListener mWindowInsetsListener = new UILayoutImpl.OnWindowInsetsListener() {
+    private IWindowInsetsListener mWindowInsetsListener = new IWindowInsetsListener() {
         @Override
         public void onWindowInsets(int insetLeft, int insetTop, int insetRight, int insetBottom) {
             View targetView = mBaseContentLayout.getChildAt(0);
@@ -76,14 +77,14 @@ public class LoginView extends UIBaseView {
     @Override
     public void onViewShow() {
         super.onViewShow();
-//        mUILayout.addOnWindowInsetsListener(mWindowInsetsListener);
+        mBaseRootLayout.addOnWindowInsetsListener(mWindowInsetsListener);
 //        mUILayout.setLockHeight(true);
     }
 
     @Override
     public void onViewHide() {
         super.onViewHide();
-//        mUILayout.removeOnWindowInsetsListener(mWindowInsetsListener);
+        mBaseRootLayout.removeOnWindowInsetsListener(mWindowInsetsListener);
 //        mUILayout.setLockHeight(false);
 
     }

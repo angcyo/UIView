@@ -49,7 +49,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      * 是否正在退出
      */
     private boolean isFinishing = false;
-    private ArrayList<OnWindowInsetsListener> mOnWindowInsetsListeners;
+    private ArrayList<IWindowInsetsListener> mIWindowInsetsListeners;
 
     private int[] mInsets = new int[4];
 
@@ -800,29 +800,29 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
 
     private void notifyListener() {
          /*键盘弹出监听事件*/
-        if (mOnWindowInsetsListeners != null) {
-            for (OnWindowInsetsListener listener : mOnWindowInsetsListeners) {
+        if (mIWindowInsetsListeners != null) {
+            for (IWindowInsetsListener listener : mIWindowInsetsListeners) {
                 listener.onWindowInsets(mInsets[0], mInsets[1], mInsets[2], mInsets[3]);
             }
         }
     }
 
-    public UILayoutImpl addOnWindowInsetsListener(OnWindowInsetsListener listener) {
+    public UILayoutImpl addIWindowInsetsListener(IWindowInsetsListener listener) {
         if (listener == null) {
             return this;
         }
-        if (mOnWindowInsetsListeners == null) {
-            mOnWindowInsetsListeners = new ArrayList<>();
+        if (mIWindowInsetsListeners == null) {
+            mIWindowInsetsListeners = new ArrayList<>();
         }
-        this.mOnWindowInsetsListeners.add(listener);
+        this.mIWindowInsetsListeners.add(listener);
         return this;
     }
 
-    public UILayoutImpl removeOnWindowInsetsListener(OnWindowInsetsListener listener) {
-        if (listener == null || mOnWindowInsetsListeners == null) {
+    public UILayoutImpl removeIWindowInsetsListener(IWindowInsetsListener listener) {
+        if (listener == null || mIWindowInsetsListeners == null) {
             return this;
         }
-        this.mOnWindowInsetsListeners.remove(listener);
+        this.mIWindowInsetsListeners.remove(listener);
         return this;
     }
 
@@ -845,13 +845,5 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     public void showSoftInput() {
         InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.showSoftInputFromInputMethod(getWindowToken(), 0);
-    }
-
-
-    /**
-     * 当窗口需要插入装饰空间时,回调. 比如显示键盘,显示状态栏的时候.
-     */
-    public interface OnWindowInsetsListener {
-        void onWindowInsets(int insetLeft, int insetTop, int insetRight, int insetBottom);
     }
 }
