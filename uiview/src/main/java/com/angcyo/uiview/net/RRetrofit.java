@@ -19,22 +19,22 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  */
 public class RRetrofit {
     public static String BASE_URL = "http://192.168.1.156:8081/app/";
-    //切换服务器, 1外网 -1内网
-    public static void switchHttp(int type) {
-        if (type >= 1) {
-            BASE = "http://zan.eeniao.com/";
-            BASE_URL = "http://zan.eeniao.com/app/";
-            BASE_IMAGE_URL = "http://zan.eeniao.com/upload/";
-            BASE_LOGO_URL = "http://zan.eeniao.com/static/images/reglogo.png";
-        } else if (type <= -1) {
-            BASE = "http://192.168.1.156:8081/";
-            BASE_URL = "http://192.168.1.156:8081/app/";
-            BASE_IMAGE_URL = "http://192.168.1.156:8081/upload/";
-            BASE_LOGO_URL = "http://192.168.1.156:8081/static/images/reglogo.png";
-        }
-        HnUrl.SERVER = BASE_URL;
-        HnUrl.FILE_UPLOAD_API = BASE_IMAGE_URL + "index.php";
-    }
+    //    //切换服务器, 1外网 -1内网
+//    public static void switchHttp(int type) {
+//        if (type >= 1) {
+//            BASE = "http://zan.eeniao.com/";
+//            BASE_URL = "http://zan.eeniao.com/app/";
+//            BASE_IMAGE_URL = "http://zan.eeniao.com/upload/";
+//            BASE_LOGO_URL = "http://zan.eeniao.com/static/images/reglogo.png";
+//        } else if (type <= -1) {
+//            BASE = "http://192.168.1.156:8081/";
+//            BASE_URL = "http://192.168.1.156:8081/app/";
+//            BASE_IMAGE_URL = "http://192.168.1.156:8081/upload/";
+//            BASE_LOGO_URL = "http://192.168.1.156:8081/static/images/reglogo.png";
+//        }
+//        HnUrl.SERVER = BASE_URL;
+//        HnUrl.FILE_UPLOAD_API = BASE_IMAGE_URL + "index.php";
+//    }
     public static boolean DEBUG = true;
 
     public static <T> T create(final Class<T> cls) {
