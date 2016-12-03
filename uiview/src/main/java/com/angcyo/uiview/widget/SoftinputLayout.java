@@ -1,6 +1,7 @@
 package com.angcyo.uiview.widget;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -86,6 +87,11 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
                 }
             }
         }
+    }
+
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+        return super.fitSystemWindows(insets);
     }
 
     @Override
