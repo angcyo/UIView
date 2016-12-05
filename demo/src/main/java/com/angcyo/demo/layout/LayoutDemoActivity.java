@@ -4,7 +4,7 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.angcyo.demo.uiview.ScrollerIView;
+import com.angcyo.demo.uiview3.view.RefreshLayoutDemo;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UILayoutActivity;
 
@@ -32,7 +32,9 @@ public class LayoutDemoActivity extends UILayoutActivity {
             }
         });
 
-        mLayout.startIView(new ScrollerIView());
+//        mLayout.startIView(new ScrollerIView());
+
+        mLayout.startIView(new RefreshLayoutDemo());
 
         //mLayout.startIView(new TestDemo());
     }
