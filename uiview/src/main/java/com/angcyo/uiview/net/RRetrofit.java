@@ -5,7 +5,6 @@ import com.angcyo.uiview.net.cookie.CookieJarImpl;
 import com.angcyo.uiview.net.cookie.store.PersistentCookieStore;
 import com.github.simonpercic.oklog3.OkLogInterceptor;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import okhttp3.Call;
@@ -18,7 +17,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * Created by angcyo on 2016-03-20 23:53.
  */
 public class RRetrofit {
-    public static String BASE_URL = "http://192.168.1.156:8081/app/";
+    public static String BASE_URL = "http://zan.eeniao.com/app/";
     //    //切换服务器, 1外网 -1内网
 //    public static void switchHttp(int type) {
 //        if (type >= 1) {
@@ -70,14 +69,7 @@ public class RRetrofit {
             final Class<?> factoryName = Class.forName(className);
             final Method create = factoryName.getMethod("create");
             factory = (Converter.Factory) create.invoke(null);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
         return factory;
     }

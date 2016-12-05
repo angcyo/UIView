@@ -4,6 +4,8 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.support.multidex.MultiDex;
+import android.telephony.TelephonyManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.hawk.Hawk;
@@ -43,6 +45,13 @@ import java.util.List;
 public class RApplication extends Application {
 
     private static RApplication app;
+
+    /**
+     * 获取设备唯一标识码
+     */
+    public static String getIMEI() {
+        return ((TelephonyManager) getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+    }
 
     /**
      * 确保只初始化一次
@@ -94,7 +103,7 @@ public class RApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        app = this;
         if (isInitOnce(this)) {
 
             /*崩溃异常处理*/
@@ -117,6 +126,6 @@ public class RApplication extends Application {
         super.attachBaseContext(base);
         app = this;
         /*65535限制*/
-        //MultiDex.install(this);
+        MultiDex.install(this);
     }
 }

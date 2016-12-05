@@ -18,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     sourceSets {
         main {
@@ -60,11 +61,13 @@ android {
 //        }
 
 
+    dexOptions {
+        incremental true
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':uiview')
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

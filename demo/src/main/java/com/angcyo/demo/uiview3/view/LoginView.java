@@ -1,17 +1,24 @@
 package com.angcyo.demo.uiview3.view;
 
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.angcyo.demo.R;
+import com.angcyo.demo.RApp;
+import com.angcyo.demo.uiview3.login.Login;
+import com.angcyo.demo.uiview3.login.LoginPresenterImpl;
+import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.container.IWindowInsetsListener;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.utils.T;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -25,8 +32,12 @@ import butterknife.OnClick;
  * 修改备注：
  * Version: 1.0.0
  */
-public class LoginView extends UIBaseView {
+public class LoginView extends UIBaseView implements Login.ILoginView {
 
+    @BindView(R.id.phone_view)
+    TextView mPhoneView;
+    @BindView(R.id.password_view)
+    TextView mPasswordView;
     private IWindowInsetsListener mWindowInsetsListener = new IWindowInsetsListener() {
         @Override
         public void onWindowInsets(int insetLeft, int insetTop, int insetRight, int insetBottom) {
@@ -47,6 +58,7 @@ public class LoginView extends UIBaseView {
         }
     };
     private UILayoutImpl mUILayout;
+    private Login.ILoginPresenter mLoginPresenter = new LoginPresenterImpl();
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
@@ -62,11 +74,13 @@ public class LoginView extends UIBaseView {
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
         showContentLayout();
+        mLoginPresenter.bindView(this);
     }
 
     @OnClick(R.id.login_button)
     public void onLoginButton() {
         T.show(mContext, "登录");
+        mLoginPresenter.startLogin(mPhoneView.getText().toString(), mPasswordView.getText().toString(), "phone", RApp.getIMEI());
     }
 
     @OnClick(R.id.dialog_login_button)
@@ -87,5 +101,25 @@ public class LoginView extends UIBaseView {
         mBaseRootLayout.removeOnWindowInsetsListener(mWindowInsetsListener);
 //        mUILayout.setLockHeight(false);
 
+    }
+
+    @Override
+    public void onStartLoad() {
+        L.w("");
+    }
+
+    @Override
+    public void onFinishLoad() {
+        L.w("");
+    }
+
+    @Override
+    public void onSuccess() {
+        L.w("");
+    }
+
+    @Override
+    public void onError(int code, @NonNull String msg) {
+        L.w("");
     }
 }

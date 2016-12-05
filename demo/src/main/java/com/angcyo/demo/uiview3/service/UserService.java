@@ -2,7 +2,7 @@ package com.angcyo.demo.uiview3.service;
 
 import com.angcyo.demo.uiview3.bean.Bean;
 
-import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -18,7 +18,7 @@ import rx.Observable;
  * Version: 1.0.0
  */
 public interface UserService {
-    @GET("1/login")
+    @POST("1/login")
     Observable<Bean<String>> login(@Query("authtoken") String authtoken,
                                    @Query("authsecret") String authsecret,
                                    @Query("authtype") String authtype,

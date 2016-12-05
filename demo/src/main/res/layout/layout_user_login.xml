@@ -10,13 +10,15 @@
         android:layout_height="wrap_content">
 
         <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/phone_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="用户名"
             android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLength="11"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:text="14529293075"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -24,12 +26,14 @@
         android:layout_height="wrap_content">
 
         <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/password_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="密码"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:tag="password"/>
+            android:tag="password"
+            android:text="123456"/>
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>
