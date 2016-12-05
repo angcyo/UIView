@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ import java.util.ArrayList;
 
 public class UITitleBarContainer extends FrameLayout {
 
+    protected RBaseViewHolder mBaseViewHolder;
+
     protected ILayout mILayout;
     protected ViewGroup mTitleBarLayout;
     protected LinearLayout mLeftControlLayout;
@@ -40,6 +43,7 @@ public class UITitleBarContainer extends FrameLayout {
     protected LinearLayout mRightControlLayout;
     protected ImageView mBackImageView;
     protected TextView mTitleView;
+    protected View mLoadView;
 
     protected TitleBarPattern mTitleBarPattern;
     protected boolean isAttachedToWindow;
@@ -81,12 +85,25 @@ public class UITitleBarContainer extends FrameLayout {
     /**
      * 在旧的标题栏上, 应用一个新的标题栏的信息
      */
-    public void appendTitleBarPattern(TitleBarPattern titleBarPattern) {
+    public UITitleBarContainer appendTitleBarPattern(TitleBarPattern titleBarPattern) {
         TitleBarPattern.fix(titleBarPattern, mTitleBarPattern);
         if (isAttachedToWindow) {
             loadTitleBar();
         }
+        return this;
     }
+
+    public UITitleBarContainer showLoadView() {
+        mLoadView.setVisibility(View.VISIBLE);
+        return this;
+    }
+
+    public UITitleBarContainer hideLoadView() {
+        mLoadView.setVisibility(View.GONE);
+        return this;
+    }
+
+    //----------------------------保护方法-----------------------------
 
     @Override
     protected void onAttachedToWindow() {
@@ -100,13 +117,13 @@ public class UITitleBarContainer extends FrameLayout {
         });
     }
 
-    //----------------------------保护方法-----------------------------
-
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         isAttachedToWindow = false;
     }
+
+    //----------------------------私有方法-----------------------------
 
     private void initTitleBar(Context context) {
 //        if (context instanceof Activity) {
@@ -118,12 +135,14 @@ public class UITitleBarContainer extends FrameLayout {
 //        }
 
         final View root = LayoutInflater.from(context).inflate(R.layout.base_title_layout, this);
+        mBaseViewHolder = new RBaseViewHolder(root);
         mTitleBarLayout = (ViewGroup) root.findViewById(R.id.base_title_bar_layout);
         mLeftControlLayout = (LinearLayout) root.findViewById(R.id.base_left_control_layout);
         mCenterControlLayout = (ViewGroup) root.findViewById(R.id.base_center_control_layout);
         mRightControlLayout = (LinearLayout) root.findViewById(R.id.base_right_control_layout);
         mBackImageView = (ImageView) root.findViewById(R.id.base_back_image_view);
         mTitleView = (TextView) root.findViewById(R.id.base_title_view);
+        mLoadView = mBaseViewHolder.v(R.id.base_load_view);
 
         if (context instanceof Activity) {
             if (ResUtil.isLayoutFullscreen((Activity) context)) {
@@ -139,8 +158,6 @@ public class UITitleBarContainer extends FrameLayout {
             }
         }
     }
-
-    //----------------------------私有方法-----------------------------
 
     private void loadTitleBar() {
         if (mTitleBarPattern == null) {

@@ -3,12 +3,9 @@ package com.angcyo.demo.uiview3.login;
 import com.angcyo.demo.mvp.presenter.BasePresenter;
 import com.angcyo.demo.uiview3.bean.Bean;
 import com.angcyo.demo.uiview3.service.UserService;
-import com.angcyo.library.utils.L;
 import com.angcyo.uiview.net.RRetrofit;
 import com.angcyo.uiview.net.TransformUtils;
 import com.angcyo.uiview.net.base.BaseSubscriber;
-
-import rx.functions.Func1;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -27,19 +24,24 @@ public class LoginPresenterImpl extends BasePresenter<Login.ILoginView> implemen
     public void startLogin(String authtoken, String authsecret, String authtype, String uniqueid) {
         RRetrofit.create(UserService.class)
                 .login(authtoken, authsecret, authtype, uniqueid)
-                .map(new Func1<Bean<String>, String>() {
+                .compose(TransformUtils.<Bean<String>>defaultSchedulers())
+                .subscribe(new BaseSubscriber<Bean<String>>() {
                     @Override
-                    public String call(Bean<String> stringBean) {
-                        L.e("code:" + stringBean.getC() + " msg:" + stringBean.getM());
-                        return "Hello";
+                    public void onStart() {
+                        mBaseView.onStartLoad();
                     }
-                })
-                .compose(TransformUtils.<String>defaultSchedulers())
-                .subscribe(new BaseSubscriber<String>() {
+
                     @Override
-                    public void onNext(String stringBean) {
-//                        L.e("code:" + stringBean.getC() + " msg:" + stringBean.getM());
-                        L.e("");
+                    public void onResult(boolean success, Bean<String> bean, String msg) {
+                        if (success) {
+                            if (bean.getC() == 1) {
+                                mBaseView.onSuccess();
+                            } else {
+                                mBaseView.onError(bean.getC(), bean.getM());
+                            }
+                        } else {
+                            mBaseView.onError(1, msg);
+                        }
                     }
                 });
     }

@@ -29,11 +29,15 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        L.e("");
+        onResult(false, null, e.getMessage());
     }
 
     @Override
     public void onNext(T t) {
-        L.e("");
+        onResult(true, t, "请求成功");
+    }
+
+    public void onResult(boolean success, T bean, String msg) {
+
     }
 }

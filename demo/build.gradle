@@ -20,13 +20,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res/'
-            ]
-        }
-    }
+//    sourceSets {
+//        main {
+//            res.srcDirs = [
+//                    'src/main/res/'
+//            ]
+//        }
+//    }
     buildTypes {
         release {
             //applicationIdSuffix ".release"

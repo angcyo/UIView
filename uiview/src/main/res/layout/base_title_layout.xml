@@ -43,6 +43,15 @@
             android:textColor="@color/default_base_white"
             android:textSize="@dimen/base_title_size"
             tools:text="标题"/>
+
+        <com.angcyo.uiview.github.load.AVLoadingIndicatorView
+            android:id="@+id/base_load_view"
+            android:layout_width="@dimen/base_load_view_size"
+            android:layout_height="@dimen/base_load_view_size"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/base_ldp"
+            android:layout_toLeftOf="@id/base_title_view"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 
