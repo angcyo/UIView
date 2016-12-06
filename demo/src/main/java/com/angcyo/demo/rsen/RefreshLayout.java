@@ -29,11 +29,33 @@ import java.util.ArrayList;
  * Version: 1.0.0
  */
 public class RefreshLayout extends ViewGroup {
+    /**
+     * 不支持刷新和上拉
+     */
     public static final int NONE = -1;
+    /**
+     * 支持刷新,或者刷新中
+     */
     public static final int TOP = 1;
+    /**
+     * 支持上拉,或者上拉中
+     */
     public static final int BOTTOM = 2;
+    /**
+     * 支持刷新和上拉
+     */
     public static final int BOTH = 3;
+    /**
+     * 刷新,上拉控件 正在移动中
+     */
     public static final int MOVE = 4;
+    /**
+     * 刷新,上拉 完成
+     */
+    public static final int FINISH = 5;
+    /**
+     * 正常
+     */
     public static final int NORMAL = 0;
     float downY, lastY;
     private View mTopView, mBottomView, mTargetView;
@@ -59,6 +81,7 @@ public class RefreshLayout extends ViewGroup {
 
     private ArrayList<OnTopViewMoveListener> mTopViewMoveListeners = new ArrayList<>();
     private ArrayList<OnBottomViewMoveListener> mBottomViewMoveListeners = new ArrayList<>();
+    private ArrayList<OnRefreshListener> mRefreshListeners = new ArrayList<>();
 
     public RefreshLayout(Context context) {
         super(context);
@@ -147,17 +170,13 @@ public class RefreshLayout extends ViewGroup {
             float dy = y - downY;
             if (Math.abs(dy) > mTouchSlop) {
                 int scrollY = getScrollY();
-                if (mCurState == TOP && dy < 0) {
+                if (mCurState == TOP && dy < 0 && scrollY < 0) {
                     //如果已经处理加载状态, 通过滚动, View 隐藏, 使得内容全屏显示
-                    if (Math.abs(scrollY) <= mTopView.getMeasuredHeight()) {
-                        scrollTo(0, (int) (scrollY - dy));
-                    }
+                    scrollTo(0, (int) Math.min(0, (scrollY - dy)));
                     downY = event.getY();
                     return super.onInterceptTouchEvent(event);
-                } else if (mCurState == BOTTOM && dy > 0) {
-                    if (Math.abs(scrollY) <= mBottomView.getMeasuredHeight()) {
-                        scrollTo(0, (int) (scrollY - dy));
-                    }
+                } else if (mCurState == BOTTOM && dy > 0 && scrollY > 0) {
+                    scrollTo(0, (int) Math.max(0, scrollY - dy));
                     downY = event.getY();
                     return super.onInterceptTouchEvent(event);
                 } else {
@@ -192,6 +211,9 @@ public class RefreshLayout extends ViewGroup {
             if (Math.abs(dy) > mTouchSlop) {
                 scrollBy(0, (int) (dy * (1 - 0.4 - Math.abs(getScrollY()) * 1.f / getMeasuredHeight())));
                 lastY = y;
+                if (mCurState != FINISH) {
+                    mCurState = MOVE;
+                }
             }
         } else if (action == MotionEvent.ACTION_POINTER_DOWN) {
             //多个手指按下
@@ -209,35 +231,28 @@ public class RefreshLayout extends ViewGroup {
 
         if (scrollY < 0) {
             //处理刷新
-            if (mTopView == null) {
+            if (mTopView == null || mCurState == FINISH) {
                 resetScroll();
                 return;
             }
 
             int height = mTopView.getMeasuredHeight();
             if (rawY > height) {
-                mCurState = TOP;
-
-                startScroll(-height);
+                refreshTop();
             } else {
-                mCurState = NORMAL;
-
                 resetScroll();
             }
         } else if (scrollY > 0) {
             //处理加载
-            if (mBottomView == null) {
+            if (mBottomView == null || mCurState == FINISH) {
                 resetScroll();
                 return;
             }
 
             int height = mBottomView.getMeasuredHeight();
             if (rawY > height) {
-                mCurState = BOTTOM;
-
-                startScroll(height);
+                refreshBottom();
             } else {
-                mCurState = NORMAL;
                 resetScroll();
             }
         }
@@ -245,9 +260,60 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
+     * 设置支持刷新的方向
+     */
+    public void setRefreshDirection(@Direction int direction) {
+        mDirection = direction;
+    }
+
+    /**
+     * 设置当前刷新的状态
+     */
+    public void setRefreshState(@State int state) {
+        if (mCurState == NORMAL) {
+            if (state == TOP) {
+                if (mDirection == TOP || mDirection == BOTH) {
+                    refreshTop();
+                }
+            } else if (state == BOTTOM) {
+                if (mDirection == BOTTOM || mDirection == BOTH) {
+                    refreshBottom();
+                }
+            }
+        } else {
+            return;
+        }
+    }
+
+    private void refreshTop() {
+        if (mTopView != null) {
+            //设置正在刷新
+            mCurState = TOP;
+            startScroll(-mTopView.getMeasuredHeight());
+
+            for (OnRefreshListener listener : mRefreshListeners) {
+                listener.onRefresh(TOP);
+            }
+        }
+    }
+
+    private void refreshBottom() {
+        if (mBottomView != null) {
+            //设置正在上拉
+            mCurState = BOTTOM;
+            startScroll(mBottomView.getMeasuredHeight());
+
+            for (OnRefreshListener listener : mRefreshListeners) {
+                listener.onRefresh(BOTTOM);
+            }
+        }
+    }
+
+    /**
      * 恢复到默认的滚动状态
      */
     private void resetScroll() {
+        mCurState = NORMAL;
         startScroll(0);
     }
 
@@ -296,6 +362,27 @@ public class RefreshLayout extends ViewGroup {
 
     public RefreshLayout addBottomViewMoveListener(OnBottomViewMoveListener listener) {
         mBottomViewMoveListeners.add(listener);
+        return this;
+    }
+
+    public RefreshLayout addRefreshListener(OnRefreshListener listener) {
+        mRefreshListeners.add(listener);
+        return this;
+    }
+
+
+    public RefreshLayout removeTopViewMoveListener(OnTopViewMoveListener listener) {
+        mTopViewMoveListeners.remove(listener);
+        return this;
+    }
+
+    public RefreshLayout removeBottomViewMoveListener(OnBottomViewMoveListener listener) {
+        mBottomViewMoveListeners.remove(listener);
+        return this;
+    }
+
+    public RefreshLayout removeRefreshListener(OnRefreshListener listener) {
+        mRefreshListeners.remove(listener);
         return this;
     }
 
@@ -373,7 +460,7 @@ public class RefreshLayout extends ViewGroup {
     /**
      * 当前的刷新状态
      */
-    @IntDef({TOP, BOTTOM, NORMAL, MOVE})
+    @IntDef({TOP, BOTTOM, NORMAL, MOVE, FINISH})
     @Retention(RetentionPolicy.SOURCE)
     public @interface State {
     }
@@ -394,5 +481,11 @@ public class RefreshLayout extends ViewGroup {
         void onBottomMoveTo(View view, int bottom, int maxHeight);
     }
 
+    /**
+     * 刷新,上拉回调
+     */
+    public interface OnRefreshListener {
+        void onRefresh(@Direction int direction);
+    }
 
 }
