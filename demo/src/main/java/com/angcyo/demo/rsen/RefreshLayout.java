@@ -211,7 +211,7 @@ public class RefreshLayout extends ViewGroup {
             if (Math.abs(dy) > mTouchSlop) {
                 scrollBy(0, (int) (dy * (1 - 0.4 - Math.abs(getScrollY()) * 1.f / getMeasuredHeight())));
                 lastY = y;
-                if (mCurState != FINISH) {
+                if (mCurState == NORMAL) {
                     mCurState = MOVE;
                 }
             }
@@ -285,6 +285,17 @@ public class RefreshLayout extends ViewGroup {
         }
     }
 
+    /**
+     * 结束刷新
+     */
+    public void setRefreshEnd() {
+        if (isTouchDown) {
+            mCurState = FINISH;
+        } else {
+            resetScroll();
+        }
+    }
+
     private void refreshTop() {
         if (mTopView != null) {
             //设置正在刷新
@@ -332,24 +343,24 @@ public class RefreshLayout extends ViewGroup {
 
         if (scrollY < 0) {
             //刷新
-            if (mTopView != null) {
+            if (mTopView != null /*&& mCurState != TOP*/) {
                 if (mTopView instanceof OnTopViewMoveListener
                         && !mTopViewMoveListeners.contains(mTopView)) {
-                    ((OnTopViewMoveListener) mTopView).onTopMoveTo(this, rawY, mTopView.getMeasuredHeight());
+                    ((OnTopViewMoveListener) mTopView).onTopMoveTo(this, rawY, mTopView.getMeasuredHeight(), mCurState);
                 }
                 for (OnTopViewMoveListener listener : mTopViewMoveListeners) {
-                    listener.onTopMoveTo(mTopView, rawY, mTopView.getMeasuredHeight());
+                    listener.onTopMoveTo(mTopView, rawY, mTopView.getMeasuredHeight(), mCurState);
                 }
             }
         } else if (scrollY > 0) {
             //加载
-            if (mBottomView != null) {
+            if (mBottomView != null /*&& mCurState != BOTTOM*/) {
                 if (mBottomView instanceof OnBottomViewMoveListener
                         && !mBottomViewMoveListeners.contains(mBottomView)) {
-                    ((OnBottomViewMoveListener) mBottomView).onBottomMoveTo(this, rawY, mBottomView.getMeasuredHeight());
+                    ((OnBottomViewMoveListener) mBottomView).onBottomMoveTo(this, rawY, mBottomView.getMeasuredHeight(), mCurState);
                 }
                 for (OnBottomViewMoveListener listener : mBottomViewMoveListeners) {
-                    listener.onBottomMoveTo(mBottomView, rawY, mBottomView.getMeasuredHeight());
+                    listener.onBottomMoveTo(mBottomView, rawY, mBottomView.getMeasuredHeight(), mCurState);
                 }
             }
         }
@@ -470,7 +481,7 @@ public class RefreshLayout extends ViewGroup {
          * @param top       距离父View顶部的距离
          * @param maxHeight view的高度
          */
-        void onTopMoveTo(View view, int top, int maxHeight);
+        void onTopMoveTo(View view, int top, int maxHeight, @State int state);
     }
 
     public interface OnBottomViewMoveListener {
@@ -478,7 +489,7 @@ public class RefreshLayout extends ViewGroup {
          * @param bottom    距离父View底部的距离
          * @param maxHeight view的高度
          */
-        void onBottomMoveTo(View view, int bottom, int maxHeight);
+        void onBottomMoveTo(View view, int bottom, int maxHeight, @State int state);
     }
 
     /**

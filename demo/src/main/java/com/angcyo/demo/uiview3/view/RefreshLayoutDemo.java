@@ -55,11 +55,16 @@ public class RefreshLayoutDemo extends UIBaseDataView {
         initRecyclerView();
         mRefreshLayout.addTopViewMoveListener(new RefreshLayout.OnTopViewMoveListener() {
             @Override
-            public void onTopMoveTo(View view, int top, int maxHeight) {
-                if (top > maxHeight) {
-                    ((TextView) view).setText("释放刷新");
+            public void onTopMoveTo(View view, int top, int maxHeight, @RefreshLayout.State int state) {
+                final TextView textView = (TextView) view;
+                if (state == RefreshLayout.TOP) {
+                    textView.setText("正在刷新,请稍等...");
                 } else {
-                    ((TextView) view).setText("下拉刷新...");
+                    if (top > maxHeight) {
+                        textView.setText("释放刷新");
+                    } else {
+                        textView.setText("下拉刷新...");
+                    }
                 }
 
                 L.w("刷新:::-->" + top + "         :" + maxHeight);
@@ -68,11 +73,16 @@ public class RefreshLayoutDemo extends UIBaseDataView {
 
         mRefreshLayout.addBottomViewMoveListener(new RefreshLayout.OnBottomViewMoveListener() {
             @Override
-            public void onBottomMoveTo(View view, int bottom, int maxHeight) {
-                if (bottom > maxHeight) {
-                    ((TextView) view).setText("释放加载更多");
+            public void onBottomMoveTo(View view, int bottom, int maxHeight, @RefreshLayout.State int state) {
+                final TextView textView = (TextView) view;
+                if (state == RefreshLayout.BOTTOM) {
+                    textView.setText("加载更多种,请稍等...");
                 } else {
-                    ((TextView) view).setText("上拉加载...");
+                    if (bottom > maxHeight) {
+                        textView.setText("释放加载更多");
+                    } else {
+                        textView.setText("上拉加载...");
+                    }
                 }
 
                 L.w("加载:::-->" + bottom + "         :" + maxHeight);
