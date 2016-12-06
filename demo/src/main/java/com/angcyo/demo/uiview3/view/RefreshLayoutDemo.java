@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.demo.rsen.RefreshLayout;
+import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseDataView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseAdapter;
@@ -36,6 +37,9 @@ public class RefreshLayoutDemo extends UIBaseDataView {
         mRefreshLayout = new RefreshLayout(mContext);
         mRecyclerView = new RRecyclerView(mContext);
         mRefreshLayout.addView(mRecyclerView);
+//        TextView textView = new TextView(mContext);
+//        textView.setText("我就是内容.....");
+//        mRefreshLayout.addView(textView);
         baseContentLayout.addView(mRefreshLayout);
     }
 
@@ -48,6 +52,35 @@ public class RefreshLayoutDemo extends UIBaseDataView {
     @Override
     protected void initContentLayout() {
         super.initContentLayout();
+        initRecyclerView();
+        mRefreshLayout.addTopViewMoveListener(new RefreshLayout.OnTopViewMoveListener() {
+            @Override
+            public void onTopMoveTo(View view, int top, int maxHeight) {
+                if (top > maxHeight) {
+                    ((TextView) view).setText("释放刷新");
+                } else {
+                    ((TextView) view).setText("下拉刷新...");
+                }
+
+                L.w("刷新:::-->" + top + "         :" + maxHeight);
+            }
+        });
+
+        mRefreshLayout.addBottomViewMoveListener(new RefreshLayout.OnBottomViewMoveListener() {
+            @Override
+            public void onBottomMoveTo(View view, int bottom, int maxHeight) {
+                if (bottom > maxHeight) {
+                    ((TextView) view).setText("释放加载更多");
+                } else {
+                    ((TextView) view).setText("上拉加载...");
+                }
+
+                L.w("加载:::-->" + bottom + "         :" + maxHeight);
+            }
+        });
+    }
+
+    private void initRecyclerView() {
         mRecyclerView.setAdapter(new RBaseAdapter<String>(mContext) {
             @Override
             protected int getItemLayoutId(int viewType) {
@@ -56,7 +89,7 @@ public class RefreshLayoutDemo extends UIBaseDataView {
 
             @Override
             public int getItemCount() {
-                return 100;
+                return 30;
             }
 
             @Override
