@@ -324,7 +324,9 @@ public class RefreshLayout extends ViewGroup {
      * 恢复到默认的滚动状态
      */
     private void resetScroll() {
-        mCurState = NORMAL;
+        if (mCurState != TOP && mCurState != BOTTOM) {
+            mCurState = NORMAL;
+        }
         startScroll(0);
     }
 
