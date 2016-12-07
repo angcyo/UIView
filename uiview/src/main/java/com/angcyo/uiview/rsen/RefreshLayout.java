@@ -1,4 +1,4 @@
-package com.angcyo.demo.rsen;
+package com.angcyo.uiview.rsen;
 
 import android.content.Context;
 import android.support.annotation.IntDef;

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.demo.rsen.RefreshLayout;
+import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseDataView;
 import com.angcyo.uiview.model.TitleBarPattern;
