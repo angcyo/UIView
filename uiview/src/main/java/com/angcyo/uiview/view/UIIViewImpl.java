@@ -133,8 +133,8 @@ public abstract class UIIViewImpl implements IView {
     }
 
     @Override
-    public Animation loadOtherStartExitAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadOtherStartExitAnimation: ");
+    public Animation loadOtherExitAnimation() {
+        L.d(this.getClass().getSimpleName(), "loadOtherExitAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1f,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
@@ -142,12 +142,22 @@ public abstract class UIIViewImpl implements IView {
     }
 
     @Override
-    public Animation loadOtherFinishEnterAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadOtherFinishEnterAnimation: ");
+    public Animation loadOtherEnterAnimation() {
+        L.d(this.getClass().getSimpleName(), "loadOtherEnterAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation);
         return translateAnimation;
+    }
+
+    @Override
+    public Animation loadOtherHideAnimation() {
+        return loadOtherExitAnimation();
+    }
+
+    @Override
+    public Animation loadOtherShowAnimation() {
+        return loadOtherEnterAnimation();
     }
 
     @Override

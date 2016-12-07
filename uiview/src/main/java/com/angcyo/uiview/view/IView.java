@@ -64,12 +64,16 @@ public interface IView {
     /**
      * 其他View开始开始, 退出的动画
      */
-    Animation loadOtherStartExitAnimation();
+    Animation loadOtherExitAnimation();
 
     /**
      * 其他View结束, 进入的动画
      */
-    Animation loadOtherFinishEnterAnimation();
+    Animation loadOtherEnterAnimation();
+
+    Animation loadOtherHideAnimation();
+
+    Animation loadOtherShowAnimation();
 
     /**
      * 布局动画

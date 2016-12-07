@@ -30,6 +30,11 @@ public class RefreshLayoutDemo extends UIBaseDataView {
 
     @BindView(R.id.content_layout)
     UILayoutImpl mUILayout;
+    private NormalView mNormalView;
+    private WebviewView mWebviewView;
+    private RecyclerView mRecyclerView;
+    private GridView mGridView;
+    private StaggerView mStaggerView;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
@@ -38,7 +43,17 @@ public class RefreshLayoutDemo extends UIBaseDataView {
 
     @Override
     protected void initContentLayout() {
-        super.initContentLayout();
+        mNormalView = new NormalView();
+        mWebviewView = new WebviewView();
+        mRecyclerView = new RecyclerView();
+        mGridView = new GridView();
+        mStaggerView = new StaggerView();
+        mUILayout.startIView(mNormalView, true);
+        mUILayout.startIView(mWebviewView, true);
+        mUILayout.startIView(mRecyclerView, true);
+        mUILayout.startIView(mGridView, true);
+        mUILayout.startIView(mStaggerView, true);
+        mUILayout.showIView(mNormalView.getView());
     }
 
     @Override
@@ -51,19 +66,19 @@ public class RefreshLayoutDemo extends UIBaseDataView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.in_normal_view:
-                mUILayout.startIView(new NormalView());
+                mUILayout.showIView(mNormalView.getView());
                 break;
             case R.id.in_web_view:
-                mUILayout.startIView(new WebviewView());
+                mUILayout.showIView(mWebviewView.getView());
                 break;
             case R.id.in_recycler_view:
-                mUILayout.startIView(new RecyclerView());
+                mUILayout.showIView(mRecyclerView.getView());
                 break;
             case R.id.in_grid_view:
-                mUILayout.startIView(new GridView());
+                mUILayout.showIView(mGridView.getView());
                 break;
             case R.id.in_stagger_view:
-                mUILayout.startIView(new StaggerView());
+                mUILayout.showIView(mStaggerView.getView());
                 break;
             case R.id.refresh_view:
                 safeRefresh();

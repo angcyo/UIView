@@ -136,11 +136,11 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         //2:loadContentView
         iView.loadContentView(rawView);
 
-        final ViewPattern lastViewPattern = getLastViewPattern();
+        final ViewPattern oldViewPattern = getLastViewPattern();
         final ViewPattern newViewPattern = new ViewPattern(iView, rawView);
         mAttachViews.push(newViewPattern);
 
-        startIViewAnim(lastViewPattern, newViewPattern, needAnim);
+        startIViewAnim(oldViewPattern, newViewPattern, needAnim);
 
         return rawView;
     }
@@ -164,6 +164,8 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         }
 
         if (lastViewPattern != null) {
+            lastViewPattern.mView.setVisibility(VISIBLE);
+            lastViewPattern.mView.bringToFront();
             lastViewPattern.mIView.onViewShow();//2:
         }
         mLastShowViewPattern = lastViewPattern;
@@ -234,9 +236,28 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     }
 
     @Override
-    public void showIView(final View view, boolean needAnim) {
+    public void showIView(final View view, final boolean needAnim) {
         final ViewPattern viewPattern = findViewPatternByView(view);
+        if (viewPattern == null) {
+            return;
+        }
+
+        if (viewPattern == mLastShowViewPattern) {
+            return;
+        }
+
+        if (!isAttachedToWindow) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    showIView(view, needAnim);
+                }
+            });
+            return;
+        }
+
         viewPattern.mView.setVisibility(VISIBLE);
+        viewPattern.mView.bringToFront();
 
         if (viewPattern.mIView.isDialog()) {
             startDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadShowAnimation() : null, new Runnable() {
@@ -247,19 +268,20 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             });
         } else {
             if (mLastShowViewPattern != null) {
-                safeStartAnim(mLastShowViewPattern.mView, needAnim ? mLastShowViewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+                final ViewPattern lastShowViewPattern = mLastShowViewPattern;
+                safeStartAnim(lastShowViewPattern.mView, needAnim ? viewPattern.mIView.loadOtherHideAnimation() : null, new Runnable() {
                     @Override
                     public void run() {
-                        mLastShowViewPattern.mView.setVisibility(GONE);
-                        mLastShowViewPattern.mIView.onViewHide();
+                        lastShowViewPattern.mView.setVisibility(INVISIBLE);
+                        lastShowViewPattern.mIView.onViewHide();
                     }
                 });
             }
-            safeStartAnim(view, needAnim ? viewPattern.mIView.loadShowAnimation() : null, new Runnable() {
+            mLastShowViewPattern = viewPattern;
+            safeStartAnim(viewPattern.mView, needAnim ? viewPattern.mIView.loadShowAnimation() : null, new Runnable() {
                 @Override
                 public void run() {
                     viewPattern.mIView.onViewShow();
-                    mLastShowViewPattern = viewPattern;
                 }
             });
         }
@@ -277,7 +299,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             finishDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
                 @Override
                 public void run() {
-                    viewPattern.mView.setVisibility(GONE);
+                    viewPattern.mView.setVisibility(INVISIBLE);
                     viewPattern.mIView.onViewHide();
                 }
             });
@@ -286,7 +308,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             safeStartAnim(view, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
                 @Override
                 public void run() {
-                    viewPattern.mView.setVisibility(GONE);
+                    viewPattern.mView.setVisibility(INVISIBLE);
                     viewPattern.mIView.onViewHide();
                 }
             });
@@ -336,6 +358,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             @Override
             public void run() {
                 mLastShowViewPattern.mIView.onViewShow();
+                mLastShowViewPattern.mView.bringToFront();
             }
         });
     }
@@ -346,37 +369,43 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     }
 
     protected ViewPattern getLastViewPattern() {
-        if (mAttachViews.isEmpty()) {
-            return null;
-        }
-        return mAttachViews.lastElement();
+//        if (mAttachViews.isEmpty()) {
+//            return null;
+//        }
+//        return mAttachViews.lastElement();
+        return mLastShowViewPattern;
     }
 
-    private void startIViewAnim(final ViewPattern lastViewPattern, final ViewPattern newViewPattern, boolean needAnim) {
+    private void startIViewAnim(final ViewPattern oldViewPattern, final ViewPattern newViewPattern, boolean needAnim) {
         if (isAttachedToWindow) {
             mLastShowViewPattern = newViewPattern;
             if (newViewPattern != null) {
                 newViewPattern.mIView.onViewLoad();
             }
 
-            if (lastViewPattern != null) {
-                lastViewPattern.mView.clearFocus();
-                View focus = lastViewPattern.mView.findFocus();
+            if (oldViewPattern != null) {
+                oldViewPattern.mView.clearFocus();
+                View focus = oldViewPattern.mView.findFocus();
                 if (focus != null) {
                     focus.clearFocus();
                 }
             }
 
-            //startViewPatternAnim(newViewPattern, lastViewPattern, false, true);
-            //startViewPatternAnim(newViewPattern, lastViewPattern, true, false);
+            //startViewPatternAnim(newViewPattern, oldViewPattern, false, true);
+            //startViewPatternAnim(newViewPattern, oldViewPattern, true, false);
             topViewStart(newViewPattern, needAnim);
-            bottomViewFinish(lastViewPattern, newViewPattern, needAnim);
+            bottomViewFinish(oldViewPattern, newViewPattern, needAnim);
+        } else {
+            for (ViewPattern viewPattern : mAttachViews) {
+                viewPattern.mView.setVisibility(INVISIBLE);
+            }
         }
     }
 
     /**
      * 顶上视图进入的动画
      */
+
     private void topViewStart(final ViewPattern topViewPattern, boolean anim) {
         final Animation animation = topViewPattern.mIView.loadStartAnimation();
         final Runnable endRunnable = new Runnable() {
@@ -445,6 +474,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                 bottomViewPattern.mIView.onViewShow();
             }
         };
+        bottomViewPattern.mView.setVisibility(VISIBLE);
 
         if (bottomViewPattern.mView instanceof ILifecycle) {
             ((ILifecycle) bottomViewPattern.mView).onViewShow();
@@ -457,7 +487,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         if (topViewPattern.mIView.isDialog()) {
             endRunnable.run();
         } else {
-            final Animation animation = topViewPattern.mIView.loadOtherFinishEnterAnimation();
+            final Animation animation = topViewPattern.mIView.loadOtherEnterAnimation();
             safeStartAnim(bottomViewPattern.mView, animation, endRunnable);
         }
     }
@@ -474,6 +504,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             @Override
             public void run() {
                 bottomViewPattern.mIView.onViewHide();
+                bottomViewPattern.mView.setVisibility(INVISIBLE);
             }
         };
 
@@ -488,7 +519,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         if (topViewPattern.mIView.isDialog()) {
             endRunnable.run();
         } else {
-            final Animation animation = topViewPattern.mIView.loadOtherStartExitAnimation();
+            final Animation animation = topViewPattern.mIView.loadOtherExitAnimation();
             safeStartAnim(bottomViewPattern.mView, animation, endRunnable);
         }
     }
@@ -522,7 +553,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                 //伴随, 需要产生的动画
                 if (isStart) {
                     //上层的View退出, 下层的View进入的动画
-                    final Animation animation = newViewPattern.mIView.loadOtherFinishEnterAnimation();
+                    final Animation animation = newViewPattern.mIView.loadOtherEnterAnimation();
 
                     safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
                         @Override
@@ -536,7 +567,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                     });
                 } else if (lastViewPattern != null) {
                     //上层的View进入, 下层的View退出的动画
-                    final Animation animation = newViewPattern.mIView.loadOtherStartExitAnimation();
+                    final Animation animation = newViewPattern.mIView.loadOtherExitAnimation();
                     safeStartAnim(lastViewPattern.mView, animation, new Runnable() {
                         @Override
                         public void run() {
@@ -640,7 +671,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             @Override
             public void run() {
                 dialogPattern.mView.setAlpha(0);
-                dialogPattern.mView.setVisibility(GONE);
+                dialogPattern.mView.setVisibility(INVISIBLE);
                 end.run();
             }
         };
@@ -663,24 +694,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             return false;
         }
 
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                if (endRunnable != null) {
-                    endRunnable.run();
-                }
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
+        animation.setAnimationListener(new AnimRunnable(endRunnable));
 
         view.startAnimation(animation);
 
@@ -852,5 +866,31 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      */
     public ViewPattern getLastShowViewPattern() {
         return mLastShowViewPattern;
+    }
+
+    static class AnimRunnable implements Animation.AnimationListener {
+
+        private Runnable mRunnable;
+
+        public AnimRunnable(Runnable runnable) {
+            mRunnable = runnable;
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            if (mRunnable != null) {
+                mRunnable.run();
+            }
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
     }
 }

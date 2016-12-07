@@ -154,8 +154,13 @@ public class RefreshLayout extends ViewGroup {
     @Override
     public void computeScroll() {
         if (mScroller.computeScrollOffset()) {
-            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            int currY = mScroller.getCurrY();
+            if (currY == 0 && mCurState == FINISH) {
+                mCurState = NORMAL;
+            }
+            scrollTo(mScroller.getCurrX(), currY);
             postInvalidate();
+
         }
     }
 
@@ -289,10 +294,11 @@ public class RefreshLayout extends ViewGroup {
      * 结束刷新
      */
     public void setRefreshEnd() {
+        mCurState = FINISH;
         if (isTouchDown) {
-            mCurState = FINISH;
+            scrollTo(getScrollX(), getScrollY());
         } else {
-            resetScroll();
+            startScroll(0);
         }
     }
 
@@ -338,6 +344,12 @@ public class RefreshLayout extends ViewGroup {
 
     @Override
     public void scrollTo(int x, int y) {
+        if (mCurState == TOP) {
+            y = Math.min(y, 0);
+        } else if (mCurState == BOTTOM) {
+            y = Math.max(y, 0);
+        }
+
         super.scrollTo(x, y);
 
         int scrollY = getScrollY();

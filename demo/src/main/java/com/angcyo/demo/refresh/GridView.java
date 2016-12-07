@@ -58,6 +58,8 @@ public class GridView extends UIBaseDataView {
                 final TextView textView = (TextView) view;
                 if (state == RefreshLayout.TOP) {
                     textView.setText("正在刷新,请稍等...");
+                } else if (state == RefreshLayout.FINISH) {
+                    textView.setText("刷新完成");
                 } else {
                     if (top > maxHeight) {
                         textView.setText("释放刷新");
