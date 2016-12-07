@@ -18,7 +18,7 @@ import com.angcyo.uiview.widget.ExEditText;
  * 修改备注：
  * Version: 1.0.0
  */
-public class EditTextView extends UIBaseView {
+public class EditTextViewDemo extends UIBaseView {
 
     ExEditText mExEditText;
 

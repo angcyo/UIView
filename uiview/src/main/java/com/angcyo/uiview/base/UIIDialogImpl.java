@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.view.UIIViewImpl;
-import com.angcyo.uiview.widget.SoftInputLayout;
+import com.angcyo.uiview.widget.SoftRelativeLayout;
 
 /**
  * 自定义对话框的基类
@@ -24,7 +24,7 @@ import com.angcyo.uiview.widget.SoftInputLayout;
 
 public abstract class UIIDialogImpl extends UIIViewImpl {
 
-    protected SoftInputLayout mDialogRootLayout;
+    protected SoftRelativeLayout mDialogRootLayout;
 
     /**
      * 对话框显示的重力
@@ -63,7 +63,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        mDialogRootLayout = new SoftInputLayout(mContext);
+        mDialogRootLayout = new SoftRelativeLayout(mContext);
         container.addView(mDialogRootLayout, new ViewGroup.LayoutParams(-1, -1));
         View assignView = UILayoutImpl.safeAssignView(mDialogRootLayout,
                 inflateDialogView(mDialogRootLayout, inflater));

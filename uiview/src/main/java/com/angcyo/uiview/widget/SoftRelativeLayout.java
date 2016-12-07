@@ -28,7 +28,7 @@ import java.util.ArrayList;
  * 修改备注：
  * Version: 1.0.0
  */
-public class SoftInputLayout extends RelativeLayout implements ILifecycle {
+public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     boolean isViewShow = false;
     private ArrayList<IWindowInsetsListener> mOnWindowInsetsListeners;
     private int[] mInsets = new int[4];
@@ -37,11 +37,11 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
      */
     private boolean lockHeight = false;
 
-    public SoftInputLayout(Context context) {
+    public SoftRelativeLayout(Context context) {
         super(context);
     }
 
-    public SoftInputLayout(Context context, AttributeSet attrs) {
+    public SoftRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -131,7 +131,7 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
         }
     }
 
-    public SoftInputLayout addOnWindowInsetsListener(IWindowInsetsListener listener) {
+    public SoftRelativeLayout addOnWindowInsetsListener(IWindowInsetsListener listener) {
         if (listener == null) {
             return this;
         }
@@ -142,7 +142,7 @@ public class SoftInputLayout extends RelativeLayout implements ILifecycle {
         return this;
     }
 
-    public SoftInputLayout removeOnWindowInsetsListener(IWindowInsetsListener listener) {
+    public SoftRelativeLayout removeOnWindowInsetsListener(IWindowInsetsListener listener) {
         if (listener == null || mOnWindowInsetsListeners == null) {
             return this;
         }
