@@ -846,4 +846,11 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.showSoftInputFromInputMethod(getWindowToken(), 0);
     }
+
+    /**
+     * 获取最前显示的视图信息
+     */
+    public ViewPattern getLastShowViewPattern() {
+        return mLastShowViewPattern;
+    }
 }

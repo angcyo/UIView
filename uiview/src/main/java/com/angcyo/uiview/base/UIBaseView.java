@@ -1,6 +1,7 @@
 package com.angcyo.uiview.base;
 
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,48 +33,39 @@ import static android.view.View.GONE;
 
 public abstract class UIBaseView extends UIIViewImpl {
 
+    public static int mUITitleBarId = View.NO_ID;
+    public static int mBaseRootId = View.NO_ID;
+    public static int mBaseContentRootId = View.NO_ID;
     /**
      * 根布局,和父类中的 {@link #mRootView} 相同, 包含标题栏
      */
     protected SoftInputLayout mBaseRootLayout;
-
     /**
      * 所有内容的根布局, 不包含标题栏
      */
     protected FrameLayout mBaseContentRootLayout;
-
     /**
      * 空布局
      */
     protected View mBaseEmptyLayout;
-
     /**
      * 无网络布局
      */
     protected View mBaseNonetLayout;
-
     /**
      * 加载数据的布局
      */
     protected View mBaseLoadLayout;
-
     /**
      * 内容布局
      */
     protected RelativeLayout mBaseContentLayout;
-
     /**
      * 标题
      */
     protected UITitleBarContainer mUITitleBarContainer;
-
     protected LayoutState mLayoutState = LayoutState.NORMAL;
-
     protected View.OnClickListener mNonetSettingClickListener, mNonetRefreshClickListener;
-
-    public static int mUITitleBarId = View.NO_ID;
-    public static int mBaseRootId = View.NO_ID;
-    public static int mBaseContentRootId = View.NO_ID;
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
@@ -90,7 +82,7 @@ public abstract class UIBaseView extends UIIViewImpl {
             }
         });
 
-        TitleBarPattern titleBarPattern = initTitleBar();
+        TitleBarPattern titleBarPattern = getTitleBar();
         if (titleBarPattern != null) {
             mUITitleBarContainer = new UITitleBarContainer(mContext);
             mUITitleBarId = View.generateViewId();
@@ -133,7 +125,16 @@ public abstract class UIBaseView extends UIIViewImpl {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
-        changeState(mLayoutState, LayoutState.LOAD);
+        LayoutState state = getDefaultLayoutState();
+        if (state == LayoutState.CONTENT) {
+            showContentLayout();
+        }
+        changeState(mLayoutState, state);
+    }
+
+    @NonNull
+    protected LayoutState getDefaultLayoutState() {
+        return LayoutState.LOAD;
     }
 
     /**
@@ -164,7 +165,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         return inflater.inflate(R.layout.base_empty_layout, baseRootLayout);
     }
 
-    protected TitleBarPattern initTitleBar() {
+    protected TitleBarPattern getTitleBar() {
         return TitleBarPattern.build(getTitle()).setTitleBarBGColor(mContext.getResources().getColor(R.color.theme_color_primary));
     }
 

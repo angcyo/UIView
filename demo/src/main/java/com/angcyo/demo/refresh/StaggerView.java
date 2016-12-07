@@ -1,4 +1,4 @@
-package com.angcyo.demo.uiview3.view;
+package com.angcyo.demo.refresh;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseDataView;
 import com.angcyo.uiview.model.TitleBarPattern;
@@ -15,6 +14,7 @@ import com.angcyo.uiview.recycler.RBaseAdapter;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.rsen.RefreshLayout;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -27,7 +27,7 @@ import com.angcyo.uiview.resources.ResUtil;
  * 修改备注：
  * Version: 1.0.0
  */
-public class RefreshLayoutDemo extends UIBaseDataView {
+public class StaggerView extends UIBaseDataView {
 
     private RefreshLayout mRefreshLayout;
     private RRecyclerView mRecyclerView;
@@ -35,7 +35,9 @@ public class RefreshLayoutDemo extends UIBaseDataView {
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         mRefreshLayout = new RefreshLayout(mContext);
+        mRefreshLayout.setTag("refresh");
         mRecyclerView = new RRecyclerView(mContext);
+        mRecyclerView.setTag("SV3");
         mRefreshLayout.addView(mRecyclerView);
 //        TextView textView = new TextView(mContext);
 //        textView.setText("我就是内容.....");
@@ -124,7 +126,7 @@ public class RefreshLayoutDemo extends UIBaseDataView {
     }
 
     @Override
-    protected TitleBarPattern initTitleBar() {
-        return super.initTitleBar().setTitleString("刷新控件测试");
+    protected TitleBarPattern getTitleBar() {
+        return null;
     }
 }
