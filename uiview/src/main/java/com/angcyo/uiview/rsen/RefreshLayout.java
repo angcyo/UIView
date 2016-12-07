@@ -1,9 +1,17 @@
 package com.angcyo.uiview.rsen;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -12,6 +20,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.OverScroller;
 import android.widget.TextView;
+
+import com.angcyo.uiview.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -136,10 +146,9 @@ public class RefreshLayout extends ViewGroup {
     }
 
     protected void initView() {
-        mTopView = new Button(getContext());
+        mTopView = new BaseRefreshTopView(getContext());
         mBottomView = new Button(getContext());
 
-        ((TextView) mTopView).setText("下拉刷新");
         ((TextView) mBottomView).setText("上拉加载");
 
         addView(mTopView);
@@ -242,7 +251,7 @@ public class RefreshLayout extends ViewGroup {
             }
 
             int height = mTopView.getMeasuredHeight();
-            if (rawY > height) {
+            if (rawY >= height) {
                 refreshTop();
             } else {
                 resetScroll();
@@ -255,7 +264,7 @@ public class RefreshLayout extends ViewGroup {
             }
 
             int height = mBottomView.getMeasuredHeight();
-            if (rawY > height) {
+            if (rawY >= height) {
                 refreshBottom();
             } else {
                 resetScroll();
@@ -511,6 +520,85 @@ public class RefreshLayout extends ViewGroup {
      */
     public interface OnRefreshListener {
         void onRefresh(@Direction int direction);
+    }
+
+    /**
+     * 默认实现的刷新布局
+     */
+    public static class BaseRefreshTopView extends View implements OnTopViewMoveListener {
+
+        Bitmap mBitmap;
+        Rect mCenterRect, mProgressRect;
+        Paint mPaint;
+        private PorterDuffXfermode mXfermodeDstIn;
+        private int mOffsetHeight;
+
+        public BaseRefreshTopView(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onAttachedToWindow() {
+            super.onAttachedToWindow();
+            mBitmap = getBitmapFromDrawable();
+            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mPaint.setColor(getResources().getColor(R.color.theme_color_primary));
+            mCenterRect = new Rect();
+            mProgressRect = new Rect();
+            mXfermodeDstIn = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int height = mBitmap.getHeight();
+            mOffsetHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
+            setMeasuredDimension(widthMeasureSpec, height + mOffsetHeight);
+        }
+
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+            centerRect();
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            canvas.drawBitmap(mBitmap, mCenterRect.left, mCenterRect.top, mPaint);
+            int sc = canvas.saveLayer(mCenterRect.left, mCenterRect.top,
+                    mCenterRect.right, mCenterRect.bottom,
+                    null, Canvas.ALL_SAVE_FLAG);
+            canvas.drawRect(mProgressRect, mPaint);
+            mPaint.setXfermode(mXfermodeDstIn);
+            canvas.drawBitmap(mBitmap, mCenterRect.left, mCenterRect.top, mPaint);
+            mPaint.setXfermode(null);
+            canvas.restoreToCount(sc);
+        }
+
+        private void centerRect() {
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight() - mOffsetHeight / 4;
+            int width = mBitmap.getWidth();
+            int height = mBitmap.getHeight();
+            mCenterRect.set(viewWidth / 2 - width / 2, viewHeight - height, viewWidth / 2 + width / 2, viewHeight);
+        }
+
+        private void updateProgress(float progress) {
+            progress = Math.min(1, Math.max(0, progress));
+            mProgressRect.set(mCenterRect.left, (int) (mCenterRect.bottom - (mCenterRect.height() * progress)),
+                    mCenterRect.right, mCenterRect.bottom);
+            postInvalidate();
+        }
+
+        private Bitmap getBitmapFromDrawable() {
+            return BitmapFactory.decodeResource(getResources(), R.drawable.base_refresh_top_image);
+        }
+
+        @Override
+        public void onTopMoveTo(View view, int top, int maxHeight, @State int state) {
+            if (state != TOP) {
+                updateProgress((top) * 1.0f / maxHeight);
+            }
+        }
     }
 
 }
