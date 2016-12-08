@@ -583,6 +583,8 @@ public class RefreshLayout extends ViewGroup {
         float mProgress = 0;
         private PorterDuffXfermode mXfermodeDstIn;
         private int mMoveOffset = 0;
+        private int mLastMoveOffset = 0;
+        private int mTouchSlop;
 
         public BaseRefreshView(Context context) {
             super(context);
@@ -602,6 +604,14 @@ public class RefreshLayout extends ViewGroup {
         }
 
         @Override
+        protected void onDetachedFromWindow() {
+            super.onDetachedFromWindow();
+            mBitmap.recycle();
+            mBitmap = null;
+            mDrawable = null;
+        }
+
+        @Override
         protected void onAttachedToWindow() {
             super.onAttachedToWindow();
             mDrawable = getResources().getDrawable(R.drawable.base_refresh_top_image);
@@ -613,8 +623,11 @@ public class RefreshLayout extends ViewGroup {
             mDrawRect = new Rect();
             mXfermodeDstIn = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
 
+            mTouchSlop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
+            //ViewConfiguration.get(getContext()).getScaledTouchSlop();
+
             int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-            setPadding(0, 2 * padding, 0, padding);
+            setPadding(0, padding, 0, padding);
 
             mObjectAnimator = ObjectAnimator.ofFloat(0f, 1f);
             mObjectAnimator.setInterpolator(new LinearInterpolator());
@@ -690,12 +703,18 @@ public class RefreshLayout extends ViewGroup {
 
         @Override
         public void onBottomMoveTo(View view, int bottom, int maxHeight, @State int state) {
-            onMove(bottom, maxHeight, state);
+            if (Math.abs(bottom - mLastMoveOffset) > mTouchSlop) {
+                onMove(bottom, maxHeight, state);
+                mLastMoveOffset = bottom;
+            }
         }
 
         @Override
         public void onTopMoveTo(View view, int top, int maxHeight, @State int state) {
-            onMove(top, maxHeight, state);
+            if (Math.abs(top - mLastMoveOffset) > mTouchSlop) {
+                onMove(top, maxHeight, state);
+                mLastMoveOffset = top;
+            }
         }
     }
 
