@@ -694,8 +694,11 @@ public class RefreshLayout extends ViewGroup {
             if (state == FINISH) {
                 endProgress();
             } else if (state == MOVE) {
-                updateProgress(0);
-                updateMove(move, maxHeight);
+                if (Math.abs(move - mLastMoveOffset) > mTouchSlop) {
+                    updateProgress(0);
+                    updateMove(move, maxHeight);
+                    mLastMoveOffset = move;
+                }
             } else if (state == TOP || state == BOTTOM) {
                 startProgress();
             }
@@ -703,10 +706,8 @@ public class RefreshLayout extends ViewGroup {
 
         @Override
         public void onBottomMoveTo(View view, int bottom, int maxHeight, @State int state) {
-            if (Math.abs(bottom - mLastMoveOffset) > mTouchSlop) {
-                onMove(bottom, maxHeight, state);
-                mLastMoveOffset = bottom;
-            }
+            onMove(bottom, maxHeight, state);
+
         }
 
         @Override
