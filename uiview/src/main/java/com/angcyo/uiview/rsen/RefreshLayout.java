@@ -338,7 +338,7 @@ public class RefreshLayout extends ViewGroup {
      * 恢复到默认的滚动状态
      */
     private void resetScroll() {
-        if (mCurState != TOP && mCurState != BOTTOM) {
+        if (mCurState != TOP && mCurState != BOTTOM && mCurState != FINISH) {
             mCurState = NORMAL;
         }
         startScroll(0);
@@ -365,25 +365,39 @@ public class RefreshLayout extends ViewGroup {
 
         if (scrollY < 0) {
             //刷新
-            if (mTopView != null /*&& mCurState != TOP*/) {
-                if (mTopView instanceof OnTopViewMoveListener
-                        && !mTopViewMoveListeners.contains(mTopView)) {
-                    ((OnTopViewMoveListener) mTopView).onTopMoveTo(this, rawY, mTopView.getMeasuredHeight(), mCurState);
-                }
-                for (OnTopViewMoveListener listener : mTopViewMoveListeners) {
-                    listener.onTopMoveTo(mTopView, rawY, mTopView.getMeasuredHeight(), mCurState);
-                }
-            }
+            notifyTopListener(rawY);
         } else if (scrollY > 0) {
             //加载
-            if (mBottomView != null /*&& mCurState != BOTTOM*/) {
-                if (mBottomView instanceof OnBottomViewMoveListener
-                        && !mBottomViewMoveListeners.contains(mBottomView)) {
-                    ((OnBottomViewMoveListener) mBottomView).onBottomMoveTo(this, rawY, mBottomView.getMeasuredHeight(), mCurState);
-                }
-                for (OnBottomViewMoveListener listener : mBottomViewMoveListeners) {
-                    listener.onBottomMoveTo(mBottomView, rawY, mBottomView.getMeasuredHeight(), mCurState);
-                }
+            notifyBottomListener(rawY);
+        } else {
+            if (mCurState == FINISH || mCurState == NORMAL) {
+                mCurState = NORMAL;
+                notifyTopListener(rawY);
+                notifyBottomListener(rawY);
+            }
+        }
+    }
+
+    private void notifyBottomListener(int rawY) {
+        if (mBottomView != null /*&& mCurState != BOTTOM*/) {
+            if (mBottomView instanceof OnBottomViewMoveListener
+                    && !mBottomViewMoveListeners.contains(mBottomView)) {
+                ((OnBottomViewMoveListener) mBottomView).onBottomMoveTo(this, rawY, mBottomView.getMeasuredHeight(), mCurState);
+            }
+            for (OnBottomViewMoveListener listener : mBottomViewMoveListeners) {
+                listener.onBottomMoveTo(mBottomView, rawY, mBottomView.getMeasuredHeight(), mCurState);
+            }
+        }
+    }
+
+    private void notifyTopListener(int rawY) {
+        if (mTopView != null /*&& mCurState != TOP*/) {
+            if (mTopView instanceof OnTopViewMoveListener
+                    && !mTopViewMoveListeners.contains(mTopView)) {
+                ((OnTopViewMoveListener) mTopView).onTopMoveTo(this, rawY, mTopView.getMeasuredHeight(), mCurState);
+            }
+            for (OnTopViewMoveListener listener : mTopViewMoveListeners) {
+                listener.onTopMoveTo(mTopView, rawY, mTopView.getMeasuredHeight(), mCurState);
             }
         }
     }
@@ -695,13 +709,15 @@ public class RefreshLayout extends ViewGroup {
                 endProgress();
             } else if (state == MOVE) {
                 if (Math.abs(move - mLastMoveOffset) > mTouchSlop) {
-                    updateProgress(0);
                     updateMove(move, maxHeight);
                     mLastMoveOffset = move;
                 }
             } else if (state == TOP || state == BOTTOM) {
                 startProgress();
+            } else if (state == NORMAL) {
+                updateProgress(0);
             }
+
         }
 
         @Override
@@ -712,10 +728,7 @@ public class RefreshLayout extends ViewGroup {
 
         @Override
         public void onTopMoveTo(View view, int top, int maxHeight, @State int state) {
-            if (Math.abs(top - mLastMoveOffset) > mTouchSlop) {
-                onMove(top, maxHeight, state);
-                mLastMoveOffset = top;
-            }
+            onMove(top, maxHeight, state);
         }
     }
 
