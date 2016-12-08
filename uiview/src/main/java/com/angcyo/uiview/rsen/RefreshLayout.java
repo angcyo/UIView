@@ -1,5 +1,7 @@
 package com.angcyo.uiview.rsen;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -17,9 +20,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
+import android.view.animation.LinearInterpolator;
 import android.widget.OverScroller;
-import android.widget.TextView;
 
 import com.angcyo.uiview.R;
 
@@ -147,10 +149,7 @@ public class RefreshLayout extends ViewGroup {
 
     protected void initView() {
         mTopView = new BaseRefreshTopView(getContext());
-        mBottomView = new Button(getContext());
-
-        ((TextView) mBottomView).setText("上拉加载");
-
+        mBottomView = new BaseRefreshBottomView(getContext());
         addView(mTopView);
         addView(mBottomView);
     }
@@ -525,45 +524,73 @@ public class RefreshLayout extends ViewGroup {
     /**
      * 默认实现的刷新布局
      */
-    public static class BaseRefreshTopView extends View implements OnTopViewMoveListener {
+    public static class BaseRefreshTopView extends BaseRefreshView {
 
-        Bitmap mBitmap;
-        Rect mCenterRect, mProgressRect;
-        Paint mPaint;
-        private PorterDuffXfermode mXfermodeDstIn;
-        private int mOffsetHeight;
 
         public BaseRefreshTopView(Context context) {
             super(context);
         }
 
         @Override
-        protected void onAttachedToWindow() {
-            super.onAttachedToWindow();
-            mBitmap = getBitmapFromDrawable();
-            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mPaint.setColor(getResources().getColor(R.color.theme_color_primary));
-            mCenterRect = new Rect();
-            mProgressRect = new Rect();
-            mXfermodeDstIn = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
-        }
-
-        @Override
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        protected void centerRect() {
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+            int width = mBitmap.getWidth();
             int height = mBitmap.getHeight();
-            mOffsetHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics());
-            setMeasuredDimension(widthMeasureSpec, height + mOffsetHeight);
+            mCenterRect.set(viewWidth / 2 - width / 2, getPaddingTop() + viewHeight / 2 - height / 2,
+                    viewWidth / 2 + width / 2, getPaddingTop() + viewHeight / 2 + height / 2);
         }
 
         @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
-            centerRect();
+        protected void updateProgress(float progress) {
+            if (mProgress == progress) {
+                return;
+            }
+            mProgress = progress;
+            mProgressRect.set(mCenterRect.left, (int) (mCenterRect.bottom - (mCenterRect.height() * progress)),
+                    mCenterRect.right, mCenterRect.bottom);
+            postInvalidate();
+        }
+
+        @Override
+        protected void updateMove(int move, int maxHeight) {
+            if (move <= getPaddingBottom()) {
+                return;
+            }
+
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight();
+            int rawTop = move - getPaddingBottom();
+            rawTop = Math.min(rawTop, maxHeight - getPaddingBottom() - getPaddingTop());
+
+            int left = viewWidth / 2 - rawTop / 2;
+            mDrawRect.set(left, viewHeight - rawTop - getPaddingBottom(), viewWidth / 2 + rawTop / 2, viewHeight - getPaddingBottom());
+            mDrawable.setBounds(mDrawRect);
+            postInvalidate();
+        }
+    }
+
+    /**
+     * 基类用来实现 下拉/上拉 放大缩小指示图, 加载中进度变化
+     */
+    public static abstract class BaseRefreshView extends View implements OnBottomViewMoveListener, OnTopViewMoveListener {
+
+        Drawable mDrawable;
+        Bitmap mBitmap;
+        Rect mCenterRect, mProgressRect, mDrawRect;
+        Paint mPaint;
+        ValueAnimator mObjectAnimator;
+        float mProgress = 0;
+        private PorterDuffXfermode mXfermodeDstIn;
+        private int mMoveOffset = 0;
+
+        public BaseRefreshView(Context context) {
+            super(context);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
-            canvas.drawBitmap(mBitmap, mCenterRect.left, mCenterRect.top, mPaint);
+            mDrawable.draw(canvas);
             int sc = canvas.saveLayer(mCenterRect.left, mCenterRect.top,
                     mCenterRect.right, mCenterRect.bottom,
                     null, Canvas.ALL_SAVE_FLAG);
@@ -574,31 +601,151 @@ public class RefreshLayout extends ViewGroup {
             canvas.restoreToCount(sc);
         }
 
-        private void centerRect() {
-            int viewWidth = getMeasuredWidth();
-            int viewHeight = getMeasuredHeight() - mOffsetHeight / 4;
-            int width = mBitmap.getWidth();
-            int height = mBitmap.getHeight();
-            mCenterRect.set(viewWidth / 2 - width / 2, viewHeight - height, viewWidth / 2 + width / 2, viewHeight);
+        @Override
+        protected void onAttachedToWindow() {
+            super.onAttachedToWindow();
+            mDrawable = getResources().getDrawable(R.drawable.base_refresh_top_image);
+            mBitmap = getBitmapFromDrawable();
+            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mPaint.setColor(getResources().getColor(R.color.theme_color_primary));
+            mCenterRect = new Rect();
+            mProgressRect = new Rect();
+            mDrawRect = new Rect();
+            mXfermodeDstIn = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+
+            int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
+            setPadding(0, 2 * padding, 0, padding);
+
+            mObjectAnimator = ObjectAnimator.ofFloat(0f, 1f);
+            mObjectAnimator.setInterpolator(new LinearInterpolator());
+            mObjectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            mObjectAnimator.setRepeatMode(ValueAnimator.RESTART);
+            mObjectAnimator.setDuration(1000);
+
+            mObjectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float value = (float) animation.getAnimatedValue();
+                    updateProgress(value);
+                }
+            });
         }
 
-        private void updateProgress(float progress) {
-            progress = Math.min(1, Math.max(0, progress));
-            mProgressRect.set(mCenterRect.left, (int) (mCenterRect.bottom - (mCenterRect.height() * progress)),
-                    mCenterRect.right, mCenterRect.bottom);
-            postInvalidate();
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int height = mBitmap.getHeight();
+            setMeasuredDimension(widthMeasureSpec, height + getPaddingTop() + getPaddingBottom());
         }
+
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+            centerRect();
+            updateMove(mMoveOffset, h);
+        }
+
+        /**
+         * 计算小图显示的矩形区域
+         */
+        protected abstract void centerRect();
+
+        /**
+         * 加载中的进度刷新
+         */
+        protected abstract void updateProgress(float progress);
+
+        /**
+         * 移动的时候,用来放大缩小指示图
+         */
+        protected abstract void updateMove(int move, int maxHeight);
+
+        protected void startProgress() {
+            if (!mObjectAnimator.isRunning()) {
+                mObjectAnimator.start();
+            }
+        }
+
+        protected void endProgress() {
+            if (mObjectAnimator.isRunning()) {
+                mObjectAnimator.end();
+            }
+            updateProgress(1);
+        }
+
 
         private Bitmap getBitmapFromDrawable() {
             return BitmapFactory.decodeResource(getResources(), R.drawable.base_refresh_top_image);
         }
 
+        private void onMove(int move, int maxHeight, @State int state) {
+            if (state == FINISH) {
+                endProgress();
+            } else if (state == MOVE) {
+                updateProgress(0);
+                updateMove(move, maxHeight);
+            } else if (state == TOP || state == BOTTOM) {
+                startProgress();
+            }
+        }
+
+        @Override
+        public void onBottomMoveTo(View view, int bottom, int maxHeight, @State int state) {
+            onMove(bottom, maxHeight, state);
+        }
+
         @Override
         public void onTopMoveTo(View view, int top, int maxHeight, @State int state) {
-            if (state != TOP) {
-                updateProgress((top) * 1.0f / maxHeight);
-            }
+            onMove(top, maxHeight, state);
         }
     }
 
+
+    /**
+     * 默认实现的上拉视图
+     */
+    public static class BaseRefreshBottomView extends BaseRefreshView {
+
+
+        public BaseRefreshBottomView(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void centerRect() {
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+            int width = mBitmap.getWidth();
+            int height = mBitmap.getHeight();
+            mCenterRect.set(viewWidth / 2 - width / 2, getPaddingTop() + viewHeight / 2 - height / 2,
+                    viewWidth / 2 + width / 2, getPaddingTop() + viewHeight / 2 + height / 2);
+        }
+
+        @Override
+        protected void updateProgress(float progress) {
+            if (mProgress == progress) {
+                return;
+            }
+            mProgress = progress;
+            mProgressRect.set(mCenterRect.left, getPaddingTop(),
+                    mCenterRect.right, (int) (getPaddingTop() + mCenterRect.height() * progress));
+            postInvalidate();
+        }
+
+        @Override
+        protected void updateMove(int move, int maxHeight) {
+            if (move <= getPaddingTop()) {
+                return;
+            }
+
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight();
+            int rawBottom = move - getPaddingTop();
+            rawBottom = Math.min(rawBottom, maxHeight - getPaddingBottom() - getPaddingTop());
+
+            int left = viewWidth / 2 - rawBottom / 2;
+            mDrawRect.set(left, getPaddingTop(), viewWidth / 2 + rawBottom / 2, getPaddingTop() + rawBottom);
+            mDrawable.setBounds(mDrawRect);
+            postInvalidate();
+        }
+    }
 }

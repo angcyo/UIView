@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseDataView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseAdapter;
@@ -54,43 +53,6 @@ public class RecyclerView extends UIBaseDataView {
     protected void initContentLayout() {
         super.initContentLayout();
         initRecyclerView();
-        mRefreshLayout.addTopViewMoveListener(new RefreshLayout.OnTopViewMoveListener() {
-            @Override
-            public void onTopMoveTo(View view, int top, int maxHeight, @RefreshLayout.State int state) {
-                final TextView textView = (TextView) view;
-                if (state == RefreshLayout.TOP) {
-                    textView.setText("正在刷新,请稍等...");
-                } else if (state == RefreshLayout.FINISH) {
-                    textView.setText("刷新完成");
-                } else {
-                    if (top > maxHeight) {
-                        textView.setText("释放刷新");
-                    } else {
-                        textView.setText("下拉刷新...");
-                    }
-                }
-
-                L.w("刷新:::-->" + top + "         :" + maxHeight);
-            }
-        });
-
-        mRefreshLayout.addBottomViewMoveListener(new RefreshLayout.OnBottomViewMoveListener() {
-            @Override
-            public void onBottomMoveTo(View view, int bottom, int maxHeight, @RefreshLayout.State int state) {
-                final TextView textView = (TextView) view;
-                if (state == RefreshLayout.BOTTOM) {
-                    textView.setText("加载更多种,请稍等...");
-                } else {
-                    if (bottom > maxHeight) {
-                        textView.setText("释放加载更多");
-                    } else {
-                        textView.setText("上拉加载...");
-                    }
-                }
-
-                L.w("加载:::-->" + bottom + "         :" + maxHeight);
-            }
-        });
     }
 
     private void initRecyclerView() {
