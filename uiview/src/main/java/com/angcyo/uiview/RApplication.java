@@ -151,7 +151,13 @@ public class RApplication extends Application {
 
             /*Facebook图片加载库, 必须*/
             Fresco.initialize(this);
+
+            onInit();
         }
+    }
+
+    protected void onInit() {
+
     }
 
     @Override

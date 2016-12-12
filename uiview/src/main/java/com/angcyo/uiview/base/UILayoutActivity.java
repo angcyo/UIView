@@ -1,10 +1,15 @@
 package com.angcyo.uiview.base;
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
+import android.view.View;
 
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.utils.T;
+import com.angcyo.uiview.view.IView;
 import com.tbruyelle.rxpermissions.Permission;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
@@ -22,21 +27,21 @@ public abstract class UILayoutActivity extends StyleActivity {
     @Override
     protected void onCreateView() {
         mLayout = new UILayoutImpl(this);
-        //mLayout.getLayout().setFitsSystemWindows(true);
         setContentView(mLayout.getLayout());
 
         mRxPermissions = new RxPermissions(this);
         mRxPermissions.requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE
-        )
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.CAMERA)
                 .subscribe(new Action1<Permission>() {
                     @Override
                     public void call(Permission permission) {
                         if (permission.granted) {
                             //T.show(UILayoutActivity.this, "权限允许");
                         } else {
-                            T.show(UILayoutActivity.this, "权限拒绝");
+                            notifyAppDetailView();
+                            T.show(UILayoutActivity.this, "权限被拒绝");
                         }
                     }
                 });
@@ -48,5 +53,20 @@ public abstract class UILayoutActivity extends StyleActivity {
         if (mLayout.requestBackPressed()) {
             super.onBackPressed();
         }
+    }
+
+    public View startIView(final IView iView, boolean needAnim) {
+        return mLayout.startIView(iView, needAnim);
+    }
+
+    public View startIView(IView iView) {
+        return startIView(iView, true);
+    }
+
+    public void notifyAppDetailView() {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivity(intent);
     }
 }

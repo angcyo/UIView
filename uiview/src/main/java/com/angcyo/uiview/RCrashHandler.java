@@ -355,7 +355,7 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
 
     private void saveToSDCard(Throwable ex) throws Exception {
         String saveFolder = Environment.getExternalStorageDirectory().getAbsoluteFile() +
-                File.separator + "UIView" + File.separator + DEFAULT_LOG_DIR;
+                File.separator + "DValley" + File.separator + DEFAULT_LOG_DIR;
         File folder = new File(saveFolder);
         if (!folder.exists()) {
             if (!folder.mkdirs()) {

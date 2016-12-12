@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.angcyo.uiview.R;
+
 /**
  * Created by angcyo on 2016-11-12.
  */
@@ -57,6 +59,11 @@ public abstract class StyleActivity extends AppCompatActivity {
      */
     protected void initWindow() {
         enableLayoutFullScreen();
+
+        if (enableWindowAnim()) {
+            //默认窗口动画
+            getWindow().setWindowAnimations(R.style.WindowTranAnim);
+        }
     }
 
     /**
@@ -71,5 +78,9 @@ public abstract class StyleActivity extends AppCompatActivity {
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
+    }
+
+    protected boolean enableWindowAnim() {
+        return false;
     }
 }

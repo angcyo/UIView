@@ -61,19 +61,36 @@ public abstract class UIIViewImpl implements IView {
     public void loadContentView(View rootView) {
         L.d(this.getClass().getSimpleName(), "loadContentView: ");
         mRootView = rootView;
-        final Animation layoutAnimation = loadLayoutAnimation();
-        if (layoutAnimation != null && mRootView instanceof ViewGroup) {
-            final int childCount = ((ViewGroup) mRootView).getChildCount();
-            if (childCount == 1) {
-                final View firstView = ((ViewGroup) mRootView).getChildAt(0);
-                if (firstView instanceof ViewGroup) {
-                    AnimUtil.applyLayoutAnimation((ViewGroup) firstView, layoutAnimation);
-                }
-            }
-        }
         try {
             ButterKnife.bind(this, mRootView);
         } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 开始布局动画
+     */
+    public void startLayoutAnim(View parent) {
+        final Animation layoutAnimation = loadLayoutAnimation();
+        if (layoutAnimation != null && parent instanceof ViewGroup) {
+            AnimUtil.applyLayoutAnimation(findChildViewGroup((ViewGroup) parent), layoutAnimation);
+        }
+    }
+
+    /**
+     * 查找具有多个子View的ViewGroup, 用来播放布局动画
+     */
+    private ViewGroup findChildViewGroup(ViewGroup parent) {
+        final int childCount = parent.getChildCount();
+        if (childCount == 1) {
+            View childAt = parent.getChildAt(0);
+            if (childAt instanceof ViewGroup) {
+                return findChildViewGroup((ViewGroup) childAt);
+            } else {
+                return parent;
+            }
+        } else {
+            return parent;
         }
     }
 

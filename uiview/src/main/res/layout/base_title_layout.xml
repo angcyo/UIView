@@ -49,7 +49,7 @@
             android:layout_width="@dimen/base_load_view_size"
             android:layout_height="@dimen/base_load_view_size"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/base_ldp"
+            android:layout_marginRight="@dimen/base_ldpi"
             android:layout_toLeftOf="@id/base_title_view"
             android:visibility="gone"/>
     </RelativeLayout>

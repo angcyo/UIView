@@ -128,6 +128,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         LayoutState state = getDefaultLayoutState();
         if (state == LayoutState.CONTENT) {
             showContentLayout();
+            startLayoutAnim(mBaseContentLayout);
         }
         changeState(mLayoutState, state);
     }
@@ -237,6 +238,10 @@ public abstract class UIBaseView extends UIIViewImpl {
         rotateAnimation.setRepeatCount(Animation.INFINITE);
         rotateAnimation.setDuration(1000);
         return rotateAnimation;
+    }
+
+    protected void fixInsersTop() {
+        mBaseRootLayout.fixInsersTop();
     }
 
 

@@ -13,6 +13,13 @@
         <item name="android:layout_marginRight">10dp</item>
     </style>
 
+    <!--窗口平移动画-->
+    <style name="WindowTranAnim" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/default_window_tran_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/default_window_tran_exit_anim</item>
+        <!--<item name="android:windowExitAnimation">@null</item>-->
+    </style>
+
     <!--竖线-->
     <style name="BaseVLine">
         <item name="android:layout_width">@dimen/base_line</item>

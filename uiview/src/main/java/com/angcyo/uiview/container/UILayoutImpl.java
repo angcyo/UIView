@@ -421,6 +421,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
 
         if (!anim) {
             endRunnable.run();
+            return;
         }
 
         if (topViewPattern.mIView.isDialog()) {
@@ -451,6 +452,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
 
         if (!anim) {
             endRunnable.run();
+            return;
         }
 
         if (topViewPattern.mIView.isDialog()) {
@@ -482,6 +484,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
 
         if (!anim) {
             endRunnable.run();
+            return;
         }
 
         if (topViewPattern.mIView.isDialog()) {
@@ -514,6 +517,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
 
         if (!anim) {
             endRunnable.run();
+            return;
         }
 
         if (topViewPattern.mIView.isDialog()) {

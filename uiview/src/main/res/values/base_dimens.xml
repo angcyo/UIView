@@ -19,8 +19,11 @@
     <dimen name="base_border_size">2dp</dimen>
     <!--加载进度视图默认的大小-->
     <dimen name="base_load_view_size">20dp</dimen>
-    <dimen name="base_ldp">4dp</dimen>
-    <dimen name="base_hdp">8dp</dimen>
-    <dimen name="base_xhdp">10dp</dimen>
-    <dimen name="base_xxhdp">20dp</dimen>
+    <dimen name="base_dpi">1dp</dimen>
+    <dimen name="base_mdpi">2dp</dimen>
+    <dimen name="base_ldpi">4dp</dimen>
+    <dimen name="base_hdpi">8dp</dimen>
+    <dimen name="base_xhdpi">10dp</dimen>
+    <dimen name="base_xxhdpi">20dp</dimen>
+    <dimen name="base_xxxhdpi">30dp</dimen>
 </resources>

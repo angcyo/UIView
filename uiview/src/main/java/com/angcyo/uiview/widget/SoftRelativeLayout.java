@@ -11,6 +11,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.IWindowInsetsListener;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.view.ILifecycle;
@@ -152,6 +153,16 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
     public void setLockHeight(boolean lockHeight) {
         this.lockHeight = lockHeight;
+    }
+
+    /**
+     * 修复状态栏的高度
+     */
+    public void fixInsersTop() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setPadding(getPaddingLeft(), getResources().getDimensionPixelSize(R.dimen.status_bar_height),
+                    getPaddingRight(), getPaddingBottom());
+        }
     }
 
     /**
