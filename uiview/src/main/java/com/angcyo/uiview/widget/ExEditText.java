@@ -181,13 +181,13 @@ public class ExEditText extends AppCompatEditText {
         return this.getTransformationMethod() instanceof PasswordTransformationMethod;
     }
 
-    void showPassword() {
+    public void showPassword() {
         final int selection = getSelectionEnd();
         setTransformationMethod(null);
         setSelection(selection);
     }
 
-    void hidePassword() {
+    public void hidePassword() {
         final int selection = getSelectionEnd();
         setTransformationMethod(PasswordTransformationMethod.getInstance());
         setSelection(selection);
