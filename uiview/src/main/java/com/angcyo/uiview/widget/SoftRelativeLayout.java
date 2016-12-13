@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.animation.DecelerateInterpolator;
@@ -59,8 +60,8 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                RelativeLayout.LayoutParams st =
-                        (RelativeLayout.LayoutParams) child.getLayoutParams();
+                LayoutParams st =
+                        (LayoutParams) child.getLayoutParams();
                 int offset = mInsets[3];
                 int left = (int) Reflect.getMember(st, "mLeft");
                 int top = (int) Reflect.getMember(st, "mTop");
@@ -158,7 +159,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     /**
      * 修复状态栏的高度
      */
-    public void fixInsersTop() {
+    public void fixInsertsTop() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setPadding(getPaddingLeft(), getResources().getDimensionPixelSize(R.dimen.status_bar_height),
                     getPaddingRight(), getPaddingBottom());
@@ -168,7 +169,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     /**
      * 获取底部装饰物的高度 , 通常是键盘的高度
      */
-    public int getInsersBottom() {
+    public int getInsertsBottom() {
         return mInsets[3];
     }
 
@@ -192,5 +193,10 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     public void onViewHide() {
         isViewShow = false;
         lockHeight = true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return true;
     }
 }
