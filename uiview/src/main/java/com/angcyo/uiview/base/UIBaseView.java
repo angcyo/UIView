@@ -241,7 +241,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected void fixInsersTop() {
-        mBaseRootLayout.fixInsersTop();
+        mBaseRootLayout.fixInsertsTop();
     }
 
 
