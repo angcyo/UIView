@@ -20,6 +20,7 @@ import com.angcyo.uiview.net.base.BaseSubscriber;
  */
 public class LoginPresenterImpl extends BasePresenter<Login.ILoginView> implements Login.ILoginPresenter {
 
+
     @Override
     public void startLogin(String authtoken, String authsecret, String authtype, String uniqueid) {
         RRetrofit.create(UserService.class)
