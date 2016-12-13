@@ -11,9 +11,8 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.base.UIIDialogImpl;
 
 /**
- *
  * 标准形式的对话框
- *
+ * <p>
  * Created by angcyo on 2016-11-16.
  */
 
@@ -35,6 +34,9 @@ public class UIDialog extends UIIDialogImpl {
      */
     View.OnClickListener cancelListener, okListener;
 
+    public static UIDialog build() {
+        return new UIDialog();
+    }
 
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {

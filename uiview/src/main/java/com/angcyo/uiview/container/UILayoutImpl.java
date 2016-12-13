@@ -2,6 +2,7 @@ package com.angcyo.uiview.container;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.ColorInt;
@@ -164,7 +165,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         }
 
         if (lastViewPattern != null) {
-            lastViewPattern.mView.setVisibility(VISIBLE);
+            //lastViewPattern.mView.setVisibility(VISIBLE);
             lastViewPattern.mView.bringToFront();
             lastViewPattern.mIView.onViewShow();//2:
         }
@@ -256,7 +257,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             return;
         }
 
-        viewPattern.mView.setVisibility(VISIBLE);
+        //viewPattern.mView.setVisibility(VISIBLE);
         viewPattern.mView.bringToFront();
 
         if (viewPattern.mIView.isDialog()) {
@@ -272,7 +273,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                 safeStartAnim(lastShowViewPattern.mView, needAnim ? viewPattern.mIView.loadOtherHideAnimation() : null, new Runnable() {
                     @Override
                     public void run() {
-                        lastShowViewPattern.mView.setVisibility(INVISIBLE);
+                        //lastShowViewPattern.mView.setVisibility(INVISIBLE);
                         lastShowViewPattern.mIView.onViewHide();
                     }
                 });
@@ -299,7 +300,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             finishDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
                 @Override
                 public void run() {
-                    viewPattern.mView.setVisibility(INVISIBLE);
+                    //viewPattern.mView.setVisibility(INVISIBLE);
                     viewPattern.mIView.onViewHide();
                 }
             });
@@ -308,7 +309,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             safeStartAnim(view, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
                 @Override
                 public void run() {
-                    viewPattern.mView.setVisibility(INVISIBLE);
+                    //viewPattern.mView.setVisibility(INVISIBLE);
                     viewPattern.mIView.onViewHide();
                 }
             });
@@ -396,9 +397,9 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             topViewStart(newViewPattern, needAnim);
             bottomViewFinish(oldViewPattern, newViewPattern, needAnim);
         } else {
-            for (ViewPattern viewPattern : mAttachViews) {
-                viewPattern.mView.setVisibility(INVISIBLE);
-            }
+//            for (ViewPattern viewPattern : mAttachViews) {
+//                viewPattern.mView.setVisibility(INVISIBLE);
+//            }
         }
     }
 
@@ -476,7 +477,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
                 bottomViewPattern.mIView.onViewShow();
             }
         };
-        bottomViewPattern.mView.setVisibility(VISIBLE);
+        //bottomViewPattern.mView.setVisibility(VISIBLE);
 
         if (bottomViewPattern.mView instanceof ILifecycle) {
             ((ILifecycle) bottomViewPattern.mView).onViewShow();
@@ -507,7 +508,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
             @Override
             public void run() {
                 bottomViewPattern.mIView.onViewHide();
-                bottomViewPattern.mView.setVisibility(INVISIBLE);
+                //bottomViewPattern.mView.setVisibility(INVISIBLE);
             }
         };
 
@@ -870,6 +871,12 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      */
     public ViewPattern getLastShowViewPattern() {
         return mLastShowViewPattern;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (mLastShowViewPattern != null) {
+            mLastShowViewPattern.mIView.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     static class AnimRunnable implements Animation.AnimationListener {

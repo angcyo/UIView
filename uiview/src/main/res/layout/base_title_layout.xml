@@ -19,9 +19,10 @@
             android:id="@+id/base_back_image_view"
             android:layout_width="@dimen/base_title_bar_item_size"
             android:layout_height="match_parent"
-            android:background="@drawable/base_bg_selector"
+            android:background="@drawable/base_bg2_selector"
             android:clickable="true"
-            android:src="@drawable/base_back_3"
+            android:scaleType="center"
+            android:src="@drawable/base_back"
             android:visibility="gone"/>
 
     </LinearLayout>

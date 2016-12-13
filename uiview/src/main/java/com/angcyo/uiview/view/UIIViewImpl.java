@@ -1,6 +1,7 @@
 package com.angcyo.uiview.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -265,5 +266,10 @@ public abstract class UIIViewImpl implements IView {
         if (mRootView != null) {
             mRootView.postDelayed(action, delayMillis);
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 }

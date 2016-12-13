@@ -124,21 +124,21 @@ public class ExEditText extends AppCompatEditText {
             }
         }
 
-        if (isPassword) {
-            if (action == MotionEvent.ACTION_DOWN) {
-                downTime = System.currentTimeMillis();
-            } else if (action == MotionEvent.ACTION_MOVE) {
-                if ((System.currentTimeMillis() - downTime) > 100) {
-                    if (isDownIn) {
-                        hidePassword();
-                    } else {
-                        showPassword();
-                    }
-                }
-            } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
-                hidePassword();
-            }
-        }
+//        if (isPassword) {
+//            if (action == MotionEvent.ACTION_DOWN) {
+//                downTime = System.currentTimeMillis();
+//            } else if (action == MotionEvent.ACTION_MOVE) {
+//                if ((System.currentTimeMillis() - downTime) > 100) {
+//                    if (isDownIn) {
+//                        hidePassword();
+//                    } else {
+//                        showPassword();
+//                    }
+//                }
+//            } else if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
+//                hidePassword();
+//            }
+//        }
         return super.onTouchEvent(event);
     }
 
@@ -212,5 +212,13 @@ public class ExEditText extends AppCompatEditText {
     public boolean isPhone() {
         final String phone = getText().toString();
         return !TextUtils.isEmpty(phone) && phone.matches("^1[3-8]\\d{9}$");
+    }
+
+    /**
+     * 判断是否是有效
+     */
+    public boolean isPassword() {
+        final String string = getText().toString();
+        return !TextUtils.isEmpty(string) && string.matches("^[a-zA-Z0-9_-]{6,12}$");
     }
 }

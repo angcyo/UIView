@@ -73,14 +73,6 @@ public abstract class UIBaseView extends UIIViewImpl {
         mBaseRootLayout = new SoftRelativeLayout(mContext);
         mBaseRootId = View.generateViewId();
         mBaseRootLayout.setId(mBaseRootId);
-        mBaseRootLayout.setClickable(true);
-        mBaseRootLayout.setEnabled(true);
-        mBaseRootLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         TitleBarPattern titleBarPattern = getTitleBar();
         if (titleBarPattern != null) {
@@ -88,6 +80,7 @@ public abstract class UIBaseView extends UIIViewImpl {
             mUITitleBarId = View.generateViewId();
             mUITitleBarContainer.setId(mUITitleBarId);
             mUITitleBarContainer.setTitleBarPattern(titleBarPattern);
+            mUITitleBarContainer.onAttachToLayout(mILayout);//note
             mBaseRootLayout.addView(mUITitleBarContainer, new ViewGroup.LayoutParams(-1, -2));
         }
 

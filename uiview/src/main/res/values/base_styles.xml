@@ -24,14 +24,14 @@
     <style name="BaseVLine">
         <item name="android:layout_width">@dimen/base_line</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@drawable/line</item>
+        <item name="android:background">@drawable/base_shape_line</item>
     </style>
 
     <!--横线-->
     <style name="BaseHLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/base_line</item>
-        <item name="android:background">@drawable/line</item>
+        <item name="android:background">@drawable/base_shape_line</item>
     </style>
 
     <!--平分的横向文本按钮-->

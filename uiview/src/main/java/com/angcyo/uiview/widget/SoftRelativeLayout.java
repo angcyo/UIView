@@ -51,7 +51,27 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         setFitsSystemWindows(true);
+        setClickable(true);
+        setEnabled(true);
+        setFocusable(true);
+        setFocusableInTouchMode(true);
+        setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
+
+    @Override
+    protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
+        if (gainFocus) {
+            hideSoftInput();
+        }
+    }
+
+
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -60,8 +80,8 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                LayoutParams st =
-                        (LayoutParams) child.getLayoutParams();
+                RelativeLayout.LayoutParams st =
+                        (RelativeLayout.LayoutParams) child.getLayoutParams();
                 int offset = mInsets[3];
                 int left = (int) Reflect.getMember(st, "mLeft");
                 int top = (int) Reflect.getMember(st, "mTop");
@@ -197,6 +217,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         return true;
     }
 }

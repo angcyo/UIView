@@ -4,8 +4,14 @@
     <dimen name="action_bar_height">45dp</dimen>
     <dimen name="title_bar_height">70dp</dimen>
 
+    <!--默认文本大小-->
+    <dimen name="default_text_size">14sp</dimen>
+    <!--默认按钮高度-->
+    <dimen name="default_button_height">45dp</dimen>
+
     <!--默认的圆角大小-->
     <dimen name="base_round_radius">6dp</dimen>
+    <dimen name="base_round_little_radius">3dp</dimen>
     <dimen name="base_big_round_radius">40dp</dimen>
     <!--标题的字体大小-->
     <dimen name="base_title_size">16sp</dimen>
@@ -14,9 +20,10 @@
     <!--对话框默认两边的距离-->
     <dimen name="base_dialog_margin">30dp</dimen>
     <!--线的大小-->
-    <dimen name="base_line">0.5dp</dimen>
+    <dimen name="base_line">1dp</dimen>
     <!--默认的线框大小-->
     <dimen name="base_border_size">2dp</dimen>
+    <dimen name="base_border_little_size">1dp</dimen>
     <!--加载进度视图默认的大小-->
     <dimen name="base_load_view_size">20dp</dimen>
     <dimen name="base_dpi">1dp</dimen>
@@ -26,4 +33,10 @@
     <dimen name="base_xhdpi">10dp</dimen>
     <dimen name="base_xxhdpi">20dp</dimen>
     <dimen name="base_xxxhdpi">30dp</dimen>
+    <dimen name="base_35dpi">35dp</dimen>
+    <dimen name="base_40dpi">40dp</dimen>
+    <dimen name="base_60dpi">60dp</dimen>
+    <dimen name="base_80dpi">80dp</dimen>
+    <dimen name="base_90dpi">90dp</dimen>
+    <dimen name="base_100dpi">100dp</dimen>
 </resources>

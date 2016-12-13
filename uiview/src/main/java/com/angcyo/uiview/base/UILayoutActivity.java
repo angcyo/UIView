@@ -69,4 +69,10 @@ public abstract class UILayoutActivity extends StyleActivity {
         intent.setData(Uri.parse("package:" + getPackageName()));
         startActivity(intent);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ((UILayoutImpl) mLayout).onActivityResult(requestCode, resultCode, data);
+    }
 }

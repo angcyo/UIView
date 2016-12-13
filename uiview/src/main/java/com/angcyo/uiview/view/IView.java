@@ -1,6 +1,7 @@
 package com.angcyo.uiview.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -19,6 +20,7 @@ public interface IView {
     /**
      * 不需要标题栏,请返回null, 请在实现的时候, 做好缓存
      */
+    @Deprecated
     TitleBarPattern loadTitleBar(Context context);
 
     /**
@@ -118,4 +120,6 @@ public interface IView {
     void onShowInPager(UIViewPager viewPager);//2016-11-26
 
     void onHideInPager(UIViewPager viewPager);//2016-11-26
+
+    void onActivityResult(int requestCode, int resultCode, Intent data);//2016-12-13
 }

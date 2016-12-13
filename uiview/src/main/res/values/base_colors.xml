@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="theme_color_primary">#d81e06</color>
-    <color name="theme_color_primary_dark">#982e20</color>
-    <color name="theme_color_primary_dark_tran">#40982e20</color>
-    <color name="theme_color_accent">#c737e1</color>
+    <color name="theme_color_primary">#0BD1A0</color>
+    <color name="theme_color_primary_dark">#20a886</color>
+    <color name="theme_color_primary_dark_tran">#800BD1A0</color>
+    <color name="theme_color_accent">#0BD1A0</color>
+    <color name="transparent">#00000000</color>
 
     <color name="default_base_bg_press">#40000000</color>
     <color name="default_base_bg_disable">#999999</color>
