@@ -63,7 +63,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        mDialogRootLayout = new SoftRelativeLayout(mContext);
+        mDialogRootLayout = new SoftRelativeLayout(mActivity);
         container.addView(mDialogRootLayout, new ViewGroup.LayoutParams(-1, -1));
         View xmlRootView = UILayoutImpl.safeAssignView(mDialogRootLayout,
                 inflateDialogView(mDialogRootLayout, inflater));
@@ -73,7 +73,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
     }
 
     protected View inflate(@LayoutRes int layoutId) {
-        return LayoutInflater.from(mContext).inflate(layoutId, mDialogRootLayout);
+        return LayoutInflater.from(mActivity).inflate(layoutId, mDialogRootLayout);
     }
 
     @Override

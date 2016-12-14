@@ -33,6 +33,9 @@ public class UIItemDialog extends UIIDialogImpl {
     protected RBaseViewHolder mViewHolder;
     protected ArrayList<ItemInfo> mItemInfos = new ArrayList<>();
 
+    private UIItemDialog() {
+    }
+
     public static UIItemDialog build() {
         return new UIItemDialog();
     }
@@ -85,16 +88,16 @@ public class UIItemDialog extends UIIDialogImpl {
 
             mItemContentLayout.addView(textView,
                     new ViewGroup.LayoutParams(-1,
-                            mContext.getResources().getDimensionPixelSize(R.dimen.default_button_height)));
+                            mActivity.getResources().getDimensionPixelSize(R.dimen.default_button_height)));
         }
     }
 
     protected TextView getItem(final ItemInfo info) {
-        TextView textView = new TextView(mContext);
+        TextView textView = new TextView(mActivity);
         textView.setText(info.mItemText);
-        textView.setTextColor(mContext.getResources().getColor(R.color.theme_color_accent));
+        textView.setTextColor(mActivity.getResources().getColor(R.color.theme_color_accent));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                mContext.getResources().getDimensionPixelSize(R.dimen.default_text_size));
+                mActivity.getResources().getDimensionPixelSize(R.dimen.default_text_size));
         textView.setGravity(Gravity.CENTER);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

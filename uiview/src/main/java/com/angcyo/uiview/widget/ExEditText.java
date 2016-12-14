@@ -221,4 +221,15 @@ public class ExEditText extends AppCompatEditText {
         final String string = getText().toString();
         return !TextUtils.isEmpty(string) && string.matches("^[a-zA-Z0-9_-]{6,12}$");
     }
+
+    /**
+     * 长度
+     */
+    public int length() {
+        return getText().length();
+    }
+
+    public String string() {
+        return getText().toString();
+    }
 }

@@ -55,7 +55,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         setEnabled(true);
         setFocusable(true);
         setFocusableInTouchMode(true);
-        setOnClickListener(new View.OnClickListener() {
+        setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -80,8 +80,8 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                RelativeLayout.LayoutParams st =
-                        (RelativeLayout.LayoutParams) child.getLayoutParams();
+                LayoutParams st =
+                        (LayoutParams) child.getLayoutParams();
                 int offset = mInsets[3];
                 int left = (int) Reflect.getMember(st, "mLeft");
                 int top = (int) Reflect.getMember(st, "mTop");

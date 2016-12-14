@@ -26,7 +26,7 @@ public class RSA {
             encode = Base64Utils.encode(encodedData);
         } catch (Exception e) {
         }
-        return encode;
+        return encode.replaceAll("\\n", "");
     }
 
     /**

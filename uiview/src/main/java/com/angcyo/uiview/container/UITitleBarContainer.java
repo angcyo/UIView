@@ -272,7 +272,7 @@ public class UITitleBarContainer extends FrameLayout {
         }
     }
 
-    private ImageView createImageItem(@DrawableRes int res, View.OnClickListener listener) {
+    private ImageView createImageItem(@DrawableRes int res, OnClickListener listener) {
         ImageView item = new ImageView(getContext());
         item.setImageResource(res);
         item.setScaleType(ImageView.ScaleType.CENTER);
@@ -284,7 +284,7 @@ public class UITitleBarContainer extends FrameLayout {
         return item;
     }
 
-    private TextView createTextItem(String text, View.OnClickListener listener) {
+    private TextView createTextItem(String text, OnClickListener listener) {
         TextView item = new TextView(getContext());
         item.setText(text);
         item.setTextColor(Color.WHITE);

@@ -2,6 +2,7 @@ package com.angcyo.uiview.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public abstract class UIIViewImpl implements IView {
     public static final int DEFAULT_ANIM_TIME = 300;
 
     protected ILayout mILayout;
-    protected Context mContext;
+    protected AppCompatActivity mActivity;
     /**
      * 根布局
      */
@@ -49,9 +50,9 @@ public abstract class UIIViewImpl implements IView {
     }
 
     @Override
-    public View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
+    public View inflateContentView(AppCompatActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
         L.d(this.getClass().getSimpleName(), "inflateContentView: ");
-        mContext = context;
+        mActivity = activity;
         mILayout = iLayout;
         return inflateBaseView(container, inflater);
     }

@@ -204,7 +204,7 @@ public class RRecyclerView extends RecyclerView {
     /**
      * 将默认的adapter, 包裹一层动画adapter
      */
-    private AnimationAdapter getAnimationAdapter(RecyclerView.Adapter adapter) {
+    private AnimationAdapter getAnimationAdapter(Adapter adapter) {
         AnimationAdapter animationAdapter = new ScaleInAnimationAdapter(adapter);
         if (animatorAdapter != null) {
             try {

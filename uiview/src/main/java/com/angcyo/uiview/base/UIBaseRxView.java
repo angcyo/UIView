@@ -1,5 +1,7 @@
 package com.angcyo.uiview.base;
 
+import com.angcyo.uiview.mvp.presenter.BasePresenter;
+
 import rx.subscriptions.CompositeSubscription;
 
 /**

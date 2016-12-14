@@ -25,6 +25,10 @@ public interface ILayout {
 
     void finishIView(View view);
 
+    void finishIView(IView iview, boolean needAnim);//2016-12-14
+
+    void finishIView(IView iview);//2016-12-14
+
     /**
      * 显示一个View
      */

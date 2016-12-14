@@ -70,13 +70,13 @@ public abstract class UIBaseView extends UIIViewImpl {
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         //包含标题栏的根布局
-        mBaseRootLayout = new SoftRelativeLayout(mContext);
+        mBaseRootLayout = new SoftRelativeLayout(mActivity);
         mBaseRootId = View.generateViewId();
         mBaseRootLayout.setId(mBaseRootId);
 
         TitleBarPattern titleBarPattern = getTitleBar();
         if (titleBarPattern != null) {
-            mUITitleBarContainer = new UITitleBarContainer(mContext);
+            mUITitleBarContainer = new UITitleBarContainer(mActivity);
             mUITitleBarId = View.generateViewId();
             mUITitleBarContainer.setId(mUITitleBarId);
             mUITitleBarContainer.setTitleBarPattern(titleBarPattern);
@@ -85,12 +85,12 @@ public abstract class UIBaseView extends UIIViewImpl {
         }
 
         //内容根布局, 包含空布局,加载布局等
-        mBaseContentRootLayout = new FrameLayout(mContext);
+        mBaseContentRootLayout = new FrameLayout(mActivity);
         mBaseContentRootId = View.generateViewId();
         mBaseContentRootLayout.setId(mBaseContentRootId);
 
         //内容包裹布局
-        mBaseContentLayout = new RelativeLayout(mContext);
+        mBaseContentLayout = new RelativeLayout(mActivity);
 
         mBaseContentRootLayout.addView(mBaseContentLayout, new ViewGroup.LayoutParams(-1, -1));
         mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
@@ -144,7 +144,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected void inflate(@LayoutRes int layoutId) {
-        LayoutInflater.from(mContext).inflate(layoutId, mBaseContentLayout);
+        LayoutInflater.from(mActivity).inflate(layoutId, mBaseContentLayout);
     }
 
     protected View inflateLoadLayout(FrameLayout baseRootLayout, LayoutInflater inflater) {
@@ -160,11 +160,11 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected TitleBarPattern getTitleBar() {
-        return TitleBarPattern.build(getTitle()).setTitleBarBGColor(mContext.getResources().getColor(R.color.theme_color_primary));
+        return TitleBarPattern.build(getTitle()).setTitleBarBGColor(mActivity.getResources().getColor(R.color.theme_color_primary));
     }
 
     protected String getTitle() {
-        return ((AppCompatActivity) mContext).getTitle().toString();
+        return ((AppCompatActivity) mActivity).getTitle().toString();
     }
 
     /**
@@ -215,7 +215,7 @@ public abstract class UIBaseView extends UIIViewImpl {
      */
     public void showContentLayout() {
         if (mBaseContentLayout.getChildCount() == 0) {
-            inflateContentLayout(mBaseContentLayout, LayoutInflater.from(mContext));
+            inflateContentLayout(mBaseContentLayout, LayoutInflater.from(mActivity));
             ButterKnife.bind(this, mBaseContentLayout);
             initContentLayout();
         }
@@ -299,6 +299,20 @@ public abstract class UIBaseView extends UIIViewImpl {
 
     public UITitleBarContainer getUITitleBarContainer() {
         return mUITitleBarContainer;
+    }
+
+    public UIBaseView showLoadView() {
+        if (mUITitleBarContainer != null) {
+            mUITitleBarContainer.showLoadView();
+        }
+        return this;
+    }
+
+    public UIBaseView hideLoadView() {
+        if (mUITitleBarContainer != null) {
+            mUITitleBarContainer.hideLoadView();
+        }
+        return this;
     }
 
     /**

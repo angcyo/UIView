@@ -17,7 +17,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * Created by angcyo on 2016-03-20 23:53.
  */
 public class RRetrofit {
-    public static String BASE_URL = "http://zan.eeniao.com/app/";
+    public static String BASE_URL = "http://192.168.1.23/";
     //    //切换服务器, 1外网 -1内网
 //    public static void switchHttp(int type) {
 //        if (type >= 1) {

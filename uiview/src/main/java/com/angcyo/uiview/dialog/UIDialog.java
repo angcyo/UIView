@@ -34,6 +34,9 @@ public class UIDialog extends UIIDialogImpl {
      */
     View.OnClickListener cancelListener, okListener;
 
+    private UIDialog() {
+    }
+
     public static UIDialog build() {
         return new UIDialog();
     }

@@ -2,6 +2,7 @@ package com.angcyo.uiview.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -26,7 +27,7 @@ public interface IView {
     /**
      * 显示内容,
      */
-    View inflateContentView(Context context, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
+    View inflateContentView(AppCompatActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
 
     void loadContentView(View rootView);
 
