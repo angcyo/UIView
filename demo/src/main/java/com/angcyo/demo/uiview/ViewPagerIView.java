@@ -117,7 +117,7 @@ public class ViewPagerIView extends UIIViewImpl {
         public Object instantiateItem(ViewGroup container, int position) {
             L.w("PagerAdapter", "instantiateItem: " + position);
             Random random = new Random(SystemClock.uptimeMillis());
-            View layoutWrapper = new UIContainer(mContext);
+            View layoutWrapper = new UIContainer(mActivity);
 //            layoutWrapper.setText("当前页:" + position);
 //            layoutWrapper.setTextColor(Color.WHITE);
             layoutWrapper.setBackgroundColor(Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255)));

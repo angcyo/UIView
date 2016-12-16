@@ -50,7 +50,7 @@ public class DialogLoginView extends UIIDialogImpl implements Login.ILoginView {
 
     @OnClick(R.id.login_button)
     public void onLoginButton() {
-        T.show(mContext, "登录");
+        T.show(mActivity, "登录");
         mLoginPresenter.startLogin(mPhoneView.getText().toString(), mPasswordView.getText().toString(), "phone", RApp.getIMEI());
     }
 
@@ -67,13 +67,13 @@ public class DialogLoginView extends UIIDialogImpl implements Login.ILoginView {
     @Override
     public void onSuccess() {
         L.w("");
-        T.show(mContext, "登录成功");
+        T.show(mActivity, "登录成功");
     }
 
     @Override
     public void onError(int code, @NonNull String msg) {
         L.w("");
-        T.show(mContext, "登录失败:" + msg);
+        T.show(mActivity, "登录失败:" + msg);
     }
 
 }

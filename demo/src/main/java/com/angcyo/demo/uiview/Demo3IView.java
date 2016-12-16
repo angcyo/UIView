@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class Demo3IView extends UIIViewImpl {
 
-    private Context mContext;
+    private Context mActivity;
     private ILayout mUIContainer;
 
     @Override
     public TitleBarPattern loadTitleBar(Context context) {
-        mContext = context;
+        mActivity = context;
         TitleBarPattern pattern = TitleBarPattern.build();
         pattern.setTitleString("测试标题3")
                 .setShowBackImageView(true)
@@ -41,14 +41,14 @@ public class Demo3IView extends UIIViewImpl {
                 .setText("Demo").setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "Demo");
+                        T.show(mActivity, "Demo");
                     }
                 }));
         items.add(TitleBarPattern.TitleBarItem.build()
                 .setText("Item").setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "Item");
+                        T.show(mActivity, "Item");
                     }
                 }));
         return items;
@@ -64,7 +64,7 @@ public class Demo3IView extends UIIViewImpl {
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                T.show(mContext, "---Demo 3----");
+                T.show(mActivity, "---Demo 3----");
             }
         });
         return view;

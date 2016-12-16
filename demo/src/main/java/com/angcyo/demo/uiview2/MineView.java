@@ -42,13 +42,13 @@ public class MineView extends UIBaseView {
                 items.add(TitleBarPattern.TitleBarItem.build().setRes(R.drawable.home_48).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "Home " + Network.getNetTypeName(mContext));
+                        T.show(mActivity, "Home " + Network.getNetTypeName(mActivity));
                     }
                 }));
                 items.add(TitleBarPattern.TitleBarItem.build().setRes(R.drawable.live_48).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        T.show(mContext, "Love " + Network.isConnected(mContext));
+                        T.show(mActivity, "Love " + Network.isConnected(mActivity));
                     }
                 }));
                 ArrayList<TitleBarPattern.TitleBarItem> items2 = new ArrayList<TitleBarPattern.TitleBarItem>();

@@ -26,9 +26,9 @@ public class NormalView extends UIBaseDataView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        mRefreshLayout = new RefreshLayout(mContext);
+        mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
-        TextView textView = new TextView(mContext);
+        TextView textView = new TextView(mActivity);
         textView.setText("我就是内容.....");
         mRefreshLayout.addView(textView);
         baseContentLayout.addView(mRefreshLayout);

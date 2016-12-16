@@ -33,11 +33,11 @@ public class RecyclerView extends UIBaseDataView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        mRefreshLayout = new RefreshLayout(mContext);
+        mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
-        mRecyclerView = new RRecyclerView(mContext);
+        mRecyclerView = new RRecyclerView(mActivity);
         mRefreshLayout.addView(mRecyclerView);
-//        TextView textView = new TextView(mContext);
+//        TextView textView = new TextView(mActivity);
 //        textView.setText("我就是内容.....");
 //        mRefreshLayout.addView(textView);
         baseContentLayout.addView(mRefreshLayout);
@@ -56,7 +56,7 @@ public class RecyclerView extends UIBaseDataView {
     }
 
     private void initRecyclerView() {
-        mRecyclerView.setAdapter(new RBaseAdapter<String>(mContext) {
+        mRecyclerView.setAdapter(new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {
                 return 0;
@@ -69,8 +69,8 @@ public class RecyclerView extends UIBaseDataView {
 
             @Override
             protected View createContentView(ViewGroup parent, int viewType) {
-                TextView textView = new TextView(mContext);
-                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mContext.getResources(), 50)));
+                TextView textView = new TextView(mActivity);
+                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 50)));
                 textView.setTextColor(Color.BLUE);
                 return textView;
             }

@@ -59,33 +59,33 @@ public class ScrollerIView extends UIIViewImpl {
     @OnClick(R.id.jump_to_view_pager)
     public void onJumpToViewPager() {
 
-        //T.show(mContext, "onJumpToViewPager");
+        //T.show(mActivity, "onJumpToViewPager");
         mILayout.startIView(new ViewPagerIView());
     }
 
     @OnClick(R.id.jump_to_ui_view_pager)
     public void onJumpToUIViewPager() {
-        //T.show(mContext, "onJumpToViewPager");
+        //T.show(mActivity, "onJumpToViewPager");
         mILayout.startIView(new UIViewPagerIView());
     }
 
     @OnClick(R.id.view)
     public void onViewClick(View view) {
-        T.show(mContext, "你看到我了吗?");
-        mILayout.startIView(new UIDialog());
-        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setGravity(Gravity.TOP));
-        mILayout.startIView(new UIDialog().setDialogContent("内容测试").setGravity(Gravity.CENTER));
-        mILayout.startIView(new UIDialog().setDialogTitle("标题测试").setDialogContent("标题测试"));
+        T.show(mActivity, "你看到我了吗?");
+        mILayout.startIView(UIDialog.build());
+        mILayout.startIView(UIDialog.build().setDialogTitle("标题测试").setGravity(Gravity.TOP));
+        mILayout.startIView(UIDialog.build().setDialogContent("内容测试").setGravity(Gravity.CENTER));
+        mILayout.startIView(UIDialog.build().setDialogTitle("标题测试").setDialogContent("标题测试"));
     }
 
     @OnClick(R.id.view2)
     public void onViewC2lick(View view) {
-        mILayout.startIView(new UIDialog()
+        mILayout.startIView(UIDialog.build()
                 .setDialogTitle("很帅的标题很帅的标题很帅的标题很帅的标题很帅的标题很帅的标题")
                 .setDialogContent("无知的内容无知的内容无知的内容无知的内容无知的内容无知的内容无知的内容无知的内容"));
 
         final ViewGroup rootView = (ViewGroup) ((ViewGroup) mRootView).getChildAt(0);
-        TextView textView = new TextView(mContext);
+        TextView textView = new TextView(mActivity);
         textView.setText("刚创建的VIEW");
         textView.setBackgroundColor(Color.LTGRAY);
         textView.setOnClickListener(new View.OnClickListener() {

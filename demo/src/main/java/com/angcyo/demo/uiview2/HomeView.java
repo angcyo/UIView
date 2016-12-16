@@ -19,7 +19,7 @@ public class HomeView extends UIBaseView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        TextView textView = new TextView(mContext);
+        TextView textView = new TextView(mActivity);
         textView.setText(this.getClass().getSimpleName());
         textView.setGravity(Gravity.CENTER);
         baseContentLayout.addView(textView, new ViewGroup.LayoutParams(-1, -1));

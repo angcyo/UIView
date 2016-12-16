@@ -27,9 +27,9 @@ public class WebviewView extends UIBaseDataView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        mRefreshLayout = new RefreshLayout(mContext);
+        mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
-        WebView webView = new WebView(mContext);
+        WebView webView = new WebView(mActivity);
         Web.initWebView(webView, null);
         webView.loadUrl("https://www.baidu.com/s?word=angcyo");
         mRefreshLayout.addView(webView);

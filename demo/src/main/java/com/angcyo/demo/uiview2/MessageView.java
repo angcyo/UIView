@@ -39,7 +39,7 @@ public class MessageView extends UIBaseView {
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
 
-//        TextView textView = new TextView(mContext);
+//        TextView textView = new TextView(mActivity);
 //        textView.setText(this.getClass().getSimpleName());
 //        textView.setGravity(Gravity.CENTER);
 //        baseContentLayout.addView(textView, new ViewGroup.LayoutParams(-1, -1));
@@ -48,7 +48,7 @@ public class MessageView extends UIBaseView {
 
     @Override
     protected void initContentLayout() {
-        mBaseAdapter = new RBaseAdapter<String>(mContext) {
+        mBaseAdapter = new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {
                 return 0;
@@ -56,9 +56,9 @@ public class MessageView extends UIBaseView {
 
             @Override
             protected View createContentView(ViewGroup parent, int viewType) {
-                TextView textView = new TextView(mContext);
+                TextView textView = new TextView(mActivity);
                 textView.setText(this.getClass().getSimpleName() + " " + count++);
-                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mContext.getResources(), 50)));
+                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 50)));
                 mArrayList.add(textView);
                 return textView;
             }

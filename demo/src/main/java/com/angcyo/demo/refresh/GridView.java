@@ -33,9 +33,9 @@ public class GridView extends UIBaseDataView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        mRefreshLayout = new RefreshLayout(mContext);
+        mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
-        mRecyclerView = new RRecyclerView(mContext);
+        mRecyclerView = new RRecyclerView(mActivity);
         mRecyclerView.setTag("gv4");
         mRefreshLayout.addView(mRecyclerView);
         baseContentLayout.addView(mRefreshLayout);
@@ -54,7 +54,7 @@ public class GridView extends UIBaseDataView {
     }
 
     private void initRecyclerView() {
-        mRecyclerView.setAdapter(new RBaseAdapter<String>(mContext) {
+        mRecyclerView.setAdapter(new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {
                 return 0;
@@ -67,8 +67,8 @@ public class GridView extends UIBaseDataView {
 
             @Override
             protected View createContentView(ViewGroup parent, int viewType) {
-                TextView textView = new TextView(mContext);
-                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mContext.getResources(), 50)));
+                TextView textView = new TextView(mActivity);
+                textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 50)));
                 textView.setTextColor(Color.BLUE);
                 return textView;
             }

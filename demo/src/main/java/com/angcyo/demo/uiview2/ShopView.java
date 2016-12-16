@@ -22,10 +22,10 @@ public class ShopView extends UIBaseView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        LinearLayout linearLayout = new LinearLayout(mContext);
+        LinearLayout linearLayout = new LinearLayout(mActivity);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
-        TextView textView = new TextView(mContext);
+        TextView textView = new TextView(mActivity);
         textView.setText(this.getClass().getSimpleName());
         textView.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-1, 0);

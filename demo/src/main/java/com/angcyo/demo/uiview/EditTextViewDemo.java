@@ -24,7 +24,7 @@ public class EditTextViewDemo extends UIBaseView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        mExEditText = new ExEditText(mContext);
+        mExEditText = new ExEditText(mActivity);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -2);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         baseContentLayout.addView(mExEditText, params);
