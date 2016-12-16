@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/base_main_color_bg_selector"
     android:clipChildren="false"
     android:clipToPadding="false">
 
@@ -27,9 +28,9 @@
 
     </LinearLayout>
 
-    <com.flyco.tablayout.widget.MsgView
-        android:id="@+id/rtv_msg_tip"
+    <com.angcyo.uiview.github.tablayout.MsgView
         xmlns:mv="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/rtv_msg_tip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/ll_tap"

@@ -10,9 +10,6 @@ android {
         targetSdkVersion Integer.parseInt(rootProject.T_SDK)
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -29,12 +26,8 @@ def rxlifecycle_version = "1.0"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     compile 'com.android.support:appcompat-v7:' + rootProject.S_VER
     compile 'com.android.support:design:' + rootProject.S_VER
-    testCompile 'junit:junit:4.12'
 
     /*https://github.com/square/retrofit*/
     compile "com.squareup.retrofit2:retrofit:${retrofit_version}"
@@ -67,7 +60,6 @@ dependencies {
 
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.0@aar'
 
-    /*https://github.com/ssseasonnn/RxDownload*/
     compile 'zlc.season:rxdownload:1.2.3'
 
     /*https://github.com/JakeWharton/butterknife*/
@@ -87,14 +79,14 @@ dependencies {
 
     /*https://github.com/AndroidKnife/RxBus 需要Rx 2.0*/
     //compile 'com.hwangjr.rxbus:rxbus:2.0.0-beta'
-    compile ('com.hwangjr.rxbus:rxbus:1.0.5') {
+    compile('com.hwangjr.rxbus:rxbus:1.0.5') {
         exclude group: 'com.jakewharton.timber', module: 'timber'
     }
 
     /*https://github.com/trello/RxLifecycle/*/
-    compile 'com.trello:rxlifecycle:' + rxlifecycle_version
-    compile 'com.trello:rxlifecycle-android:' + rxlifecycle_version
-    compile 'com.trello:rxlifecycle-components:' + rxlifecycle_version
+//    compile 'com.trello:rxlifecycle:' + rxlifecycle_version
+//    compile 'com.trello:rxlifecycle-android:' + rxlifecycle_version
+//    compile 'com.trello:rxlifecycle-components:' + rxlifecycle_version
 
     /*https://github.com/orhanobut/hawk*/
     compile 'com.orhanobut:hawk:2.0.1'

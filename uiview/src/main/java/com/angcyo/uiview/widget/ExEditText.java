@@ -174,7 +174,7 @@ public class ExEditText extends AppCompatEditText {
     @Override
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
-        checkEdit(true);
+        checkEdit(isFocused());
     }
 
     private boolean hasPasswordTransformation() {

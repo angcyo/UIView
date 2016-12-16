@@ -12,7 +12,7 @@ package com.angcyo.uiview.view;
  * Version: 1.0.0
  */
 public interface ILifecycle {
-    void onViewShow();
+    void onLifeViewShow();
 
-    void onViewHide();
+    void onLifeViewHide();
 }

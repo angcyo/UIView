@@ -318,7 +318,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     /**
      * 指示当前布局的显示状态, 当前那个布局在显示
      */
-    enum LayoutState {
+    public enum LayoutState {
         NORMAL,//正常
         EMPTY,//空布局
         LOAD,//装载布局

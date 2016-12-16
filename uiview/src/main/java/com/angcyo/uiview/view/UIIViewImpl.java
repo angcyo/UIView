@@ -2,6 +2,8 @@ package com.angcyo.uiview.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.FrameLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.widget.UIViewPager;
 
@@ -37,10 +40,16 @@ public abstract class UIIViewImpl implements IView {
      */
     protected View mRootView;
 
+    /**
+     * 用来管理rootview
+     */
+    protected RBaseViewHolder mViewHolder;
+    private boolean mIsRightJumpLeft = false;
+
     public static void setDefaultConfig(Animation animation) {
         animation.setDuration(DEFAULT_ANIM_TIME);
         animation.setInterpolator(new DecelerateInterpolator());
-        animation.setFillAfter(true);
+        animation.setFillAfter(false);
     }
 
     @Override
@@ -63,6 +72,7 @@ public abstract class UIIViewImpl implements IView {
     public void loadContentView(View rootView) {
         L.d(this.getClass().getSimpleName(), "loadContentView: ");
         mRootView = rootView;
+        mViewHolder = new RBaseViewHolder(mRootView);
         try {
             ButterKnife.bind(this, mRootView);
         } catch (Exception e) {
@@ -106,8 +116,14 @@ public abstract class UIIViewImpl implements IView {
         L.d(this.getClass().getSimpleName(), "onViewLoad: ");
     }
 
+    @Deprecated
     @Override
     public void onViewShow() {
+        onViewShow(null);
+    }
+
+    @Override
+    public void onViewShow(Bundle bundle) {
         L.d(this.getClass().getSimpleName(), "onViewShow: ");
     }
 
@@ -124,8 +140,14 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public Animation loadStartAnimation() {
         L.d(this.getClass().getSimpleName(), "loadStartAnimation: ");
-        TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0,
-                Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
+        TranslateAnimation translateAnimation;
+        if (mIsRightJumpLeft) {
+            translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
+                    Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
+        } else {
+            translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0,
+                    Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
+        }
         setDefaultConfig(translateAnimation);
         return translateAnimation;
     }
@@ -154,8 +176,14 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public Animation loadOtherExitAnimation() {
         L.d(this.getClass().getSimpleName(), "loadOtherExitAnimation: ");
-        TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1f,
-                Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
+        TranslateAnimation translateAnimation;
+        if (mIsRightJumpLeft) {
+            translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1f,
+                    Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
+        } else {
+            translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1f,
+                    Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
+        }
         setDefaultConfig(translateAnimation);
         return translateAnimation;
     }
@@ -182,6 +210,12 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public Animation loadLayoutAnimation() {
         L.d(this.getClass().getSimpleName(), "loadLayoutAnimation: ");
+        if (mIsRightJumpLeft) {
+
+        } else {
+
+        }
+
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
                 Animation.RELATIVE_TO_PARENT, 0f,
                 Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
@@ -232,7 +266,7 @@ public abstract class UIIViewImpl implements IView {
      */
     @Override
     public void onShowInPager(UIViewPager viewPager) {
-
+        L.d(this.getClass().getSimpleName(), "onShowInPager: ");
     }
 
     /**
@@ -240,7 +274,7 @@ public abstract class UIIViewImpl implements IView {
      */
     @Override
     public void onHideInPager(UIViewPager viewPager) {
-
+        L.d(this.getClass().getSimpleName(), "onHideInPager: ");
     }
 
     public void startIView(IView iView) {
@@ -257,6 +291,74 @@ public abstract class UIIViewImpl implements IView {
         mILayout.startIView(iView, anim);
     }
 
+    public void finishIView(IView iView) {
+        finishIView(iView, true);
+    }
+
+    public void finishIView(IView iView, boolean anim) {
+        finishIView(iView, anim, false);
+    }
+
+    public void finishIView(IView iView, boolean anim, boolean quiet) {
+        if (iView == null) {
+            return;
+        }
+        if (mILayout == null) {
+            throw new IllegalArgumentException("ILayout 还未初始化");
+        }
+        mILayout.finishIView(iView, anim, quiet);
+    }
+
+    public void showIView(View view) {
+        showIView(view, true);
+    }
+
+    public void showIView(final View view, final boolean needAnim) {
+        showIView(view, needAnim, null);
+    }
+
+    public void showIView(final View view, final boolean needAnim, final Bundle bundle) {
+        if (view == null) {
+            return;
+        }
+        if (mILayout == null) {
+            throw new IllegalArgumentException("ILayout 还未初始化");
+        }
+        mILayout.showIView(view, needAnim, bundle);
+    }
+
+    public void showIView(IView iview, boolean needAnim) {
+        showIView(iview, needAnim, null);
+    }
+
+    public void showIView(IView iview) {
+        showIView(iview, true);
+    }
+
+    public void showIView(IView iview, boolean needAnim, Bundle bundle) {
+        if (iview == null) {
+            return;
+        }
+        if (mILayout == null) {
+            throw new IllegalArgumentException("ILayout 还未初始化");
+        }
+        mILayout.showIView(iview, needAnim, bundle);
+    }
+
+    public void replaceIView(IView iView, boolean needAnim) {
+        if (iView == null) {
+            return;
+        }
+        if (mILayout == null) {
+            throw new IllegalArgumentException("ILayout 还未初始化");
+        }
+        mILayout.replaceIView(iView, needAnim);
+    }
+
+    public void replaceIView(IView iView) {
+        replaceIView(iView, true);
+    }
+
     public void post(Runnable action) {
         if (mRootView != null) {
             mRootView.post(action);
@@ -269,8 +371,26 @@ public abstract class UIIViewImpl implements IView {
         }
     }
 
+    /**
+     * @return true 允许退出
+     */
+    @Override
+    public boolean onBackPressed() {
+        return true;
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+    }
+
+    @Override
+    public void setIsRightJumpLeft(boolean isRightJumpLeft) {
+        mIsRightJumpLeft = isRightJumpLeft;
+    }
+
+    @Override
+    public int getDimColor() {
+        return Color.parseColor("#60000000");
     }
 }

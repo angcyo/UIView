@@ -68,7 +68,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
         View xmlRootView = UILayoutImpl.safeAssignView(mDialogRootLayout,
                 inflateDialogView(mDialogRootLayout, inflater));
         xmlRootView.setClickable(true);
-        mDialogRootLayout.setGravity(gravity);
+        mDialogRootLayout.setGravity(getGravity());
         return mDialogRootLayout;
     }
 
@@ -90,6 +90,10 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
     @Override
     public boolean isDialog() {
         return true;
+    }
+
+    public int getGravity() {
+        return gravity;
     }
 
     public UIIDialogImpl setGravity(int gravity) {
@@ -205,5 +209,9 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
             }
         }
         return null;
+    }
+
+    public interface OnDismissListener {
+        void onDismiss();
     }
 }

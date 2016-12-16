@@ -22,6 +22,6 @@ public abstract class UIBaseDataView extends UIBaseView {
     @NonNull
     @Override
     protected LayoutState getDefaultLayoutState() {
-        return LayoutState.CONTENT;
+        return LayoutState.LOAD;
     }
 }

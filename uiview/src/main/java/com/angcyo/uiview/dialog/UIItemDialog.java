@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：
+ * 类的描述：提供Item选择样式的对话框
  * 创建人员：Robi
  * 创建时间：2016/12/13 17:20
  * 修改人员：Robi

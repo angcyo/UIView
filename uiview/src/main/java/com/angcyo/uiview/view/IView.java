@@ -2,6 +2,7 @@ package com.angcyo.uiview.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,10 @@ public interface IView {
 
     void onViewLoad();
 
+    @Deprecated
     void onViewShow();
+
+    void onViewShow(final Bundle bundle);//2016-12-15
 
     void onViewHide();
 
@@ -123,4 +127,20 @@ public interface IView {
     void onHideInPager(UIViewPager viewPager);//2016-11-26
 
     void onActivityResult(int requestCode, int resultCode, Intent data);//2016-12-13
+
+    /**
+     * 获取对话框 变暗时的颜色
+     */
+    int getDimColor();//2016-12-15
+
+    /**
+     * 请求是否可以退出.
+     */
+    boolean onBackPressed();//2016-12-16
+
+    /**
+     * 在导航上, 左边的按钮界面, 调到右边的按钮界面, 或者 右边的按钮界面, 跳到左边的按钮界面.
+     * 用来决定动画是否需要反向执行
+     */
+    void setIsRightJumpLeft(boolean isRightJumpLeft);//2016-12-16
 }

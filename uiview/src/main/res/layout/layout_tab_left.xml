@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
+    android:background="@drawable/base_main_color_bg_selector"
     android:clipToPadding="false">
 
     <LinearLayout
@@ -26,7 +27,7 @@
             android:singleLine="true"/>
     </LinearLayout>
 
-    <com.flyco.tablayout.widget.MsgView
+    <com.angcyo.uiview.github.tablayout.MsgView
         android:layout_toRightOf="@+id/ll_tap"
         android:id="@+id/rtv_msg_tip"
         xmlns:mv="http://schemas.android.com/apk/res-auto"

@@ -54,7 +54,9 @@ public class RApplication extends Application {
      * 获取设备唯一标识码
      */
     public static String getIMEI() {
-        return ((TelephonyManager) getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+        return ((TelephonyManager) getApp()
+                .getSystemService(Context.TELEPHONY_SERVICE))
+                .getDeviceId();
     }
 
     /**

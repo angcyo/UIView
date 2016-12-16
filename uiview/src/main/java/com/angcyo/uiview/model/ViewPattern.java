@@ -11,7 +11,7 @@ import com.angcyo.uiview.view.IView;
 public class ViewPattern {
     public IView mIView;
     public View mView;
-    public boolean isAnimToEnd = false;//正在退出
+    public boolean isAnimToEnd = false;//正在播放退出动画
 
     public ViewPattern(IView IView, View view) {
         mIView = IView;

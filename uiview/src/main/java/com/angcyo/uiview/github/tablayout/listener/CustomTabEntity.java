@@ -10,4 +10,10 @@ public interface CustomTabEntity {
 
     @DrawableRes
     int getTabUnselectedIcon();
+
+    boolean isShowArrow();
+
+    boolean isHomeNavigation();
+
+    boolean isShowBackground();
 }

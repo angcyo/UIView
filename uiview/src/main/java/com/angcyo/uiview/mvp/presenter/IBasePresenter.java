@@ -24,4 +24,9 @@ public interface IBasePresenter<T extends IBaseView> {
     void onLoad();
 
     void bindView(T baseView);
+
+    /**
+     * 取消订阅后
+     */
+    void onCancel();
 }

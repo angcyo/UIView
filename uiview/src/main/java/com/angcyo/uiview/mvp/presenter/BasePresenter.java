@@ -33,10 +33,9 @@ public class BasePresenter<T extends IBaseView> implements IBasePresenter<T> {
 
     @Override
     public void onUnload() {
-        if (!mCompositeSubscription.isUnsubscribed()) {
+        if (mCompositeSubscription != null) {
             mCompositeSubscription.unsubscribe();
         }
-        mCompositeSubscription = null;
     }
 
     @Override
@@ -49,4 +48,10 @@ public class BasePresenter<T extends IBaseView> implements IBasePresenter<T> {
         mBaseView = baseView;
     }
 
+    @Override
+    public void onCancel() {
+        if (mCompositeSubscription != null) {
+            mCompositeSubscription.clear();
+        }
+    }
 }

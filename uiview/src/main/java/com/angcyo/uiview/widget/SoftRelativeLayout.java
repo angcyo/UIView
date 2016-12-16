@@ -61,6 +61,8 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
             }
         });
+
+        requestFocus();
     }
 
     @Override
@@ -70,7 +72,6 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
             hideSoftInput();
         }
     }
-
 
 
     @Override
@@ -204,13 +205,13 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     }
 
     @Override
-    public void onViewShow() {
+    public void onLifeViewShow() {
         isViewShow = true;
         lockHeight = false;
     }
 
     @Override
-    public void onViewHide() {
+    public void onLifeViewHide() {
         isViewShow = false;
         lockHeight = true;
     }
