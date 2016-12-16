@@ -93,7 +93,7 @@ public class RefreshLayoutDemo extends UIBaseDataView {
     }
 
     private RefreshLayout getRefreshLayout() {
-        ViewPattern lastShowViewPattern = mUILayout.getLastShowViewPattern();
+        ViewPattern lastShowViewPattern = mUILayout.getLastViewPattern();
         if (lastShowViewPattern != null) {
             RefreshLayout refreshLayout = (RefreshLayout) lastShowViewPattern.mView.findViewWithTag("refresh");
             return refreshLayout;
