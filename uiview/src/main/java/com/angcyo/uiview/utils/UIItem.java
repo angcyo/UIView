@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
@@ -27,15 +28,27 @@ public class UIItem {
     public static void fill(LinearLayout linearLayout, ArrayList<ItemInfo> itemInfos) {
         for (ItemInfo info : itemInfos) {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, info.itemHeight);
-            linearLayout.addView(makeItem(linearLayout.getContext(), info), params);
+            TextView textView = makeItem(linearLayout.getContext(), info);
+
+            int paddingLeft = linearLayout.getPaddingLeft();
+            if (paddingLeft > 0) {
+                params.setMargins(params.leftMargin - paddingLeft, params.topMargin,
+                        params.rightMargin, params.bottomMargin);
+                textView.setPadding(paddingLeft + textView.getPaddingLeft(), textView.getPaddingTop(),
+                        textView.getPaddingRight(), textView.getPaddingBottom());
+                linearLayout.setClipToPadding(false);
+                linearLayout.setClipChildren(false);
+            }
+
+            linearLayout.addView(textView, params);
         }
     }
 
     private static TextView makeItem(Context context, ItemInfo info) {
         TextView textView = new TextView(context);
-        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                context.getResources().getDrawable(info.leftIcoResId), null,
-                context.getResources().getDrawable(info.rightIcoResId), null);
+        textView.setCompoundDrawablesRelativeWithIntrinsicBounds(info.leftIcoResId == -1 ? null :
+                        context.getResources().getDrawable(info.leftIcoResId), null,
+                info.rightIcoResId == -1 ? null : context.getResources().getDrawable(info.rightIcoResId), null);
         textView.setText(info.itemText);
         textView.setTextColor(info.textColor);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, info.textSize);
@@ -53,6 +66,37 @@ public class UIItem {
         return px;
     }
 
+    /**
+     * 将一个对象, 填充到另一个对象
+     */
+    public static void fill(Object from, Object to) {
+        Field[] fromFields = from.getClass().getDeclaredFields();
+        Field[] toFields = to.getClass().getDeclaredFields();
+        for (Field f : fromFields) {
+            if (f.getType().getName().contains("List")) {
+                continue;
+            }
+
+            String name = f.getName();
+            for (Field t : toFields) {
+                if (t.getType().getName().contains("List")) {
+                    continue;
+                }
+
+                String tName = t.getName();
+                if (name.equalsIgnoreCase(tName)) {
+                    try {
+                        f.setAccessible(true);
+                        t.setAccessible(true);
+                        t.set(to, f.get(from));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
     public static class ItemInfo {
         @DrawableRes
@@ -140,16 +184,16 @@ public class UIItem {
 
         public ItemInfo copy() {
             ItemInfo itemInfo = new ItemInfo();
-            itemInfo.setLeftIcoResId(leftIcoResId)
-                    .setRightIcoResId(rightIcoResId)
-                    .setTextColor(textColor)
-                    .setTextSize(textSize)
-                    .setItemHeight(itemHeight)
-                    .setItemText(itemText)
-                    .setClickListener(clickListener)
-                    .setBackgroundResId(backgroundResId);
+//            itemInfo.setLeftIcoResId(leftIcoResId)
+//                    .setRightIcoResId(rightIcoResId)
+//                    .setTextColor(textColor)
+//                    .setTextSize(textSize)
+//                    .setItemHeight(itemHeight)
+//                    .setItemText(itemText)
+//                    .setClickListener(clickListener)
+//                    .setBackgroundResId(backgroundResId);
+            fill(this, itemInfo);
             return itemInfo;
         }
     }
-
 }

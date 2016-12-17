@@ -14,4 +14,7 @@
     <color name="default_base_black">#000000</color>
     <color name="default_base_line">#e3e3e3</color>
     <color name="default_base_border">#bfbfbf</color>
+
+    <color name="base_text_color">#333333</color>
+    <color name="base_text_color_dark">#999999</color>
 </resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemInfoLayout">
+        <attr name="item_text" format="string"/>
+        <attr name="item_textColor" format="color"/>
+        <attr name="item_textSize" format="dimension"/>
+
+        <attr name="item_dark_text" format="string"/>
+        <attr name="item_dark_textColor" format="color"/>
+
+        <attr name="item_dark_textSize" format="dimension"/>
+        <attr name="item_draw_padding" format="dimension"/>
+
+        <attr name="item_left_res" format="reference"/>
+        <attr name="item_right_res" format="reference"/>
+        <attr name="item_dark_res" format="reference"/>
+    </declare-styleable>
+</resources>

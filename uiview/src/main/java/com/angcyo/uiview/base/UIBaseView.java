@@ -1,5 +1,7 @@
 package com.angcyo.uiview.base;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +76,8 @@ public abstract class UIBaseView extends UIIViewImpl {
         mBaseRootId = View.generateViewId();
         mBaseRootLayout.setId(mBaseRootId);
 
+        mBaseRootLayout.setBackgroundColor(getDefaultBackgroundColor());
+
         TitleBarPattern titleBarPattern = getTitleBar();
         if (titleBarPattern != null) {
             mUITitleBarContainer = new UITitleBarContainer(mActivity);
@@ -137,7 +141,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     protected abstract void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater);
 
     /**
-     * 初始化内容
+     * 初始化内容, 当你的 默认布局状态不等于 {@link LayoutState#CONTENT} 时,请使用以下方法初始化内容
      */
     protected void initContentLayout() {
 
@@ -313,6 +317,11 @@ public abstract class UIBaseView extends UIIViewImpl {
             mUITitleBarContainer.hideLoadView();
         }
         return this;
+    }
+
+    @ColorInt
+    public int getDefaultBackgroundColor() {
+        return Color.TRANSPARENT;
     }
 
     /**
