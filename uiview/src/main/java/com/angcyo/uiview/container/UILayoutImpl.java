@@ -1068,11 +1068,11 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
         finishIView(mLastShowViewPattern.mIView, false);
     }
 
-//    @Override
-//    protected void onRequestOpened() {
-//        super.onRequestOpened();
-//        translation(0);
-//    }
+    @Override
+    protected void onRequestOpened() {
+        super.onRequestOpened();
+        translation(0);
+    }
 
     @Override
     protected void onSlideChange(float percent) {
