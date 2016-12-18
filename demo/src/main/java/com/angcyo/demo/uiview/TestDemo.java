@@ -1,11 +1,10 @@
 package com.angcyo.demo.uiview;
 
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.view.UIIViewImpl;
+import com.angcyo.uiview.base.UIContentView;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -18,9 +17,10 @@ import com.angcyo.uiview.view.UIIViewImpl;
  * 修改备注：
  * Version: 1.0.0
  */
-public class TestDemo extends UIIViewImpl {
+public class TestDemo extends UIContentView {
+
     @Override
-    protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        return inflater.inflate(R.layout.test_layout, container);
+    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        inflate(R.layout.test_layout);
     }
 }

@@ -5,17 +5,17 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.demo.R;
 import com.angcyo.demo.uiview2.UIViewPagerIView;
 import com.angcyo.demo.uiview3.view.DialogLoginView;
 import com.angcyo.demo.uiview3.view.LoginView;
+import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.utils.T;
-import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.widget.ExEditText;
 
 import butterknife.BindView;
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Created by angcyo on 2016-11-12.
  */
 
-public class ScrollerIView extends UIIViewImpl {
+public class ScrollerIView extends UIContentView {
 
     @BindView(R.id.jump_to_view_pager)
     TextView mTextView;
@@ -38,8 +38,8 @@ public class ScrollerIView extends UIIViewImpl {
     LinearLayout mFirstLayout;
 
     @Override
-    protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
-        return inflater.inflate(R.layout.scroller_layout, container);
+    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        inflate(R.layout.scroller_layout);
     }
 
     @OnClick(R.id.edit_text_view1)
