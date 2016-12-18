@@ -29,7 +29,10 @@ public abstract class SwipeBackLayout extends FrameLayout {
     private int mScreenWidth;
     private int mScreenHeight;
 
-    private View mTargetView;//正在滑动的view
+    /**
+     * 正在滑动的view
+     */
+    private View mTargetView;
 
     /**
      * 阴影的绘制区域
