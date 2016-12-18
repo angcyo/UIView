@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.angcyo.demo.refresh.RefreshLayoutDemo;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UILayoutActivity;
 
@@ -32,28 +31,7 @@ public class LayoutDemoActivity extends UILayoutActivity {
             }
         });
 
-//        mLayout.startIView(new ScrollerIView());
-
-        mLayout.startIView(new RefreshLayoutDemo());
-
-        //mLayout.startIView(new TestDemo());
+        mLayout.startIView(new DemoListUIView());
     }
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_layout_demo);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//    }
 
 }

@@ -84,6 +84,8 @@ public class ItemInfoLayout extends RelativeLayout {
         darkDrawableRes = array.getResourceId(R.styleable.ItemInfoLayout_item_dark_res, darkDrawableRes);
 
         array.recycle();
+
+        initLayout();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -98,9 +100,7 @@ public class ItemInfoLayout extends RelativeLayout {
         return px;
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    private void initLayout() {
         mTextView = new TextView(getContext());
         mDarkTextView = new TextView(getContext());
 
