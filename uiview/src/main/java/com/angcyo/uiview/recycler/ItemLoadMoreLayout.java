@@ -12,7 +12,7 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.github.load.AVLoadingIndicatorView;
 
 /**
- * Created by angcyo on 2016-12-18.
+ * Created by angcyo on 2016-12-18._
  */
 
 public class ItemLoadMoreLayout extends RelativeLayout implements ILoadMore {
