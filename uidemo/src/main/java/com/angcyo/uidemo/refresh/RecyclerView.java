@@ -101,6 +101,13 @@ public class RecyclerView extends UIContentView {
                                     @Override
                                     public void run() {
                                         mAdapter.setLoadError();
+
+                                        postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                mAdapter.setNoMore();
+                                            }
+                                        }, 2000);
                                     }
                                 }, 1000);
                             }
