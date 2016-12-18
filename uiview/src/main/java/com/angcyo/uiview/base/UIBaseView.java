@@ -95,19 +95,19 @@ public abstract class UIBaseView extends UIIViewImpl {
 
         //内容包裹布局
         mBaseContentLayout = new RelativeLayout(mActivity);
-
+// 2016-12-18 使用懒加载的方式 加载.
         mBaseContentRootLayout.addView(mBaseContentLayout, new ViewGroup.LayoutParams(-1, -1));
-        mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
-                inflateEmptyLayout(mBaseContentRootLayout, inflater));
-        mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
-                inflateNonetLayout(mBaseContentRootLayout, inflater));
-        mBaseLoadLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
-                inflateLoadLayout(mBaseContentRootLayout, inflater));
-
-        safeSetView(mBaseContentLayout);
-        safeSetView(mBaseEmptyLayout);
-        safeSetView(mBaseNonetLayout);
-        safeSetView(mBaseLoadLayout);
+//        mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+//                inflateEmptyLayout(mBaseContentRootLayout, inflater));//填充空布局
+//        mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+//                inflateNonetLayout(mBaseContentRootLayout, inflater));//填充无网络布局
+//        mBaseLoadLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+//                inflateLoadLayout(mBaseContentRootLayout, inflater));//填充加载布局
+//
+//        safeSetView(mBaseContentLayout);
+//        safeSetView(mBaseEmptyLayout);
+//        safeSetView(mBaseNonetLayout);
+//        safeSetView(mBaseLoadLayout);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
         if (titleBarPattern != null) {
@@ -126,8 +126,13 @@ public abstract class UIBaseView extends UIIViewImpl {
         if (state == LayoutState.CONTENT) {
             showContentLayout();
             startLayoutAnim(mBaseContentLayout);
+        } else if (state == LayoutState.LOAD) {
+            showLoadLayout();
+        } else if (state == LayoutState.EMPTY) {
+            showEmptyLayout();
+        } else if (state == LayoutState.NONET) {
+            showNonetLayout();
         }
-        changeState(mLayoutState, state);
     }
 
     @NonNull
@@ -175,22 +180,25 @@ public abstract class UIBaseView extends UIIViewImpl {
      * 当布局的显示状态发生了改变
      */
     protected void onLayoutStateChanged(LayoutState fromState, LayoutState toState) {
-        if (fromState == LayoutState.LOAD) {
+        if (fromState == LayoutState.LOAD && mBaseLoadLayout != null) {
             mBaseLoadLayout.findViewById(R.id.base_load_image_view).clearAnimation();
         }
-        if (toState == LayoutState.LOAD) {
+        if (toState == LayoutState.LOAD && mBaseLoadLayout != null) {
             mBaseLoadLayout.findViewById(R.id.base_load_image_view).startAnimation(loadLoadingAnimation());
         } else if (toState == LayoutState.NONET) {
             mBaseNonetLayout.findViewById(R.id.base_setting_view).setOnClickListener(mNonetSettingClickListener);
             mBaseNonetLayout.findViewById(R.id.base_refresh_view).setOnClickListener(mNonetRefreshClickListener);
         }
-
     }
 
     /**
      * 显示装载布局
      */
     public void showLoadLayout() {
+        if (mBaseLoadLayout == null) {
+            mBaseLoadLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+                    inflateLoadLayout(mBaseContentRootLayout, LayoutInflater.from(mActivity)));//填充加载布局
+        }
         changeState(mLayoutState, LayoutState.LOAD);
     }
 
@@ -198,6 +206,10 @@ public abstract class UIBaseView extends UIIViewImpl {
      * 显示空布局
      */
     public void showEmptyLayout() {
+        if (mBaseEmptyLayout == null) {
+            mBaseEmptyLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+                    inflateEmptyLayout(mBaseContentRootLayout, LayoutInflater.from(mActivity)));//填充空布局
+        }
         changeState(mLayoutState, LayoutState.EMPTY);
     }
 
@@ -205,6 +217,10 @@ public abstract class UIBaseView extends UIIViewImpl {
      * 显示无网络布局
      */
     public void showNonetLayout() {
+        if (mBaseNonetLayout == null) {
+            mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
+                    inflateNonetLayout(mBaseContentRootLayout, LayoutInflater.from(mActivity)));//填充无网络布局
+        }
         showNonetLayout(null, null);
     }
 
