@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.uidemo.T_;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseAdapter;
@@ -30,6 +31,8 @@ public class RecyclerView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
     private RRecyclerView mRecyclerView;
+
+    private RBaseAdapter<String> mAdapter;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
@@ -56,7 +59,7 @@ public class RecyclerView extends UIContentView {
     }
 
     private void initRecyclerView() {
-        mRecyclerView.setAdapter(new RBaseAdapter<String>(mActivity) {
+        mAdapter = new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {
                 return 0;
@@ -76,16 +79,37 @@ public class RecyclerView extends UIContentView {
             }
 
             @Override
-            public void onBindViewHolder(RBaseViewHolder holder, int position) {
+            protected void onBindView(RBaseViewHolder holder, int position, String bean) {
                 ((TextView) holder.itemView).setText(this.getClass().getSimpleName() + " " + position);
-
             }
 
             @Override
-            protected void onBindView(RBaseViewHolder holder, int position, String bean) {
+            protected void onLoadMore() {
+                T_.show("加载更多..." + System.currentTimeMillis());
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.setLoadMoreEnd();
+                        T_.show("结束加载更多..." + System.currentTimeMillis());
 
+                        postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mAdapter.setNoMore();
+
+                                postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mAdapter.setLoadError();
+                                    }
+                                }, 1000);
+                            }
+                        }, 1000);
+                    }
+                }, 1000);
             }
-        });
+        };
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 

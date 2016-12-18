@@ -77,14 +77,8 @@ public class StaggerView extends UIContentView {
             }
 
             @Override
-            public void onBindViewHolder(RBaseViewHolder holder, int position) {
-                ((TextView) holder.itemView).setText(this.getClass().getSimpleName() + " " + position);
-
-            }
-
-            @Override
             protected void onBindView(RBaseViewHolder holder, int position, String bean) {
-
+                ((TextView) holder.itemView).setText(this.getClass().getSimpleName() + " " + position);
             }
         });
     }

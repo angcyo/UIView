@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.angcyo.library.utils.L;
+import com.angcyo.uiview.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,11 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     protected List<T> mAllDatas;
     protected Context mContext;
+    /**
+     * 是否激活加载更多
+     */
+    protected boolean mEnableLoadMore = false;
+    protected ILoadMore mLoadMore;
 
     public RBaseAdapter(Context context) {
         mAllDatas = new ArrayList<>();
@@ -27,29 +35,110 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         this.mContext = context;
     }
 
+    /**
+     * 启用加载更多功能
+     */
+    public void setEnableLoadMore(boolean enableLoadMore) {
+        mEnableLoadMore = enableLoadMore;
+    }
+
     //--------------标准的方法-------------//
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (mEnableLoadMore && isLast(position)) {
+            return 666;
+        }
+        return getItemType(position);
+    }
 
     @Override
     public RBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int itemLayoutId = getItemLayoutId(viewType);
         View item;
-        if (itemLayoutId == 0) {
-            item = createContentView(parent, viewType);
+        if (mEnableLoadMore && viewType == 666) {
+            item = LayoutInflater.from(mContext).inflate(R.layout.base_item_load_more_layout, parent, false);
+            mLoadMore = (ILoadMore) item;
         } else {
-            item = LayoutInflater.from(mContext).inflate(itemLayoutId, parent, false);
+            int itemLayoutId = getItemLayoutId(viewType);
+            if (itemLayoutId == 0) {
+                item = createContentView(parent, viewType);
+            } else {
+                item = LayoutInflater.from(mContext).inflate(itemLayoutId, parent, false);
+            }
         }
-
         return new RBaseViewHolder(item, viewType);
     }
 
     @Override
     public void onBindViewHolder(RBaseViewHolder holder, int position) {
-        onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
+        if (mEnableLoadMore && isLast(position)) {
+            onBindLoadMore();
+        } else {
+            onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
+        }
+    }
+
+
+    @Override
+    public void onViewAttachedToWindow(RBaseViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        L.w("onViewAttachedToWindow");
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(RBaseViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        L.w("onViewDetachedFromWindow");
+    }
+
+    private void onBindLoadMore() {
+        if (mLoadMore.getLoadState() != ILoadMore.LOAD_MORE) {
+            mLoadMore.setLoadState(ILoadMore.LOAD_MORE);
+            onLoadMore();
+        }
+    }
+
+    /**
+     * 重写此方法, 实现加载更多功能
+     */
+    protected void onLoadMore() {
+
+    }
+
+    /**
+     * 结束加载更多的标识, 方便下一次回调
+     */
+    public void setLoadMoreEnd() {
+        mLoadMore.setLoadState(ILoadMore.NORMAL);
+    }
+
+    public void setLoadError() {
+        mLoadMore.setLoadState(ILoadMore.LOAD_ERROR);
+    }
+
+    public void setNoMore() {
+        mLoadMore.setLoadState(ILoadMore.NO_MORE);
+    }
+
+    private boolean isLast(int position) {
+        return position == getItemCount() - 1;
+    }
+
+    /**
+     * 根据position返回Item的类型.
+     */
+    public int getItemType(int position) {
+        return 0;
     }
 
     @Override
     public int getItemCount() {
-        return mAllDatas == null ? 0 : mAllDatas.size();
+        int size = mAllDatas == null ? 0 : mAllDatas.size();
+        if (mEnableLoadMore) {
+            size += 1;
+        }
+        return size;
     }
 
     //--------------需要实现的方法------------//
