@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 
 import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.resources.AnimUtil;
@@ -32,7 +31,7 @@ import static com.angcyo.uiview.view.UIIViewImpl.DEFAULT_ANIM_TIME;
  * Created by angcyo on 2016-11-12.
  */
 
-public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.OnPagerShowListener {
+public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPager.OnPagerShowListener {
 
     private static final String TAG = "UILayoutWrapper";
     /**
@@ -55,6 +54,7 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
      * 锁定高度, 当键盘弹出的时候, 可以不改变size
      */
     private boolean lockHeight = false;
+    private float mTranslationOffsetX;
 
     public UILayoutImpl(Context context) {
         super(context);
@@ -96,6 +96,14 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
         } else {
             return childView;
         }
+    }
+
+    @Override
+    protected boolean canTryCaptureView(View child) {
+        if (mAttachViews.size() > 1 && !mLastShowViewPattern.mIView.isDialog() && mLastShowViewPattern.mView == child) {
+            return true;
+        }
+        return false;
     }
 
     private void initLayout() {
@@ -1052,6 +1060,38 @@ public class UILayoutImpl extends FrameLayout implements ILayout, UIViewPager.On
     public void finish() {
         finishAll();
         mCompatActivity.onBackPressed();
+    }
+
+    @Override
+    protected void onRequestClose() {
+        super.onRequestClose();
+        finishIView(mLastShowViewPattern.mIView, false);
+    }
+
+//    @Override
+//    protected void onRequestOpened() {
+//        super.onRequestOpened();
+//        translation(0);
+//    }
+
+    @Override
+    protected void onSlideChange(float percent) {
+        super.onSlideChange(percent);
+        translation(percent);
+    }
+
+    @Override
+    protected void onStateDragging() {
+        super.onStateDragging();
+        //开始偏移时, 偏移的距离
+        final ViewPattern viewPattern = findLastShowViewPattern(mLastShowViewPattern);
+        mTranslationOffsetX = getMeasuredWidth() * 0.3f;
+        viewPattern.mView.setTranslationX(-mTranslationOffsetX);
+    }
+
+    private void translation(float percent) {
+        final ViewPattern viewPattern = findLastShowViewPattern(mLastShowViewPattern);
+        viewPattern.mView.setTranslationX(-mTranslationOffsetX * percent);
     }
 
     static class AnimRunnable implements Animation.AnimationListener {

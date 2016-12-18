@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.angcyo.demo.R;
-import com.angcyo.uiview.base.UIBaseDataView;
+import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.model.ViewPattern;
@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * 修改备注：
  * Version: 1.0.0
  */
-public class RefreshLayoutDemo extends UIBaseDataView {
+public class RefreshLayoutDemo extends UIContentView {
 
 
     @BindView(R.id.content_layout)

@@ -5,7 +5,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
-import com.angcyo.uiview.base.UIBaseDataView;
+import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.uiview.utils.Web;
@@ -21,7 +21,7 @@ import com.angcyo.uiview.utils.Web;
  * 修改备注：
  * Version: 1.0.0
  */
-public class WebviewView extends UIBaseDataView {
+public class WebviewView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
 

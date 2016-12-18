@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.uiview.base.UIBaseDataView;
+import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseAdapter;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
@@ -26,7 +26,7 @@ import com.angcyo.uiview.rsen.RefreshLayout;
  * 修改备注：
  * Version: 1.0.0
  */
-public class GridView extends UIBaseDataView {
+public class GridView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
     private RRecyclerView mRecyclerView;

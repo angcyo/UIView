@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.uiview.base.UIBaseDataView;
+import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.rsen.RefreshLayout;
 
@@ -20,7 +20,7 @@ import com.angcyo.uiview.rsen.RefreshLayout;
  * 修改备注：
  * Version: 1.0.0
  */
-public class NormalView extends UIBaseDataView {
+public class NormalView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
 
