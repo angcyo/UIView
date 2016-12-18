@@ -311,6 +311,8 @@ public class AVLoadingIndicatorView extends View {
                     bottom = top + height;
                 }
             }
+            top = 0;
+            bottom = h;
             mIndicator.setBounds(left, top, right, bottom);
         }
     }
@@ -358,6 +360,7 @@ public class AVLoadingIndicatorView extends View {
 
         final int measuredWidth = resolveSizeAndState(dw, widthMeasureSpec, 0);
         final int measuredHeight = resolveSizeAndState(dh, heightMeasureSpec, 0);
+
         setMeasuredDimension(measuredWidth, measuredHeight);
     }
 

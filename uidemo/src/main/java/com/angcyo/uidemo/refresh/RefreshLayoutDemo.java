@@ -60,7 +60,7 @@ public class RefreshLayoutDemo extends UIContentView {
         mUILayout.startIView(mRecyclerView, true);
         mUILayout.startIView(mGridView, true);
         mUILayout.startIView(mStaggerView, true);
-        mUILayout.showIView(mNormalView.getView());
+        mUILayout.showIView(mNormalView);
     }
 
     @Override

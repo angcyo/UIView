@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
-import android.view.View;
 
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UILayoutImpl;
@@ -55,12 +54,12 @@ public abstract class UILayoutActivity extends StyleActivity {
         }
     }
 
-    public View startIView(final IView iView, boolean needAnim) {
-        return mLayout.startIView(iView, needAnim);
+    public void startIView(final IView iView, boolean needAnim) {
+        mLayout.startIView(iView, needAnim);
     }
 
-    public View startIView(IView iView) {
-        return startIView(iView, true);
+    public void startIView(IView iView) {
+        startIView(iView, true);
     }
 
     public void notifyAppDetailView() {

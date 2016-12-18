@@ -15,9 +15,9 @@ public interface ILayout {
     /**
      * 开始一个IView, 返回创建的View, 执行动画
      */
-    View startIView(IView iView, boolean needAnim);
+    void startIView(IView iView, boolean needAnim);
 
-    View startIView(IView iView);
+    void startIView(IView iView);
 
     /**
      * 移除View

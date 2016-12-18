@@ -58,6 +58,11 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
     private boolean lockHeight = false;
     private float mTranslationOffsetX;
 
+    /**
+     * 记录有多少个Runnable任务在执行
+     */
+    private int runnableCount = 0;
+
     public UILayoutImpl(Context context) {
         super(context);
         initLayout();
@@ -100,6 +105,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
         }
     }
 
+    /**
+     * 滑动返回处理
+     */
     @Override
     protected boolean canTryCaptureView(View child) {
         if (mAttachViews.size() > 1 && !mLastShowViewPattern.mIView.isDialog() && mLastShowViewPattern.mView == child) {
@@ -144,19 +152,22 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
     }
 
     @Override
-    public View startIView(final IView iView, boolean needAnim) {
-
-        final ViewPattern oldViewPattern = getLastViewPattern();
-        final ViewPattern newViewPattern = startIViewInternal(iView);
-
-        startIViewAnim(oldViewPattern, newViewPattern, needAnim);
-
-        return newViewPattern.mView;
+    public void startIView(final IView iView, final boolean needAnim) {
+        runnableCount++;
+        post(new Runnable() {
+            @Override
+            public void run() {
+                final ViewPattern oldViewPattern = getLastViewPattern();
+                final ViewPattern newViewPattern = startIViewInternal(iView);
+                startIViewAnim(oldViewPattern, newViewPattern, needAnim);
+                runnableCount--;
+            }
+        });
     }
 
     @Override
-    public View startIView(IView iView) {
-        return startIView(iView, true);
+    public void startIView(IView iView) {
+        startIView(iView, true);
     }
 
     private ViewPattern startIViewInternal(final IView iView) {
@@ -221,8 +232,13 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
     }
 
     @Override
-    public void finishIView(final View view, boolean needAnim) {
-        finishIViewInner(findViewPatternByView(view), needAnim, false);
+    public void finishIView(final View view, final boolean needAnim) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                finishIViewInner(findViewPatternByView(view), needAnim, false);
+            }
+        });
     }
 
     /**
@@ -309,8 +325,17 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
 
     @Override
     public void showIView(final View view, final boolean needAnim, final Bundle bundle) {
-        final ViewPattern viewPattern = findViewPatternByView(view);
-        showIViewInternal(viewPattern, needAnim, bundle);
+        if (view == null) {
+            return;
+        }
+
+        post(new Runnable() {
+            @Override
+            public void run() {
+                final ViewPattern viewPattern = findViewPatternByView(view);
+                showIViewInternal(viewPattern, needAnim, bundle);
+            }
+        });
     }
 
     @Override
@@ -324,9 +349,14 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
     }
 
     @Override
-    public void showIView(IView iview, boolean needAnim, Bundle bundle) {
-        final ViewPattern viewPattern = findViewPatternByIView(iview);
-        showIViewInternal(viewPattern, needAnim, bundle);
+    public void showIView(final IView iview, final boolean needAnim, final Bundle bundle) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                final ViewPattern viewPattern = findViewPatternByIView(iview);
+                showIViewInternal(viewPattern, needAnim, bundle);
+            }
+        });
     }
 
     private void showIViewInternal(final ViewPattern viewPattern, final boolean needAnim, final Bundle bundle) {
@@ -397,25 +427,30 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
             return;
         }
 
-        final ViewPattern viewPattern = findViewPatternByView(view);
-        if (viewPattern.mIView.isDialog()) {
-            finishDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
-                @Override
-                public void run() {
-                    //viewPattern.mView.setVisibility(INVISIBLE);
-                    viewPattern.mIView.onViewHide();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                final ViewPattern viewPattern = findViewPatternByView(view);
+                if (viewPattern.mIView.isDialog()) {
+                    finishDialogAnim(viewPattern, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+                        @Override
+                        public void run() {
+                            //viewPattern.mView.setVisibility(INVISIBLE);
+                            viewPattern.mIView.onViewHide();
+                        }
+                    });
+                } else {
+                    //隐藏的时候, 会错乱!!! 找不到之前显示的View, 慎用隐藏...
+                    safeStartAnim(view, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
+                        @Override
+                        public void run() {
+                            //viewPattern.mView.setVisibility(INVISIBLE);
+                            viewPattern.mIView.onViewHide();
+                        }
+                    });
                 }
-            });
-        } else {
-            //隐藏的时候, 会错乱!!! 找不到之前显示的View, 慎用隐藏...
-            safeStartAnim(view, needAnim ? viewPattern.mIView.loadHideAnimation() : null, new Runnable() {
-                @Override
-                public void run() {
-                    //viewPattern.mView.setVisibility(INVISIBLE);
-                    viewPattern.mIView.onViewHide();
-                }
-            });
-        }
+            }
+        });
     }
 
     @Override
@@ -449,24 +484,31 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
             return;
         }
 
-        final ViewPattern oldViewPattern = getLastViewPattern();
-        final ViewPattern newViewPattern = startIViewInternal(iView);
-
-        if (newViewPattern != null) {
-            newViewPattern.mIView.onViewLoad();
-        }
-        topViewStart(newViewPattern, needAnim);
-
-        final Runnable endRunnable = new Runnable() {
+        runnableCount++;
+        post(new Runnable() {
             @Override
             public void run() {
-                removeViewPattern(oldViewPattern);
-            }
-        };
-        oldViewPattern.mIView.onViewHide();
-        bottomViewRemove(oldViewPattern, newViewPattern, endRunnable, needAnim);
+                final ViewPattern oldViewPattern = getLastViewPattern();
+                final ViewPattern newViewPattern = startIViewInternal(iView);
 
-        mLastShowViewPattern = newViewPattern;
+                if (newViewPattern != null) {
+                    newViewPattern.mIView.onViewLoad();
+                }
+                topViewStart(newViewPattern, needAnim);
+
+                final Runnable endRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        removeViewPattern(oldViewPattern);
+                    }
+                };
+                oldViewPattern.mIView.onViewHide();
+                bottomViewRemove(oldViewPattern, newViewPattern, endRunnable, needAnim);
+
+                mLastShowViewPattern = newViewPattern;
+                runnableCount--;
+            }
+        });
     }
 
     @Override
@@ -888,7 +930,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
 
     @Override
     public void onShowInPager(final UIViewPager viewPager) {
-        if (needDelay()) {
+        if (runnableCount > 0) {
             post(new Runnable() {
                 @Override
                 public void run() {
@@ -902,7 +944,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
 
     @Override
     public void onHideInPager(final UIViewPager viewPager) {
-        if (needDelay()) {
+        if (runnableCount > 0) {
             post(new Runnable() {
                 @Override
                 public void run() {
