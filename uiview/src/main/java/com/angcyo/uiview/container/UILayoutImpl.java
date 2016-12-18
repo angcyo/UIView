@@ -49,6 +49,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
      */
     private boolean isFinishing = false;
     private ArrayList<IWindowInsetsListener> mIWindowInsetsListeners;
+    private ArrayList<OnIViewChangedListener> mOnIViewChangedListeners = new ArrayList<>();
+
     private int[] mInsets = new int[4];
     /**
      * 锁定高度, 当键盘弹出的时候, 可以不改变size
@@ -167,6 +169,10 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
 
         final ViewPattern newViewPattern = new ViewPattern(iView, rawView);
         mAttachViews.push(newViewPattern);
+
+        for (OnIViewChangedListener listener : mOnIViewChangedListeners) {
+            listener.onIViewAdd(this, newViewPattern);
+        }
 
         return newViewPattern;
     }
@@ -874,6 +880,10 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
         removeView(viewPattern.mView);
         mAttachViews.remove(viewPattern);
         isFinishing = false;
+
+        for (OnIViewChangedListener listener : mOnIViewChangedListeners) {
+            listener.onIViewRemove(this, viewPattern);
+        }
     }
 
     @Override
@@ -981,6 +991,22 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
             return this;
         }
         this.mIWindowInsetsListeners.remove(listener);
+        return this;
+    }
+
+    public UILayoutImpl addOnIViewChangeListener(OnIViewChangedListener listener) {
+        if (listener == null) {
+            return this;
+        }
+        this.mOnIViewChangedListeners.add(listener);
+        return this;
+    }
+
+    public UILayoutImpl removeOnIViewChangeListener(OnIViewChangedListener listener) {
+        if (listener == null || mOnIViewChangedListeners == null) {
+            return this;
+        }
+        this.mOnIViewChangedListeners.remove(listener);
         return this;
     }
 
@@ -1096,6 +1122,25 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
         if (!viewPattern.mIView.isDialog()) {
             viewPattern.mView.setTranslationX(-mTranslationOffsetX * percent);
         }
+    }
+
+    /**
+     * 获取已经添加IView的数量
+     */
+    public int getIViewSize() {
+        if (mAttachViews.isEmpty()) {
+            return 0;
+        }
+        return mAttachViews.size();
+    }
+
+    /**
+     * IView 添加,移除监听
+     */
+    public interface OnIViewChangedListener {
+        void onIViewAdd(final UILayoutImpl uiLayout, final ViewPattern viewPattern);
+
+        void onIViewRemove(final UILayoutImpl uiLayout, final ViewPattern viewPattern);
     }
 
     static class AnimRunnable implements Animation.AnimationListener {

@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.refresh;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -39,6 +40,12 @@ public class RefreshLayoutDemo extends UIContentView {
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_refresh_layout);
+    }
+
+    @Override
+    public void onViewShow(Bundle bundle) {
+        super.onViewShow(bundle);
+        ((UILayoutImpl) mILayout).lock();
     }
 
     @Override

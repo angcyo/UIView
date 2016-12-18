@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 
@@ -40,7 +42,6 @@ public class DemoListUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 startIView(new RefreshLayoutDemo());
-
             }
         });
 
@@ -63,5 +64,11 @@ public class DemoListUIView extends UIContentView {
         itemInfoLayout.setPadding((int) ResUtil.dpToPx(mActivity.getResources(), 10f), 0, 0, 0);
         itemInfoLayout.setLeftDrawableRes(R.drawable.live_48);
         rootLayout.addView(itemInfoLayout, new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 45f)));
+    }
+
+    @Override
+    public void onViewShow(Bundle bundle) {
+        super.onViewShow(bundle);
+        ((UILayoutImpl) mILayout).unlock();
     }
 }

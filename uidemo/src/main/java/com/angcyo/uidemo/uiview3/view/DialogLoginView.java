@@ -1,16 +1,17 @@
 package com.angcyo.uidemo.uiview3.view;
 
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.RApp;
 import com.angcyo.uidemo.uiview3.login.Login;
 import com.angcyo.uidemo.uiview3.login.LoginPresenterImpl;
-import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIIDialogImpl;
 import com.angcyo.uiview.utils.T;
 
@@ -30,6 +31,7 @@ import butterknife.OnClick;
  */
 public class DialogLoginView extends UIIDialogImpl implements Login.ILoginView {
 
+    private static long index = 0;
     @BindView(R.id.phone_view)
     TextView mPhoneView;
     @BindView(R.id.password_view)
@@ -62,6 +64,19 @@ public class DialogLoginView extends UIIDialogImpl implements Login.ILoginView {
     @Override
     public void onFinishLoad() {
 
+    }
+
+    @Override
+    public int getGravity() {
+        int i = (int) (index % 3);
+        index++;
+        if (i == 0) {
+            return Gravity.TOP;
+        }
+        if (i == 1) {
+            return Gravity.CENTER;
+        }
+        return Gravity.BOTTOM;
     }
 
     @Override

@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.IWindowInsetsListener;
-import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.view.ILifecycle;
 
 import java.util.ArrayList;
@@ -74,42 +73,53 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     }
 
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        final int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
-                LayoutParams st =
-                        (LayoutParams) child.getLayoutParams();
-                int offset = mInsets[3];
-                int left = (int) Reflect.getMember(st, "mLeft");
-                int top = (int) Reflect.getMember(st, "mTop");
-                int right = (int) Reflect.getMember(st, "mRight");
-                int bottom = (int) Reflect.getMember(st, "mBottom");
+//    @Override
+//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+//        super.onLayout(changed, l, t, r, b);
+//        final int count = getChildCount();
+//        for (int i = 0; i < count; i++) {
+//            View child = getChildAt(i);
+//            if (child.getVisibility() != GONE) {
+//                LayoutParams st =
+//                        (LayoutParams) child.getLayoutParams();
+//                int offset = mInsets[3];
+//                int left = (int) Reflect.getMember(st, "mLeft");
+//                int top = (int) Reflect.getMember(st, "mTop");
+//                int right = (int) Reflect.getMember(st, "mRight");
+//                int bottom = (int) Reflect.getMember(st, "mBottom");
+//
+//                int height = getMeasuredHeight() - offset;
+//
+//                int offsetTop = top;
+////                if (getPaddingBottom() > 200) {
+////                    offsetTop = t;
+////                }
+//
+//                /*修复对话框中,包含输入控件,键盘弹出时, 无法居中的BUG*/
+//                if (st.getRules()[RelativeLayout.CENTER_IN_PARENT] == RelativeLayout.TRUE ||
+//                        st.getRules()[RelativeLayout.CENTER_VERTICAL] == RelativeLayout.TRUE) {
+//                    //child.layout(left, , right, height / 2 + child.getMeasuredHeight() / 2);
+//                    animateView(child, offsetTop - offset / 2);
+//                } else if (st.getRules()[RelativeLayout.ALIGN_PARENT_BOTTOM] == RelativeLayout.TRUE) {
+//                    animateView(child, offsetTop - offset);
+//                } else {
+//                    final int gravity = getGravity() & (~Gravity.START);
+//                    if (gravity == Gravity.CENTER || gravity == Gravity.CENTER_VERTICAL) {
+//                        animateView(child, top);
+//                    } else if (gravity == Gravity.BOTTOM) {
+//                        animateView(child, top);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-                int height = getMeasuredHeight() - offset;
-
-                /*修复对话框中,包含输入控件,键盘弹出时, 无法居中的BUG*/
-                if (st.getRules()[RelativeLayout.CENTER_IN_PARENT] == RelativeLayout.TRUE ||
-                        st.getRules()[RelativeLayout.CENTER_VERTICAL] == RelativeLayout.TRUE) {
-                    //child.layout(left, , right, height / 2 + child.getMeasuredHeight() / 2);
-
-                    ViewCompat.animate(child)
-                            .translationY(((height - child.getMeasuredHeight()) / 2) - top)
-                            .setInterpolator(new DecelerateInterpolator())
-                            .setDuration(300)
-                            .start();
-                } else if (st.getRules()[RelativeLayout.ALIGN_PARENT_BOTTOM] == RelativeLayout.TRUE) {
-                    ViewCompat.animate(child)
-                            .translationY(-offset)
-                            .setInterpolator(new DecelerateInterpolator())
-                            .setDuration(300)
-                            .start();
-                }
-            }
-        }
+    private void animateView(View view, float y) {
+        ViewCompat.animate(view)
+                .y(y)
+                .setInterpolator(new DecelerateInterpolator())
+                .setDuration(300)
+                .start();
     }
 
     @Override
