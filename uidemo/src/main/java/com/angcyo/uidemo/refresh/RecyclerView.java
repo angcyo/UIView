@@ -116,6 +116,7 @@ public class RecyclerView extends UIContentView {
                 }, 1000);
             }
         };
+        mAdapter.setEnableLoadMore(true);
         mRecyclerView.setAdapter(mAdapter);
     }
 

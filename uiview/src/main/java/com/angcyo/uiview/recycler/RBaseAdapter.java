@@ -93,7 +93,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     private void onBindLoadMore() {
-        if (mLoadMore.getLoadState() != ILoadMore.LOAD_MORE ||
+        if (mLoadMore.getLoadState() != ILoadMore.LOAD_MORE &&
                 mLoadMore.getLoadState() != ILoadMore.NO_MORE) {
             mLoadMore.setLoadState(ILoadMore.LOAD_MORE);
             onLoadMore();
