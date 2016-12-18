@@ -1085,13 +1085,17 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout, UIViewPage
         super.onStateDragging();
         //开始偏移时, 偏移的距离
         final ViewPattern viewPattern = findLastShowViewPattern(mLastShowViewPattern);
-        mTranslationOffsetX = getMeasuredWidth() * 0.3f;
-        viewPattern.mView.setTranslationX(-mTranslationOffsetX);
+        if (!viewPattern.mIView.isDialog()) {
+            mTranslationOffsetX = getMeasuredWidth() * 0.3f;
+            viewPattern.mView.setTranslationX(-mTranslationOffsetX);
+        }
     }
 
     private void translation(float percent) {
         final ViewPattern viewPattern = findLastShowViewPattern(mLastShowViewPattern);
-        viewPattern.mView.setTranslationX(-mTranslationOffsetX * percent);
+        if (!viewPattern.mIView.isDialog()) {
+            viewPattern.mView.setTranslationX(-mTranslationOffsetX * percent);
+        }
     }
 
     static class AnimRunnable implements Animation.AnimationListener {
