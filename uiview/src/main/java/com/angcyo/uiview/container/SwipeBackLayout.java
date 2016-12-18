@@ -120,6 +120,7 @@ public abstract class SwipeBackLayout extends FrameLayout {
                         onRequestClose();
                         if (mListener != null) mListener.onRequestClose();
                     }
+                    mTargetView = null;
                     break;
                 case ViewDragHelper.STATE_DRAGGING:
                     //开始滚动

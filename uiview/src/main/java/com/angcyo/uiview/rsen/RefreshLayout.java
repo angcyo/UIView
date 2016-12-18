@@ -17,7 +17,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
@@ -141,7 +140,7 @@ public class RefreshLayout extends ViewGroup {
         if (getChildCount() != 1) {
             throw new IllegalArgumentException("必须包含一个子View");
         }
-        mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        mTouchSlop = 0;//ViewConfiguration.get(getContext()).getScaledTouchSlop();
         mTargetView = getChildAt(0);
         mScroller = new OverScroller(getContext(), new DecelerateInterpolator());
         initView();
@@ -536,55 +535,6 @@ public class RefreshLayout extends ViewGroup {
     }
 
     /**
-     * 默认实现的刷新布局
-     */
-    public static class BaseRefreshTopView extends BaseRefreshView {
-
-
-        public BaseRefreshTopView(Context context) {
-            super(context);
-        }
-
-        @Override
-        protected void centerRect() {
-            int viewWidth = getMeasuredWidth();
-            int viewHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
-            int width = mBitmap.getWidth();
-            int height = mBitmap.getHeight();
-            mCenterRect.set(viewWidth / 2 - width / 2, getPaddingTop() + viewHeight / 2 - height / 2,
-                    viewWidth / 2 + width / 2, getPaddingTop() + viewHeight / 2 + height / 2);
-        }
-
-        @Override
-        protected void updateProgress(float progress) {
-            if (mProgress == progress) {
-                return;
-            }
-            mProgress = progress;
-            mProgressRect.set(mCenterRect.left, (int) (mCenterRect.bottom - (mCenterRect.height() * progress)),
-                    mCenterRect.right, mCenterRect.bottom);
-            postInvalidate();
-        }
-
-        @Override
-        protected void updateMove(int move, int maxHeight) {
-            if (move <= getPaddingBottom()) {
-                return;
-            }
-
-            int viewWidth = getMeasuredWidth();
-            int viewHeight = getMeasuredHeight();
-            int rawTop = move - getPaddingBottom();
-            rawTop = Math.min(rawTop, maxHeight - getPaddingBottom() - getPaddingTop());
-
-            int left = viewWidth / 2 - rawTop / 2;
-            mDrawRect.set(left, viewHeight - rawTop - getPaddingBottom(), viewWidth / 2 + rawTop / 2, viewHeight - getPaddingBottom());
-            mDrawable.setBounds(mDrawRect);
-            postInvalidate();
-        }
-    }
-
-    /**
      * 基类用来实现 下拉/上拉 放大缩小指示图, 加载中进度变化
      */
     public static abstract class BaseRefreshView extends View implements OnBottomViewMoveListener, OnTopViewMoveListener {
@@ -637,7 +587,7 @@ public class RefreshLayout extends ViewGroup {
             mDrawRect = new Rect();
             mXfermodeDstIn = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
 
-            mTouchSlop = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
+            mTouchSlop = 0;//(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
             //ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
             int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
@@ -729,6 +679,55 @@ public class RefreshLayout extends ViewGroup {
         @Override
         public void onTopMoveTo(View view, int top, int maxHeight, @State int state) {
             onMove(top, maxHeight, state);
+        }
+    }
+
+    /**
+     * 默认实现的刷新布局
+     */
+    public static class BaseRefreshTopView extends BaseRefreshView {
+
+
+        public BaseRefreshTopView(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void centerRect() {
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+            int width = mBitmap.getWidth();
+            int height = mBitmap.getHeight();
+            mCenterRect.set(viewWidth / 2 - width / 2, getPaddingTop() + viewHeight / 2 - height / 2,
+                    viewWidth / 2 + width / 2, getPaddingTop() + viewHeight / 2 + height / 2);
+        }
+
+        @Override
+        protected void updateProgress(float progress) {
+            if (mProgress == progress) {
+                return;
+            }
+            mProgress = progress;
+            mProgressRect.set(mCenterRect.left, (int) (mCenterRect.bottom - (mCenterRect.height() * progress)),
+                    mCenterRect.right, mCenterRect.bottom);
+            postInvalidate();
+        }
+
+        @Override
+        protected void updateMove(int move, int maxHeight) {
+            if (move <= getPaddingBottom()) {
+                return;
+            }
+
+            int viewWidth = getMeasuredWidth();
+            int viewHeight = getMeasuredHeight();
+            int rawTop = move - getPaddingBottom();
+            rawTop = Math.min(rawTop, maxHeight - getPaddingBottom() - getPaddingTop());
+
+            int left = viewWidth / 2 - rawTop / 2;
+            mDrawRect.set(left, viewHeight - rawTop - getPaddingBottom(), viewWidth / 2 + rawTop / 2, viewHeight - getPaddingBottom());
+            mDrawable.setBounds(mDrawRect);
+            postInvalidate();
         }
     }
 
