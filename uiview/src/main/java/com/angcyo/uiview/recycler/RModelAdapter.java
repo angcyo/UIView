@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * 支持单选, 多选的Adapter
+ * 支持单选, 多选的Adapter_
  * <p>
  * Created by angcyo on 2016-12-19.
  */
