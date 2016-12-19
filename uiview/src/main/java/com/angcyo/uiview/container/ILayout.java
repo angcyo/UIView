@@ -10,12 +10,12 @@ import com.angcyo.uiview.view.IView;
  * Created by angcyo on 2016-11-12.
  */
 
-public interface ILayout {
+public interface ILayout<T extends UIParam> {
 
     /**
      * 开始一个IView, 返回创建的View, 执行动画
      */
-    void startIView(IView iView, boolean needAnim);
+    void startIView(IView iView, T param);//2016-12-19
 
     void startIView(IView iView);
 
@@ -50,7 +50,7 @@ public interface ILayout {
     /**
      * 替换一个View
      */
-    void replaceIView(IView iView, boolean needAnim);
+    void replaceIView(IView iView, final UIParam param);//2016-12-19
 
     void replaceIView(IView iView);
 

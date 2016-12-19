@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.view.UIIViewImpl;
@@ -64,7 +65,7 @@ public class Demo2IView extends UIIViewImpl {
         container.getChildAt(container.getChildCount() - 1).findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mUIContainer.startIView(new Demo3IView(), false);
+                mUIContainer.startIView(new Demo3IView(), new UIParam(false));
             }
         });
         return view;

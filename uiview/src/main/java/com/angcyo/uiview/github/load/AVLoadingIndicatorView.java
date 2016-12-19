@@ -104,23 +104,6 @@ public class AVLoadingIndicatorView extends View {
         return mIndicator;
     }
 
-    public void setIndicator(Indicator d) {
-        if (mIndicator != d) {
-            if (mIndicator != null) {
-                mIndicator.setCallback(null);
-                unscheduleDrawable(mIndicator);
-            }
-
-            mIndicator = d;
-            //need to set indicator color again if you didn't specified when you update the indicator .
-            setIndicatorColor(mIndicatorColor);
-            if (d != null) {
-                d.setCallback(this);
-            }
-            postInvalidate();
-        }
-    }
-
     /**
      * You should pay attention to pass this parameter with two way:
      * for example:
@@ -152,6 +135,23 @@ public class AVLoadingIndicatorView extends View {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void setIndicator(Indicator d) {
+        if (mIndicator != d) {
+            if (mIndicator != null) {
+                mIndicator.setCallback(null);
+                unscheduleDrawable(mIndicator);
+            }
+
+            mIndicator = d;
+            //need to set indicator color again if you didn't specified when you update the indicator .
+            setIndicatorColor(mIndicatorColor);
+            if (d != null) {
+                d.setCallback(this);
+            }
+            postInvalidate();
         }
     }
 
@@ -254,11 +254,11 @@ public class AVLoadingIndicatorView extends View {
     @Override
     protected void onVisibilityChanged(View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-        if (visibility == GONE || visibility == INVISIBLE) {
-            stopAnimation();
-        } else {
-            startAnimation();
-        }
+//        if (visibility == GONE || visibility == INVISIBLE) {
+//            stopAnimation();
+//        } else {
+//            startAnimation();
+//        }
     }
 
     @Override
@@ -390,8 +390,10 @@ public class AVLoadingIndicatorView extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        startAnimation();
-        removeCallbacks();
+        if (getVisibility() == VISIBLE) {
+            startAnimation();
+            removeCallbacks();
+        }
     }
 
     @Override
@@ -407,6 +409,4 @@ public class AVLoadingIndicatorView extends View {
         removeCallbacks(mDelayedHide);
         removeCallbacks(mDelayedShow);
     }
-
-
 }

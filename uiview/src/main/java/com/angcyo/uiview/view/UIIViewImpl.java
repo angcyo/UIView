@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.AnimUtil;
@@ -288,7 +289,7 @@ public abstract class UIIViewImpl implements IView {
         if (mILayout == null) {
             throw new IllegalArgumentException("ILayout 还未初始化");
         }
-        mILayout.startIView(iView, anim);
+        mILayout.startIView(iView, new UIParam(anim));
     }
 
     public void finishIView(IView iView) {
@@ -352,7 +353,7 @@ public abstract class UIIViewImpl implements IView {
         if (mILayout == null) {
             throw new IllegalArgumentException("ILayout 还未初始化");
         }
-        mILayout.replaceIView(iView, needAnim);
+        mILayout.replaceIView(iView, new UIParam(needAnim));
     }
 
     public void replaceIView(IView iView) {

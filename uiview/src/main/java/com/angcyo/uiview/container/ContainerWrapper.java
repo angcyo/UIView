@@ -266,7 +266,7 @@ public abstract class ContainerWrapper extends FrameLayout {
      * 启动一个普通的IView
      */
     public void startIView(final IView iView, boolean anim) {
-        mContentLayout.startIView(iView, anim);
+        mContentLayout.startIView(iView, new UIParam(anim));
     }
 
     public void startIView(final IView iView) {
@@ -277,7 +277,7 @@ public abstract class ContainerWrapper extends FrameLayout {
      * 启动一个Dialog层的IView
      */
     public void startDialogIView(final IView iView, boolean anim) {
-        mDialogLayout.startIView(iView, anim);
+        mDialogLayout.startIView(iView, new UIParam(anim));
     }
 
     public void startDialogIView(final IView iView) {
@@ -288,7 +288,7 @@ public abstract class ContainerWrapper extends FrameLayout {
      * 启动一个Overlay层的IView
      */
     public void startOverlayIView(final IView iView, boolean anim) {
-        mOverlayLayout.startIView(iView, anim);
+        mOverlayLayout.startIView(iView, new UIParam(anim));
     }
 
     public void startOverlayIView(final IView iView) {

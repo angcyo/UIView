@@ -1,4 +1,4 @@
-package com.angcyo.uiview.github.facebook;
+package com.angcyo.uiview.recycler;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.angcyo.library.facebook.DraweeViewUtil;
 import com.angcyo.uiview.R;
-import com.angcyo.uiview.recycler.RBaseAdapter;
-import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.T;
 import com.facebook.drawee.view.SimpleDraweeView;

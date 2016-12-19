@@ -1,13 +1,10 @@
-package com.angcyo.uiview.github.facebook;
+package com.angcyo.library.facebook;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 
-import com.angcyo.uiview.R;
-import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.library.utils.Http;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -31,40 +28,40 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
  */
 public class DraweeViewUtil {
     public static void setDraweeViewRes(SimpleDraweeView view, @DrawableRes int res) {
-        view.setBackgroundColor(Color.TRANSPARENT);
         String url = "res://" + view.getContext().getPackageName() + "/" + res;
         view.setImageURI(Uri.parse(url));
     }
 
     public static void setDraweeViewFile(SimpleDraweeView view, String filePath) {
-        view.setBackgroundColor(Color.TRANSPARENT);
         String url = "file://" + filePath;
         view.setImageURI(Uri.parse(url));
     }
 
     public static void setDraweeViewHttp(SimpleDraweeView view, String url) {
         if (TextUtils.isEmpty(url)) {
+            view.setImageURI("");
             return;
         }
         if (url.startsWith("http")) {
-            view.setBackgroundColor(Color.TRANSPARENT);
-            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
+            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
             view.setImageURI(Uri.parse(url));
         } else {
-            setDraweeViewHttp2(view, url);
+            setDraweeViewHttp2Inner(view, url);
         }
     }
 
     public static void setDraweeViewHttp2(SimpleDraweeView view, String url) {
-        Uri uri = Uri.parse(/*Http.BASE_IMAGE_URL +*/ url);
-        view.setBackgroundColor(Color.TRANSPARENT);
-        view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
+        setDraweeViewHttp(view, url);
+    }
+
+    public static void setDraweeViewHttp2Inner(SimpleDraweeView view, String url) {
+        Uri uri = Uri.parse(Http.BASE_IMAGE_URL + url);
+        view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         view.setImageURI(uri);
     }
 
     public static void setDraweeViewHttp2(SimpleDraweeView view, String url, boolean progressive) {
-        Uri uri = Uri.parse(/*Http.BASE_IMAGE_URL +*/ url);
-        view.setBackgroundColor(Color.TRANSPARENT);
+        Uri uri = Uri.parse(Http.BASE_IMAGE_URL + url);
         //view.setImageURI(uri);
 
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
@@ -97,25 +94,17 @@ public class DraweeViewUtil {
         }
         if (url.startsWith("http")) {
             view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
-            view.setBackgroundColor(Color.TRANSPARENT);
             resize(view, Uri.parse(url), width, height);
         } else {
-            resize(view, Uri.parse("" + url), width, height);
+            resize(view, Uri.parse(Http.BASE_IMAGE_URL + url), width, height);
         }
-    }
-
-    public static int getItemSize(Context context, int itemCount) {
-        int screenWidth = ResUtil.getScreenWidth(context);
-        int itemSize = screenWidth / itemCount;
-
-        return itemSize;
     }
 
     /**
      * 设置占位图以及缩放类型
      */
     public static void setPlaceholderImage(SimpleDraweeView view) {
-        view.getHierarchy().setPlaceholderImage(R.drawable.abc_ic_clear_material, ScalingUtils.ScaleType.CENTER_INSIDE);
+        //view.getHierarchy().setPlaceholderImage(R.drawable.load_banner_failed, ScalingUtils.ScaleType.CENTER_INSIDE);
     }
 
     /**

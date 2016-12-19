@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.github.load.AVLoadingIndicatorView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
@@ -43,7 +44,7 @@ public class UITitleBarContainer extends FrameLayout {
     protected LinearLayout mRightControlLayout;
     protected ImageView mBackImageView;
     protected TextView mTitleView;
-    protected View mLoadView;
+    protected AVLoadingIndicatorView mLoadView;
 
     protected TitleBarPattern mTitleBarPattern;
     protected boolean isAttachedToWindow;
@@ -94,12 +95,12 @@ public class UITitleBarContainer extends FrameLayout {
     }
 
     public UITitleBarContainer showLoadView() {
-        mLoadView.setVisibility(View.VISIBLE);
+        mLoadView.show();
         return this;
     }
 
     public UITitleBarContainer hideLoadView() {
-        mLoadView.setVisibility(View.GONE);
+        mLoadView.hide();
         return this;
     }
 

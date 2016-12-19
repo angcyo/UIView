@@ -1,11 +1,11 @@
-package com.angcyo.uiview.github.facebook;
+package com.angcyo.library.facebook;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.widget.ImageView;
 
-import com.angcyo.uiview.utils.FastBlurUtil;
+import com.angcyo.library.utils.FastBlurUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;

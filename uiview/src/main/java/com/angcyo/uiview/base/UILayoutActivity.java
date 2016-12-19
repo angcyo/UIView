@@ -7,6 +7,7 @@ import android.provider.Settings;
 
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UILayoutImpl;
+import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.view.IView;
 import com.tbruyelle.rxpermissions.Permission;
@@ -55,7 +56,7 @@ public abstract class UILayoutActivity extends StyleActivity {
     }
 
     public void startIView(final IView iView, boolean needAnim) {
-        mLayout.startIView(iView, needAnim);
+        mLayout.startIView(iView, new UIParam(needAnim));
     }
 
     public void startIView(IView iView) {

@@ -55,11 +55,11 @@ public class RefreshLayoutDemo extends UIContentView {
         mRecyclerView = new RecyclerView();
         mGridView = new GridView();
         mStaggerView = new StaggerView();
-        mUILayout.startIView(mNormalView, true);
-        mUILayout.startIView(mWebviewView, true);
-        mUILayout.startIView(mRecyclerView, true);
-        mUILayout.startIView(mGridView, true);
-        mUILayout.startIView(mStaggerView, true);
+        mUILayout.startIView(mNormalView);
+        mUILayout.startIView(mWebviewView);
+        mUILayout.startIView(mRecyclerView);
+        mUILayout.startIView(mGridView);
+        mUILayout.startIView(mStaggerView);
         mUILayout.showIView(mNormalView);
     }
 

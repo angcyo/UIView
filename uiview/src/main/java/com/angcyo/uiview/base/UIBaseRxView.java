@@ -29,4 +29,10 @@ public abstract class UIBaseRxView extends UIBaseDataView {
             mSubscriptions.unsubscribe();
         }
     }
+
+    public void onCancel() {
+        if (mSubscriptions != null) {
+            mSubscriptions.clear();
+        }
+    }
 }
