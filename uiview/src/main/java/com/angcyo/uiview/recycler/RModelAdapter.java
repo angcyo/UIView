@@ -1,7 +1,10 @@
 package com.angcyo.uiview.recycler;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
+import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.CompoundButton;
 
 import com.angcyo.uiview.utils.Reflect;
@@ -70,6 +73,36 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
 
     protected void onUnselectorPosition(List<Integer> list) {
 
+    }
+
+    /**
+     * 取消选择
+     */
+    public void unselector(@NonNull List<Integer> list, @NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
+        for (Integer pos : list) {
+            RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            if (vh != null) {
+                final View view = vh.tag(viewTag);
+                if (view != null && view instanceof CompoundButton) {
+                    ((CompoundButton) view).setChecked(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * 取消选择
+     */
+    public void unselector(@NonNull List<Integer> list, @NonNull RRecyclerView recyclerView, @IdRes int viewId) {
+        for (Integer pos : list) {
+            RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            if (vh != null) {
+                final View view = vh.v(viewId);
+                if (view != null && view instanceof CompoundButton) {
+                    ((CompoundButton) view).setChecked(false);
+                }
+            }
+        }
     }
 
     /**

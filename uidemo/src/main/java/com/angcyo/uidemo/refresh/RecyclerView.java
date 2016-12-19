@@ -100,15 +100,7 @@ public class RecyclerView extends UIContentView {
 
             @Override
             protected void onUnselectorPosition(List<Integer> list) {
-                for (Integer pos : list) {
-                    RBaseViewHolder vh = (RBaseViewHolder) mRecyclerView.findViewHolderForAdapterPosition(pos);
-                    if (vh != null) {
-                        final CheckBox check_box = vh.tag("check_box");
-                        if (check_box != null) {
-                            check_box.setChecked(false);
-                        }
-                    }
-                }
+                unselector(list, mRecyclerView, "check_box");
             }
 
             @Override
