@@ -1,6 +1,5 @@
 package com.angcyo.library.utils;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
@@ -28,24 +27,22 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
  */
 public class DraweeViewUtil {
     public static void setDraweeViewRes(SimpleDraweeView view, @DrawableRes int res) {
-        view.setBackgroundColor(Color.TRANSPARENT);
         String url = "res://" + view.getContext().getPackageName() + "/" + res;
         view.setImageURI(Uri.parse(url));
     }
 
     public static void setDraweeViewFile(SimpleDraweeView view, String filePath) {
-        view.setBackgroundColor(Color.TRANSPARENT);
         String url = "file://" + filePath;
         view.setImageURI(Uri.parse(url));
     }
 
     public static void setDraweeViewHttp(SimpleDraweeView view, String url) {
         if (TextUtils.isEmpty(url)) {
+            view.setImageURI("");
             return;
         }
         if (url.startsWith("http")) {
             view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-            view.setBackgroundColor(Color.TRANSPARENT);
             view.setImageURI(Uri.parse(url));
         } else {
             setDraweeViewHttp2Inner(view, url);
@@ -58,14 +55,12 @@ public class DraweeViewUtil {
 
     public static void setDraweeViewHttp2Inner(SimpleDraweeView view, String url) {
         Uri uri = Uri.parse(Http.BASE_IMAGE_URL + url);
-        view.setBackgroundColor(Color.TRANSPARENT);
         view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         view.setImageURI(uri);
     }
 
     public static void setDraweeViewHttp2(SimpleDraweeView view, String url, boolean progressive) {
         Uri uri = Uri.parse(Http.BASE_IMAGE_URL + url);
-        view.setBackgroundColor(Color.TRANSPARENT);
         //view.setImageURI(uri);
 
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
@@ -98,7 +93,6 @@ public class DraweeViewUtil {
         }
         if (url.startsWith("http")) {
             view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
-            view.setBackgroundColor(Color.TRANSPARENT);
             resize(view, Uri.parse(url), width, height);
         } else {
             resize(view, Uri.parse(Http.BASE_IMAGE_URL + url), width, height);
