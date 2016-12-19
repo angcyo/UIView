@@ -39,6 +39,8 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
     @Model
     private int mModel = MODEL_NORMAL;
 
+    private HashSet<OnModelChangeListener> mChangeListeners = new HashSet<>();
+
     public RModelAdapter(Context context) {
         super(context);
     }
@@ -112,6 +114,14 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
         setSelectorPosition(position, null);
     }
 
+    public void addOnModelChangeListener(OnModelChangeListener listener) {
+        mChangeListeners.add(listener);
+    }
+
+    public void removeOnModelChangeListener(OnModelChangeListener listener) {
+        mChangeListeners.remove(listener);
+    }
+
     public HashSet<Integer> getAllSelector() {
         return mSelector;
     }
@@ -140,6 +150,11 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
                 mSelector.clear();
             }
             mSelector.add(position);
+        }
+
+        final Iterator<OnModelChangeListener> iterator = mChangeListeners.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().onSelectorChange(getAllSelectorList());
         }
 
         if (selector) {
@@ -176,7 +191,14 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
      */
     public void setModel(@Model int model) {
         if (mModel != model) {
+            int old = mModel;
             mModel = model;
+
+            final Iterator<OnModelChangeListener> iterator = mChangeListeners.iterator();
+            while (iterator.hasNext()) {
+                iterator.next().onModelChange(old, model);
+            }
+
             if (mModel != MODEL_NORMAL) {
                 setEnableLoadMore(false);
                 mSelector.clear();
@@ -188,5 +210,11 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
     @IntDef({MODEL_NORMAL, MODEL_SINGLE, MODEL_MULTI})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Model {
+    }
+
+    public interface OnModelChangeListener {
+        void onModelChange(@Model int fromModel, @Model int toModel);
+
+        void onSelectorChange(List<Integer> selectorList);
     }
 }
