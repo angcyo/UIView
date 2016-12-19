@@ -144,6 +144,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     //--------------需要实现的方法------------//
 
+    /**
+     * 当 {@link #getItemLayoutId(int)} 返回0的时候, 会调用此方法
+     */
     protected View createContentView(ViewGroup parent, int viewType) {
         return null;
     }

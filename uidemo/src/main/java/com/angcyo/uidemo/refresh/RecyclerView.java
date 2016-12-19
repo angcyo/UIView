@@ -1,20 +1,27 @@
 package com.angcyo.uidemo.refresh;
 
 import android.graphics.Color;
+import android.support.v7.widget.AppCompatCheckBox;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.T_;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
-import com.angcyo.uiview.recycler.RBaseAdapter;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.recycler.RModelAdapter;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.rsen.RefreshLayout;
+
+import java.util.List;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -32,7 +39,7 @@ public class RecyclerView extends UIContentView {
     private RefreshLayout mRefreshLayout;
     private RRecyclerView mRecyclerView;
 
-    private RBaseAdapter<String> mAdapter;
+    private RModelAdapter<String> mAdapter;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
@@ -59,12 +66,7 @@ public class RecyclerView extends UIContentView {
     }
 
     private void initRecyclerView() {
-        mAdapter = new RBaseAdapter<String>(mActivity) {
-            @Override
-            protected int getItemLayoutId(int viewType) {
-                return 0;
-            }
-
+        mAdapter = new RModelAdapter<String>(mActivity) {
             @Override
             public int getItemCount() {
                 return 30;
@@ -72,15 +74,74 @@ public class RecyclerView extends UIContentView {
 
             @Override
             protected View createContentView(ViewGroup parent, int viewType) {
+                LinearLayout root = new LinearLayout(mActivity);
+                root.setOrientation(LinearLayout.HORIZONTAL);
+                root.setVerticalGravity(Gravity.CENTER_VERTICAL);
+                root.setLayoutParams(new ViewGroup.LayoutParams(-1, -2));
+                root.setPadding(1, 1, 1, 1);
+                root.setBackgroundResource(R.drawable.base_main_color_bg_selector);
+
+                AppCompatCheckBox checkBox = new AppCompatCheckBox(mActivity);
+                checkBox.setTag("check_box");
+                checkBox.setVisibility(View.VISIBLE);
+
                 TextView textView = new TextView(mActivity);
                 textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 50)));
                 textView.setTextColor(Color.BLUE);
-                return textView;
+                textView.setTag("text");
+                textView.setGravity(Gravity.CENTER_VERTICAL);
+                //textView.setBackgroundColor(Color.GRAY);
+
+                root.addView(checkBox, new ViewGroup.LayoutParams(-2, -2));
+                root.addView(textView);
+
+                return root;
             }
 
             @Override
-            protected void onBindView(RBaseViewHolder holder, int position, String bean) {
-                ((TextView) holder.itemView).setText(this.getClass().getSimpleName() + " " + position);
+            protected void onUnselectorPosition(List<Integer> list) {
+                for (Integer pos : list) {
+                    RBaseViewHolder vh = (RBaseViewHolder) mRecyclerView.findViewHolderForAdapterPosition(pos);
+                    if (vh != null) {
+                        final CheckBox check_box = vh.tag("check_box");
+                        if (check_box != null) {
+                            check_box.setChecked(false);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            protected void onBindCommonView(RBaseViewHolder holder, int position, String bean) {
+                ((TextView) holder.tag("text")).setText(this.getClass().getSimpleName() + " " + position);
+            }
+
+            @Override
+            protected void onBindModelView(int model, boolean isSelector, RBaseViewHolder holder, final int position, String bean) {
+                final CheckBox check_box = holder.tag("check_box");
+                check_box.setVisibility(View.VISIBLE);
+                check_box.setChecked(isSelector);
+
+                check_box.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setSelectorPosition(position, check_box);
+                    }
+                });
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setSelectorPosition(position, check_box);
+                    }
+                });
+            }
+
+            @Override
+            protected void onBindNormalView(RBaseViewHolder holder, int position, String bean) {
+                holder.tag("check_box").setVisibility(View.GONE);
+
+                holder.itemView.setOnClickListener(null);
             }
 
             @Override
@@ -90,7 +151,9 @@ public class RecyclerView extends UIContentView {
                     @Override
                     public void run() {
                         mAdapter.setLoadMoreEnd();
-                        T_.show("结束加载更多..." + System.currentTimeMillis());
+                        T_.show("结束加载更多..." + System.currentTimeMillis() + "  !进入多选模式! ");
+
+                        mAdapter.setModel(MODEL_MULTI);
 
                         postDelayed(new Runnable() {
                             @Override
@@ -106,8 +169,11 @@ public class RecyclerView extends UIContentView {
                                             @Override
                                             public void run() {
                                                 mAdapter.setNoMore();
+                                                T_.show(" !进入单选模式!  上次选中:" + mAdapter.getAllSelector().size() + "个");
+
+                                                mAdapter.setModel(MODEL_SINGLE);
                                             }
-                                        }, 2000);
+                                        }, 5000);
                                     }
                                 }, 1000);
                             }

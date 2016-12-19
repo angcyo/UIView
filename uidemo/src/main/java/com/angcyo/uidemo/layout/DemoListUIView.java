@@ -16,6 +16,9 @@ import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by angcyo on 2016-12-18.
  */
@@ -70,5 +73,17 @@ public class DemoListUIView extends UIContentView {
     public void onViewShow(Bundle bundle) {
         super.onViewShow(bundle);
         ((UILayoutImpl) mILayout).unlock();
+
+        Set<String> set = new HashSet<>();
+        set.add("123");
+        set.add("123");
+        set.add("123");
+        set.size();
+
+        Set<Integer> set2 = new HashSet<>();
+        set2.add(1);
+        set2.add(1);
+        set2.add(2);
+        set2.size();
     }
 }

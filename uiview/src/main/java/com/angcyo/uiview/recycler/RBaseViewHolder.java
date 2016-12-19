@@ -73,6 +73,11 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         return (T) view;
     }
 
+    public <T extends View> T tag(String tag) {
+        View view = itemView.findViewWithTag(tag);
+        return (T) view;
+    }
+
     public <T extends View> T v(String idName) {
         return (T) viewByName(idName);
     }
