@@ -34,21 +34,28 @@ public class DemoListUIView extends UIContentView {
         rootLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE | LinearLayout.SHOW_DIVIDER_END);
         rootLayout.setDividerDrawable(mActivity.getResources().getDrawable(R.drawable.base_shape_line));
 
-        addItem("-> ScrollerIView", new View.OnClickListener() {
+        addItem("-> Scroller IView", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startIView(new ScrollerIView());
             }
         });
 
-        addItem("-> RefreshLayoutDemo", new View.OnClickListener() {
+        addItem("-> Refresh Layout Demo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startIView(new RefreshLayoutDemo());
             }
         });
 
-        addItem("-> TestDemo", new View.OnClickListener() {
+        addItem("-> Test Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new TestDemo());
+            }
+        });
+
+        addItem("-> RTL Demo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startIView(new TestDemo());
