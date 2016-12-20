@@ -73,12 +73,15 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
 
     protected abstract void onBindNormalView(RBaseViewHolder holder, int position, T bean);
 
+    /**
+     * 在单选模式下, 选择其他项时, 将要先取消之前的选中项. 此时会执行此方法, 取消之前按钮的状态
+     */
     protected void onUnselectorPosition(List<Integer> list) {
 
     }
 
     /**
-     * 取消选择
+     * 在执行 {@link #onUnselectorPosition(List)}后, 调用此方法, 可以便捷的取消 CompoundButton 的状态
      */
     public void unselector(@NonNull List<Integer> list, @NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
         for (Integer pos : list) {
@@ -86,14 +89,14 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
             if (vh != null) {
                 final View view = vh.tag(viewTag);
                 if (view != null && view instanceof CompoundButton) {
-                    ((CompoundButton) view).setChecked(false);
+                    checkedButton((CompoundButton) view, false);
                 }
             }
         }
     }
 
     /**
-     * 取消选择
+     * 在执行 {@link #onUnselectorPosition(List)}后, 调用此方法, 可以便捷的取消 CompoundButton 的状态
      */
     public void unselector(@NonNull List<Integer> list, @NonNull RRecyclerView recyclerView, @IdRes int viewId) {
         for (Integer pos : list) {
@@ -101,10 +104,56 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
             if (vh != null) {
                 final View view = vh.v(viewId);
                 if (view != null && view instanceof CompoundButton) {
-                    ((CompoundButton) view).setChecked(false);
+                    checkedButton((CompoundButton) view, false);
                 }
             }
         }
+    }
+
+    /**
+     * 取消所有选择
+     */
+    public void unselectorAll(@NonNull RRecyclerView recyclerView, @IdRes int viewId) {
+        for (Integer pos : getAllSelectorList()) {
+            RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            if (vh != null) {
+                final View view = vh.v(viewId);
+                if (view != null && view instanceof CompoundButton) {
+                    checkedButton((CompoundButton) view, false);
+                }
+            }
+        }
+        mSelector.clear();
+
+        notifySelectorChange();
+    }
+
+    /**
+     * 通知选中数量改变了
+     */
+    private void notifySelectorChange() {
+        final Iterator<OnModelChangeListener> iterator = mChangeListeners.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().onSelectorChange(getAllSelectorList());
+        }
+    }
+
+    /**
+     * 取消所有选择
+     */
+    public void unselectorAll(@NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
+        for (Integer pos : getAllSelectorList()) {
+            RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            if (vh != null) {
+                final View view = vh.tag(viewTag);
+                if (view != null && view instanceof CompoundButton) {
+                    checkedButton((CompoundButton) view, false);
+                }
+            }
+        }
+        mSelector.clear();
+
+        notifySelectorChange();
     }
 
     /**
@@ -112,6 +161,57 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
      */
     public void setSelectorPosition(int position) {
         setSelectorPosition(position, null);
+    }
+
+    /**
+     * 选中所有
+     */
+    public void setSelectorAll(@NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
+        if (mModel != MODEL_MULTI) {
+            return;
+        }
+
+        for (int i = 0; i < getAllDatas().size(); i++) {
+            mSelector.add(i);
+        }
+
+        for (Integer pos : getAllSelectorList()) {
+            RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            if (vh != null) {
+                final View view = vh.tag(viewTag);
+                if (view != null && view instanceof CompoundButton) {
+                    checkedButton((CompoundButton) view, true);
+                }
+            }
+        }
+
+        notifySelectorChange();
+    }
+
+    /**
+     * 选中所有
+     */
+    public void setSelectorAll(@NonNull RRecyclerView recyclerView, @IdRes int viewId) {
+        if (mModel != MODEL_MULTI) {
+            return;
+        }
+
+        for (int i = 0; i < getAllDatas().size(); i++) {
+            mSelector.add(i);
+        }
+
+
+        for (Integer pos : getAllSelectorList()) {
+            RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
+            if (vh != null) {
+                final View view = vh.v(viewId);
+                if (view != null && view instanceof CompoundButton) {
+                    checkedButton((CompoundButton) view, true);
+                }
+            }
+        }
+
+        notifySelectorChange();
     }
 
     public void addOnModelChangeListener(OnModelChangeListener listener) {
@@ -152,19 +252,12 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
             mSelector.add(position);
         }
 
-        final Iterator<OnModelChangeListener> iterator = mChangeListeners.iterator();
-        while (iterator.hasNext()) {
-            iterator.next().onSelectorChange(getAllSelectorList());
-        }
+        notifySelectorChange();
 
-        if (selector) {
-            checkButton(compoundButton, false);
-        } else {
-            checkButton(compoundButton, true);
-        }
+        checkedButton(compoundButton, !selector);
     }
 
-    private void checkButton(CompoundButton compoundButton, boolean checked) {
+    private void checkedButton(CompoundButton compoundButton, boolean checked) {
         if (compoundButton == null) {
             return;
         }
