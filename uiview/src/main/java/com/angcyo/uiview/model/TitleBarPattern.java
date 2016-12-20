@@ -27,6 +27,16 @@ public class TitleBarPattern {
      * 标题进入的动画
      */
     public boolean titleAnim = false;
+
+    /**
+     * 标题是否显示在内容的上面, 否则内容就会显示在标题的下面
+     */
+    public boolean isFloating = false;
+
+    /**
+     * 当 {@link #isFloating} 为true时, 可以 使用此参数自动设置 内容的 paddingTop值
+     */
+    public boolean isFixContentHeight = false;
     /**
      * 标题
      */
@@ -41,6 +51,7 @@ public class TitleBarPattern {
      */
     public ArrayList<TitleBarItem> mRightItems = new ArrayList<>();
 
+
     private TitleBarPattern(String titleString) {
         mTitleString = titleString;
     }
@@ -51,6 +62,8 @@ public class TitleBarPattern {
         }
         to.isShowBackImageView = from.isShowBackImageView;
         to.titleAnim = from.titleAnim;
+        to.isFloating = from.isFloating;
+        to.isFixContentHeight = from.isFixContentHeight;
         if (to.mTitleSize == -1) {
             to.mTitleSize = from.mTitleSize;
         }
@@ -101,6 +114,21 @@ public class TitleBarPattern {
         if (mTitleSize != -1) {
             textView.setTextSize(mTitleSize);
         }
+        return this;
+    }
+
+    public TitleBarPattern setTitleAnim(boolean titleAnim) {
+        this.titleAnim = titleAnim;
+        return this;
+    }
+
+    public TitleBarPattern setFloating(boolean floating) {
+        isFloating = floating;
+        return this;
+    }
+
+    public TitleBarPattern setFixContentHeight(boolean fixContentHeight) {
+        isFixContentHeight = fixContentHeight;
         return this;
     }
 

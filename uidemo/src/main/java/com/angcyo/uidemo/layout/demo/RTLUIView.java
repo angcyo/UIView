@@ -1,9 +1,16 @@
 package com.angcyo.uidemo.layout.demo;
 
+import android.graphics.Color;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.model.TitleBarPattern;
+
+import butterknife.BindView;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -17,8 +24,32 @@ import com.angcyo.uiview.base.UIContentView;
  * Version: 1.0.0
  */
 public class RTLUIView extends UIContentView {
+    @BindView(R.id.scroll_view)
+    NestedScrollView mScrollView;
+
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        inflate(R.layout.view_rtl_layout);
+    }
 
+    @Override
+    protected TitleBarPattern getTitleBar() {
+        return super.getTitleBar().setFloating(true).setFixContentHeight(false).setTitleBarBGColor(Color.TRANSPARENT);
+    }
+
+    @Override
+    protected void initContentLayout() {
+        super.initContentLayout();
+        mUITitleBarContainer.getTitleView().setVisibility(View.GONE);
+        mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY,
+                                       int oldScrollX, int oldScrollY) {
+                mUITitleBarContainer.evaluateBackgroundColor(scrollY);
+                mUITitleBarContainer.getTitleView()
+                        .setVisibility(scrollY > mUITitleBarContainer.getMeasuredHeight() ?
+                                View.VISIBLE : View.GONE);
+            }
+        });
     }
 }

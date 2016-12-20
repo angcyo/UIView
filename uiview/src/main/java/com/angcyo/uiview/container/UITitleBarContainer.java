@@ -1,5 +1,6 @@
 package com.angcyo.uiview.container;
 
+import android.animation.ArgbEvaluator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -214,6 +215,22 @@ public class UITitleBarContainer extends FrameLayout {
         /*控制按钮的动画*/
         animViews(mLeftViews, true);
         animViews(mRightViews, false);
+    }
+
+    /**
+     * 根据 scrollY 动态计算背景颜色
+     */
+    public void evaluateBackgroundColor(int scrollY) {
+        setBackgroundColor((Integer) new ArgbEvaluator()
+                .evaluate(Math.min(1, 6 * scrollY * 0.1f / getMeasuredHeight()),
+                        Color.TRANSPARENT, getResources().getColor(R.color.theme_color_primary)));
+    }
+
+    /**
+     * 标题文本视图
+     */
+    public TextView getTitleView() {
+        return mTitleView;
     }
 
     private void animViews(ArrayList<View> views, boolean left) {

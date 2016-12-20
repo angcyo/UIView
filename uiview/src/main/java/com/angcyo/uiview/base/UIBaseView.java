@@ -85,7 +85,6 @@ public abstract class UIBaseView extends UIIViewImpl {
             mUITitleBarContainer.setId(mUITitleBarId);
             mUITitleBarContainer.setTitleBarPattern(titleBarPattern);
             mUITitleBarContainer.onAttachToLayout(mILayout);//note
-            mBaseRootLayout.addView(mUITitleBarContainer, new ViewGroup.LayoutParams(-1, -2));
         }
 
         //内容根布局, 包含空布局,加载布局等
@@ -110,10 +109,21 @@ public abstract class UIBaseView extends UIIViewImpl {
 //        safeSetView(mBaseLoadLayout);
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
-        if (titleBarPattern != null) {
-            params.addRule(RelativeLayout.BELOW, mUITitleBarId);
-        }
         mBaseRootLayout.addView(mBaseContentRootLayout, params);
+
+        if (titleBarPattern != null) {
+            mBaseRootLayout.addView(mUITitleBarContainer, new ViewGroup.LayoutParams(-1, -2));
+
+            if (titleBarPattern.isFloating) {
+                if (titleBarPattern.isFixContentHeight) {
+                    mBaseContentRootLayout.setPadding(mBaseContentRootLayout.getPaddingLeft(),
+                            mBaseContentRootLayout.getPaddingTop() + mActivity.getResources().getDimensionPixelOffset(R.dimen.title_bar_height),
+                            mBaseContentRootLayout.getPaddingRight(), mBaseContentRootLayout.getPaddingBottom());
+                }
+            } else {
+                params.addRule(RelativeLayout.BELOW, mUITitleBarId);
+            }
+        }
 
         container.addView(mBaseRootLayout, new ViewGroup.LayoutParams(-1, -1));
         return mBaseRootLayout;
