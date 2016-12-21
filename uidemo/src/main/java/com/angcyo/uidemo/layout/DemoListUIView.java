@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
@@ -60,6 +61,13 @@ public class DemoListUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 startIView(new RTLUIView());
+            }
+        });
+
+        addItem("-> Emoji Layout Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new EmojiUIView());
             }
         });
 

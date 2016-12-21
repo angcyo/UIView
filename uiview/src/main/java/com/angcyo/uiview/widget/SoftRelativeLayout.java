@@ -72,10 +72,19 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         }
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
 
-//    @Override
-//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-//        super.onLayout(changed, l, t, r, b);
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
 //        final int count = getChildCount();
 //        for (int i = 0; i < count; i++) {
 //            View child = getChildAt(i);
@@ -112,7 +121,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 //                }
 //            }
 //        }
-//    }
+    }
 
     private void animateView(View view, float y) {
         ViewCompat.animate(view)

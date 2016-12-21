@@ -43,6 +43,14 @@ public class ResUtil {
         return px;
     }
 
+    public static float dpToPx(Context context, float dp) {
+        return dpToPx(context.getResources(), dp);
+    }
+
+    public static float spToPx(Context context, float sp) {
+        return spToPx(context.getResources(), sp);
+    }
+
     /**
      * Generate text color color state list.
      *
