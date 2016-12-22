@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
+import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
@@ -64,10 +65,17 @@ public class DemoListUIView extends UIContentView {
             }
         });
 
-        addItem("-> Emoji Layout Demo", new View.OnClickListener() {
+        addItem("-> Emoji Layout Demo (Android5.+)", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startIView(new EmojiUIView());
+            }
+        });
+
+        addItem("-> ExEmoji Layout Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new ExEmojiUIView());
             }
         });
 

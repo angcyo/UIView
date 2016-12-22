@@ -19,7 +19,7 @@ import java.util.Iterator;
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：
+ * 类的描述：支持透明状态栏, 支持Dialog, 支持动画
  * 创建人员：Robi
  * 创建时间：2016/12/21 9:01
  * 修改人员：Robi

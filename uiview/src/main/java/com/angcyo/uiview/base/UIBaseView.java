@@ -73,7 +73,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         //包含标题栏的根布局
         mBaseRootLayout = new SoftRelativeLayout(mActivity);
-        mBaseRootId = View.generateViewId();
+        mBaseRootId = R.id.base_root_layout_id;//View.generateViewId();
         mBaseRootLayout.setId(mBaseRootId);
 
         mBaseRootLayout.setBackgroundColor(getDefaultBackgroundColor());
@@ -81,7 +81,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         TitleBarPattern titleBarPattern = getTitleBar();
         if (titleBarPattern != null) {
             mUITitleBarContainer = new UITitleBarContainer(mActivity);
-            mUITitleBarId = View.generateViewId();
+            mUITitleBarId = R.id.base_root_title_id;//View.generateViewId();
             mUITitleBarContainer.setId(mUITitleBarId);
             mUITitleBarContainer.setTitleBarPattern(titleBarPattern);
             mUITitleBarContainer.onAttachToLayout(mILayout);//note
@@ -89,7 +89,7 @@ public abstract class UIBaseView extends UIIViewImpl {
 
         //内容根布局, 包含空布局,加载布局等
         mBaseContentRootLayout = new FrameLayout(mActivity);
-        mBaseContentRootId = View.generateViewId();
+        mBaseContentRootId = R.id.base_root_content_id;//View.generateViewId();
         mBaseContentRootLayout.setId(mBaseContentRootId);
 
         //内容包裹布局
