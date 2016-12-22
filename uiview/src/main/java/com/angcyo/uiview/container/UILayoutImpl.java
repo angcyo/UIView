@@ -285,6 +285,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         }
 
         if (!viewPattern.mIView.onBackPressed()) {
+            isFinishing = false;
             return;
         }
 
