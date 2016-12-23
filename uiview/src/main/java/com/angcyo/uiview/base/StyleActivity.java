@@ -31,7 +31,7 @@ public abstract class StyleActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        onLoadView();
+//        onLoadView();//在权限通过后调用
     }
 
     protected abstract void onCreateView();
