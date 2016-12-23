@@ -1001,6 +1001,25 @@ public class BmpUtil {
         }
     }
 
+    /**
+     * obtain the image's width and height
+     *
+     * @param imagePath the path of image
+     */
+    public static int[] getImageSize(String imagePath) {
+        int[] res = new int[2];
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        options.inSampleSize = 1;
+        BitmapFactory.decodeFile(imagePath, options);
+
+        res[0] = options.outWidth;
+        res[1] = options.outHeight;
+
+        return res;
+    }
+
 //    public static void save() {
 //        new Thread() {
 //            @Override
