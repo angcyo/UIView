@@ -105,7 +105,7 @@ public class RecyclerView extends UIContentView {
 
             @Override
             protected void onBindCommonView(RBaseViewHolder holder, int position, String bean) {
-                ((TextView) holder.tag("text")).setText(this.getClass().getSimpleName() + " " + position);
+                ((TextView) holder.tag("text")).setText(this.getClass().getSuperclass().getSimpleName() + " " + position);
             }
 
             @Override

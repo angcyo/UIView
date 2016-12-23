@@ -88,7 +88,7 @@ public class SwipeRecyclerViewUIView extends UIContentView {
 
             @Override
             protected void onBindView(RBaseViewHolder holder, int position, Object bean) {
-                ((TextView) holder.tag("text")).setText("左右滑动试一试咯!!! ->" + this.getClass().getSimpleName() + " " + position);
+                ((TextView) holder.tag("text")).setText("左右滑动试一试咯!!! ->" + this.getClass().getSuperclass().getSimpleName() + " " + position);
             }
 
             @Override
