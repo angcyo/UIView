@@ -11,6 +11,7 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
+import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
@@ -76,6 +77,13 @@ public class DemoListUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 startIView(new ExEmojiUIView());
+            }
+        });
+
+        addItem("-> Swipe RecyclerView Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new SwipeRecyclerViewUIView());
             }
         });
 
