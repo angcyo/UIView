@@ -37,6 +37,8 @@ public class SwipeMenuItem {
     private int width = -2;
     private int height = -2;
     private int weight = 0;
+    private int paddLeft = 0;
+    private int paddRight = 0;
 
     public SwipeMenuItem(Context context) {
         mContext = context;
@@ -71,17 +73,30 @@ public class SwipeMenuItem {
         return this;
     }
 
-    public SwipeMenuItem setImage(int resId) {
-        return setImage(ResCompat.getDrawable(mContext, resId));
+    public int getPaddLeft() {
+        return paddLeft;
+    }
+
+    public SwipeMenuItem setPaddLeft(int paddLeft) {
+        this.paddLeft = paddLeft;
+        return this;
+    }
+
+    public int getPaddRight() {
+        return paddRight;
+    }
+
+    public SwipeMenuItem setPaddRight(int paddRight) {
+        this.paddRight = paddRight;
+        return this;
     }
 
     public Drawable getImage() {
         return icon;
     }
 
-    public SwipeMenuItem setText(int resId) {
-        setText(mContext.getString(resId));
-        return this;
+    public SwipeMenuItem setImage(int resId) {
+        return setImage(ResCompat.getDrawable(mContext, resId));
     }
 
     public SwipeMenuItem setTextColor(int titleColor) {
@@ -93,21 +108,21 @@ public class SwipeMenuItem {
         return titleColor;
     }
 
+    public int getTextSize() {
+        return titleSize;
+    }
+
     public SwipeMenuItem setTextSize(int titleSize) {
         this.titleSize = titleSize;
         return this;
-    }
-
-    public int getTextSize() {
-        return titleSize;
     }
 
     public String getText() {
         return title;
     }
 
-    public SwipeMenuItem setTextAppearance(int textAppearance) {
-        this.textAppearance = textAppearance;
+    public SwipeMenuItem setText(int resId) {
+        setText(mContext.getString(resId));
         return this;
     }
 
@@ -115,13 +130,18 @@ public class SwipeMenuItem {
         return textAppearance;
     }
 
-    public SwipeMenuItem setTextTypeface(Typeface textTypeface) {
-        this.textTypeface = textTypeface;
+    public SwipeMenuItem setTextAppearance(int textAppearance) {
+        this.textAppearance = textAppearance;
         return this;
     }
 
     public Typeface getTextTypeface() {
         return textTypeface;
+    }
+
+    public SwipeMenuItem setTextTypeface(Typeface textTypeface) {
+        this.textTypeface = textTypeface;
+        return this;
     }
 
     public int getWidth() {
@@ -142,12 +162,12 @@ public class SwipeMenuItem {
         return this;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
     public SwipeMenuItem setWeight(int weight) {
         this.weight = weight;
         return this;
-    }
-
-    public int getWeight() {
-        return weight;
     }
 }

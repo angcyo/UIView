@@ -77,9 +77,9 @@ public class SwipeMenuRecyclerView extends RecyclerView {
      */
     private OnSwipeMenuItemClickListener mDefaultMenuItemClickListener = new OnSwipeMenuItemClickListener() {
         @Override
-        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction, final SwipeMenuItem menuItem) {
             if (mSwipeMenuItemClickListener != null) {
-                mSwipeMenuItemClickListener.onItemClick(closeable, adapterPosition, menuPosition, direction);
+                mSwipeMenuItemClickListener.onItemClick(closeable, adapterPosition, menuPosition, direction, menuItem);
             }
         }
     };

@@ -41,6 +41,15 @@ public class SwipeMenuView extends LinearLayout {
     private int mDirection;
 
     private OnSwipeMenuItemClickListener mItemClickListener;
+    private OnClickListener mMenuClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (mItemClickListener != null && mSwipeSwitch != null && mSwipeSwitch.isMenuOpen()) {
+                mItemClickListener.onItemClick(mSwipeSwitch, mAdapterVIewHolder.getAdapterPosition(),
+                        v.getId(), mDirection, (SwipeMenuItem) v.getTag());
+            }
+        }
+    };
 
     public SwipeMenuView(Context context) {
         this(context, null);
@@ -82,6 +91,7 @@ public class SwipeMenuView extends LinearLayout {
         parent.setOrientation(VERTICAL);
         parent.setLayoutParams(params);
         ResCompat.setBackground(parent, item.getBackground());
+        parent.setTag(item);
         parent.setOnClickListener(mMenuClickListener);
         addView(parent);
 
@@ -95,6 +105,8 @@ public class SwipeMenuView extends LinearLayout {
     private ImageView createIcon(SwipeMenuItem item) {
         ImageView imageView = new ImageView(getContext());
         imageView.setImageDrawable(item.getImage());
+        imageView.setPadding(imageView.getPaddingLeft() + item.getPaddLeft(), imageView.getPaddingTop(),
+                imageView.getPaddingRight() + item.getPaddRight(), imageView.getPaddingBottom());
         return imageView;
     }
 
@@ -114,15 +126,9 @@ public class SwipeMenuView extends LinearLayout {
         Typeface typeface = item.getTextTypeface();
         if (typeface != null)
             textView.setTypeface(typeface);
+
+        textView.setPadding(textView.getPaddingLeft() + item.getPaddLeft(), textView.getPaddingTop(),
+                textView.getPaddingRight() + item.getPaddRight(), textView.getPaddingBottom());
         return textView;
     }
-
-    private OnClickListener mMenuClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mItemClickListener != null && mSwipeSwitch != null && mSwipeSwitch.isMenuOpen()) {
-                mItemClickListener.onItemClick(mSwipeSwitch, mAdapterVIewHolder.getAdapterPosition(), v.getId(), mDirection);
-            }
-        }
-    };
 }
