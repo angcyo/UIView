@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,7 +23,7 @@ import java.util.Locale;
  * </pre>
  */
 public class CrashUtils
-        implements Thread.UncaughtExceptionHandler {
+        implements UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;
 

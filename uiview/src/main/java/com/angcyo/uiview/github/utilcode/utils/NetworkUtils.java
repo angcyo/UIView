@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -221,12 +221,12 @@ public class NetworkUtils {
      *
      * @return 网络类型
      * <ul>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_WIFI   } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_4G     } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_3G     } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_2G     } </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_UNKNOWN} </li>
-     * <li>{@link NetworkUtils.NetworkType#NETWORK_NO     } </li>
+     * <li>{@link NetworkType#NETWORK_WIFI   } </li>
+     * <li>{@link NetworkType#NETWORK_4G     } </li>
+     * <li>{@link NetworkType#NETWORK_3G     } </li>
+     * <li>{@link NetworkType#NETWORK_2G     } </li>
+     * <li>{@link NetworkType#NETWORK_UNKNOWN} </li>
+     * <li>{@link NetworkType#NETWORK_NO     } </li>
      * </ul>
      */
     public static NetworkType getNetworkType() {

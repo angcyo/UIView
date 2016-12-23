@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

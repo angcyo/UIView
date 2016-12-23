@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

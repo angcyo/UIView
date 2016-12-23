@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import android.util.DisplayMetrics;
 import android.util.TypedValue;

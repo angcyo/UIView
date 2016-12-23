@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -51,7 +51,7 @@ public class DeviceUtils {
      * @return 设备系统版本号
      */
     public static int getSDKVersion() {
-        return android.os.Build.VERSION.SDK_INT;
+        return Build.VERSION.SDK_INT;
     }
 
 

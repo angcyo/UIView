@@ -1,4 +1,4 @@
-package com.blankj.utilcode.utils;
+package com.angcyo.uiview.github.utilcode.utils;
 
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.R;
+import com.angcyo.uiview.R;
 
 import java.lang.ref.WeakReference;
 
