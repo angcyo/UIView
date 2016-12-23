@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout;
 
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ public class DemoListUIView extends UIContentView {
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        NestedScrollView scrollView = new NestedScrollView(mActivity);
+
         rootLayout = new LinearLayout(mActivity);
         rootLayout.setOrientation(LinearLayout.VERTICAL);
         rootLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE | LinearLayout.SHOW_DIVIDER_END);
@@ -87,7 +90,8 @@ public class DemoListUIView extends UIContentView {
             }
         });
 
-        baseContentLayout.addView(rootLayout);
+        scrollView.addView(rootLayout, new ViewGroup.LayoutParams(-1, -1));
+        baseContentLayout.addView(scrollView);
     }
 
     private void addItem(String text, View.OnClickListener clickListener) {

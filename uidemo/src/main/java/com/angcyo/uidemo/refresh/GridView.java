@@ -62,7 +62,7 @@ public class GridView extends UIContentView {
 
             @Override
             public int getItemCount() {
-                return 30;
+                return 40;
             }
 
             @Override

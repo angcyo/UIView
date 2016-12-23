@@ -65,7 +65,7 @@ public class StaggerView extends UIContentView {
 
             @Override
             public int getItemCount() {
-                return 30;
+                return 60;
             }
 
             @Override
