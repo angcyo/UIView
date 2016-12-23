@@ -53,16 +53,15 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
 
-//        lintOptions {
-//            checkReleaseBuilds false
-//            // Or, if you prefer, you can continue to check for errors in release builds,
-//            // but continue the build even when errors are found:
-//            abortOnError false
-//        }
-
-
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
     dexOptions {
         incremental true
+        preDexLibraries false
+        jumboMode true
+        javaMaxHeapSize "4g"
     }
 }
 
