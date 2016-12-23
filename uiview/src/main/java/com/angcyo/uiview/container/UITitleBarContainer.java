@@ -217,12 +217,24 @@ public class UITitleBarContainer extends FrameLayout {
         animViews(mRightViews, false);
     }
 
+    public void evaluateBackgroundColor(int scrollY) {
+        evaluateBackgroundColor(scrollY, null);
+    }
+
+    public void evaluateBackgroundColorSelf(int scrollY) {
+        evaluateBackgroundColor(scrollY, mTitleView);
+    }
+
     /**
      * 根据 scrollY 动态计算背景颜色
      */
-    public void evaluateBackgroundColor(int scrollY) {
+    public void evaluateBackgroundColor(int scrollY, View titleView) {
+        float factor = 6 * scrollY * 0.1f / getMeasuredHeight();
+        if (titleView != null) {
+            titleView.setVisibility(factor > 0.8 ? View.VISIBLE : View.INVISIBLE);
+        }
         setBackgroundColor((Integer) new ArgbEvaluator()
-                .evaluate(Math.min(1, 6 * scrollY * 0.1f / getMeasuredHeight()),
+                .evaluate(Math.min(1, factor),
                         Color.TRANSPARENT, getResources().getColor(R.color.theme_color_primary)));
     }
 
