@@ -1,4 +1,4 @@
-package com.angcyo.uiview.github.utilcode.utils;
+package com.blankj.utilcode.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,6 +19,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.os.Build;
@@ -62,7 +63,10 @@ public class ImageUtils {
      * @return 字节数组
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
-        return ConvertUtils.bitmap2Bytes(bitmap, format);
+        if (bitmap == null) return null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(format, 100, baos);
+        return baos.toByteArray();
     }
 
     /**
@@ -72,7 +76,7 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
-        return ConvertUtils.bytes2Bitmap(bytes);
+        return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
     /**
@@ -82,7 +86,7 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
-        return ConvertUtils.drawable2Bitmap(drawable);
+        return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
     }
 
     /**
@@ -93,7 +97,7 @@ public class ImageUtils {
      * @return drawable
      */
     public static Drawable bitmap2Drawable(Resources res, Bitmap bitmap) {
-        return ConvertUtils.bitmap2Drawable(res, bitmap);
+        return bitmap == null ? null : new BitmapDrawable(res, bitmap);
     }
 
     /**
@@ -104,7 +108,7 @@ public class ImageUtils {
      * @return 字节数组
      */
     public static byte[] drawable2Bytes(Drawable drawable, CompressFormat format) {
-        return ConvertUtils.drawable2Bytes(drawable, format);
+        return drawable == null ? null : bitmap2Bytes(drawable2Bitmap(drawable), format);
     }
 
     /**
@@ -115,7 +119,7 @@ public class ImageUtils {
      * @return drawable
      */
     public static Drawable bytes2Drawable(Resources res, byte[] bytes) {
-        return ConvertUtils.bytes2Drawable(res, bytes);
+        return res == null ? null : bitmap2Drawable(res, bytes2Bitmap(bytes));
     }
 
     /**
@@ -125,7 +129,17 @@ public class ImageUtils {
      * @return bitmap
      */
     public static Bitmap view2Bitmap(View view) {
-        return ConvertUtils.view2Bitmap(view);
+        if (view == null) return null;
+        Bitmap ret = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(ret);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas);
+        } else {
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return ret;
     }
 
     /**
@@ -469,7 +483,7 @@ public class ImageUtils {
      * @return 倾斜后的图片
      */
     public static Bitmap skew(Bitmap src, float kx, float ky, float px, float py) {
-        return skew(src, kx, ky, 0, 0, false);
+        return skew(src, kx, ky, px, py, false);
     }
 
     /**
@@ -630,28 +644,26 @@ public class ImageUtils {
      * 快速模糊
      * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
      *
-     * @param context 上下文
-     * @param src     源图片
-     * @param scale   缩放比例(0...1)
-     * @param radius  模糊半径
+     * @param src    源图片
+     * @param scale  缩放比例(0...1)
+     * @param radius 模糊半径
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur(Context context, Bitmap src, float scale, float radius) {
-        return fastBlur(context, src, scale, radius, false);
+    public static Bitmap fastBlur(Bitmap src, float scale, float radius) {
+        return fastBlur(src, scale, radius, false);
     }
 
     /**
      * 快速模糊图片
      * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
      *
-     * @param context 上下文
      * @param src     源图片
      * @param scale   缩放比例(0...1)
      * @param radius  模糊半径
      * @param recycle 是否回收
      * @return 模糊后的图片
      */
-    public static Bitmap fastBlur(Context context, Bitmap src, float scale, float radius, boolean recycle) {
+    public static Bitmap fastBlur(Bitmap src, float scale, float radius, boolean recycle) {
         if (isEmptyBitmap(src)) return null;
         int width = src.getWidth();
         int height = src.getHeight();
@@ -667,7 +679,7 @@ public class ImageUtils {
         canvas.scale(scale, scale);
         canvas.drawBitmap(scaleBitmap, 0, 0, paint);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            scaleBitmap = renderScriptBlur(context, scaleBitmap, radius);
+            scaleBitmap = renderScriptBlur(Utils.getContext(), scaleBitmap, radius);
         } else {
             scaleBitmap = stackBlur(scaleBitmap, (int) radius, recycle);
         }
@@ -1006,7 +1018,7 @@ public class ImageUtils {
                 0, ret.getHeight() + REFLECTION_GAP,
                 0x70FFFFFF, 0x00FFFFFF, Shader.TileMode.MIRROR);
         paint.setShader(shader);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+        paint.setXfermode(new PorterDuffXfermode(android.graphics.PorterDuff.Mode.DST_IN));
         canvas.drawRect(0, srcHeight + REFLECTION_GAP,
                 srcWidth, ret.getHeight(), paint);
         if (!reflectionBitmap.isRecycled()) reflectionBitmap.recycle();
@@ -1407,7 +1419,7 @@ public class ImageUtils {
     public static Bitmap compressByQuality(Bitmap src, int quality, boolean recycle) {
         if (isEmptyBitmap(src) || quality < 0 || quality > 100) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        src.compress(CompressFormat.JPEG, quality, baos);
+        src.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -1471,7 +1483,7 @@ public class ImageUtils {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = sampleSize;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        src.compress(CompressFormat.JPEG, 100, baos);
+        src.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] bytes = baos.toByteArray();
         if (recycle && !src.isRecycled()) src.recycle();
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);

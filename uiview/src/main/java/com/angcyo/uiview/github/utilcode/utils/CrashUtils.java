@@ -1,6 +1,5 @@
-package com.angcyo.uiview.github.utilcode.utils;
+package com.blankj.utilcode.utils;
 
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -24,7 +23,7 @@ import java.util.Locale;
  * </pre>
  */
 public class CrashUtils
-        implements UncaughtExceptionHandler {
+        implements Thread.UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;
 
@@ -57,18 +56,17 @@ public class CrashUtils
     /**
      * 初始化
      *
-     * @param context 上下文
      * @return {@code true}: 成功<br>{@code false}: 失败
      */
-    public boolean init(Context context) {
+    public boolean init() {
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            crashDir = context.getExternalCacheDir().getPath() + File.separator + "crash" + File.separator;
+            crashDir = Utils.getContext().getExternalCacheDir().getPath() + File.separator + "crash" + File.separator;
         } else {
-            crashDir = context.getCacheDir().getPath() + File.separator + "crash" + File.separator;
+            crashDir = Utils.getContext().getCacheDir().getPath() + File.separator + "crash" + File.separator;
         }
         try {
-            PackageInfo pi = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pi = Utils.getContext().getPackageManager().getPackageInfo(Utils.getContext().getPackageName(), 0);
             versionName = pi.versionName;
             versionCode = pi.versionCode;
         } catch (PackageManager.NameNotFoundException e) {

@@ -1,4 +1,4 @@
-package com.angcyo.uiview.github.utilcode.utils;
+package com.blankj.utilcode.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;

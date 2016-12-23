@@ -1,4 +1,4 @@
-package com.angcyo.uiview.github.utilcode.utils;
+package com.blankj.utilcode.utils;
 
 import android.annotation.SuppressLint;
 
@@ -189,7 +189,7 @@ public class TimeUtils {
      * @return 时间字符串
      */
     public static String millis2String(long millis) {
-        return millis2String(millis, DEFAULT_PATTERN);
+        return new SimpleDateFormat(DEFAULT_PATTERN, Locale.getDefault()).format(new Date(millis));
     }
 
     /**
@@ -389,7 +389,7 @@ public class TimeUtils {
      *                  <p>precision = 2，返回天和小时</p>
      *                  <p>precision = 3，返回天、小时和分钟</p>
      *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(String time0, String time1, int precision) {
@@ -408,7 +408,7 @@ public class TimeUtils {
      *                  <p>precision = 2，返回天和小时</p>
      *                  <p>precision = 3，返回天、小时和分钟</p>
      *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @param pattern   时间格式
      * @return 合适型两个时间差
      */
@@ -427,7 +427,7 @@ public class TimeUtils {
      *                  <p>precision = 2，返回天和小时</p>
      *                  <p>precision = 3，返回天、小时和分钟</p>
      *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(Date date0, Date date1, int precision) {
@@ -445,7 +445,7 @@ public class TimeUtils {
      *                  <p>precision = 2，返回天和小时</p>
      *                  <p>precision = 3，返回天、小时和分钟</p>
      *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <p>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</p>
      * @return 合适型两个时间差
      */
     public static String getFitTimeSpan(long millis0, long millis1, int precision) {
@@ -572,12 +572,14 @@ public class TimeUtils {
      *
      * @param time      时间字符串
      * @param precision 精度
-     *                  <p>precision = 0，返回null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <ul>
+     *                  <li>precision = 0，返回null</li>
+     *                  <li>precision = 1，返回天</li>
+     *                  <li>precision = 2，返回天和小时</li>
+     *                  <li>precision = 3，返回天、小时和分钟</li>
+     *                  <li>precision = 4，返回天、小时、分钟和秒</li>
+     *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
+     *                  </ul>
      * @return 合适型与当前时间的差
      */
     public static String getFitTimeSpanByNow(String time, int precision) {
@@ -590,13 +592,15 @@ public class TimeUtils {
      *
      * @param time      时间字符串
      * @param precision 精度
-     *                  <p>precision = 0，返回null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
      * @param pattern   时间格式
+     *                  <ul>
+     *                  <li>precision = 0，返回null</li>
+     *                  <li>precision = 1，返回天</li>
+     *                  <li>precision = 2，返回天和小时</li>
+     *                  <li>precision = 3，返回天、小时和分钟</li>
+     *                  <li>precision = 4，返回天、小时、分钟和秒</li>
+     *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
+     *                  </ul>
      * @return 合适型与当前时间的差
      */
     public static String getFitTimeSpanByNow(String time, int precision, String pattern) {
@@ -608,12 +612,14 @@ public class TimeUtils {
      *
      * @param date      Date类型时间
      * @param precision 精度
-     *                  <p>precision = 0，返回null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <ul>
+     *                  <li>precision = 0，返回null</li>
+     *                  <li>precision = 1，返回天</li>
+     *                  <li>precision = 2，返回天和小时</li>
+     *                  <li>precision = 3，返回天、小时和分钟</li>
+     *                  <li>precision = 4，返回天、小时、分钟和秒</li>
+     *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
+     *                  </ul>
      * @return 合适型与当前时间的差
      */
     public static String getFitTimeSpanByNow(Date date, int precision) {
@@ -625,12 +631,14 @@ public class TimeUtils {
      *
      * @param millis    毫秒时间戳
      * @param precision 精度
-     *                  <p>precision = 0，返回null</p>
-     *                  <p>precision = 1，返回天</p>
-     *                  <p>precision = 2，返回天和小时</p>
-     *                  <p>precision = 3，返回天、小时和分钟</p>
-     *                  <p>precision = 4，返回天、小时、分钟和秒</p>
-     *                  <p>precision >= 5，返回天、小时、分钟、秒和毫秒</p>
+     *                  <ul>
+     *                  <li>precision = 0，返回null</li>
+     *                  <li>precision = 1，返回天</li>
+     *                  <li>precision = 2，返回天和小时</li>
+     *                  <li>precision = 3，返回天、小时和分钟</li>
+     *                  <li>precision = 4，返回天、小时、分钟和秒</li>
+     *                  <li>precision &gt;= 5，返回天、小时、分钟、秒和毫秒</li>
+     *                  </ul>
      * @return 合适型与当前时间的差
      */
     public static String getFitTimeSpanByNow(long millis, int precision) {
@@ -716,7 +724,8 @@ public class TimeUtils {
     public static String getFriendlyTimeSpanByNow(long millis) {
         long now = System.currentTimeMillis();
         long span = now - millis;
-        if (span < 0) return String.format("%tc", new Date(millis));
+        if (span < 0)
+            return String.format("%tc", millis);// U can read http://www.apihome.cn/api/java/Formatter.html to understand it.
         if (span < 1000) {
             return "刚刚";
         } else if (span < ConstUtils.MIN) {
@@ -727,11 +736,11 @@ public class TimeUtils {
         // 获取当天00:00
         long wee = (now / ConstUtils.DAY) * ConstUtils.DAY;
         if (millis >= wee) {
-            return String.format("今天%tR", new Date(millis));
+            return String.format("今天%tR", millis);
         } else if (millis >= wee - ConstUtils.DAY) {
-            return String.format("昨天%tR", new Date(millis));
+            return String.format("昨天%tR", millis);
         } else {
-            return String.format("%tF", new Date(millis));
+            return String.format("%tF", millis);
         }
     }
 
