@@ -17,15 +17,20 @@ public interface IBaseView {
     /**
      * 开始加载请求
      */
-    void onStartLoad();
+    void onRequestStart();
 
     /**
      * 完成加载请求
      */
-    void onFinishLoad();
+    void onRequestFinish();
+
+    /**
+     * 操作被取消
+     */
+    void onRequestCancel();
 
     /**
      * 请求错误
      */
-    void onError(int code, @NonNull String msg);
+    void onRequestError(int code, @NonNull String msg);
 }
