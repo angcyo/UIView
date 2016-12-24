@@ -9,34 +9,28 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 /**
- * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
- * 项目名称：
  * 类的描述：1/6 这样的ViewPager 指示器
  * 创建人员：Robi
  * 创建时间：2016/12/17 10:58
- * 修改人员：Robi
- * 修改时间：2016/12/17 10:58
- * 修改备注：
- * Version: 1.0.0
  */
-public class SingleTextIndicator extends TextView implements ViewPager.OnPageChangeListener {
+public class TextIndicator extends TextView implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
 
-    public SingleTextIndicator(Context context) {
+    public TextIndicator(Context context) {
         super(context);
     }
 
-    public SingleTextIndicator(Context context, AttributeSet attrs) {
+    public TextIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SingleTextIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TextIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SingleTextIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public TextIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
