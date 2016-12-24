@@ -210,7 +210,7 @@ public class ExEditText extends AppCompatEditText {
      * 判断是否是手机号码
      */
     public boolean isPhone() {
-        final String phone = string();
+        final String phone = string().trim();
         return !TextUtils.isEmpty(phone) && phone.matches("^1[3-8]\\d{9}$");
     }
 
@@ -218,7 +218,7 @@ public class ExEditText extends AppCompatEditText {
      * 判断是否是有效
      */
     public boolean isPassword() {
-        final String string = string();
+        final String string = string().trim();
         return !TextUtils.isEmpty(string) && string.matches("^[a-zA-Z0-9_-]{6,12}$");
     }
 

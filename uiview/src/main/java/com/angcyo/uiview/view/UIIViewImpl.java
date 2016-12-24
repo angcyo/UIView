@@ -19,7 +19,7 @@ import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.AnimUtil;
-import com.angcyo.uiview.widget.UIViewPager;
+import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 import butterknife.ButterKnife;
 

@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
-import com.angcyo.uiview.widget.UIViewPager;
+import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 /**
  * Created by angcyo on 2016-11-05.

@@ -1,10 +1,14 @@
 package com.angcyo.uiview.base;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
+import android.view.inputmethod.InputMethodManager;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.R;
@@ -28,6 +32,7 @@ public abstract class UILayoutActivity extends StyleActivity {
 
     protected ILayout mLayout;
     protected RxPermissions mRxPermissions;
+    private boolean destroyed = false;
 
     @Override
     protected void onCreateView() {
@@ -118,5 +123,39 @@ public abstract class UILayoutActivity extends StyleActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ((UILayoutImpl) mLayout).onActivityResult(requestCode, resultCode, data);
+    }
+
+    public boolean isDestroyedCompatible() {
+        if (Build.VERSION.SDK_INT >= 17) {
+            return isDestroyedCompatible17();
+        } else {
+            return destroyed || super.isFinishing();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyed = true;
+    }
+
+    @TargetApi(17)
+    private boolean isDestroyedCompatible17() {
+        return super.isDestroyed();
+    }
+
+    protected void showKeyboard(boolean isShow) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (isShow) {
+            if (getCurrentFocus() == null) {
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            } else {
+                imm.showSoftInput(getCurrentFocus(), 0);
+            }
+        } else {
+            if (getCurrentFocus() != null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
     }
 }

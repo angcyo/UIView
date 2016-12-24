@@ -20,7 +20,7 @@ import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.view.ILifecycle;
 import com.angcyo.uiview.view.IView;
-import com.angcyo.uiview.widget.UIViewPager;
+import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 import java.util.ArrayList;
 import java.util.Stack;

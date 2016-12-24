@@ -1,4 +1,4 @@
-package com.angcyo.uiview.widget;
+package com.angcyo.uiview.widget.viewpager;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
