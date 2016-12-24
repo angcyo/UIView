@@ -484,7 +484,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     @Override
     public boolean requestBackPressed() {
         if (mAttachViews.size() < 2) {
-            return true;
+            return mLastShowViewPattern.mIView.onBackPressed();
         }
         finishIView(mLastShowViewPattern.mView);
         return false;
@@ -503,7 +503,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         }
 
         runnableCount++;
-        post(new Runnable() {
+
+        final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 final ViewPattern oldViewPattern = getLastViewPattern();
@@ -526,7 +527,13 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 mLastShowViewPattern = newViewPattern;
                 runnableCount--;
             }
-        });
+        };
+
+        if (param.mAsync) {
+            post(runnable);
+        } else {
+            runnable.run();
+        }
     }
 
     @Override
@@ -584,12 +591,13 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
      */
 
     private void topViewStart(final ViewPattern topViewPattern, final UIParam param) {
+        topViewPattern.mView.bringToFront();
+
         final Animation animation = topViewPattern.mIView.loadStartAnimation();
         final Runnable endRunnable = new Runnable() {
             @Override
             public void run() {
                 topViewPattern.mIView.onViewShow(param.mBundle);
-                topViewPattern.mView.bringToFront();
             }
         };
 
@@ -938,7 +946,17 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
     public void removeViewPattern(ViewPattern viewPattern) {
         viewPattern.mIView.onViewUnload();
-        removeView(viewPattern.mView);
+        final View view = viewPattern.mView;
+        post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    removeView(view);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         mAttachViews.remove(viewPattern);
         isFinishing = false;
 
