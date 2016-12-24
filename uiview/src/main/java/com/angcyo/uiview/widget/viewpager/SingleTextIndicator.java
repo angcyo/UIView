@@ -1,4 +1,4 @@
-package com.angcyo.uiview.widget;
+package com.angcyo.uiview.widget.viewpager;
 
 import android.annotation.TargetApi;
 import android.content.Context;
