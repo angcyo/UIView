@@ -4,14 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.angcyo.uidemo.R;
 import com.angcyo.library.utils.L;
+import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.base.Network;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.utils.T;
-import com.angcyo.uiview.widget.UIViewPager;
+import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 import java.util.ArrayList;
 

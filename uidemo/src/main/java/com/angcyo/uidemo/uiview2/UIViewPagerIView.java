@@ -9,8 +9,8 @@ import android.widget.RadioGroup;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.UIIViewImpl;
-import com.angcyo.uiview.widget.UIPagerAdapter;
-import com.angcyo.uiview.widget.UIViewPager;
+import com.angcyo.uiview.widget.viewpager.UIPagerAdapter;
+import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
