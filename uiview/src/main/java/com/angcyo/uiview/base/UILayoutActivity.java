@@ -2,6 +2,7 @@ package com.angcyo.uiview.base;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.provider.Settings;
 
@@ -32,6 +33,8 @@ public abstract class UILayoutActivity extends StyleActivity {
     protected void onCreateView() {
         mLayout = new UILayoutImpl(this);
         setContentView(mLayout.getLayout());
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
 
         mRxPermissions = new RxPermissions(this);
         mRxPermissions.requestEach(
