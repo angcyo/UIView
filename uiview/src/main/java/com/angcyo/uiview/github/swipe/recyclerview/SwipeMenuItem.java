@@ -17,6 +17,7 @@ package com.angcyo.uiview.github.swipe.recyclerview;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -30,7 +31,7 @@ public class SwipeMenuItem {
     private Drawable background;
     private Drawable icon;
     private String title;
-    private ColorStateList titleColor;
+    private ColorStateList titleColor = ColorStateList.valueOf(Color.WHITE);
     private int titleSize;
     private Typeface textTypeface;
     private int textAppearance;
@@ -39,9 +40,19 @@ public class SwipeMenuItem {
     private int weight = 0;
     private int paddLeft = 0;
     private int paddRight = 0;
+    private Object tag;
 
     public SwipeMenuItem(Context context) {
         mContext = context;
+    }
+
+    public Object getTag() {
+        return tag;
+    }
+
+    public SwipeMenuItem setTag(Object tag) {
+        this.tag = tag;
+        return this;
     }
 
     public SwipeMenuItem setBackgroundDrawable(Drawable background) {

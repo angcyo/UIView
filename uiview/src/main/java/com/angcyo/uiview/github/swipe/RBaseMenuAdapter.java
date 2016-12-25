@@ -45,7 +45,6 @@ public abstract class RBaseMenuAdapter<T> extends SwipeMenuAdapter<RBaseViewHold
         this.mContext = context;
     }
 
-
     @Override
     public int getItemViewType(int position) {
         if (mEnableLoadMore && isLast(position)) {
@@ -130,7 +129,11 @@ public abstract class RBaseMenuAdapter<T> extends SwipeMenuAdapter<RBaseViewHold
         if (mEnableLoadMore && isLast(position)) {
             onBindLoadMore();
         } else {
-            onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
+            try {
+                onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
