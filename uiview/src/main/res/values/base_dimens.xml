@@ -35,6 +35,7 @@
     <dimen name="base_ldpi">4dp</dimen>
     <dimen name="base_hdpi">8dp</dimen>
     <dimen name="base_xhdpi">10dp</dimen>
+    <dimen name="base_xhdpi_">-10dp</dimen>
     <dimen name="base_xxhdpi">20dp</dimen>
     <dimen name="base_xxxhdpi">30dp</dimen>
     <dimen name="base_35dpi">35dp</dimen>

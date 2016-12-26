@@ -11,7 +11,7 @@ import android.widget.TextView;
 /**
  * 类的描述：1/6 这样的ViewPager 指示器
  * 创建人员：Robi
- * 创建时间：2016/12/17 10:58
+ * 创建时间：2016/12/17 10:58 ~
  */
 public class TextIndicator extends TextView implements ViewPager.OnPageChangeListener {
 

@@ -1,8 +1,11 @@
 package com.angcyo.uiview.mvp.presenter;
 
 
+import android.support.annotation.NonNull;
+
 import com.angcyo.uiview.mvp.view.IBaseView;
 
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -53,5 +56,9 @@ public class BasePresenter<T extends IBaseView> implements IBasePresenter<T> {
         if (mCompositeSubscription != null) {
             mCompositeSubscription.clear();
         }
+    }
+
+    protected void add(@NonNull final Subscription s) {
+        mCompositeSubscription.add(s);
     }
 }

@@ -35,6 +35,7 @@ public abstract class UIIViewImpl implements IView {
     public static final int DEFAULT_ANIM_TIME = 300;
 
     protected ILayout mILayout;
+    protected ILayout mOtherILayout;
     protected AppCompatActivity mActivity;
     /**
      * 根布局
@@ -397,5 +398,9 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public int getDimColor() {
         return Color.parseColor("#60000000");
+    }
+
+    public void bindOtherILayout(ILayout otherILayout) {
+        mOtherILayout = otherILayout;
     }
 }

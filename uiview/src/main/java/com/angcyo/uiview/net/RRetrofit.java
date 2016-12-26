@@ -17,7 +17,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * Created by angcyo on 2016-03-20 23:53.
  */
 public class RRetrofit {
-    public static String BASE_URL = "http://192.168.1.23/";
+    public static String BASE_URL = "http://192.168.1.35/";
     //    //切换服务器, 1外网 -1内网
 //    public static void switchHttp(int type) {
 //        if (type >= 1) {
@@ -47,6 +47,8 @@ public class RRetrofit {
         if (factory != null) {
             builder.addConverterFactory(factory);
         }
+
+//        builder.addConverterFactory(ScalarsConverterFactory.create());
 
         Retrofit retrofit = builder.build();
         return retrofit.create(cls);
@@ -78,6 +80,10 @@ public class RRetrofit {
         // create an instance of OkLogInterceptor using a builder()
         OkLogInterceptor okLogInterceptor;
         OkLogInterceptor.Builder builder = OkLogInterceptor.builder();
+
+//        builder.setBaseUrl(BASE_URL);
+        builder.useAndroidLog(true);
+
         if (DEBUG) {
             okLogInterceptor = builder.withAllLogData().build();
         } else {

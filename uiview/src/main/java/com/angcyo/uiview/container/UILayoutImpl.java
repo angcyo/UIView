@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -952,8 +953,11 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
     public void removeViewPattern(ViewPattern viewPattern) {
+        hideSoftInput();
+
         viewPattern.mIView.onViewUnload();
         final View view = viewPattern.mView;
+        view.setVisibility(GONE);
         post(new Runnable() {
             @Override
             public void run() {
@@ -1108,8 +1112,31 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
     public void hideSoftInput() {
-        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(getWindowToken(), 0);
+        if (isSoftKeyboardShow()) {
+            InputMethodManager manager = (InputMethodManager) getContext()
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(getWindowToken(), 0);
+        }
+    }
+
+    /**
+     * 判断键盘是否显示
+     */
+    private boolean isSoftKeyboardShow() {
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        int keyboardHeight = getSoftKeyboardHeight();
+        return screenHeight != keyboardHeight && keyboardHeight > 100;
+    }
+
+    /**
+     * 获取键盘的高度
+     */
+    private int getSoftKeyboardHeight() {
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        Rect rect = new Rect();
+        getWindowVisibleDisplayFrame(rect);
+        int visibleBottom = rect.bottom;
+        return screenHeight - visibleBottom;
     }
 
     public void showSoftInput() {

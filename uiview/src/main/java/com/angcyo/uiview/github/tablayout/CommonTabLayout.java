@@ -883,6 +883,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         MsgView tipView = (MsgView) tabView.findViewById(R.id.rtv_msg_tip);
         if (tipView != null) {
             UnreadMsgUtils.show(tipView, num);
+//            UnreadMsgUtils.showUnreadNum(tipView, num);
 
             if (mInitSetMap.get(position) != null && mInitSetMap.get(position)) {
                 return;

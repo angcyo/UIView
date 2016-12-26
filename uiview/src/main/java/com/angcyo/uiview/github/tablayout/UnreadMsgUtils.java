@@ -3,6 +3,7 @@ package com.angcyo.uiview.github.tablayout;
 
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -12,6 +13,7 @@ import android.widget.RelativeLayout;
  * 数字超过两位,显示99+
  */
 public class UnreadMsgUtils {
+
     public static void show(MsgView msgView, int num) {
         if (msgView == null) {
             return;
@@ -52,5 +54,38 @@ public class UnreadMsgUtils {
         lp.width = size;
         lp.height = size;
         rtv.setLayoutParams(lp);
+    }
+
+    public static void showUnreadNum(final MsgView msgView, int num) {
+        if (msgView == null) {
+            return;
+        }
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) msgView.getLayoutParams();
+        DisplayMetrics dm = msgView.getResources().getDisplayMetrics();
+        if (num <= 0) {//圆点,设置默认宽高
+//                msgView.setStrokeWidth(0);
+//                msgView.setText("");
+//
+//                lp.width = (int) (5 * dm.density);
+//                lp.height = (int) (5 * dm.density);
+//                msgView.setLayoutParams(lp);
+            msgView.setVisibility(View.INVISIBLE);
+        } else {
+            msgView.setVisibility(View.VISIBLE);
+            lp.height = (int) (18 * dm.density);
+            if (num > 0 && num < 10) {//圆
+                lp.width = (int) (18 * dm.density);
+                msgView.setText(num + "");
+            } else if (num > 9 && num < 100) {//圆角矩形,圆角是高度的一半,设置默认padding
+                lp.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                msgView.setPadding((int) (6 * dm.density), 0, (int) (6 * dm.density), 0);
+                msgView.setText(num + "");
+            } else {//数字超过两位,显示99+
+                lp.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                msgView.setPadding((int) (6 * dm.density), 0, (int) (6 * dm.density), 0);
+                msgView.setText("99+");
+            }
+            msgView.setLayoutParams(lp);
+        }
     }
 }

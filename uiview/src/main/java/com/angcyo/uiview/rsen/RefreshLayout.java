@@ -301,6 +301,10 @@ public class RefreshLayout extends ViewGroup {
      * 结束刷新
      */
     public void setRefreshEnd() {
+        if (mCurState == FINISH || mCurState == NORMAL || mCurState == MOVE) {
+            return;
+        }
+
         mCurState = FINISH;
         if (isTouchDown) {
             scrollTo(getScrollX(), getScrollY());

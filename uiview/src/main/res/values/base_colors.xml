@@ -21,6 +21,7 @@
     <color name="default_base_tran_dark">#80000000</color>
     <color name="default_base_bg_disable">#999999</color>
     <color name="default_base_bg_dark">#333333</color>
+    <color name="default_base_bg_dark2">#F0F0F5</color>
     <color name="default_base_white">#ffffff</color>
     <color name="default_base_black">#000000</color>
     <color name="default_base_line">#e3e3e3</color>
