@@ -98,6 +98,13 @@ public class DemoListUIView extends UIContentView {
             }
         });
 
+        addItem("-> Center Radio Button Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new NavUIView());
+            }
+        });
+
         scrollView.addView(rootLayout, new ViewGroup.LayoutParams(-1, -1));
         baseContentLayout.addView(scrollView);
     }
