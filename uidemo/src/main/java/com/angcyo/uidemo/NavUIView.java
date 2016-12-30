@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.angcyo.uiview.base.UIContentView;
 
+import java.util.Random;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -68,6 +70,11 @@ public class NavUIView extends UIContentView {
 
     @OnClick(R.id.open_url)
     public void onOpenUrlClick() {
-        openUrl("open://angcyo.com/?arg0=1&arg1=2");
+        if (new Random().nextInt(10) > 4) {
+//            openUrl("open://angcyo.com/");
+            openUrl("open://angcyo.com/");
+        } else {
+            openUrl("open://angcyo.com/?arg0=1&arg1=2");
+        }
     }
 }
