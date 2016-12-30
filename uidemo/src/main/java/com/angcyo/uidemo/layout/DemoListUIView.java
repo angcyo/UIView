@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
@@ -87,6 +88,13 @@ public class DemoListUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 startIView(new SwipeRecyclerViewUIView());
+            }
+        });
+
+        addItem("-> Link Url Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new NavUIView());
             }
         });
 
