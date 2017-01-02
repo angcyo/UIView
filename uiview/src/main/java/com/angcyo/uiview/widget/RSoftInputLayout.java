@@ -96,15 +96,15 @@ public class RSoftInputLayout extends ViewGroup {
             }
             setFitsSystemWindows(true);
             setClipToPadding(false);
-
-            if (keyboardHeight == 0) {
-                keyboardHeight = (int) (getResources().getDisplayMetrics().density * 200);
-            }
         }
 
         /*请按顺序布局*/
         contentLayout = getChildAt(0);
         emojiLayout = getChildAt(1);
+    }
+
+    public void setKeyboardHeight(int keyboardHeight) {
+        this.keyboardHeight = keyboardHeight;
     }
 
     @Override
@@ -130,7 +130,7 @@ public class RSoftInputLayout extends ViewGroup {
         isKeyboardShow = isSoftKeyboardShow();
         if (isKeyboardShow) {
             keyboardHeight = getSoftKeyboardHeight();
-            isEmojiShow = false;
+            //isEmojiShow = false;
         }
 
         int contentHeight;
@@ -211,6 +211,9 @@ public class RSoftInputLayout extends ViewGroup {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         removeCallbacks(mCheckSizeChanged);
+        if (isSoftKeyboardShow()) {
+            isEmojiShow = false;
+        }
         notifyEmojiLayoutChangeListener(isEmojiShow, isKeyboardShow,
                 isKeyboardShow ? getSoftKeyboardHeight() : showEmojiHeight);
     }
@@ -316,6 +319,9 @@ public class RSoftInputLayout extends ViewGroup {
      * 采用默认的键盘高度显示表情, 如果键盘从未弹出过, 则使用一个缺省的高度
      */
     public void showEmojiLayout() {
+        if (keyboardHeight == 0) {
+            keyboardHeight = (int) (getResources().getDisplayMetrics().density * 200);
+        }
         showEmojiLayoutInner(keyboardHeight);
     }
 

@@ -50,16 +50,16 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     }
 
     private void initView() {
-        setClickable(true);
+//        setClickable(true);
         setEnabled(true);
-        setFocusable(true);
-        setFocusableInTouchMode(true);
-        setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        setFocusable(true);
+//        setFocusableInTouchMode(true);
+//        setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     public void fitsSystemWindows(boolean fit) {
@@ -70,7 +70,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         setFitsSystemWindows(mFitSystemWindow);
-        requestFocus();
+//        requestFocus();
     }
 
     @Override
@@ -252,6 +252,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //        super.onTouchEvent(event);
+        hideSoftInput();
         return true;
     }
 }
