@@ -17,21 +17,25 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
  * Created by angcyo on 2016-03-20 23:53.
  */
 public class RRetrofit {
-    public static String BASE_URL = "http://192.168.1.35/";
+    public static String DEBUG_URL = "http://192.168.1.35/";
+    public static String RELEASE_URL = "http://api.klgwl.com/";
+
+    public static String BASE_URL = DEBUG_URL;
+
     //    //切换服务器, 1外网 -1内网
 //    public static void switchHttp(int type) {
 //        if (type >= 1) {
 //            BASE = "http://zan.eeniao.com/";
-//            BASE_URL = "http://zan.eeniao.com/app/";
+//            DEBUG_URL = "http://zan.eeniao.com/app/";
 //            BASE_IMAGE_URL = "http://zan.eeniao.com/upload/";
 //            BASE_LOGO_URL = "http://zan.eeniao.com/static/images/reglogo.png";
 //        } else if (type <= -1) {
 //            BASE = "http://192.168.1.156:8081/";
-//            BASE_URL = "http://192.168.1.156:8081/app/";
+//            DEBUG_URL = "http://192.168.1.156:8081/app/";
 //            BASE_IMAGE_URL = "http://192.168.1.156:8081/upload/";
 //            BASE_LOGO_URL = "http://192.168.1.156:8081/static/images/reglogo.png";
 //        }
-//        HnUrl.SERVER = BASE_URL;
+//        HnUrl.SERVER = DEBUG_URL;
 //        HnUrl.FILE_UPLOAD_API = BASE_IMAGE_URL + "index.php";
 //    }
     public static boolean DEBUG = true;
@@ -81,7 +85,7 @@ public class RRetrofit {
         OkLogInterceptor okLogInterceptor;
         OkLogInterceptor.Builder builder = OkLogInterceptor.builder();
 
-//        builder.setBaseUrl(BASE_URL);
+//        builder.setBaseUrl(DEBUG_URL);
         builder.useAndroidLog(true);
 
         if (DEBUG) {

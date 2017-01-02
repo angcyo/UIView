@@ -16,6 +16,8 @@ import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.widget.SoftRelativeLayout;
 
+import java.util.ArrayList;
+
 /**
  * 自定义对话框的基类
  * <p>
@@ -60,6 +62,8 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
      * 设置布局动画
      */
     protected Animation layoutAnimation = null;
+
+    protected ArrayList<OnDismissListener> mOnDismissListeners = new ArrayList<>();
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
@@ -209,6 +213,24 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
             }
         }
         return null;
+    }
+
+    @Override
+    public void onViewUnload() {
+        super.onViewUnload();
+        for (OnDismissListener listener : mOnDismissListeners) {
+            listener.onDismiss();
+        }
+    }
+
+    public UIIDialogImpl addDismissListener(OnDismissListener dismissListener) {
+        mOnDismissListeners.add(dismissListener);
+        return this;
+    }
+
+    public UIIDialogImpl removeDismissListener(OnDismissListener dismissListener) {
+        mOnDismissListeners.remove(dismissListener);
+        return this;
     }
 
     public interface OnDismissListener {

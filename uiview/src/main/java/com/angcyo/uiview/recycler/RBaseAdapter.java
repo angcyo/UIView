@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.angcyo.library.utils.L;
 import com.angcyo.uiview.R;
 
 import java.util.ArrayList;
@@ -83,13 +82,13 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     @Override
     public void onViewAttachedToWindow(RBaseViewHolder holder) {
         super.onViewAttachedToWindow(holder);
-        L.w("onViewAttachedToWindow");
+//        L.w("onViewAttachedToWindow");
     }
 
     @Override
     public void onViewDetachedFromWindow(RBaseViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        L.w("onViewDetachedFromWindow");
+//        L.w("onViewDetachedFromWindow");
     }
 
     private void onBindLoadMore() {

@@ -3,6 +3,7 @@
     <color name="theme_color_primary">#0BD1A0</color>
     <color name="theme_color_primary_dark">#20a886</color>
     <color name="theme_color_primary_dark_tran">#800BD1A0</color>
+    <color name="theme_color_primary_dark_tran2">#200BD1A0</color>
     <color name="theme_color_accent">#0BD1A0</color>
     <color name="transparent">#00000000</color>
 
@@ -17,6 +18,7 @@
     <color name="base_orange_tran">#80FD9C27</color>
     <color name="base_gray_tran">#80C7C7CD</color>
 
+    <color name="default_base_tran_dark2">#20000000</color>
     <color name="default_base_bg_press">#40000000</color>
     <color name="default_base_tran_dark">#80000000</color>
     <color name="default_base_bg_disable">#999999</color>

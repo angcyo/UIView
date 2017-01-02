@@ -1,16 +1,18 @@
 package com.angcyo.uiview.base;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
@@ -68,6 +70,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     protected UITitleBarContainer mUITitleBarContainer;
     protected LayoutState mLayoutState = LayoutState.NORMAL;
     protected View.OnClickListener mNonetSettingClickListener, mNonetRefreshClickListener;
+    private Animation mLoadingAnimation;
 
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
@@ -183,7 +186,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected String getTitle() {
-        return ((AppCompatActivity) mActivity).getTitle().toString();
+        return mActivity.getTitle().toString();
     }
 
     /**
@@ -191,10 +194,9 @@ public abstract class UIBaseView extends UIIViewImpl {
      */
     protected void onLayoutStateChanged(LayoutState fromState, LayoutState toState) {
         if (fromState == LayoutState.LOAD && mBaseLoadLayout != null) {
-            mBaseLoadLayout.findViewById(R.id.base_load_image_view).clearAnimation();
         }
         if (toState == LayoutState.LOAD && mBaseLoadLayout != null) {
-            mBaseLoadLayout.findViewById(R.id.base_load_image_view).startAnimation(loadLoadingAnimation());
+
         } else if (toState == LayoutState.NONET) {
             mBaseNonetLayout.findViewById(R.id.base_setting_view).setOnClickListener(mNonetSettingClickListener);
             mBaseNonetLayout.findViewById(R.id.base_refresh_view).setOnClickListener(mNonetRefreshClickListener);
@@ -344,6 +346,58 @@ public abstract class UIBaseView extends UIIViewImpl {
         }
         return this;
     }
+
+    /**
+     * 设置标题文本
+     */
+    public void setTitleString(String title) {
+        if (mUITitleBarContainer != null) {
+            mUITitleBarContainer.getTitleView().setText(title);
+        }
+    }
+
+    /**
+     * 显示键盘
+     */
+    public void showSoftInput() {
+        if (isSoftKeyboardShow()) {
+            return;
+        }
+        InputMethodManager manager = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.showSoftInputFromInputMethod(mActivity.getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    public void hideSoftInput() {
+        if (isSoftKeyboardShow()) {
+            InputMethodManager manager = (InputMethodManager) mActivity
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(mActivity.getWindow().getDecorView().getWindowToken(), 0);
+        }
+    }
+
+    /**
+     * 判断键盘是否显示
+     */
+    public boolean isSoftKeyboardShow() {
+        int screenHeight = mActivity.getResources().getDisplayMetrics().heightPixels;
+        int keyboardHeight = getSoftKeyboardHeight();
+        return screenHeight != keyboardHeight && keyboardHeight > 100;
+    }
+
+    /**
+     * 获取键盘的高度
+     */
+    public int getSoftKeyboardHeight() {
+        int screenHeight = mActivity.getResources().getDisplayMetrics().heightPixels;
+        Rect rect = new Rect();
+        mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        int visibleBottom = rect.bottom;
+        return screenHeight - visibleBottom;
+    }
+
 
     @ColorInt
     public int getDefaultBackgroundColor() {

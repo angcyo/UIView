@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
@@ -188,9 +189,9 @@ public class UITitleBarContainer extends FrameLayout {
                     }
                 }
             });
-            ViewCompat.animate(mBackImageView).rotation(360)
-                    .setInterpolator(new DecelerateInterpolator())
-                    .setDuration(animTime).start();
+//            ViewCompat.animate(mBackImageView).rotation(360)
+//                    .setInterpolator(new DecelerateInterpolator())
+//                    .setDuration(animTime).start();
         } else {
             mBackImageView.setVisibility(GONE);
         }
@@ -198,10 +199,10 @@ public class UITitleBarContainer extends FrameLayout {
         mTitleView.setText(mTitleBarPattern.mTitleString);
         mTitleBarPattern.setTextViewSize(mTitleView);
         if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString) && mTitleBarPattern.titleAnim) {
-            ViewCompat.setTranslationY(mTitleView, -itemSize);
-            ViewCompat.animate(mTitleView).translationY(0)
-                    .setInterpolator(new DecelerateInterpolator())
-                    .setDuration(animTime).start();
+//            ViewCompat.setTranslationY(mTitleView, -itemSize);
+//            ViewCompat.animate(mTitleView).translationY(0)
+//                    .setInterpolator(new DecelerateInterpolator())
+//                    .setDuration(animTime).start();
         }
 
         clearViews(mLeftControlLayout, mLeftViews);
@@ -213,8 +214,8 @@ public class UITitleBarContainer extends FrameLayout {
         fillViews(mRightControlLayout, mTitleBarPattern.mRightItems, mRightViews);
 
         /*控制按钮的动画*/
-        animViews(mLeftViews, true);
-        animViews(mRightViews, false);
+        //animViews(mLeftViews, true);
+        //animViews(mRightViews, false);
     }
 
     public void evaluateBackgroundColor(int scrollY) {
@@ -352,5 +353,10 @@ public class UITitleBarContainer extends FrameLayout {
             }
         });
         return mTitleBarPattern;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return true;
     }
 }

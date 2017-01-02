@@ -31,6 +31,7 @@ import java.util.ArrayList;
  */
 public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     boolean isViewShow = false;
+    boolean mFitSystemWindow = false;
     private ArrayList<IWindowInsetsListener> mOnWindowInsetsListeners;
     private int[] mInsets = new int[4];
     /**
@@ -40,16 +41,15 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
     public SoftRelativeLayout(Context context) {
         super(context);
+        initView();
     }
 
     public SoftRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initView();
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        setFitsSystemWindows(true);
+    private void initView() {
         setClickable(true);
         setEnabled(true);
         setFocusable(true);
@@ -60,7 +60,16 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
             }
         });
+    }
 
+    public void fitsSystemWindows(boolean fit) {
+        mFitSystemWindow = fit;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        setFitsSystemWindows(mFitSystemWindow);
         requestFocus();
     }
 
@@ -155,6 +164,8 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
                         insets.getSystemWindowInsetRight(), lockHeight ? 0 : insets.getSystemWindowInsetBottom()));
             } else {
                 setPadding(getPaddingLeft(), 0, getPaddingRight(), 0);
+//                return super.onApplyWindowInsets(insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
+//                        insets.getSystemWindowInsetRight(), lockHeight ? 0 : insets.getSystemWindowInsetBottom()));
                 return insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
                         insets.getSystemWindowInsetRight(), insets.getSystemWindowInsetBottom());
             }
@@ -218,26 +229,29 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         manager.hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
-    public void showSoftInput() {
+    public void showSoftInput(View view) {
+        view.requestFocus();
         InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.showSoftInputFromInputMethod(getWindowToken(), 0);
+        manager.showSoftInput(view, 0);
     }
 
     @Override
     public void onLifeViewShow() {
         isViewShow = true;
         lockHeight = false;
+        setFitsSystemWindows(mFitSystemWindow);
     }
 
     @Override
     public void onLifeViewHide() {
         isViewShow = false;
         lockHeight = true;
+        setFitsSystemWindows(false);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        super.onTouchEvent(event);
+//        super.onTouchEvent(event);
         return true;
     }
 }

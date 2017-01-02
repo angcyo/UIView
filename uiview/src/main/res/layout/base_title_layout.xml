@@ -40,7 +40,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/default_base_white"
             android:textSize="@dimen/base_title_size"
             tools:text="标题"/>

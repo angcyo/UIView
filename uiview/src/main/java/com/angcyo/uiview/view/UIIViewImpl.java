@@ -212,17 +212,18 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public Animation loadLayoutAnimation() {
         L.d(this.getClass().getSimpleName(), "loadLayoutAnimation: ");
-        if (mIsRightJumpLeft) {
-
-        } else {
-
-        }
-
-        TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
-                Animation.RELATIVE_TO_PARENT, 0f,
-                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
-        setDefaultConfig(translateAnimation);
-        return translateAnimation;
+//        if (mIsRightJumpLeft) {
+//
+//        } else {
+//
+//        }
+//
+//        TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, -1f,
+//                Animation.RELATIVE_TO_PARENT, 0f,
+//                Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f);
+//        setDefaultConfig(translateAnimation);
+//        return translateAnimation;
+        return null;
     }
 
     @Override

@@ -28,6 +28,8 @@ public interface ILayout<T extends UIParam> {
 
     void finishIView(IView iview, boolean needAnim);//2016-12-14
 
+    void finishIView(IView iview, final UIParam param);//2016-12-29
+
     void finishIView(IView iview);//2016-12-14
 
     void finishIView(IView iview, boolean needAnim, boolean quiet);//2016-12-15

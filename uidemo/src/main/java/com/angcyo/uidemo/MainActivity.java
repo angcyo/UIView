@@ -14,12 +14,6 @@ public class MainActivity extends UIActivity {
 
     ViewGroup mContentLayout;
 
-
-    @Override
-    protected void onLoadView() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,6 +10,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 
@@ -88,26 +89,43 @@ public class RSoftInputLayout extends ViewGroup {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        if (getChildCount() != 2) {
-            throw new IllegalArgumentException("必须含有2个子View.");
+
+        if (!isInEditMode()) {
+            if (getChildCount() != 2) {
+                throw new IllegalArgumentException("必须含有2个子View.");
+            }
+            setFitsSystemWindows(true);
+            setClipToPadding(false);
+
+            if (keyboardHeight == 0) {
+                keyboardHeight = (int) (getResources().getDisplayMetrics().density * 200);
+            }
         }
+
         /*请按顺序布局*/
         contentLayout = getChildAt(0);
         emojiLayout = getChildAt(1);
-
-        setFitsSystemWindows(true);
-        setClipToPadding(false);
-
-        if (keyboardHeight == 0) {
-            keyboardHeight = (int) (getResources().getDisplayMetrics().density * 200);
-        }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        int maxHeight = heightSize - getPaddingBottom() - getPaddingTop();
+//        int maxHeight = heightSize - getPaddingBottom() - getPaddingTop();
+        int maxHeight = heightSize - getPaddingTop();
+        int paddingBottom = getPaddingBottom();
+
+//        L.w("height:" + heightSize + " paddBottom:" + paddingBottom);
+
+        if (isInEditMode()) {
+            contentLayout.measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
+            setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+            emojiLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY));
+            setMeasuredDimension(widthSize, heightSize);
+            return;
+        }
 
         isKeyboardShow = isSoftKeyboardShow();
         if (isKeyboardShow) {
@@ -129,7 +147,11 @@ public class RSoftInputLayout extends ViewGroup {
         }
 
         if (isKeyboardShow) {
-            contentHeight = maxHeight;
+            if (maxHeight + keyboardHeight > getScreenHeightPixels()) {
+                contentHeight = maxHeight - keyboardHeight;
+            } else {
+                contentHeight = maxHeight;
+            }
         } else {
             contentHeight = maxHeight - emojiHeight;
         }
@@ -143,6 +165,12 @@ public class RSoftInputLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (isInEditMode()) {
+            contentLayout.layout(l, t, r, b);
+            emojiLayout.layout(l, b, r, b);
+            return;
+        }
+
         int paddingTop = getPaddingTop();
         t += paddingTop;
         contentLayout.layout(l, t, r, contentLayout.getMeasuredHeight() + paddingTop);
@@ -176,6 +204,11 @@ public class RSoftInputLayout extends ViewGroup {
     }
 
     @Override
+    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+        return super.onApplyWindowInsets(insets);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         removeCallbacks(mCheckSizeChanged);
         notifyEmojiLayoutChangeListener(isEmojiShow, isKeyboardShow,
@@ -186,7 +219,7 @@ public class RSoftInputLayout extends ViewGroup {
      * 判断键盘是否显示
      */
     public boolean isSoftKeyboardShow() {
-        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        int screenHeight = getScreenHeightPixels();
         int keyboardHeight = getSoftKeyboardHeight();
         return screenHeight != keyboardHeight && keyboardHeight > 100;
     }
@@ -195,11 +228,18 @@ public class RSoftInputLayout extends ViewGroup {
      * 获取键盘的高度
      */
     public int getSoftKeyboardHeight() {
-        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        int screenHeight = getScreenHeightPixels();
         Rect rect = new Rect();
         getWindowVisibleDisplayFrame(rect);
         int visibleBottom = rect.bottom;
         return screenHeight - visibleBottom;
+    }
+
+    /**
+     * 屏幕高度(不包含虚拟导航键盘的高度)
+     */
+    private int getScreenHeightPixels() {
+        return getResources().getDisplayMetrics().heightPixels;
     }
 
     private void showEmojiLayoutInner(int height) {
@@ -308,9 +348,10 @@ public class RSoftInputLayout extends ViewGroup {
         manager.hideSoftInputFromWindow(getWindowToken(), 0);
     }
 
-    public void showSoftInput() {
+    public void showSoftInput(View view) {
+        view.requestFocus();
         InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.showSoftInputFromInputMethod(getWindowToken(), 0);
+        manager.showSoftInput(view, 0);
     }
 
     /**

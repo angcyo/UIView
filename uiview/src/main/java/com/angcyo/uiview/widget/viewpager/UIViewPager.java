@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uiview.utils.Reflect;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class UIViewPager extends ViewPager implements Runnable {
 
     private int lastItem = -1;
 
+    private int defaultShowItem = 0;
+
     public UIViewPager(Context context) {
         super(context);
         init();
@@ -27,13 +30,15 @@ public class UIViewPager extends ViewPager implements Runnable {
     }
 
     private void init() {
-        Reflect.setMember(getSuperclass(), this, "mCurItem", -1);
+        //Reflect.setMember(getSuperclass(), this, "mCurItem", -1);
         addOnPageChangeListener(new SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                L.e("-->" + position);
                 post(UIViewPager.this);
             }
         });
+        setCurrentItem(defaultShowItem);
     }
 
     private Class<?> getSuperclass() {

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
 import com.angcyo.uiview.recycler.recyclerview.adapters.AnimationAdapter;
@@ -35,7 +36,7 @@ public class RRecyclerView extends RecyclerView {
     protected boolean mItemAnim = true;
     protected boolean isFirstAnim = true;//布局动画只执行一次
     protected boolean layoutAnim = false;//是否使用布局动画
-
+    OnTouchListener mInterceptTouchListener;
     private OnScrollListener mScrollListener = new OnScrollListener() {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -111,7 +112,6 @@ public class RRecyclerView extends RecyclerView {
         addOnScrollListener(mScrollListener);
     }
 
-
     @Override
     public void setTag(Object tag) {
         super.setTag(tag);
@@ -138,6 +138,8 @@ public class RRecyclerView extends RecyclerView {
         }
     }
 
+    //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
+
     /**
      * 请在{@link RRecyclerView#setAdapter(Adapter)}方法之前调用
      */
@@ -149,8 +151,6 @@ public class RRecyclerView extends RecyclerView {
             this.setItemAnimator(new DefaultItemAnimator());
         }
     }
-
-    //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
 
     @Override
     public void setAdapter(Adapter adapter) {
@@ -170,11 +170,11 @@ public class RRecyclerView extends RecyclerView {
         return mAdapterRaw;
     }
 
+    //----------------end--------------------//
+
     public AnimationAdapter getAnimationAdapter() {
         return mAnimationAdapter;
     }
-
-    //----------------end--------------------//
 
     /**
      * 设置Item 动画类, 用于 添加 和 删除 Item时候的动画
@@ -216,5 +216,17 @@ public class RRecyclerView extends RecyclerView {
             }
         }
         return animationAdapter;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent e) {
+        if (mInterceptTouchListener != null) {
+            mInterceptTouchListener.onTouch(this, e);
+        }
+        return super.onInterceptTouchEvent(e);
+    }
+
+    public void setOnInterceptTouchListener(OnTouchListener l) {
+        mInterceptTouchListener = l;
     }
 }

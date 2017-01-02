@@ -11,7 +11,6 @@ import android.provider.Settings;
 import android.view.inputmethod.InputMethodManager;
 
 import com.angcyo.library.utils.L;
-import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UIParam;
@@ -48,6 +47,7 @@ public abstract class UILayoutActivity extends StyleActivity {
                 Manifest.permission.ACCESS_WIFI_STATE,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.CAMERA)
                 .map(new Func1<Permission, String>() {
                     @Override
@@ -94,8 +94,10 @@ public abstract class UILayoutActivity extends StyleActivity {
 
     public void finishSelf() {
         finish();
-        overridePendingTransition(R.anim.base_tran_to_top, R.anim.base_tran_to_bottom);
+        //overridePendingTransition(R.anim.base_tran_to_top, R.anim.base_tran_to_bottom);
     }
+
+    protected abstract void onLoadView();
 
     @Override
     public void onBackPressed() {

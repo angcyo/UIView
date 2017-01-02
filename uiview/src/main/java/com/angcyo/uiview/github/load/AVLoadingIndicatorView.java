@@ -254,11 +254,11 @@ public class AVLoadingIndicatorView extends View {
     @Override
     protected void onVisibilityChanged(View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-//        if (visibility == GONE || visibility == INVISIBLE) {
-//            stopAnimation();
-//        } else {
-//            startAnimation();
-//        }
+        if (visibility == GONE || visibility == INVISIBLE) {
+            stopAnimation();
+        } else {
+            startAnimation();
+        }
     }
 
     @Override

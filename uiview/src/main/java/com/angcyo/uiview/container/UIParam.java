@@ -14,9 +14,26 @@ import android.os.Bundle;
  * Version: 1.0.0
  */
 public class UIParam {
+
+    public static final int NORMAL = 0;
+    public static final int SINGLE_TOP = 1;//如果已经添加了IView, 则最前显示IView
+
     public boolean mAnim = true;
     public Bundle mBundle;
     public boolean mAsync = true;
+    /**
+     * 是否是滑动返回, true 不判断是否允许退出
+     */
+    public boolean isSwipeBack = false;
+    /**
+     * 是否安静执行
+     */
+    public boolean isQuiet = false;
+
+    /**
+     * 启动模式
+     */
+    public int start_mode = NORMAL;
 
     public UIParam(boolean anim, boolean async, Bundle bundle) {
         mAnim = anim;
@@ -33,5 +50,49 @@ public class UIParam {
     }
 
     public UIParam() {
+    }
+
+    public UIParam(boolean anim, boolean isSwipeBack, boolean isQuiet) {
+        mAnim = anim;
+        this.isSwipeBack = isSwipeBack;
+        this.isQuiet = isQuiet;
+    }
+
+    public UIParam setAnim(boolean anim) {
+        mAnim = anim;
+        return this;
+    }
+
+    public UIParam setBundle(Bundle bundle) {
+        mBundle = bundle;
+        return this;
+    }
+
+    public UIParam setAsync(boolean async) {
+        mAsync = async;
+        return this;
+    }
+
+    public UIParam setSwipeBack(boolean swipeBack) {
+        isSwipeBack = swipeBack;
+        return this;
+    }
+
+    public UIParam setQuiet(boolean quiet) {
+        isQuiet = quiet;
+        return this;
+    }
+
+    public UIParam setStart_mode(int start_mode) {
+        this.start_mode = start_mode;
+        return this;
+    }
+
+    /**
+     * 设置启动模式
+     */
+    public UIParam setLaunchMode(int mode) {
+        start_mode = mode;
+        return this;
     }
 }

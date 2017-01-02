@@ -43,6 +43,7 @@
     <dimen name="base_60dpi">60dp</dimen>
     <dimen name="base_60dpi_">-60dp</dimen>
     <dimen name="base_80dpi">80dp</dimen>
+    <dimen name="base_80dpi_">-80dp</dimen>
     <dimen name="base_90dpi">90dp</dimen>
     <dimen name="base_100dpi">100dp</dimen>
 </resources>
