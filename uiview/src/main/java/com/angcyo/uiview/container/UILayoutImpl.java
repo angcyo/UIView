@@ -59,7 +59,10 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         @Override
         public void onActivityStarted(Activity activity) {
             if (activity == mCompatActivity) {
-                viewShow(mLastShowViewPattern, null);
+                if (mLastShowViewPattern != null
+                        && mLastShowViewPattern.mView.getVisibility() != VISIBLE) {
+                    viewShow(mLastShowViewPattern, null);
+                }
             }
         }
 
@@ -80,7 +83,10 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         @Override
         public void onActivityStopped(Activity activity) {
             if (activity == mCompatActivity) {
-                viewHide(mLastShowViewPattern);
+                if (mLastShowViewPattern != null
+                        && mLastShowViewPattern.mView.getVisibility() == VISIBLE) {
+                    viewHide(mLastShowViewPattern);
+                }
             }
         }
 
