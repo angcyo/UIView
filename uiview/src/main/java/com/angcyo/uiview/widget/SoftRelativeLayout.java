@@ -224,9 +224,24 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         return mInsets[3];
     }
 
+
+    /**
+     * 判断键盘是否显示
+     */
+    public boolean isSoftKeyboardShow() {
+        int screenHeight = getResources().getDisplayMetrics().heightPixels;
+        Rect rect = new Rect();
+        getWindowVisibleDisplayFrame(rect);
+        int visibleBottom = rect.bottom;
+        int keyboardHeight = screenHeight - visibleBottom;
+        return screenHeight != keyboardHeight && keyboardHeight > 100;
+    }
+
     public void hideSoftInput() {
-        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        manager.hideSoftInputFromWindow(getWindowToken(), 0);
+        if (isSoftKeyboardShow()) {
+            InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(getWindowToken(), 0);
+        }
     }
 
     public void showSoftInput(View view) {
@@ -251,7 +266,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        super.onTouchEvent(event);
+        super.onTouchEvent(event);
         hideSoftInput();
         return true;
     }

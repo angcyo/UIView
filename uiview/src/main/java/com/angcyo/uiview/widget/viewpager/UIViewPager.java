@@ -1,6 +1,7 @@
 package com.angcyo.uiview.widget.viewpager;
 
 import android.content.Context;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
@@ -43,6 +44,17 @@ public class UIViewPager extends ViewPager implements Runnable {
 
     private Class<?> getSuperclass() {
         return getClass().getSuperclass();
+    }
+
+    @Override
+    public void setAdapter(PagerAdapter adapter) {
+        super.setAdapter(adapter);
+        post(new Runnable() {
+            @Override
+            public void run() {
+                checkPageChanged();
+            }
+        });
     }
 
     @Override

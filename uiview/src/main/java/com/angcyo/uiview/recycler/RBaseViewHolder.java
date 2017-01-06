@@ -7,6 +7,7 @@ package com.angcyo.uiview.recycler;
 import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.angcyo.library.facebook.DraweeViewUtil;
+import com.angcyo.uiview.R;
+import com.angcyo.uiview.RApplication;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.lang.reflect.Field;
 
@@ -175,18 +183,43 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void fillView(Object bean) {
+        fillView(bean, false);
+    }
+
+    /**
+     * @param hideForEmpty 如果数据为空时, 是否隐藏View
+     */
+    public void fillView(Object bean, boolean hideForEmpty) {
         Field[] fields = bean.getClass().getDeclaredFields();
         for (Field f : fields) {
             f.setAccessible(true);
             String name = f.getName();
             try {
                 View view = viewByName(name);
-                if (view instanceof TextView) {
-                    ((TextView) view).setText(f.get(bean).toString());
-                } else if (view instanceof ImageView) {
-
+                if (view == null) {
+                    view = viewByName(name + "_view");
                 }
 
+                if (view != null) {
+                    final String value = f.get(bean).toString();
+                    if (view instanceof TextView) {
+                        if (TextUtils.isEmpty(value) && hideForEmpty) {
+                            view.setVisibility(View.GONE);
+                        } else {
+                            view.setVisibility(View.VISIBLE);
+                        }
+                        ((TextView) view).setText(value);
+                    } else if (view instanceof SimpleDraweeView) {
+                        DraweeViewUtil.setDraweeViewHttp(((SimpleDraweeView) view), value);
+                    } else if (view instanceof ImageView) {
+                        Glide.with(RApplication.getApp())
+                                .load(value)
+                                .placeholder(R.drawable.default_image)
+                                .error(R.drawable.default_image)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(((ImageView) view));
+                    }
+                }
             } catch (Exception e) {
             }
         }

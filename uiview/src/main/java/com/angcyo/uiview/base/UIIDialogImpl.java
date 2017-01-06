@@ -134,7 +134,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
      * 结束对话框
      */
     protected void finishDialog() {
-        mILayout.finishIView(getView());
+        mILayout.finishIView(this);
     }
 
     @Override

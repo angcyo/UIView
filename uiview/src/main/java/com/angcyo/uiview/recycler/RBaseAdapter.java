@@ -23,6 +23,11 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      */
     protected boolean mEnableLoadMore = false;
     protected ILoadMore mLoadMore;
+    protected OnAdapterLoadMoreListener mLoadMoreListener;
+    /**
+     * 当前加载状态
+     */
+    int mLoadState = ILoadMore.NORMAL;
 
     public RBaseAdapter(Context context) {
         mAllDatas = new ArrayList<>();
@@ -34,6 +39,18 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         this.mContext = context;
     }
 
+    public RBaseAdapter setLoadMoreListener(OnAdapterLoadMoreListener loadMoreListener) {
+        mLoadMoreListener = loadMoreListener;
+        return this;
+    }
+
+    /**
+     * 返回是否激活加载更多
+     */
+    public boolean isEnableLoadMore() {
+        return mEnableLoadMore;
+    }
+
     /**
      * 启用加载更多功能
      */
@@ -42,7 +59,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     //--------------标准的方法-------------//
-
 
     @Override
     public int getItemViewType(int position) {
@@ -56,7 +72,8 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public RBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item;
         if (mEnableLoadMore && viewType == 666) {
-            item = LayoutInflater.from(mContext).inflate(R.layout.base_item_load_more_layout, parent, false);
+            item = LayoutInflater.from(mContext)
+                    .inflate(R.layout.base_item_load_more_layout, parent, false);
             mLoadMore = (ILoadMore) item;
         } else {
             int itemLayoutId = getItemLayoutId(viewType);
@@ -92,10 +109,20 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     private void onBindLoadMore() {
-        if (mLoadMore.getLoadState() != ILoadMore.LOAD_MORE &&
-                mLoadMore.getLoadState() != ILoadMore.NO_MORE) {
-            mLoadMore.setLoadState(ILoadMore.LOAD_MORE);
+        if (mLoadState == ILoadMore.NORMAL
+                || mLoadState == ILoadMore.LOAD_ERROR) {
+            mLoadState = ILoadMore.LOAD_MORE;
             onLoadMore();
+            if (mLoadMoreListener != null) {
+                mLoadMoreListener.onAdapterLodeMore(this);
+            }
+        }
+        updateLoadMoreView();
+    }
+
+    private void updateLoadMoreView() {
+        if (mLoadMore != null) {
+            mLoadMore.setLoadState(mLoadState);
         }
     }
 
@@ -110,15 +137,18 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      * 结束加载更多的标识, 方便下一次回调
      */
     public void setLoadMoreEnd() {
-        mLoadMore.setLoadState(ILoadMore.NORMAL);
+        mLoadState = ILoadMore.NORMAL;
+        updateLoadMoreView();
     }
 
     public void setLoadError() {
-        mLoadMore.setLoadState(ILoadMore.LOAD_ERROR);
+        mLoadState = ILoadMore.LOAD_ERROR;
+        updateLoadMoreView();
     }
 
     public void setNoMore() {
-        mLoadMore.setLoadState(ILoadMore.NO_MORE);
+        mLoadState = ILoadMore.NO_MORE;
+//        updateLoadMoreView();//不需要及时刷新
     }
 
     private boolean isLast(int position) {
@@ -168,32 +198,41 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      * 在最后的位置插入数据
      */
     public void addLastItem(T bean) {
+        if (mAllDatas == null) {
+            mAllDatas = new ArrayList<>();
+        }
         int startPosition = mAllDatas.size();
         mAllDatas.add(bean);
         notifyItemInserted(startPosition);
+        notifyItemRangeChanged(startPosition, getItemCount());
     }
 
     /**
      * 解决九宫格添加图片后,添加按钮消失的bug
      */
     public void addLastItemSafe(T bean) {
+        if (mAllDatas == null) {
+            mAllDatas = new ArrayList<>();
+        }
+
         int startPosition = mAllDatas.size();
         mAllDatas.add(bean);
         int itemCount = getItemCount();
         if (itemCount > startPosition + 1) {
             notifyItemInserted(startPosition);
+            notifyItemRangeChanged(startPosition, getItemCount());
         } else {
             notifyItemChanged(itemCount - 1);//
         }
     }
 
     public void addFirstItem(T bean) {
-        List<T> tempBeans = new ArrayList<>();
-        tempBeans.add(bean);
-        tempBeans.addAll(mAllDatas);
-        mAllDatas.clear();
-        mAllDatas = tempBeans;
+        if (mAllDatas == null) {
+            mAllDatas = new ArrayList<>();
+        }
+        mAllDatas.add(0, bean);
         notifyItemInserted(0);
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     /**
@@ -201,7 +240,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      */
     public void deleteItem(T bean) {
         if (mAllDatas != null) {
-            int size = mAllDatas.size();
+            int size = getItemCount();
             int indexOf = mAllDatas.indexOf(bean);
             if (indexOf > -1) {
                 if (onDeleteItem(bean)) {
@@ -215,7 +254,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     public void deleteItem(int position) {
         if (mAllDatas != null) {
-            int size = mAllDatas.size();
+            int size = getItemCount();
             if (size > position) {
                 mAllDatas.remove(position);
                 notifyItemRemoved(position);
@@ -231,12 +270,14 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public void removeFirstItem() {
         mAllDatas.remove(0);
         notifyItemRemoved(0);
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     public void removeLastItem() {
         int last = mAllDatas.size() - 1;
         mAllDatas.remove(last);
         notifyItemRemoved(last);
+        notifyItemRangeChanged(last, getItemCount());
     }
 
     /**
@@ -248,7 +289,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         } else {
             this.mAllDatas = datas;
         }
-        notifyDataSetChanged();
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     /**
@@ -264,9 +305,14 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         int startPosition = this.mAllDatas.size();
         this.mAllDatas.addAll(datas);
         notifyItemRangeInserted(startPosition, datas.size());
+        notifyItemRangeChanged(startPosition, getItemCount());
     }
 
     public List<T> getAllDatas() {
         return mAllDatas;
+    }
+
+    public interface OnAdapterLoadMoreListener {
+        void onAdapterLodeMore(RBaseAdapter baseAdapter);
     }
 }

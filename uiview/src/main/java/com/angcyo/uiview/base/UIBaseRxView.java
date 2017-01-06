@@ -1,5 +1,6 @@
 package com.angcyo.uiview.base;
 
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -23,6 +24,11 @@ public abstract class UIBaseRxView extends UIBaseDataView {
     }
 
     @Override
+    public void onViewLoad() {
+        super.onViewLoad();
+    }
+
+    @Override
     public void onViewUnload() {
         super.onViewUnload();
         if (!mSubscriptions.isUnsubscribed()) {
@@ -34,5 +40,9 @@ public abstract class UIBaseRxView extends UIBaseDataView {
         if (mSubscriptions != null) {
             mSubscriptions.clear();
         }
+    }
+
+    public void add(Subscription subscription) {
+        mSubscriptions.add(subscription);
     }
 }

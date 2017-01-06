@@ -23,7 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
-import com.angcyo.uiview.github.load.AVLoadingIndicatorView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
@@ -46,7 +45,7 @@ public class UITitleBarContainer extends FrameLayout {
     protected LinearLayout mRightControlLayout;
     protected ImageView mBackImageView;
     protected TextView mTitleView;
-    protected AVLoadingIndicatorView mLoadView;
+    protected View mLoadView;
 
     protected TitleBarPattern mTitleBarPattern;
     protected boolean isAttachedToWindow;
@@ -97,12 +96,12 @@ public class UITitleBarContainer extends FrameLayout {
     }
 
     public UITitleBarContainer showLoadView() {
-        mLoadView.show();
+        mLoadView.setVisibility(VISIBLE);
         return this;
     }
 
     public UITitleBarContainer hideLoadView() {
-        mLoadView.hide();
+        mLoadView.setVisibility(GONE);
         return this;
     }
 
@@ -185,7 +184,7 @@ public class UITitleBarContainer extends FrameLayout {
                 @Override
                 public void onClick(View v) {
                     if (mILayout != null) {
-                        mILayout.requestBackPressed();
+                        mILayout.requestBackPressed(new UIParam(true, true, false));
                     }
                 }
             });
@@ -198,6 +197,10 @@ public class UITitleBarContainer extends FrameLayout {
         /*标题*/
         mTitleView.setText(mTitleBarPattern.mTitleString);
         mTitleBarPattern.setTextViewSize(mTitleView);
+        if (mTitleBarPattern.titleHide) {
+            mTitleView.setVisibility(INVISIBLE);
+        }
+
         if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString) && mTitleBarPattern.titleAnim) {
 //            ViewCompat.setTranslationY(mTitleView, -itemSize);
 //            ViewCompat.animate(mTitleView).translationY(0)

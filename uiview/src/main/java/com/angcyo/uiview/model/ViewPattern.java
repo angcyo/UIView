@@ -12,6 +12,7 @@ public class ViewPattern {
     public IView mIView;
     public View mView;
     public boolean isAnimToEnd = false;//正在播放退出动画
+    public boolean isAnimToStart = false;//正在播放进场动画
 
     public ViewPattern(IView IView, View view) {
         mIView = IView;

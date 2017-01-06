@@ -27,6 +27,10 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
      */
     int mMarginStart = 0, mMarginEnd = 0;
 
+    /**
+     * 是否绘制最后一个item的分割线
+     */
+    boolean drawLastLine = false;
 
     public RBaseItemDecoration() {
         this(1);
@@ -56,12 +60,17 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
         RBaseItemDecoration.dividerColor = dividerColor;
     }
 
+    public RBaseItemDecoration setDrawLastLine(boolean drawLastLine) {
+        this.drawLastLine = drawLastLine;
+        return this;
+    }
+
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(c, parent, state);
 
         final RecyclerView.LayoutManager manager = parent.getLayoutManager();
-        if (manager.getItemCount() <= 1) {
+        if (manager.getItemCount() <= 1 && !drawLastLine) {
             //如果只有1个item, 直接返回;
             return;
         }
@@ -123,7 +132,7 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
                 if (viewLayoutPosition == 0) {
                     //这里可以决定,第一个item的分割线
                     outRect.set(0, 0, (int) mDividerSize, 0);//默认只有右边有分割线, 你也可以把左边的分割线添加出来
-                } else if (viewLayoutPosition == itemCount - 1) {
+                } else if (viewLayoutPosition == itemCount - 1 && !drawLastLine) {
                     //这里可以决定, 最后一个item的分割线
                     outRect.set(0, 0, 0, 0);//默认, 最后一个item不需要分割线
                 } else {
@@ -219,7 +228,7 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
         if (viewLayoutPosition >= ceil * spanCount - spanCount) {
             result = true;
         }
-        return result;
+        return result && !drawLastLine;
     }
 
     private void drawGrid(Canvas c, RecyclerView.LayoutManager manager) {

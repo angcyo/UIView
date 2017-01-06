@@ -23,8 +23,8 @@ public class AVLoadingIndicatorView extends View {
 
     private static final LineSpinFadeLoaderIndicator DEFAULT_INDICATOR = new LineSpinFadeLoaderIndicator();
 
-    private static final int MIN_SHOW_TIME = 500; // ms
-    private static final int MIN_DELAY = 500; // ms
+    private static final int MIN_SHOW_TIME = 100; // ms
+    private static final int MIN_DELAY = 100; // ms
     int mMinWidth;
     int mMaxWidth;
     int mMinHeight;
@@ -104,6 +104,23 @@ public class AVLoadingIndicatorView extends View {
         return mIndicator;
     }
 
+    public void setIndicator(Indicator d) {
+        if (mIndicator != d) {
+            if (mIndicator != null) {
+                mIndicator.setCallback(null);
+                unscheduleDrawable(mIndicator);
+            }
+
+            mIndicator = d;
+            //need to set indicator color again if you didn't specified when you update the indicator .
+            setIndicatorColor(mIndicatorColor);
+            if (d != null) {
+                d.setCallback(this);
+            }
+            postInvalidate();
+        }
+    }
+
     /**
      * You should pay attention to pass this parameter with two way:
      * for example:
@@ -138,23 +155,6 @@ public class AVLoadingIndicatorView extends View {
         }
     }
 
-    public void setIndicator(Indicator d) {
-        if (mIndicator != d) {
-            if (mIndicator != null) {
-                mIndicator.setCallback(null);
-                unscheduleDrawable(mIndicator);
-            }
-
-            mIndicator = d;
-            //need to set indicator color again if you didn't specified when you update the indicator .
-            setIndicatorColor(mIndicatorColor);
-            if (d != null) {
-                d.setCallback(this);
-            }
-            postInvalidate();
-        }
-    }
-
     /**
      * setIndicatorColor(0xFF00FF00)
      * or
@@ -184,34 +184,39 @@ public class AVLoadingIndicatorView extends View {
     }
 
     public void hide() {
-        mDismissed = true;
-        removeCallbacks(mDelayedShow);
-        long diff = System.currentTimeMillis() - mStartTime;
-        if (diff >= MIN_SHOW_TIME || mStartTime == -1) {
-            // The progress spinner has been shown long enough
-            // OR was not shown yet. If it wasn't shown yet,
-            // it will just never be shown.
-            setVisibility(View.GONE);
-        } else {
-            // The progress spinner is shown, but not long enough,
-            // so put a delayed message in to hide it when its been
-            // shown long enough.
-            if (!mPostedHide) {
-                postDelayed(mDelayedHide, MIN_SHOW_TIME - diff);
-                mPostedHide = true;
-            }
-        }
+//        mDismissed = true;
+//        mPostedShow = false;
+//        removeCallbacks(mDelayedHide);
+//        removeCallbacks(mDelayedShow);
+//        long diff = System.currentTimeMillis() - mStartTime;
+//        if (diff >= MIN_SHOW_TIME || mStartTime == -1) {
+//            // The progress spinner has been shown long enough
+//            // OR was not shown yet. If it wasn't shown yet,
+//            // it will just never be shown.
+//            setVisibility(View.GONE);
+//        } else {
+//            // The progress spinner is shown, but not long enough,
+//            // so put a delayed message in to hide it when its been
+//            // shown long enough.
+//            if (!mPostedHide) {
+//                postDelayed(mDelayedHide, MIN_SHOW_TIME - diff);
+//                mPostedHide = true;
+//            }
+//        }
+        setVisibility(INVISIBLE);
     }
 
     public void show() {
         // Reset the start time.
-        mStartTime = -1;
-        mDismissed = false;
-        removeCallbacks(mDelayedHide);
-        if (!mPostedShow) {
-            postDelayed(mDelayedShow, MIN_DELAY);
-            mPostedShow = true;
-        }
+//        mStartTime = -1;
+//        mDismissed = false;
+//        removeCallbacks(mDelayedHide);
+//        removeCallbacks(mDelayedShow);
+//        if (!mPostedShow) {
+//            postDelayed(mDelayedShow, MIN_DELAY);
+//            mPostedShow = true;
+//        }
+        setVisibility(VISIBLE);
     }
 
     @Override

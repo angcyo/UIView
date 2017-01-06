@@ -143,4 +143,6 @@ public interface IView {
      * 用来决定动画是否需要反向执行
      */
     void setIsRightJumpLeft(boolean isRightJumpLeft);//2016-12-16
+
+    void onAttachedToILayout(ILayout iLayout);
 }

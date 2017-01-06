@@ -90,6 +90,11 @@ public class RefreshLayout extends ViewGroup {
      */
     private boolean isTouchDown = false;
 
+    /**
+     * 刷新的意向, 比如刷新的时候抓起了View, 那么不允许上拉加载
+     */
+    private int order = TOP;
+
     private ArrayList<OnTopViewMoveListener> mTopViewMoveListeners = new ArrayList<>();
     private ArrayList<OnBottomViewMoveListener> mBottomViewMoveListeners = new ArrayList<>();
     private ArrayList<OnRefreshListener> mRefreshListeners = new ArrayList<>();
@@ -224,9 +229,11 @@ public class RefreshLayout extends ViewGroup {
                 } else {
                     if (dy > 0 && canScrollDown() &&
                             !innerCanChildScrollVertically(mTargetView, -1)) {
+                        order = TOP;
                         return true;
-                    } else if (dy < 0 && handleScrollUp() &&
+                    } else if (dy < 0 && canScrollUp() &&
                             !innerCanChildScrollVertically(mTargetView, 1)) {
+                        order = BOTTOM;
                         return true;
                     }
                 }
@@ -384,6 +391,23 @@ public class RefreshLayout extends ViewGroup {
     }
 
     @Override
+    public void scrollBy(int x, int y) {
+        int scrollY = getScrollY();
+        final int endY = scrollY + y;
+
+        if (order == TOP) {
+            if (endY > 0) {
+                y = -scrollY;
+            }
+        } else if (order == BOTTOM) {
+            if (endY < 0) {
+                y = -scrollY;
+            }
+        }
+        super.scrollBy(x, y);
+    }
+
+    @Override
     public void scrollTo(int x, int y) {
         if (mCurState == TOP) {
             y = Math.min(y, 0);
@@ -489,7 +513,7 @@ public class RefreshLayout extends ViewGroup {
      *
      * @return true 激活上拉加载功能
      */
-    private boolean handleScrollUp() {
+    private boolean canScrollUp() {
         if (isEnabled() && mBottomView != null &&
                 (mDirection == BOTTOM || mDirection == BOTH)) {
             if (mCurState == TOP) {

@@ -15,7 +15,9 @@ import android.view.WindowManager;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -478,5 +480,16 @@ public class Utils {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    public static List<String> split(String string) {
+        final ArrayList<String> list = new ArrayList<>();
+        if (!TextUtils.isEmpty(string)) {
+            final String[] split = string.split(",");
+            for (String s : split) {
+                list.add(s);
+            }
+        }
+        return list;
     }
 }

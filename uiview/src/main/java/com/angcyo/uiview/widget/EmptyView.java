@@ -46,7 +46,7 @@ public class EmptyView extends View {
     /**
      * 圆角大小
      */
-    int mRoundRadius = 10;//px
+    int mRoundRadius = 6;//px
 
     RectF mRectF;
     RectF mRectFLittle;

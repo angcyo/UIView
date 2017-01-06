@@ -103,10 +103,6 @@ public class RSoftInputLayout extends ViewGroup {
         emojiLayout = getChildAt(1);
     }
 
-    public void setKeyboardHeight(int keyboardHeight) {
-        this.keyboardHeight = keyboardHeight;
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
@@ -320,9 +316,13 @@ public class RSoftInputLayout extends ViewGroup {
      */
     public void showEmojiLayout() {
         if (keyboardHeight == 0) {
-            keyboardHeight = (int) (getResources().getDisplayMetrics().density * 200);
+            keyboardHeight = getDefaultKeyboardHeight();
         }
         showEmojiLayoutInner(keyboardHeight);
+    }
+
+    private int getDefaultKeyboardHeight() {
+        return (int) (getResources().getDisplayMetrics().density * 200);
     }
 
     /**
@@ -364,7 +364,14 @@ public class RSoftInputLayout extends ViewGroup {
      * 当键盘显示时, 可以通过此方法返回键盘的高度
      */
     public int getKeyboardHeight() {
+        if (keyboardHeight == 0) {
+            keyboardHeight = getDefaultKeyboardHeight();
+        }
         return keyboardHeight;
+    }
+
+    public void setKeyboardHeight(int keyboardHeight) {
+        this.keyboardHeight = keyboardHeight;
     }
 
     public boolean isEmojiShow() {

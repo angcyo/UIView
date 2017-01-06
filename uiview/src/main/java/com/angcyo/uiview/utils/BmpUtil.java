@@ -1056,6 +1056,5 @@ public class BmpUtil {
 //            }
 //        }.start();
 //    }
-
 }
 

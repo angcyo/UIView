@@ -11,7 +11,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -59,26 +58,30 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
         @Override
         public void onActivityStarted(Activity activity) {
-
-        }
-
-        @Override
-        public void onActivityResumed(Activity activity) {
             if (activity == mCompatActivity) {
                 viewShow(mLastShowViewPattern, null);
             }
         }
 
         @Override
+        public void onActivityResumed(Activity activity) {
+//            if (activity == mCompatActivity) {
+//                viewShow(mLastShowViewPattern, null);
+//            }
+        }
+
+        @Override
         public void onActivityPaused(Activity activity) {
-            if (activity == mCompatActivity) {
-                viewHide(mLastShowViewPattern);
-            }
+//            if (activity == mCompatActivity) {
+//                viewHide(mLastShowViewPattern);
+//            }
         }
 
         @Override
         public void onActivityStopped(Activity activity) {
-
+            if (activity == mCompatActivity) {
+                viewHide(mLastShowViewPattern);
+            }
         }
 
         @Override
@@ -223,17 +226,18 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     @Override
     public void startIView(final IView iView, final UIParam param) {
         runnableCount++;
+        iView.onAttachedToILayout(this);
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                startInner(iView, param);
+                runnableCount--;
+            }
+        };
         if (param.mAsync) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    startInner(iView, param);
-                    runnableCount--;
-                }
-            });
+            post(endRunnable);
         } else {
-            startInner(iView, param);
-            runnableCount--;
+            endRunnable.run();
         }
     }
 
@@ -249,12 +253,14 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 if (viewPatternByIView == null) {
                     //这个IView 还不存在
                     final ViewPattern newViewPattern = startIViewInternal(iView);
-                    startIViewAnim(oldViewPattern, newViewPattern, param);
+//                    startIViewAnim(oldViewPattern, newViewPattern, param);
+                    viewPatternByIView = newViewPattern;
                 } else {
                     //这个IView 存在, 但是不在最前显示
-                    topViewStart(viewPatternByIView, param);
-                    bottomViewFinish(oldViewPattern, viewPatternByIView, param.mAnim);
+//                    bottomViewFinish(oldViewPattern, viewPatternByIView, param);
+//                    topViewStart(viewPatternByIView, param);
                 }
+                startIViewAnim(oldViewPattern, viewPatternByIView, param);
             }
         } else {
             //正常的启动模式
@@ -332,12 +338,17 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         if (view == null) {
             return;
         }
-        post(new Runnable() {
-            @Override
-            public void run() {
-                finishIViewInner(findViewPatternByView(view), new UIParam(needAnim, false, false));
-            }
-        });
+        final ViewPattern viewPatternByView = findViewPatternByView(view);
+        if (viewPatternByView == null) {
+//            post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    finishIView(view, needAnim);
+//                }
+//            });
+            return;
+        }
+        finishIView(viewPatternByView.mIView, new UIParam(needAnim, false, false));
     }
 
     /**
@@ -350,15 +361,13 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
         ViewPattern lastViewPattern = findLastShowViewPattern(viewPattern);
 
-        if (viewPattern.isAnimToEnd || isFinishing) {
-            if (param.isQuiet) {
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        finishIViewInner(viewPattern, param);
-                    }
-                });
-            }
+        if (viewPattern.isAnimToStart || viewPattern.isAnimToEnd || isFinishing) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    finishIViewInner(viewPattern, param);
+                }
+            });
             return;
         }
 
@@ -418,12 +427,25 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
     @Override
     public void finishIView(IView iview, boolean needAnim, boolean quiet) {
-        finishIViewInner(findViewPatternByIView(iview), new UIParam(needAnim, false, quiet));
+        finishIView(iview, new UIParam(needAnim, false, quiet));
     }
 
     @Override
-    public void finishIView(IView iview, UIParam param) {
-        finishIViewInner(findViewPatternByIView(iview), param);
+    public void finishIView(final IView iview, final UIParam param) {
+        if (iview == null) {
+            return;
+        }
+        final Runnable endRunnable = new Runnable() {
+            @Override
+            public void run() {
+                finishIViewInner(findViewPatternByIView(iview), param);
+            }
+        };
+        if (param.mAsync) {
+            post(endRunnable);
+            return;
+        }
+        endRunnable.run();
     }
 
     @Override
@@ -570,6 +592,11 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
     @Override
     public boolean requestBackPressed() {
+        return requestBackPressed(new UIParam());
+    }
+
+    @Override
+    public boolean requestBackPressed(final UIParam param) {
         if (mAttachViews.size() <= 0) {
             return true;
         }
@@ -580,7 +607,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 return mLastShowViewPattern.mIView.onBackPressed();
             }
         }
-        finishIView(mLastShowViewPattern.mView);
+        finishIView(mLastShowViewPattern.mIView, param);
         return false;
     }
 
@@ -658,8 +685,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
             //startViewPatternAnim(newViewPattern, oldViewPattern, false, true);
             //startViewPatternAnim(newViewPattern, oldViewPattern, true, false);
-            topViewStart(newViewPattern, param);
-            bottomViewFinish(oldViewPattern, newViewPattern, param.mAnim);
+            bottomViewFinish(oldViewPattern, newViewPattern, param);//先执行Bottom
+            topViewStart(newViewPattern, param);//后执行Top
         } else {
 //            for (ViewPattern viewPattern : mAttachViews) {
 //                viewPattern.mView.setVisibility(INVISIBLE);
@@ -690,6 +717,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             @Override
             public void run() {
                 viewShow(topViewPattern, param.mBundle);
+                topViewPattern.isAnimToStart = false;
+
+                printLog();
             }
         };
 
@@ -698,6 +728,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         }
 
         topViewPattern.mView.bringToFront();
+        topViewPattern.isAnimToStart = true;
+        topViewPattern.isAnimToEnd = false;
 
         if (!param.mAnim) {
             endRunnable.run();
@@ -724,6 +756,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 isFinishing = false;
                 viewHide(topViewPattern);
                 removeViewPattern(topViewPattern);
+
+                printLog();
             }
         };
 
@@ -748,6 +782,18 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
     /**
+     * 为了确保任务都行执行完了, 延迟打印堆栈信息
+     */
+    private void printLog() {
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logLayoutInfo();
+            }
+        }, 100);
+    }
+
+    /**
      * 底部视图进入动画
      */
     private void bottomViewStart(final ViewPattern bottomViewPattern, final ViewPattern topViewPattern,
@@ -763,7 +809,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 }
             }
         };
-        //bottomViewPattern.mView.setVisibility(VISIBLE);
+        bottomViewPattern.mView.setVisibility(VISIBLE);
 
         if (bottomViewPattern.mView instanceof ILifecycle) {
             ((ILifecycle) bottomViewPattern.mView).onLifeViewShow();
@@ -786,15 +832,14 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
      * 底部视图退出动画
      */
     private void bottomViewFinish(final ViewPattern bottomViewPattern, final ViewPattern topViewPattern,
-                                  final boolean anim) {
+                                  final UIParam param) {
         final Runnable endRunnable = new Runnable() {
             @Override
             public void run() {
-                viewHide(bottomViewPattern);
+                viewHide(bottomViewPattern, param.hideLastIView);
             }
         };
-
-        bottomViewRemove(bottomViewPattern, topViewPattern, endRunnable, anim);
+        bottomViewRemove(bottomViewPattern, topViewPattern, endRunnable, param.mAnim);
     }
 
     /**
@@ -806,6 +851,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         if (bottomViewPattern == null) {
             return;
         }
+
+        bottomViewPattern.isAnimToStart = false;
 
         if (bottomViewPattern.mView instanceof ILifecycle) {
             ((ILifecycle) bottomViewPattern.mView).onLifeViewHide();
@@ -824,12 +871,18 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
 
-    private void viewHide(final ViewPattern viewPattern) {
+    private void viewHide(final ViewPattern viewPattern, boolean hide) {
         if (viewPattern == null) {
             return;
         }
         viewPattern.mIView.onViewHide();
-        viewPattern.mView.setVisibility(GONE);
+        if (hide) {
+            viewPattern.mView.setVisibility(GONE);
+        }
+    }
+
+    private void viewHide(final ViewPattern viewPattern) {
+        viewHide(viewPattern, true);
     }
 
     private void viewShow(final ViewPattern viewPattern, final Bundle bundle) {
@@ -1000,6 +1053,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
      */
     private boolean safeStartAnim(final View view, final Animation animation, final Runnable endRunnable) {
         if (view == null) {
+            if (endRunnable != null) {
+                endRunnable.run();
+            }
             return false;
         }
 
@@ -1028,13 +1084,13 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
     public ViewPattern findViewPatternByIView(IView iview) {
         for (ViewPattern viewPattern : mAttachViews) {
-            if (TextUtils.equals(viewPattern.mIView.getClass().getSimpleName(), iview.getClass().getSimpleName())) {
-                return viewPattern;
-            }
-
-//            if (viewPattern.mIView == iview) {
+//            if (TextUtils.equals(viewPattern.mIView.getClass().getSimpleName(), iview.getClass().getSimpleName())) {
 //                return viewPattern;
 //            }
+
+            if (viewPattern.mIView == iview) {
+                return viewPattern;
+            }
         }
         return null;
     }
@@ -1444,7 +1500,6 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             if (mRunnable != null) {
                 mRunnable.run();
             }
-            logLayoutInfo();
         }
 
         @Override

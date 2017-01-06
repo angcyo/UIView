@@ -34,6 +34,10 @@ public class UIParam {
      * 启动模式
      */
     public int start_mode = NORMAL;
+    /**
+     * 启动一个新的IView 时, 是否隐藏之前顶部的IView
+     */
+    public boolean hideLastIView = true;
 
     public UIParam(boolean anim, boolean async, Bundle bundle) {
         mAnim = anim;
@@ -85,6 +89,11 @@ public class UIParam {
 
     public UIParam setStart_mode(int start_mode) {
         this.start_mode = start_mode;
+        return this;
+    }
+
+    public UIParam setHideLastIView(boolean hideLastIView) {
+        this.hideLastIView = hideLastIView;
         return this;
     }
 

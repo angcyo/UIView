@@ -68,7 +68,7 @@ public abstract class UILayoutActivity extends StyleActivity {
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        L.e(s);
+                        L.e(getClass().getSimpleName() + " -->" + s);
                         if (s.contains("0")) {
                             finishSelf();
                             notifyAppDetailView();

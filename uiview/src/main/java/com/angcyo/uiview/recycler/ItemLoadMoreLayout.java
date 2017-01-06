@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.R;
-import com.angcyo.uiview.github.load.AVLoadingIndicatorView;
 
 /**
  * Created by angcyo on 2016-12-18.
@@ -18,29 +17,28 @@ import com.angcyo.uiview.github.load.AVLoadingIndicatorView;
 public class ItemLoadMoreLayout extends RelativeLayout implements ILoadMore {
 
     int loadState = ILoadMore.NORMAL;
-    AVLoadingIndicatorView mLoadingIndicatorView;
+    View mLoadingIndicatorView;
     private View loadView, noMoreView, errorView;
 
     public ItemLoadMoreLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public ItemLoadMoreLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public ItemLoadMoreLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+        this(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ItemLoadMoreLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        setLoadState(loadState);
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    private void initView() {
         for (int i = 0; i < getChildCount(); i++) {
             final View view = getChildAt(i);
             if (TextUtils.equals("error_view", (CharSequence) view.getTag())) {
@@ -49,15 +47,16 @@ public class ItemLoadMoreLayout extends RelativeLayout implements ILoadMore {
                 noMoreView = view;
             } else if (TextUtils.equals("load_view", (CharSequence) view.getTag())) {
                 loadView = view;
-                mLoadingIndicatorView = (AVLoadingIndicatorView) loadView.findViewById(R.id.load_view);
+                mLoadingIndicatorView = loadView.findViewById(R.id.load_view);
             }
         }
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-    }
+//    @Override
+//    protected void onAttachedToWindow() {
+//        super.onAttachedToWindow();
+//        setLoadState(loadState);
+//    }
 
     @Override
     public int getLoadState() {
@@ -66,6 +65,7 @@ public class ItemLoadMoreLayout extends RelativeLayout implements ILoadMore {
 
     @Override
     public void setLoadState(int state) {
+        initView();
         if (loadState != state) {
             loadState = state;
             if (loadState == ILoadMore.NORMAL) {
@@ -86,10 +86,8 @@ public class ItemLoadMoreLayout extends RelativeLayout implements ILoadMore {
             noMoreView.setVisibility(noMoreView == view ? View.VISIBLE : View.INVISIBLE);
             if (loadView == view) {
                 loadView.setVisibility(View.VISIBLE);
-//                mLoadingIndicatorView.show();
             } else {
                 loadView.setVisibility(View.INVISIBLE);
-//                mLoadingIndicatorView.hide();
             }
         }
     }

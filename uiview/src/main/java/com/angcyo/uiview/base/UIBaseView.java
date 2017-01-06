@@ -20,7 +20,9 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.view.UIIViewImpl;
+import com.angcyo.uiview.widget.EmptyView;
 import com.angcyo.uiview.widget.SoftRelativeLayout;
 
 import butterknife.ButterKnife;
@@ -170,7 +172,12 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected View inflateLoadLayout(FrameLayout baseRootLayout, LayoutInflater inflater) {
-        return inflater.inflate(R.layout.base_load_layout, baseRootLayout);
+//        return inflater.inflate(R.layout.base_load_layout, baseRootLayout);
+        EmptyView emptyView = new EmptyView(mActivity);
+        int padding = (int) ResUtil.dpToPx(mActivity, 20);
+        emptyView.setPadding(padding, padding, padding, padding);
+        baseRootLayout.addView(emptyView, new ViewGroup.LayoutParams(-1, -1));
+        return emptyView;
     }
 
     protected View inflateNonetLayout(FrameLayout baseRootLayout, LayoutInflater inflater) {

@@ -73,6 +73,8 @@ public interface ILayout<T extends UIParam> {
      */
     boolean requestBackPressed();
 
+    boolean requestBackPressed(final UIParam param);//2017-1-3
+
     /**
      * 结束所有的IView, 不会有动画执行, 最上层的IVew 也不会有 生命周期的回调
      * {@link ILayout#finishIView(IView, boolean, boolean)} 类似此方法quiet=true 的情况
