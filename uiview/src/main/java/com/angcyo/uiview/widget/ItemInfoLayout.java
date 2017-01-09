@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -116,6 +117,10 @@ public class ItemInfoLayout extends RelativeLayout {
         mDarkTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, itemDarkTextSize);
         mDarkTextView.setCompoundDrawablePadding(drawPadding);
         mDarkTextView.setGravity(Gravity.CENTER_VERTICAL);
+        mDarkTextView.setMaxLines(1);
+        mDarkTextView.setSingleLine(true);
+        mDarkTextView.setFilters(new InputFilter[]{new InputFilter.LengthFilter(30)});
+
         setRightDrawableRes(rightDrawableRes);
         setDarkDrawableRes(darkDrawableRes);
 

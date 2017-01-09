@@ -44,6 +44,12 @@ public interface IView {
 
     void onViewShow(final Bundle bundle);//2016-12-15
 
+    /**
+     * {@link com.angcyo.uiview.container.UIParam#start_mode} 是 {@link com.angcyo.uiview.container.UIParam#SINGLE_TOP}
+     * 时,会调用此方法
+     */
+    void onViewReShow(final Bundle bundle);//2017-1-7
+
     void onViewHide();
 
     void onViewUnload();

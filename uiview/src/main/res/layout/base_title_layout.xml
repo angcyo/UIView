@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_title_bar_layout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/action_bar_height"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tool:background="@android:color/holo_blue_dark">
 
     <!--左边控制区-->
     <LinearLayout
@@ -35,28 +37,34 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/base_title_view"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/default_base_white"
-            android:textSize="@dimen/base_title_size"
-            tools:text="标题"/>
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <com.angcyo.uiview.widget.LoadingImageView
-            android:id="@+id/base_load_view"
-            android:layout_width="@dimen/base_load_view_size"
-            android:layout_height="@dimen/base_load_view_size"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/base_ldpi"
-            android:layout_toLeftOf="@id/base_title_view"
-            android:visibility="gone"/>
+            <com.angcyo.uiview.widget.LoadingImageView
+                android:id="@+id/base_load_view"
+                android:layout_width="@dimen/base_load_view_size"
+                android:layout_height="@dimen/base_load_view_size"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/base_title_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/base_ldpi"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/default_base_white"
+                android:textSize="@dimen/base_title_size"
+                tools:text="标题"/>
+
+        </LinearLayout>
     </RelativeLayout>
 
 

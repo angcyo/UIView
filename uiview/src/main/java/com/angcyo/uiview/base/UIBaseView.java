@@ -6,10 +6,12 @@ import android.graphics.Rect;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
@@ -28,6 +30,7 @@ import com.angcyo.uiview.widget.SoftRelativeLayout;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 /**
  * 实现了 空布局, 无网络布局, 数据加载布局, 内容布局之间的切换
@@ -272,7 +275,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         return rotateAnimation;
     }
 
-    protected void fixInsersTop() {
+    protected void fixInsertsTop() {
         mBaseRootLayout.fixInsertsTop();
     }
 
@@ -327,12 +330,24 @@ public abstract class UIBaseView extends UIIViewImpl {
             showContentLayout();
             return;
         }
+        if (visibility == VISIBLE) {
+            ViewCompat.animate(view).alpha(1).start();
+        }
         view.setVisibility(visibility);
     }
 
-    private void safeSetVisibility(View view, int visibility) {
+    private void safeSetVisibility(final View view, final int visibility) {
         if (view != null) {
-            view.setVisibility(visibility);
+            if (view.getVisibility() == View.VISIBLE) {
+                ViewCompat.animate(view).alpha(0).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(visibility);
+                    }
+                }).setInterpolator(new DecelerateInterpolator()).setDuration(UIIViewImpl.DEFAULT_ANIM_TIME).start();
+            } else {
+                view.setVisibility(visibility);
+            }
         }
     }
 

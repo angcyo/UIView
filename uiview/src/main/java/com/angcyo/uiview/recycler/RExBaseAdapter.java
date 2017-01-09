@@ -118,14 +118,23 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
         }
     }
 
+    /**
+     * 尾部布局数据绑定
+     */
     protected void onBindFooterView(RBaseViewHolder holder, int posInFooter, F fBean) {
 
     }
 
+    /**
+     * 头部布局数据绑定
+     */
     protected void onBindHeaderView(RBaseViewHolder holder, int posInHeader, H hBean) {
 
     }
 
+    /**
+     * 中间布局数据绑定
+     */
     protected void onBindDataView(RBaseViewHolder holder, int posInData, T tBean) {
 
     }
@@ -174,17 +183,23 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
         return this;
     }
 
-
     /**
      * 重置头部数据
      */
     public void resetHeaderData(List<H> headerDatas) {
+        int oldSize = getListSize(mAllHeaderDatas);
+        int newSize = getListSize(headerDatas);
         if (headerDatas == null) {
             this.mAllHeaderDatas = new ArrayList<>();
         } else {
             this.mAllHeaderDatas = headerDatas;
         }
-        notifyItemRangeChanged(0, getItemCount());
+
+        if (oldSize == newSize) {
+            notifyItemRangeChanged(0, oldSize);
+        } else {
+            notifyDataSetChanged();
+        }
     }
 
     /**
@@ -207,12 +222,20 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
      * 重置尾部数据
      */
     public void resetFooterData(List<F> footerDatas) {
+        int oldSize = getListSize(mAllFooterDatas);
+        int newSize = getListSize(footerDatas);
+
         if (footerDatas == null) {
             this.mAllFooterDatas = new ArrayList<>();
         } else {
             this.mAllFooterDatas = footerDatas;
         }
-        notifyItemRangeChanged(getHeaderCount() + getDataCount(), getItemCount());
+
+        if (oldSize == newSize) {
+            notifyItemRangeChanged(getHeaderCount() + getDataCount(), oldSize);
+        } else {
+            notifyDataSetChanged();
+        }
     }
 
     /**
@@ -336,12 +359,18 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
      */
     @Override
     public void resetData(List<T> datas) {
+        int oldSize = getListSize(mAllDatas);
+        int newSize = getListSize(datas);
         if (datas == null) {
             this.mAllDatas = new ArrayList<>();
         } else {
             this.mAllDatas = datas;
         }
-        notifyItemRangeChanged(getHeaderCount(), getItemCount());
+        if (oldSize == newSize) {
+            notifyItemRangeChanged(getHeaderCount(), oldSize);
+        } else {
+            notifyDataSetChanged();
+        }
     }
 
     /**

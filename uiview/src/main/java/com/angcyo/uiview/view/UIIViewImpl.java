@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,9 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public void onAttachedToILayout(ILayout iLayout) {
         mILayout = iLayout;
+        if (mOtherILayout == null) {
+            mOtherILayout = iLayout;
+        }
     }
 
     @Override
@@ -74,6 +78,7 @@ public abstract class UIIViewImpl implements IView {
 
     protected abstract View inflateBaseView(FrameLayout container, LayoutInflater inflater);
 
+    @CallSuper
     @Override
     public void loadContentView(View rootView) {
         L.d(this.getClass().getSimpleName(), "loadContentView: ");
@@ -131,6 +136,11 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public void onViewShow(Bundle bundle) {
         L.d(this.getClass().getSimpleName(), "onViewShow: ");
+    }
+
+    @Override
+    public void onViewReShow(Bundle bundle) {
+        L.d(this.getClass().getSimpleName(), "onViewReShow: ");
     }
 
     @Override
@@ -302,9 +312,14 @@ public abstract class UIIViewImpl implements IView {
         mILayout.startIView(iView, param);
     }
 
+    public void finishIView() {
+        finishIView(this);
+    }
+
     public void finishIView(final IView iView) {
         finishIView(iView, true);
     }
+
 
     public void finishIView(final IView iView, final UIParam param) {
         if (iView == null) {
@@ -419,7 +434,8 @@ public abstract class UIIViewImpl implements IView {
         return Color.parseColor("#60000000");
     }
 
-    public void bindOtherILayout(ILayout otherILayout) {
+    public IView bindOtherILayout(ILayout otherILayout) {
         mOtherILayout = otherILayout;
+        return this;
     }
 }

@@ -162,6 +162,46 @@ public class Luban {
     }
 
     /**
+     * 返回原始路径和对应的缩略图路径
+     */
+    public static Observable<ArrayList<ImageItem>> luban2(final Context context, ArrayList<String> originFilePathList) {
+        if (originFilePathList == null || originFilePathList.isEmpty()) {
+            return Observable.empty();
+        }
+        return Observable.from(originFilePathList)
+                .map(new Func1<String, String>() {
+                    @Override
+                    public String call(String s) {
+                        ImageItem imageItem = new ImageItem();
+                        imageItem.path = s;
+                        imageItem.thumbPath = Luban.get(context.getApplicationContext()).thirdCompress(new File(s)).getAbsolutePath();
+                        return imageItem.toString();
+                    }
+                })
+                .scan(new Func2<String, String, String>() {
+                    @Override
+                    public String call(String s, String s2) {
+                        return s + ":" + s2;
+                    }
+                })
+                .last()
+                .map(new Func1<String, ArrayList<ImageItem>>() {
+                    @Override
+                    public ArrayList<ImageItem> call(String s) {
+                        ArrayList<ImageItem> list = new ArrayList<>();
+                        String[] split = s.split(":");
+                        for (int i = 0; i < split.length; i++) {
+                            list.add(ImageItem.get(split[i]));
+                        }
+                        return list;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+
+    /**
      * 保存图片到系统相册目录
      *
      * @param bmp        位图对象
@@ -248,6 +288,29 @@ public class Luban {
             if (file.exists()) {
                 L.e(file.getAbsolutePath() + " " + Formatter.formatFileSize(context, file.length()));
             }
+        }
+    }
+
+    public static void logFileItems(Context context, ArrayList<ImageItem> files) {
+        for (ImageItem s : files) {
+            File originFile = new File(s.path);
+            File thumbFile = new File(s.thumbPath);
+            StringBuilder stringBuilder = new StringBuilder("\n");
+            if (originFile.exists()) {
+                stringBuilder.append("原始:");
+                stringBuilder.append(originFile.getAbsolutePath());
+                stringBuilder.append(" ");
+                stringBuilder.append(Formatter.formatFileSize(context, originFile.length()));
+                stringBuilder.append("\n");
+            }
+            if (thumbFile.exists()) {
+                stringBuilder.append("压缩:");
+                stringBuilder.append(thumbFile.getAbsolutePath());
+                stringBuilder.append(" ");
+                stringBuilder.append(Formatter.formatFileSize(context, thumbFile.length()));
+                stringBuilder.append("\n");
+            }
+            L.e(stringBuilder.toString());
         }
     }
 
@@ -656,4 +719,42 @@ public class Luban {
 //            }
 //        }.start();
 //    }
+
+    public static class ImageItem {
+        public String path = "";//源文件的路径
+        public String thumbPath = "";//压缩后的文件路径
+
+        public ImageItem() {
+        }
+
+        public ImageItem(String path, String thumbPath) {
+            this.path = path;
+            this.thumbPath = thumbPath;
+        }
+
+        public static ImageItem get(String string) {
+            ImageItem imageItem = new ImageItem();
+            if (TextUtils.isEmpty(string)) {
+                return imageItem;
+            }
+            String[] split = string.split("\\|");
+            if (split.length != 2) {
+                return imageItem;
+            }
+            imageItem.path = split[0];
+            imageItem.thumbPath = split[1];
+            return imageItem;
+        }
+
+        @Override
+        public String toString() {
+            return path + "|" + thumbPath;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return TextUtils.equals(path, ((ImageItem) obj).path)
+                    && TextUtils.equals(thumbPath, ((ImageItem) obj).thumbPath);
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package com.angcyo.uiview.base;
 
+import android.support.annotation.CallSuper;
+
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -17,6 +19,7 @@ import rx.subscriptions.CompositeSubscription;
 public abstract class UIBaseRxView extends UIBaseDataView {
     protected CompositeSubscription mSubscriptions;
 
+    @CallSuper
     @Override
     public void onViewCreate() {
         super.onViewCreate();
@@ -28,6 +31,7 @@ public abstract class UIBaseRxView extends UIBaseDataView {
         super.onViewLoad();
     }
 
+    @CallSuper
     @Override
     public void onViewUnload() {
         super.onViewUnload();

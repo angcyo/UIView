@@ -39,6 +39,13 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         this.mContext = context;
     }
 
+    public static int getListSize(List list) {
+        if (list == null) {
+            return 0;
+        }
+        return list.size();
+    }
+
     public RBaseAdapter setLoadMoreListener(OnAdapterLoadMoreListener loadMoreListener) {
         mLoadMoreListener = loadMoreListener;
         return this;
@@ -51,14 +58,21 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         return mEnableLoadMore;
     }
 
+    //--------------标准的方法-------------//
+
     /**
      * 启用加载更多功能
      */
     public void setEnableLoadMore(boolean enableLoadMore) {
+        boolean loadMore = mEnableLoadMore;
         mEnableLoadMore = enableLoadMore;
-    }
 
-    //--------------标准的方法-------------//
+        if (enableLoadMore && !loadMore) {
+            notifyItemInserted(getLastPosition());
+        } else if (!enableLoadMore && loadMore) {
+            notifyItemRemoved(getLastPosition());
+        }
+    }
 
     @Override
     public int getItemViewType(int position) {
@@ -94,7 +108,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
             onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
         }
     }
-
 
     @Override
     public void onViewAttachedToWindow(RBaseViewHolder holder) {
@@ -138,21 +151,28 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      */
     public void setLoadMoreEnd() {
         mLoadState = ILoadMore.NORMAL;
+        setEnableLoadMore(true);
         updateLoadMoreView();
     }
 
     public void setLoadError() {
         mLoadState = ILoadMore.LOAD_ERROR;
+        setEnableLoadMore(true);
         updateLoadMoreView();
     }
 
     public void setNoMore() {
         mLoadState = ILoadMore.NO_MORE;
+        setEnableLoadMore(true);
 //        updateLoadMoreView();//不需要及时刷新
     }
 
     private boolean isLast(int position) {
-        return position == getItemCount() - 1;
+        return position == getLastPosition();
+    }
+
+    private int getLastPosition() {
+        return getItemCount() - 1;
     }
 
     /**
@@ -161,6 +181,8 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     public int getItemType(int position) {
         return 0;
     }
+
+    //--------------需要实现的方法------------//
 
     @Override
     public int getItemCount() {
@@ -171,8 +193,6 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         return size;
     }
 
-    //--------------需要实现的方法------------//
-
     /**
      * 当 {@link #getItemLayoutId(int)} 返回0的时候, 会调用此方法
      */
@@ -182,17 +202,17 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     protected abstract int getItemLayoutId(int viewType);
 
-    protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
-
     //---------------滚动事件的处理--------------------//
+
+    protected abstract void onBindView(RBaseViewHolder holder, int position, T bean);
 
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
     }
 
+    //----------------Item 数据的操作-----------------//
+
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
     }
-
-    //----------------Item 数据的操作-----------------//
 
     /**
      * 在最后的位置插入数据
@@ -263,6 +283,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         }
     }
 
+    /**
+     * 是否可以删除bean
+     */
     protected boolean onDeleteItem(T bean) {
         return true;
     }
@@ -284,12 +307,19 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
      * 重置数据
      */
     public void resetData(List<T> datas) {
+        int oldSize = getListSize(mAllDatas);
+        int newSize = getListSize(datas);
+
         if (datas == null) {
             this.mAllDatas = new ArrayList<>();
         } else {
             this.mAllDatas = datas;
         }
-        notifyItemRangeChanged(0, getItemCount());
+        if (oldSize == newSize) {
+            notifyItemRangeChanged(0, oldSize);
+        } else {
+            notifyDataSetChanged();
+        }
     }
 
     /**

@@ -174,6 +174,24 @@ public class TitleBarPattern {
 
         }
 
+        public TitleBarItem(String text, View.OnClickListener listener) {
+            this.text = text;
+            this.listener = listener;
+        }
+
+        public TitleBarItem(int res, View.OnClickListener listener) {
+            this.res = res;
+            this.listener = listener;
+        }
+
+        public static TitleBarItem build(String text, View.OnClickListener listener) {
+            return new TitleBarItem(text, listener);
+        }
+
+        public static TitleBarItem build(int res, View.OnClickListener listener) {
+            return new TitleBarItem(res, listener);
+        }
+
         public static TitleBarItem build() {
             return new TitleBarItem();
         }

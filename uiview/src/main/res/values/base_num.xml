@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--验证码最大长度-->
+    <integer name="code_count">6</integer>
+    <!--密码最大长度-->
+    <integer name="password_count">12</integer>
+    <!--名称最大长度-->
+    <integer name="name_count">20</integer>
+    <!--帧动画每帧时间-->
+    <integer name="animation_list_time">150</integer>
+    <!--每次查询消息的数量-->
+    <integer name="message_limit">150</integer>
+</resources>

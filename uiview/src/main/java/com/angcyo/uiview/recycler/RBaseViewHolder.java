@@ -69,8 +69,9 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public int getViewType() {
-        return viewType;
+        return viewType == -1 ? super.getItemViewType() : viewType;
     }
+
 
     public <T extends View> T v(@IdRes int resId) {
         View view = sparseArray.get(resId);

@@ -2,6 +2,8 @@ package com.angcyo.uiview.utils;
 
 import com.google.gson.Gson;
 
+import java.lang.reflect.Type;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -15,6 +17,11 @@ import com.google.gson.Gson;
  */
 public class Json {
     public static <T> T from(String json, Class<T> type) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, type);
+    }
+
+    public static <T> T from(String json, Type type) {
         Gson gson = new Gson();
         return gson.fromJson(json, type);
     }

@@ -16,7 +16,7 @@ import android.view.View;
  */
 
 public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
-    static int dividerColor = Color.parseColor("#e3e3e3");//分割线的颜色
+    static int dividerColor = Color.parseColor("#E0E0E0");//分割线的颜色
     float mDividerSize;
     Drawable mDividerDrawableV;//垂直方向绘制的Drawable
     Drawable mDividerDrawableH;//水平方向绘制的Drawable

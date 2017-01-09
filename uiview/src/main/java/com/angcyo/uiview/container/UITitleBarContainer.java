@@ -198,7 +198,7 @@ public class UITitleBarContainer extends FrameLayout {
         mTitleView.setText(mTitleBarPattern.mTitleString);
         mTitleBarPattern.setTextViewSize(mTitleView);
         if (mTitleBarPattern.titleHide) {
-            mTitleView.setVisibility(INVISIBLE);
+            mTitleView.setVisibility(GONE);
         }
 
         if (!TextUtils.isEmpty(mTitleBarPattern.mTitleString) && mTitleBarPattern.titleAnim) {
@@ -235,7 +235,7 @@ public class UITitleBarContainer extends FrameLayout {
     public void evaluateBackgroundColor(int scrollY, View titleView) {
         float factor = 6 * scrollY * 0.1f / getMeasuredHeight();
         if (titleView != null) {
-            titleView.setVisibility(factor > 0.8 ? View.VISIBLE : View.INVISIBLE);
+            titleView.setVisibility(factor > 0.8 ? View.VISIBLE : View.GONE);
         }
         setBackgroundColor((Integer) new ArgbEvaluator()
                 .evaluate(Math.min(1, factor),
@@ -292,7 +292,8 @@ public class UITitleBarContainer extends FrameLayout {
 
         int itemSize = getResources().getDimensionPixelSize(R.dimen.base_title_bar_item_size);
 
-        for (TitleBarPattern.TitleBarItem item : items) {
+        for (int i = 0; i < items.size(); i++) {
+            TitleBarPattern.TitleBarItem item = items.get(i);
             View view;
             if (item.res == -1) {
                 //不是图片, 就创建文本按钮
@@ -301,9 +302,23 @@ public class UITitleBarContainer extends FrameLayout {
                 //创建图片按钮
                 view = createImageItem(item.res, item.listener);
             }
+            view.setTag(i);//方便之后查找这个view
             layout.addView(view, new LinearLayout.LayoutParams(itemSize, -1));
             views.add(view);
         }
+
+//        for (TitleBarPattern.TitleBarItem item : items) {
+//            View view;
+//            if (item.res == -1) {
+//                //不是图片, 就创建文本按钮
+//                view = createTextItem(item.text, item.listener);
+//            } else {
+//                //创建图片按钮
+//                view = createImageItem(item.res, item.listener);
+//            }
+//            layout.addView(view, new LinearLayout.LayoutParams(itemSize, -1));
+//            views.add(view);
+//        }
     }
 
     private ImageView createImageItem(@DrawableRes int res, OnClickListener listener) {

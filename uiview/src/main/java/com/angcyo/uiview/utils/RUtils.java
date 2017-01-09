@@ -17,13 +17,15 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
  * Created by angcyo on 15-12-16 016 15:41 下午.
  */
-public class Utils {
+public class RUtils {
 
 
     private static final String[][] MIME_MapTable = {
@@ -491,5 +493,58 @@ public class Utils {
             }
         }
         return list;
+    }
+
+    /**
+     * 安全的去掉字符串的最后一个字符
+     */
+    public static String safe(StringBuilder stringBuilder) {
+        return stringBuilder.substring(0, Math.max(0, stringBuilder.length() - 1));
+    }
+
+    public static <T> String connect(List<T> list) {
+        if (list == null) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (T bean : list) {
+            builder.append(bean.toString());
+            builder.append(",");
+        }
+
+        return safe(builder);
+    }
+
+    /**
+     * 组装参数
+     */
+    public static Map<String, String> map(String... args) {
+        final Map<String, String> map = new HashMap<>();
+        foreach(new OnPutValue() {
+            @Override
+            public void onValue(String key, String value) {
+                if (!TextUtils.isEmpty(key) && !TextUtils.isEmpty(value)) {
+                    map.put(key, value);
+                }
+            }
+        }, args);
+        return map;
+    }
+
+    private static void foreach(OnPutValue onPutValue, String... args) {
+        if (onPutValue == null || args == null) {
+            return;
+        }
+        for (String str : args) {
+            String[] split = str.split(":");
+            if (split.length >= 2) {
+                String first = split[0];
+                onPutValue.onValue(first, str.substring(first.length() + 1));
+            }
+        }
+    }
+
+    interface OnPutValue {
+        void onValue(String key, String value);
     }
 }

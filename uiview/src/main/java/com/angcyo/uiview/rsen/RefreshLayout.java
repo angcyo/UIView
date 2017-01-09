@@ -789,7 +789,6 @@ public class RefreshLayout extends ViewGroup {
         }
     }
 
-
     /**
      * 默认实现的上拉视图
      */

@@ -41,10 +41,17 @@ public class ImagePickerHelper {
     }
 
     public static void startImagePicker(Activity activity, boolean clear, boolean crop, boolean multiMode, int selectLimit) {
+        startImagePicker(activity, true, clear, crop, multiMode, selectLimit);
+    }
+
+    public static void startImagePicker(Activity activity, boolean showCamera,
+                                        boolean clear, boolean crop,
+                                        boolean multiMode, int selectLimit) {
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GlideImageLoader());
         imagePicker.setCrop(crop);
         imagePicker.setMultiMode(multiMode);
+        imagePicker.setShowCamera(showCamera);
         imagePicker.setSelectLimit(selectLimit);
         imagePicker.setOutPutX(800);
         imagePicker.setOutPutY(800);
@@ -74,6 +81,22 @@ public class ImagePickerHelper {
     }
 
     /**
+     * 根据路径,删除选中的图片
+     */
+    public static void deleteItemFromSelected(String path) {
+        if (TextUtils.isEmpty(path)) {
+            return;
+        }
+        ArrayList<ImageItem> selectedImages = ImagePicker.getInstance().getSelectedImages();
+        for (ImageItem item : selectedImages) {
+            if (TextUtils.equals(item.path, path)) {
+                selectedImages.remove(item);
+                break;
+            }
+        }
+    }
+
+    /**
      * 是否是原图
      */
     public static boolean isOrigin(int requestCode, int resultCode, Intent data) {
@@ -94,6 +117,7 @@ public class ImagePickerHelper {
                 final DrawableRequestBuilder<String> drawableRequestBuilder = Glide.with(activity)                             //配置上下文
                         .load(url)                                       //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
                         .error(R.mipmap.default_image)                    //设置错误图片
+                        .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL);
 
                 if (TextUtils.isEmpty(thumbPath)) {
@@ -108,6 +132,7 @@ public class ImagePickerHelper {
                 final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(activity)                             //配置上下文
                         .load(Uri.fromFile(new File(path)))      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
                         .error(R.mipmap.default_image)           //设置错误图片
+                        .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL);
 
                 if (TextUtils.isEmpty(thumbPath)) {
