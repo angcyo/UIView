@@ -34,6 +34,11 @@ import butterknife.ButterKnife;
 public abstract class UIIViewImpl implements IView {
 
     public static final int DEFAULT_ANIM_TIME = 300;
+    public static final int STATE_NORMAL = 1;
+    public static final int STATE_VIEW_SHOW = 3;
+    public static final int STATE_VIEW_HIDE = 4;
+    public static final int STATE_VIEW_LOAD = 2;
+    public static final int STATE_VIEW_UNLOAD = 5;
 
     protected ILayout mILayout;
     protected ILayout mOtherILayout;
@@ -47,6 +52,11 @@ public abstract class UIIViewImpl implements IView {
      * 用来管理rootview
      */
     protected RBaseViewHolder mViewHolder;
+    protected int mIViewStatus = STATE_NORMAL;
+    /**
+     * 最后一次显示的时间
+     */
+    protected long mLastShowTime = 0;
     private boolean mIsRightJumpLeft = false;
 
     public static void setDefaultConfig(Animation animation) {
@@ -117,39 +127,59 @@ public abstract class UIIViewImpl implements IView {
         }
     }
 
+    @CallSuper
     @Override
     public void onViewCreate() {
         L.d(this.getClass().getSimpleName(), "onViewCreate: ");
     }
 
+    @CallSuper
     @Override
     public void onViewLoad() {
+        mIViewStatus = STATE_VIEW_LOAD;
         L.d(this.getClass().getSimpleName(), "onViewLoad: ");
     }
 
     @Deprecated
     @Override
+    @CallSuper
     public void onViewShow() {
         onViewShow(null);
     }
 
+    @CallSuper
     @Override
     public void onViewShow(Bundle bundle) {
         L.d(this.getClass().getSimpleName(), "onViewShow: ");
+        long lastShowTime = mLastShowTime;
+        mIViewStatus = STATE_VIEW_SHOW;
+        mLastShowTime = System.currentTimeMillis();
+        if (lastShowTime == 0) {
+            onViewShowFirst(bundle);
+        }
     }
 
+    public void onViewShowFirst(Bundle bundle) {
+        L.d(this.getClass().getSimpleName(), "onViewShowFirst: ");
+    }
+
+    @CallSuper
     @Override
     public void onViewReShow(Bundle bundle) {
         L.d(this.getClass().getSimpleName(), "onViewReShow: ");
     }
 
+    @CallSuper
     @Override
     public void onViewHide() {
+        mIViewStatus = STATE_VIEW_HIDE;
         L.d(this.getClass().getSimpleName(), "onViewHide: ");
     }
 
+    @CallSuper
     @Override
     public void onViewUnload() {
+        mIViewStatus = STATE_VIEW_UNLOAD;
         L.d(this.getClass().getSimpleName(), "onViewUnload: ");
     }
 
@@ -268,6 +298,12 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public View getView() {
         return mRootView;
+    }
+
+    @Override
+    public View getDialogDimView() {
+        //请在对话框中实现
+        return null;
     }
 
     /**
@@ -432,6 +468,11 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public int getDimColor() {
         return Color.parseColor("#60000000");
+    }
+
+    @Override
+    public View getAnimView() {
+        return mRootView;
     }
 
     public IView bindOtherILayout(ILayout otherILayout) {

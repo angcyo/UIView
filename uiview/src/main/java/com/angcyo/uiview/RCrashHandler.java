@@ -1,6 +1,7 @@
 package com.angcyo.uiview;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -11,15 +12,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Process;
+import android.os.StatFs;
+import android.text.format.Formatter;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +44,8 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
     private static final String DEFAULT_LOG_DIR = "crash";
     // log文件的后缀名
     private static final String FILE_NAME_SUFFIX = ".log";
+    private static DecimalFormat fileIntegerFormat = new DecimalFormat("#0");
+    private static DecimalFormat fileDecimalFormat = new DecimalFormat("#0.#");
     private final Thread.UncaughtExceptionHandler defaultUncaughtExceptionHandler;
     private Context context;
 
@@ -109,6 +118,7 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         activity.finish();
         killCurrentProcess();
     }
+    /// INTERNAL METHODS NOT TO BE USED BY THIRD PARTIES
 
     /**
      * INTERNAL method that checks if the stack trace that just crashed is conflictive. This is true in the following scenarios:
@@ -152,7 +162,6 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         }
         return buildDate;
     }
-    /// INTERNAL METHODS NOT TO BE USED BY THIRD PARTIES
 
     /**
      * INTERNAL method that returns the version name of the current app, or null if unable to determine it.
@@ -302,6 +311,137 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         return Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK;
     }
 
+    //-----------------------------------------------start------------------------------------------//
+
+
+    /**
+     * 获取手机内部剩余存储空间
+     *
+     * @return
+     */
+    public static long getAvailableInternalMemorySize() {
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = stat.getBlockSize();
+        long availableBlocks = stat.getAvailableBlocks();
+        return availableBlocks * blockSize;
+    }
+
+    /**
+     * 获取手机内部总的存储空间
+     *
+     * @return
+     */
+    public static long getTotalInternalMemorySize() {
+        File path = Environment.getDataDirectory();
+        StatFs stat = new StatFs(path.getPath());
+        long blockSize = stat.getBlockSize();
+        long totalBlocks = stat.getBlockCount();
+        return totalBlocks * blockSize;
+    }
+
+
+    /**
+     * SDCARD是否存
+     */
+    public static boolean externalMemoryAvailable() {
+        return android.os.Environment.getExternalStorageState().equals(
+                android.os.Environment.MEDIA_MOUNTED);
+    }
+
+    /**
+     * 获取SDCARD剩余存储空间
+     *
+     * @return
+     */
+    public static long getAvailableExternalMemorySize() {
+        if (externalMemoryAvailable()) {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            long availableBlocks = stat.getAvailableBlocks();
+            return availableBlocks * blockSize;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * 获取SDCARD总的存储空间
+     *
+     * @return
+     */
+    public static long getTotalExternalMemorySize() {
+        if (externalMemoryAvailable()) {
+            File path = Environment.getExternalStorageDirectory();
+            StatFs stat = new StatFs(path.getPath());
+            long blockSize = stat.getBlockSize();
+            long totalBlocks = stat.getBlockCount();
+            return totalBlocks * blockSize;
+        } else {
+            return -1;
+        }
+    }
+
+    /**
+     * 获取系统总内存
+     *
+     * @param context 可传入应用程序上下文。
+     * @return 总内存大单位为B。
+     */
+    public static long getTotalMemorySize(Context context) {
+        String dir = "/proc/meminfo";
+        try {
+            FileReader fr = new FileReader(dir);
+            BufferedReader br = new BufferedReader(fr, 2048);
+            String memoryLine = br.readLine();
+            String subMemoryLine = memoryLine.substring(memoryLine.indexOf("MemTotal:"));
+            br.close();
+            return Integer.parseInt(subMemoryLine.replaceAll("\\D+", "")) * 1024l;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * 获取当前可用内存，返回数据以字节为单位。
+     *
+     * @param context 可传入应用程序上下文。
+     * @return 当前可用内存单位为B。
+     */
+    public static long getAvailableMemory(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        am.getMemoryInfo(memoryInfo);
+        return memoryInfo.availMem;
+    }
+
+    /**
+     * 单位换算
+     *
+     * @param size      单位为B
+     * @param isInteger 是否返回取整的单位
+     * @return 转换后的单位
+     */
+    public static String formatFileSize(long size, boolean isInteger) {
+        DecimalFormat df = isInteger ? fileIntegerFormat : fileDecimalFormat;
+        String fileSizeString = "0M";
+        if (size < 1024 && size > 0) {
+            fileSizeString = df.format((double) size) + "B";
+        } else if (size < 1024 * 1024) {
+            fileSizeString = df.format((double) size / 1024) + "K";
+        } else if (size < 1024 * 1024 * 1024) {
+            fileSizeString = df.format((double) size / (1024 * 1024)) + "M";
+        } else {
+            fileSizeString = df.format((double) size / (1024 * 1024 * 1024)) + "G";
+        }
+        return fileSizeString;
+    }
+
+    //-----------------------------------------------end------------------------------------------//
+
+
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
 //        boolean isShow = false;
@@ -362,10 +502,11 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
                 return;
             }
         }
-        File file = new File(saveFolder, getDataTime("yyyy-MM-dd-HH-mm-ss") + FILE_NAME_SUFFIX);
+        String dataTime = getDataTime("yyyy-MM-dd-HH-mm-ss");
+        File file = new File(saveFolder, dataTime + FILE_NAME_SUFFIX);
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
         // 导出发生异常的时间
-        pw.println(getDataTime("yyyy-MM-dd-HH-mm-ss"));
+        pw.println(dataTime);
         // 导出手机信息
         dumpPhoneInfo(pw);
 
@@ -379,23 +520,23 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         // 应用的版本名称和版本号
         PackageManager pm = context.getPackageManager();
         PackageInfo pi = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES);
-        pw.print("App Version: ");
+        pw.print("App VersionName: ");
         pw.print(pi.versionName);
-        pw.print('_');
+        pw.print(" VersionCode: ");
         pw.println(pi.versionCode);
-        pw.println();
+//        pw.println();
 
         // android版本号
         pw.print("OS Version: ");
         pw.print(Build.VERSION.RELEASE);
-        pw.print("_");
+        pw.print(" ");
         pw.println(Build.VERSION.SDK_INT);
         pw.println();
 
         // 手机制造商
         pw.print("Vendor: ");
         pw.println(Build.MANUFACTURER);
-        pw.println();
+//        pw.println();
 
         // 手机型号
         pw.print("Model: ");
@@ -405,6 +546,31 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         // cpu架构
         pw.print("CPU ABI: ");
         pw.println(Build.CPU_ABI);
+//        pw.println();
+
+        pw.print("CPU ABI 2: ");
+        pw.println(Build.CPU_ABI2);
         pw.println();
+
+        pw.print("手机内存大小:");
+        pw.println(Formatter.formatFileSize(context, getTotalMemorySize(context)));
+//        pw.println();
+
+        pw.print("JVM可用内存大小:");
+        pw.println(Formatter.formatFileSize(context, Runtime.getRuntime().maxMemory()));
+//        pw.println();
+
+        pw.print("APP可用内存大小:");
+        pw.println(Formatter.formatFileSize(context, getAvailableMemory(context)));
+//        pw.println();
+
+        pw.print("SD空间大小:");
+        pw.println(Formatter.formatFileSize(context, getTotalExternalMemorySize()));
+//        pw.println();
+
+        pw.print("SD可用空间大小:");
+        pw.println(Formatter.formatFileSize(context, getAvailableExternalMemorySize()));
+        pw.println();
+
     }
 }

@@ -80,6 +80,10 @@ public class UITitleBarContainer extends FrameLayout {
 
     //----------------------------公共方法-----------------------------
 
+    private static <T> T find(View view, int id) {
+        return (T) view.findViewById(id);
+    }
+
     public void onAttachToLayout(ILayout container) {
         mILayout = container;
     }
@@ -100,12 +104,12 @@ public class UITitleBarContainer extends FrameLayout {
         return this;
     }
 
+    //----------------------------保护方法-----------------------------
+
     public UITitleBarContainer hideLoadView() {
         mLoadView.setVisibility(GONE);
         return this;
     }
-
-    //----------------------------保护方法-----------------------------
 
     @Override
     protected void onAttachedToWindow() {
@@ -119,13 +123,13 @@ public class UITitleBarContainer extends FrameLayout {
         });
     }
 
+    //----------------------------私有方法-----------------------------
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         isAttachedToWindow = false;
     }
-
-    //----------------------------私有方法-----------------------------
 
     private void initTitleBar(Context context) {
 //        if (context instanceof Activity) {
@@ -138,12 +142,12 @@ public class UITitleBarContainer extends FrameLayout {
 
         final View root = LayoutInflater.from(context).inflate(R.layout.base_title_layout, this);
         mBaseViewHolder = new RBaseViewHolder(root);
-        mTitleBarLayout = (ViewGroup) root.findViewById(R.id.base_title_bar_layout);
-        mLeftControlLayout = (LinearLayout) root.findViewById(R.id.base_left_control_layout);
-        mCenterControlLayout = (ViewGroup) root.findViewById(R.id.base_center_control_layout);
-        mRightControlLayout = (LinearLayout) root.findViewById(R.id.base_right_control_layout);
-        mBackImageView = (ImageView) root.findViewById(R.id.base_back_image_view);
-        mTitleView = (TextView) root.findViewById(R.id.base_title_view);
+        mTitleBarLayout = find(root, R.id.base_title_bar_layout);
+        mLeftControlLayout = find(root, R.id.base_left_control_layout);
+        mCenterControlLayout = find(root, R.id.base_center_control_layout);
+        mRightControlLayout = find(root, R.id.base_right_control_layout);
+        mBackImageView = find(root, R.id.base_back_image_view);
+        mTitleView = find(root, R.id.base_title_view);
         mLoadView = mBaseViewHolder.v(R.id.base_load_view);
 
         if (context instanceof Activity) {
@@ -302,8 +306,10 @@ public class UITitleBarContainer extends FrameLayout {
                 //创建图片按钮
                 view = createImageItem(item.res, item.listener);
             }
+            view.setMinimumWidth(itemSize);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -1);
             view.setTag(i);//方便之后查找这个view
-            layout.addView(view, new LinearLayout.LayoutParams(itemSize, -1));
+            layout.addView(view, layoutParams);
             views.add(view);
         }
 

@@ -101,4 +101,14 @@ dependencies {
 
     //手势图片 https://github.com/chrisbanes/PhotoView
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
+
+    //汉字转拼音 https://github.com/promeG/TinyPinyin
+    compile 'com.github.promeg:tinypinyin:2.0.0' // ~80KB
+
+    //https://github.com/wasabeef
+    compile 'jp.wasabeef:blurry:2.1.0'
+    compile 'jp.wasabeef:fresco-processors:2.0.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    // If you want to use the GPU Filters
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
 }

@@ -14,5 +14,8 @@
         <attr name="item_left_res" format="reference"/>
         <attr name="item_right_res" format="reference"/>
         <attr name="item_dark_res" format="reference"/>
+        <attr name="item_dark_tag" format="string"/>
+        <attr name="item_dark_id" format="reference"/>
+        <attr name="item_text_tag" format="string"/>
     </declare-styleable>
 </resources>

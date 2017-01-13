@@ -3,6 +3,7 @@ package com.angcyo.uiview.widget;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -28,7 +29,7 @@ public class RTextView extends TextView {
 
     @Override
     public void setText(CharSequence text, BufferType type) {
-        if (getTag() != null) {
+        if (getTag() != null && !TextUtils.isEmpty(text)) {
             try {
                 final String format = String.format(Locale.CHINA, getTag().toString(), text);
                 super.setText(format, type);
@@ -38,8 +39,6 @@ public class RTextView extends TextView {
         } else {
             super.setText(text, type);
         }
-
-
     }
 
     public void setLeftIco(@DrawableRes int leftIco) {

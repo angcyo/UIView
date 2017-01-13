@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.IdRes;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
+import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -40,6 +41,9 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
     private int mModel = MODEL_NORMAL;
 
     private HashSet<OnModelChangeListener> mChangeListeners = new HashSet<>();
+    private boolean mOldLoadMore;
+
+    private ArrayMap<Integer, RBaseViewHolder> mBaseViewHolderMap = new ArrayMap<>();
 
     public RModelAdapter(Context context) {
         super(context);
@@ -55,7 +59,8 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
     }
 
     @Override
-    protected void onBindView(RBaseViewHolder holder, int position, T bean) {
+    final protected void onBindView(RBaseViewHolder holder, int position, T bean) {
+        mBaseViewHolderMap.put(position, holder);
         onBindCommonView(holder, position, bean);
         if (mModel == MODEL_NORMAL) {
             onBindNormalView(holder, position, bean);
@@ -65,23 +70,36 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
     }
 
     /**
-     * 公共布局部分
+     * 选择模式下, 和正常模式下都会执行
      */
     protected abstract void onBindCommonView(RBaseViewHolder holder, int position, T bean);
 
+    /**
+     * 只在选择模式下,会执行
+     */
     protected abstract void onBindModelView(int model, boolean isSelector, RBaseViewHolder holder, int position, T bean);
 
+    /**
+     * 只在正常模式下,会执行
+     */
     protected abstract void onBindNormalView(RBaseViewHolder holder, int position, T bean);
 
     /**
      * 在单选模式下, 选择其他项时, 将要先取消之前的选中项. 此时会执行此方法, 取消之前按钮的状态
      */
-    protected void onUnselectorPosition(List<Integer> list) {
+    protected void onUnSelectorPosition(RBaseViewHolder viewHolder, int position) {
 
     }
 
     /**
-     * 在执行 {@link #onUnselectorPosition(List)}后, 调用此方法, 可以便捷的取消 CompoundButton 的状态
+     * 在单选模式下, 如果不需要自动处理CompoundButton状态的改变, 此时会执行此方法, 自己处理状态
+     */
+    protected void onSelectorPosition(RBaseViewHolder viewHolder, int position) {
+
+    }
+
+    /**
+     * 在执行 {@link #onUnSelectorPosition(RBaseViewHolder, int)}后, 调用此方法, 可以便捷的取消 CompoundButton 的状态
      */
     public void unselector(@NonNull List<Integer> list, @NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
         for (Integer pos : list) {
@@ -95,8 +113,18 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
         }
     }
 
+    public void unselector(int position, @NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
+        RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+        if (vh != null) {
+            final View view = vh.tag(viewTag);
+            if (view != null && view instanceof CompoundButton) {
+                checkedButton((CompoundButton) view, false);
+            }
+        }
+    }
+
     /**
-     * 在执行 {@link #onUnselectorPosition(List)}后, 调用此方法, 可以便捷的取消 CompoundButton 的状态
+     * 在执行 {@link #onUnSelectorPosition(RBaseViewHolder, int)}后, 调用此方法, 可以便捷的取消 CompoundButton 的状态
      */
     public void unselector(@NonNull List<Integer> list, @NonNull RRecyclerView recyclerView, @IdRes int viewId) {
         for (Integer pos : list) {
@@ -106,6 +134,16 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
                 if (view != null && view instanceof CompoundButton) {
                     checkedButton((CompoundButton) view, false);
                 }
+            }
+        }
+    }
+
+    public void unselector(int position, @NonNull RRecyclerView recyclerView, @IdRes int viewId) {
+        RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+        if (vh != null) {
+            final View view = vh.v(viewId);
+            if (view != null && view instanceof CompoundButton) {
+                checkedButton((CompoundButton) view, false);
             }
         }
     }
@@ -123,9 +161,7 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
                 }
             }
         }
-        mSelector.clear();
-
-        notifySelectorChange();
+        unSelectorAll(true);
     }
 
     /**
@@ -141,7 +177,7 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
     /**
      * 取消所有选择
      */
-    public void unselectorAll(@NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
+    public void unSelectorAll(@NonNull RRecyclerView recyclerView, @NonNull String viewTag) {
         for (Integer pos : getAllSelectorList()) {
             RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(pos);
             if (vh != null) {
@@ -151,13 +187,18 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
                 }
             }
         }
-        mSelector.clear();
+        unSelectorAll(true);
+    }
 
-        notifySelectorChange();
+    public void unSelectorAll(boolean refresh) {
+        mSelector.clear();
+        if (refresh) {
+            notifySelectorChange();
+        }
     }
 
     /**
-     * 互斥的操作
+     * 互斥的操作,调用此方法进行选择
      */
     public void setSelectorPosition(int position) {
         setSelectorPosition(position, null);
@@ -235,6 +276,9 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
         return integers;
     }
 
+    /**
+     * 选择item, 并且自动设置CompoundButton的状态
+     */
     public void setSelectorPosition(int position, CompoundButton compoundButton) {
         final boolean selector = isPositionSelector(position);
 
@@ -246,15 +290,23 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
             }
         } else {
             if (mModel == MODEL_SINGLE) {
-                onUnselectorPosition(getAllSelectorList());
+                List<Integer> allSelectorList = getAllSelectorList();
+                if (!allSelectorList.isEmpty()) {
+                    Integer pos = allSelectorList.get(0);
+                    onUnSelectorPosition(getViewHolderFromPosition(pos), pos);
+                }
                 mSelector.clear();
             }
             mSelector.add(position);
         }
 
-        notifySelectorChange();
+        if (compoundButton == null) {
+            onSelectorPosition(getViewHolderFromPosition(position), position);
+        } else {
+            checkedButton(compoundButton, !selector);
+        }
 
-        checkedButton(compoundButton, !selector);
+        notifySelectorChange();
     }
 
     private void checkedButton(CompoundButton compoundButton, boolean checked) {
@@ -293,11 +345,18 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
             }
 
             if (mModel != MODEL_NORMAL) {
-                setEnableLoadMore(false);
+                mOldLoadMore = isEnableLoadMore();
+                //setEnableLoadMore(false);//不关闭
                 mSelector.clear();
+            } else {
+                setEnableLoadMore(mOldLoadMore);
             }
             notifyDataSetChanged();
         }
+    }
+
+    public RBaseViewHolder getViewHolderFromPosition(int position) {
+        return mBaseViewHolderMap.get(position);
     }
 
     @IntDef({MODEL_NORMAL, MODEL_SINGLE, MODEL_MULTI})

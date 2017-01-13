@@ -106,7 +106,7 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
     }
 
     @Override
-    protected void onBindView(RBaseViewHolder holder, int position, T bean) {
+    final protected void onBindView(RBaseViewHolder holder, int position, T bean) {
         if (isInHeader(position)) {
             onBindHeaderView(holder, position, mAllHeaderDatas.size() > position ? mAllHeaderDatas.get(position) : null);
         } else if (isInData(position)) {
@@ -121,21 +121,21 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
     /**
      * 尾部布局数据绑定
      */
-    protected void onBindFooterView(RBaseViewHolder holder, int posInFooter, F fBean) {
+    protected void onBindFooterView(RBaseViewHolder holder, int posInFooter, F footerBean) {
 
     }
 
     /**
      * 头部布局数据绑定
      */
-    protected void onBindHeaderView(RBaseViewHolder holder, int posInHeader, H hBean) {
+    protected void onBindHeaderView(RBaseViewHolder holder, int posInHeader, H headerBean) {
 
     }
 
     /**
      * 中间布局数据绑定
      */
-    protected void onBindDataView(RBaseViewHolder holder, int posInData, T tBean) {
+    protected void onBindDataView(RBaseViewHolder holder, int posInData, T dataBean) {
 
     }
 

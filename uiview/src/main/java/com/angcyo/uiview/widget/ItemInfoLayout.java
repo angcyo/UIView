@@ -11,8 +11,8 @@ import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.angcyo.uiview.R;
 
@@ -35,19 +35,20 @@ public class ItemInfoLayout extends RelativeLayout {
 
     public static int DEFAULT_TEXT_COLOR = Color.parseColor("#333333");
     public static int DEFAULT_DARK_TEXT_COLOR = Color.parseColor("#999999");
-    TextView mTextView, mDarkTextView;
+    RTextView mTextView, mDarkTextView;
     /**
      * 主要的文本信息属性
      */
-    private String itemText;
+    private String itemText, itemTag;
     private int itemTextSize;//px
     private int itemTextColor;
     /**
      * 次要的文本信息属性
      */
-    private String itemDarkText;
+    private String itemDarkText, itemDarkTag;
     private int itemDarkTextSize;//px
     private int itemDarkTextColor;
+    private int itemDarkId = View.NO_ID;
     /**
      * 文本与图标的距离,px
      */
@@ -83,6 +84,10 @@ public class ItemInfoLayout extends RelativeLayout {
         leftDrawableRes = array.getResourceId(R.styleable.ItemInfoLayout_item_left_res, leftDrawableRes);
         rightDrawableRes = array.getResourceId(R.styleable.ItemInfoLayout_item_right_res, rightDrawableRes);
         darkDrawableRes = array.getResourceId(R.styleable.ItemInfoLayout_item_dark_res, darkDrawableRes);
+        itemDarkId = array.getResourceId(R.styleable.ItemInfoLayout_item_dark_id, View.NO_ID);
+
+        itemDarkTag = array.getString(R.styleable.ItemInfoLayout_item_dark_tag);
+        itemTag = array.getString(R.styleable.ItemInfoLayout_item_text_tag);
 
         array.recycle();
 
@@ -102,9 +107,10 @@ public class ItemInfoLayout extends RelativeLayout {
     }
 
     private void initLayout() {
-        mTextView = new TextView(getContext());
-        mDarkTextView = new TextView(getContext());
+        mTextView = new RTextView(getContext());
+        mDarkTextView = new RTextView(getContext());
 
+        mTextView.setTag(itemTag);
         mTextView.setText(itemText);
         mTextView.setTextColor(itemTextColor);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize);
@@ -112,6 +118,8 @@ public class ItemInfoLayout extends RelativeLayout {
         mTextView.setGravity(Gravity.CENTER_VERTICAL);
         setLeftDrawableRes(leftDrawableRes);
 
+        mDarkTextView.setId(itemDarkId);
+        mDarkTextView.setTag(itemDarkTag);
         mDarkTextView.setText(itemDarkText);
         mDarkTextView.setTextColor(itemDarkTextColor);
         mDarkTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, itemDarkTextSize);
@@ -177,6 +185,16 @@ public class ItemInfoLayout extends RelativeLayout {
     public void setItemDarkText(String itemDarkText) {
         this.itemDarkText = itemDarkText;
         mDarkTextView.setText(itemDarkText);
+    }
+
+    public void setItemDarkTag(String darkTag) {
+        itemDarkTag = darkTag;
+        mDarkTextView.setTag(darkTag);
+    }
+
+    public void setItemTextTag(String tag) {
+        itemTag = tag;
+        mTextView.setTag(tag);
     }
 
     public void setItemText(String itemText) {

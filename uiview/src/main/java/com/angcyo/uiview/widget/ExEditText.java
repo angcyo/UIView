@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.inputmethod.InputMethodManager;
 
 import com.angcyo.uiview.R;
 
@@ -30,6 +31,11 @@ public class ExEditText extends AppCompatEditText {
     boolean handleTouch = false;
 
     long downTime = 0;//按下的时间
+
+    /**
+     * 是否当键盘弹出的时候, touch down事件隐藏键盘
+     */
+    boolean autoHideSoftInput = false;
 
     public ExEditText(Context context) {
         super(context);
@@ -118,6 +124,15 @@ public class ExEditText extends AppCompatEditText {
                     }
                 }
                 isDownIn = false;
+
+                if (autoHideSoftInput && isSoftKeyboardShow()) {
+                    post(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideSoftInput();
+                        }
+                    });
+                }
             } else if (action == MotionEvent.ACTION_CANCEL) {
                 updateState(false);
                 isDownIn = false;
@@ -220,6 +235,42 @@ public class ExEditText extends AppCompatEditText {
     public boolean isPassword() {
         final String string = string().trim();
         return !TextUtils.isEmpty(string) && string.matches("^[a-zA-Z0-9_-]{6,12}$");
+    }
+
+    /**
+     * 判断键盘是否显示
+     */
+    public boolean isSoftKeyboardShow() {
+        int screenHeight = getScreenHeightPixels();
+        int keyboardHeight = getSoftKeyboardHeight();
+        return screenHeight != keyboardHeight && keyboardHeight > 100;
+    }
+
+    public void hideSoftInput() {
+        InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.hideSoftInputFromWindow(getWindowToken(), 0);
+    }
+
+    public void setAutoHideSoftInput(boolean autoHideSoftInput) {
+        this.autoHideSoftInput = autoHideSoftInput;
+    }
+
+    /**
+     * 获取键盘的高度
+     */
+    public int getSoftKeyboardHeight() {
+        int screenHeight = getScreenHeightPixels();
+        Rect rect = new Rect();
+        getWindowVisibleDisplayFrame(rect);
+        int visibleBottom = rect.bottom;
+        return screenHeight - visibleBottom;
+    }
+
+    /**
+     * 屏幕高度(不包含虚拟导航键盘的高度)
+     */
+    private int getScreenHeightPixels() {
+        return getResources().getDisplayMetrics().heightPixels;
     }
 
     /**

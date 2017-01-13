@@ -17,6 +17,7 @@ import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.container.UILayoutImpl;
@@ -166,7 +167,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     /**
      * 初始化内容, 当你的 默认布局状态不等于 {@link LayoutState#CONTENT} 时,请使用以下方法初始化内容
      */
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
 
     }
 
@@ -192,7 +193,8 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected TitleBarPattern getTitleBar() {
-        return TitleBarPattern.build(getTitle()).setTitleBarBGColor(mActivity.getResources().getColor(R.color.theme_color_primary));
+        return TitleBarPattern.build(getTitle())
+                .setTitleBarBGColor(mActivity.getResources().getColor(R.color.theme_color_primary));
     }
 
     protected String getTitle() {
@@ -207,10 +209,22 @@ public abstract class UIBaseView extends UIIViewImpl {
         }
         if (toState == LayoutState.LOAD && mBaseLoadLayout != null) {
 
-        } else if (toState == LayoutState.NONET) {
+        } else if (toState == LayoutState.EMPTY && mBaseEmptyLayout != null) {
+            String tip = getBaseEmptyTip();
+            if (tip != null) {
+                ((TextView) mBaseEmptyLayout.findViewById(R.id.base_empty_tip_view)).setText(tip);
+            }
+        } else if (toState == LayoutState.NONET && mBaseNonetLayout != null) {
             mBaseNonetLayout.findViewById(R.id.base_setting_view).setOnClickListener(mNonetSettingClickListener);
             mBaseNonetLayout.findViewById(R.id.base_refresh_view).setOnClickListener(mNonetRefreshClickListener);
         }
+    }
+
+    /**
+     * 空页面的时候, 提示的字符串
+     */
+    protected String getBaseEmptyTip() {
+        return null;
     }
 
     /**
@@ -259,7 +273,7 @@ public abstract class UIBaseView extends UIIViewImpl {
         if (mBaseContentLayout.getChildCount() == 0) {
             inflateContentLayout(mBaseContentLayout, LayoutInflater.from(mActivity));
             ButterKnife.bind(this, mBaseContentLayout);
-            initContentLayout();
+            initOnShowContentLayout();
         }
         changeState(mLayoutState, LayoutState.CONTENT);
     }
@@ -331,7 +345,7 @@ public abstract class UIBaseView extends UIIViewImpl {
             return;
         }
         if (visibility == VISIBLE) {
-            ViewCompat.animate(view).alpha(1).start();
+            ViewCompat.animate(view).alpha(1).scaleX(1).scaleY(1).start();
         }
         view.setVisibility(visibility);
     }
@@ -339,7 +353,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     private void safeSetVisibility(final View view, final int visibility) {
         if (view != null) {
             if (view.getVisibility() == View.VISIBLE) {
-                ViewCompat.animate(view).alpha(0).withEndAction(new Runnable() {
+                ViewCompat.animate(view).scaleX(1.2f).scaleY(1.2f).alpha(0).withEndAction(new Runnable() {
                     @Override
                     public void run() {
                         view.setVisibility(visibility);

@@ -30,42 +30,44 @@
     </LinearLayout>
 
     <!--中间标题区-->
-    <RelativeLayout
+    <com.angcyo.uiview.widget.RTitleCenterLayout
         android:id="@+id/base_center_control_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:background="@android:color/holo_red_dark">
 
-        <LinearLayout
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <com.angcyo.uiview.widget.LoadingImageView
+            android:id="@+id/base_load_view"
+            android:layout_width="@dimen/base_load_view_size"
+            android:layout_height="@dimen/base_load_view_size"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/base_title_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginLeft="@dimen/base_ldpi"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:tag="title"
+            android:textColor="@color/default_base_white"
+            android:textSize="@dimen/base_title_size"
+            tools:text="标题"/>
 
-            <com.angcyo.uiview.widget.LoadingImageView
-                android:id="@+id/base_load_view"
-                android:layout_width="@dimen/base_load_view_size"
-                android:layout_height="@dimen/base_load_view_size"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/base_title_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/base_ldpi"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/default_base_white"
-                android:textSize="@dimen/base_title_size"
-                tools:text="标题"/>
-
-        </LinearLayout>
-    </RelativeLayout>
+        <!--</LinearLayout>-->
+    </com.angcyo.uiview.widget.RTitleCenterLayout>
 
 
     <!--右边控制区-->

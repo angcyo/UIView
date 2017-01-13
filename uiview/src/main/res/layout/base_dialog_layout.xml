@@ -41,14 +41,14 @@
             style="@style/BaseAvgHTextStyle"
             android:background="@drawable/base_left_button_round_selector"
             android:clickable="true"
-            android:text="取消"/>
+            tools:text="@string/base_cancel"/>
 
         <TextView
             android:id="@+id/base_dialog_ok_view"
             style="@style/BaseAvgHTextStyle"
             android:background="@drawable/base_right_button_round_selector"
             android:clickable="true"
-            android:text="确定"
+            tools:text="@string/base_ok"
             android:textColor="@color/theme_color_accent"/>
     </LinearLayout>
 

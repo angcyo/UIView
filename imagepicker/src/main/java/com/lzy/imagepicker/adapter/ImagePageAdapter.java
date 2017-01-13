@@ -1,15 +1,24 @@
 package com.lzy.imagepicker.adapter;
 
 import android.app.Activity;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.R;
 import com.lzy.imagepicker.Utils;
 import com.lzy.imagepicker.bean.ImageItem;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import uk.co.senab.photoview.PhotoView;
@@ -43,6 +52,41 @@ public class ImagePageAdapter extends PagerAdapter {
         imagePicker = ImagePicker.getInstance();
     }
 
+    public static void displayImage(Activity activity, String path, String thumbPath, String url, ImageView imageView, int width, int height) {
+        if (TextUtils.isEmpty(path)) {
+            final DrawableRequestBuilder<String> drawableRequestBuilder = Glide.with(activity)                             //配置上下文
+                    .load(url)                                       //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
+                    .error(R.mipmap.default_image)                    //设置错误图片
+                    //.fitCenter()
+                    //.centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+            if (TextUtils.isEmpty(thumbPath)) {
+                drawableRequestBuilder.placeholder(R.mipmap.default_image)     //设置占位图片
+                        .into(imageView);
+            } else {
+                drawableRequestBuilder.placeholder(new BitmapDrawable(activity.getResources(), thumbPath))
+                        .into(imageView);
+            }
+        } else {
+
+            final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(activity)                             //配置上下文
+                    .load(Uri.fromFile(new File(path)))      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
+                    .error(R.mipmap.default_image)           //设置错误图片
+                    //.fitCenter()
+                    //.centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+            if (TextUtils.isEmpty(thumbPath)) {
+                requestBuilder.placeholder(R.mipmap.default_image)     //设置占位图片
+                        .into(imageView);
+            } else {
+                requestBuilder.placeholder(new BitmapDrawable(activity.getResources(), thumbPath))
+                        .into(imageView);
+            }
+        }
+    }
+
     public void setData(ArrayList<ImageItem> images) {
         this.images = images;
     }
@@ -55,7 +99,8 @@ public class ImagePageAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         PhotoView photoView = new PhotoView(mActivity);
         ImageItem imageItem = images.get(position);
-        imagePicker.getImageLoader().displayImage(mActivity, imageItem.path, imageItem.thumbPath, imageItem.url, photoView, screenWidth, screenHeight);
+        /*imagePicker.getImageLoader().*/displayImage(mActivity, imageItem.path, imageItem.thumbPath,
+                imageItem.url, photoView, screenWidth, screenHeight);
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {

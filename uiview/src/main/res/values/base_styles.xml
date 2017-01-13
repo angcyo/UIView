@@ -301,4 +301,11 @@
         <item name="android:padding">@dimen/base_hdpi</item>
         <item name="android:textColor">@color/base_main_color_border_selector_color</item>
     </style>
+
+    <style name="BaseShadowStyle">
+        <item name="android:shadowColor">@color/default_base_bg_press</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">1.5</item>
+    </style>
 </resources>

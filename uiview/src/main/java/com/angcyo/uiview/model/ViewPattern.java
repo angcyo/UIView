@@ -14,6 +14,12 @@ public class ViewPattern {
     public boolean isAnimToEnd = false;//正在播放退出动画
     public boolean isAnimToStart = false;//正在播放进场动画
 
+    public boolean interrupt = false;//在还没有启动完成的时候, 马上调用结束. 需要中断启动操作
+
+    public ViewPattern(IView IView) {
+        mIView = IView;
+    }
+
     public ViewPattern(IView IView, View view) {
         mIView = IView;
         mView = view;

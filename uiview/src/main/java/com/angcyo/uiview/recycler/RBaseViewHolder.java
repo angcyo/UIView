@@ -24,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * 通用ViewHolder
@@ -68,10 +69,33 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    /**
+     * 从object对象中, 获取字段name的get方法
+     */
+    public static Method getMethod(Object object, String name) {
+        Method result = null;
+        Method[] methods = object.getClass().getDeclaredMethods();
+        for (Method method : methods) {
+            method.setAccessible(true);
+            String methodName = method.getName();
+//            L.e("方法名:" + methodName);
+            if (methodName.equalsIgnoreCase("realmGet$" + name)) {
+                //优先从realm中获取方法名
+//                L.e("方法名匹配到:" + methodName);
+                result = method;
+                break;
+            } else if (methodName.equalsIgnoreCase("get" + name)) {
+//                L.e("方法名匹配到:" + methodName);
+                result = method;
+                break;
+            }
+        }
+        return result;
+    }
+
     public int getViewType() {
         return viewType == -1 ? super.getItemViewType() : viewType;
     }
-
 
     public <T extends View> T v(@IdRes int resId) {
         View view = sparseArray.get(resId);
@@ -187,11 +211,26 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
         fillView(bean, false);
     }
 
-    /**
-     * @param hideForEmpty 如果数据为空时, 是否隐藏View
-     */
     public void fillView(Object bean, boolean hideForEmpty) {
-        Field[] fields = bean.getClass().getDeclaredFields();
+        fillView(bean, hideForEmpty, false);
+    }
+
+    public void fillView(Object bean, boolean hideForEmpty, boolean withGetMethod) {
+        fillView(null, bean, hideForEmpty, withGetMethod);
+    }
+
+    /**
+     * @param clz           为了效率, 并不会遍历父类的字段, 所以可以指定类
+     * @param hideForEmpty  如果数据为空时, 是否隐藏View
+     * @param withGetMethod 是否通过get方法获取对象字段的值
+     */
+    public void fillView(Class<?> clz, Object bean, boolean hideForEmpty, boolean withGetMethod) {
+        Field[] fields;
+        if (clz == null) {
+            fields = bean.getClass().getDeclaredFields();
+        } else {
+            fields = clz.getDeclaredFields();
+        }
         for (Field f : fields) {
             f.setAccessible(true);
             String name = f.getName();
@@ -202,7 +241,12 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
                 }
 
                 if (view != null) {
-                    final String value = f.get(bean).toString();
+                    final String value;
+                    if (withGetMethod) {
+                        value = String.valueOf(getMethod(bean, name).invoke(bean));
+                    } else {
+                        value = f.get(bean).toString();
+                    }
                     if (view instanceof TextView) {
                         if (TextUtils.isEmpty(value) && hideForEmpty) {
                             view.setVisibility(View.GONE);
@@ -211,17 +255,20 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
                         }
                         ((TextView) view).setText(value);
                     } else if (view instanceof SimpleDraweeView) {
-                        DraweeViewUtil.setDraweeViewHttp(((SimpleDraweeView) view), value);
+                        DraweeViewUtil.resize(((SimpleDraweeView) view), value,
+                                view.getMeasuredWidth(), view.getMeasuredHeight());
                     } else if (view instanceof ImageView) {
                         Glide.with(RApplication.getApp())
                                 .load(value)
                                 .placeholder(R.drawable.default_image)
                                 .error(R.drawable.default_image)
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .centerCrop()
                                 .into(((ImageView) view));
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

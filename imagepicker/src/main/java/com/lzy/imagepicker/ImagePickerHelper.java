@@ -117,6 +117,7 @@ public class ImagePickerHelper {
                 final DrawableRequestBuilder<String> drawableRequestBuilder = Glide.with(activity)                             //配置上下文
                         .load(url)                                       //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
                         .error(R.mipmap.default_image)                    //设置错误图片
+                        //.fitCenter()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL);
 
@@ -132,6 +133,7 @@ public class ImagePickerHelper {
                 final DrawableRequestBuilder<Uri> requestBuilder = Glide.with(activity)                             //配置上下文
                         .load(Uri.fromFile(new File(path)))      //设置图片路径(fix #8,文件名包含%符号 无法识别和显示)
                         .error(R.mipmap.default_image)           //设置错误图片
+                        //.fitCenter()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL);
 

@@ -26,22 +26,38 @@ public interface IView {
     TitleBarPattern loadTitleBar(Context context);
 
     /**
-     * 显示内容,
+     * 生命周期顺序: 1
+     * 请在此方法中, 进行xml的inflate操作, 如果使用了ButterKnife, 请在loadContentView方法之后初始化view的相应操作.
      */
     View inflateContentView(AppCompatActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
 
-    void loadContentView(View rootView);
-
     /**
+     * 生命周期顺序: 2
      * 当loadContentView完成之后会调用
      */
     void onViewCreate();
 
+    /**
+     * 生命周期顺序: 3
+     * 此方法会在inflateContentView之后, 紧接着执行
+     */
+    void loadContentView(View rootView);
+
+
+    /**
+     * 生命周期顺序: 4
+     */
     void onViewLoad();
 
+    /**
+     * 生命周期顺序: 5
+     */
     @Deprecated
     void onViewShow();
 
+    /**
+     * 生命周期顺序: 5
+     */
     void onViewShow(final Bundle bundle);//2016-12-15
 
     /**
@@ -124,6 +140,16 @@ public interface IView {
     View getView();
 
     /**
+     * 获取对话框变暗动画的View, 默认是对话框root layout
+     */
+    View getDialogDimView();//星期二 2017-1-10
+
+    /**
+     * 获取动画作用的View
+     */
+    View getAnimView();//星期二 2017-1-10
+
+    /**
      * 获取对应的ILayout接口
      */
     ILayout getILayout();
@@ -150,5 +176,8 @@ public interface IView {
      */
     void setIsRightJumpLeft(boolean isRightJumpLeft);//2016-12-16
 
+    /**
+     * 会在start iVew 之后, 最先执行
+     */
     void onAttachedToILayout(ILayout iLayout);
 }

@@ -8,6 +8,7 @@ import android.support.multidex.MultiDex;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.angcyo.library.facebook.DraweeViewUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.hawk.Hawk;
 
@@ -153,6 +154,8 @@ public class RApplication extends Application {
 
             /*Facebook图片加载库, 必须*/
             Fresco.initialize(this);
+
+            DraweeViewUtil.init(this);
 
             onInit();
         }

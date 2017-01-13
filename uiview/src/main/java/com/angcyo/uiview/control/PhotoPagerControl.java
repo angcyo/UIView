@@ -32,7 +32,7 @@ public class PhotoPagerControl {
 
     public PhotoPagerControl(TextIndicator textIndicatorView, ViewPager viewPager,
                              ArrayList<String> photos) {
-        this(textIndicatorView, viewPager, photos, R.drawable.base_load);
+        this(textIndicatorView, viewPager, photos, R.drawable.base_placeholder);
     }
 
     public PhotoPagerControl(TextIndicator textIndicatorView, ViewPager viewPager,

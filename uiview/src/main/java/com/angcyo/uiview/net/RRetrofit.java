@@ -1,10 +1,17 @@
 package com.angcyo.uiview.net;
 
+import android.os.Environment;
+
 import com.angcyo.uiview.RApplication;
+import com.angcyo.uiview.RCrashHandler;
 import com.angcyo.uiview.net.cookie.CookieJarImpl;
 import com.angcyo.uiview.net.cookie.store.PersistentCookieStore;
 import com.github.simonpercic.oklog3.OkLogInterceptor;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 import okhttp3.Call;
@@ -20,7 +27,7 @@ public class RRetrofit {
     public static String DEBUG_URL = "http://192.168.1.35/";
     public static String RELEASE_URL = "http://api.klgwl.com/";
 
-    public static String BASE_URL = DEBUG_URL;
+    public static String BASE_URL = RELEASE_URL;
 
     //    //切换服务器, 1外网 -1内网
 //    public static void switchHttp(int type) {
@@ -40,6 +47,14 @@ public class RRetrofit {
 //    }
     public static boolean DEBUG = true;
 
+    static {
+//        if (DEBUG) {
+//            BASE_URL = DEBUG_URL;
+//        } else {
+//            BASE_URL = RELEASE_URL;
+//        }
+    }
+
     public static <T> T create(final Class<T> cls) {
         Converter.Factory factory = getFactory();
 
@@ -53,6 +68,12 @@ public class RRetrofit {
         }
 
 //        builder.addConverterFactory(ScalarsConverterFactory.create());
+
+        try {
+            saveToSDCard(cls.getSimpleName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Retrofit retrofit = builder.build();
         return retrofit.create(cls);
@@ -120,5 +141,28 @@ public class RRetrofit {
                 call.cancel();
             }
         }
+    }
+
+    /**
+     * 追加数据到文件
+     */
+    public static void saveToSDCard(String data) throws Exception {
+        String saveFolder = Environment.getExternalStorageDirectory().getAbsoluteFile() +
+                File.separator + "DValley" + File.separator + "log";
+        File folder = new File(saveFolder);
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                return;
+            }
+        }
+        String dataTime = RCrashHandler.getDataTime("yyyy-MM-dd-HH-mm-ss");
+        File file = new File(saveFolder, /*dataTime + */"RRetrofit.log");
+        PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+        pw.print(dataTime);
+        pw.print(":");
+        pw.print(data);
+        // 导出手机信息
+        pw.println();
+        pw.close();
     }
 }

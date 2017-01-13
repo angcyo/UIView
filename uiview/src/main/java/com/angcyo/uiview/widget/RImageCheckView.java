@@ -9,7 +9,7 @@ import android.widget.ImageView;
  * 实现了 checked 状态的 ImageView
  * Created by angcyo on 2017-01-01 10:46.
  */
-public class RImageCheckView extends ImageView implements View.OnClickListener {
+public class RImageCheckView extends ImageView implements View.OnClickListener, RCheckGroup.ICheckView {
 
     private static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
@@ -33,10 +33,12 @@ public class RImageCheckView extends ImageView implements View.OnClickListener {
         setScaleType(ScaleType.CENTER_INSIDE);
     }
 
+    @Override
     public boolean isChecked() {
         return mChecked;
     }
 
+    @Override
     public void setChecked(boolean checked) {
         if (mChecked == checked) {
             return;
@@ -98,7 +100,7 @@ public class RImageCheckView extends ImageView implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-//            setChecked(!isChecked());
+        setChecked(!isChecked());
         if (mOnClickListener != null) {
             mOnClickListener.onClick(v);
         }

@@ -15,7 +15,7 @@ import java.util.Iterator;
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：只支持5.0以上系统
+ * 类的描述：只支持5.0以上系统 请使用{@link RSoftInputLayout}
  * 创建人员：Robi
  * 创建时间：2016/12/21 9:01
  * 修改人员：Robi
@@ -23,6 +23,7 @@ import java.util.Iterator;
  * 修改备注：
  * Version: 1.0.0
  */
+@Deprecated
 public class RExSoftInputLayout extends ViewGroup {
 
     View contentLayout;

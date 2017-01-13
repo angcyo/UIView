@@ -26,6 +26,10 @@ import rx.schedulers.Schedulers;
  * Created by robi on 2016-04-21 15:41.
  */
 public class Rx {
+    /**
+     * 网络请求错误, 重试的次数
+     */
+    public static final long RETRY_COUNT = 3;
 
     public static final Observable.Transformer<T, T> ioSchedulersTransformer = new Observable.Transformer<T, T>() {
         @Override
@@ -77,6 +81,17 @@ public class Rx {
         return base("-", func, scheduler);
     }
 
+    public static <T> Observable.Transformer<T, T> transformer() {
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> tObservable) {
+                return tObservable.unsubscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
     public static <T> Observable.Transformer<ResponseBody, T> transformer(final Class<T> type) {
         return new Observable.Transformer<ResponseBody, T>() {
 
@@ -114,10 +129,13 @@ public class Rx {
                                     }
                                 } catch (JSONException | IOException e) {
                                     e.printStackTrace();
+                                    //throw new RException(-1000, "服务器数据异常.", e.getMessage());
                                 }
+                                //throw new NullPointerException("无数据.");
                                 return null;
                             }
                         })
+                        .retry(RETRY_COUNT)
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };
@@ -164,6 +182,7 @@ public class Rx {
                                 return bean;
                             }
                         })
+                        .retry(RETRY_COUNT)
                         .observeOn(AndroidSchedulers.mainThread());
             }
         };

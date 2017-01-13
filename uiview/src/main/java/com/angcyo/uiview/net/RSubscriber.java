@@ -37,6 +37,11 @@ public abstract class RSubscriber<T> extends Subscriber<T> {
     }
 
     @Override
+    public void onNext(T bean) {
+        L.d("订阅onNext->" + this.getClass().getSimpleName());
+    }
+
+    @Override
     final public void onError(Throwable e) {
         L.e("----------------------------------------异常处理----------------------------------------");
         int errorCode;
@@ -50,7 +55,7 @@ public abstract class RSubscriber<T> extends Subscriber<T> {
             errorMsg = "请检查网络连接!";
             errorCode = 40000;
         } else if (e instanceof JsonParseException || e instanceof JsonMappingException) {
-            errorMsg = "恐龙君打了个盹，请稍后再试!"; //"数据解析错误:" + e.getMessage();
+            errorMsg = "恐龙君打了个盹，请稍后再试!"; //   "数据解析错误:" + e.getMessage();
             errorCode = -40001;
         } else if (e instanceof RException) {
             errorMsg = e.getMessage();
@@ -63,6 +68,9 @@ public abstract class RSubscriber<T> extends Subscriber<T> {
         e.printStackTrace();
 
         onError(errorCode, errorMsg);
+        if (L.LOG_DEBUG) {
+            T_.show("[" + errorCode + "]" + errorMsg);
+        }
         L.e("-----------------------------------------End-------------------------------------------");
     }
 
@@ -71,14 +79,13 @@ public abstract class RSubscriber<T> extends Subscriber<T> {
      */
     public void onError(int code, String msg) {
         L.d("订阅异常->" + this.getClass().getSimpleName() + " " + msg);
-        T_.show(msg);
         onEnd();
     }
 
     /**
      * 不管是成功订阅,还是异常,都会执行的方法
      */
-    protected void onEnd() {
+    public void onEnd() {
 
     }
 }

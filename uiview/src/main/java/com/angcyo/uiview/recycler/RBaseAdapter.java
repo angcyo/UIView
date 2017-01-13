@@ -101,9 +101,15 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     @Override
+    final public void onBindViewHolder(RBaseViewHolder holder, int position, List<Object> payloads) {
+        super.onBindViewHolder(holder, position, payloads);
+    }
+
+    @Override
     public void onBindViewHolder(RBaseViewHolder holder, int position) {
         if (mEnableLoadMore && isLast(position)) {
-            onBindLoadMore();
+            /**如果第一个就是加载更多的布局, 需要调用加载更多么?*/
+            onBindLoadMore(position);
         } else {
             onBindView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
         }
@@ -121,15 +127,20 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 //        L.w("onViewDetachedFromWindow");
     }
 
-    private void onBindLoadMore() {
+    private void onBindLoadMore(int position) {
         if (mLoadState == ILoadMore.NORMAL
                 || mLoadState == ILoadMore.LOAD_ERROR) {
-            mLoadState = ILoadMore.LOAD_MORE;
-            onLoadMore();
-            if (mLoadMoreListener != null) {
-                mLoadMoreListener.onAdapterLodeMore(this);
+
+            /**如果第一个就是加载更多的布局, 需要调用加载更多么?*/
+            if (position != 0) {
+                mLoadState = ILoadMore.LOAD_MORE;
+                onLoadMore();
+                if (mLoadMoreListener != null) {
+                    mLoadMoreListener.onAdapterLodeMore(this);
+                }
             }
         }
+
         updateLoadMoreView();
     }
 
@@ -316,6 +327,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
             this.mAllDatas = datas;
         }
         if (oldSize == newSize) {
+            if (isEnableLoadMore()) {
+                oldSize += 1;
+            }
             notifyItemRangeChanged(0, oldSize);
         } else {
             notifyDataSetChanged();

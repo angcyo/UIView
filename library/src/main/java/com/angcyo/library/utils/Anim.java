@@ -1,5 +1,7 @@
 package com.angcyo.library.utils;
 
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 
@@ -30,5 +32,9 @@ public class Anim {
      */
     public static void band(View target) {
         YoYo.with(Techniques.RubberBand).interpolate(new DecelerateInterpolator()).duration(300).playOn(target);
+    }
+
+    public static ViewPropertyAnimatorCompat anim(final View target) {
+        return ViewCompat.animate(target).setDuration(300).setInterpolator(new DecelerateInterpolator());
     }
 }

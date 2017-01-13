@@ -95,6 +95,13 @@ public class RefreshLayout extends ViewGroup {
      */
     private int order = TOP;
 
+    /**
+     * 是否激活延迟加载, 防止刷新太快,就结束了.
+     */
+    private boolean delayLoadEnd = true;
+
+    private long refreshTime = 0;
+
     private ArrayList<OnTopViewMoveListener> mTopViewMoveListeners = new ArrayList<>();
     private ArrayList<OnBottomViewMoveListener> mBottomViewMoveListeners = new ArrayList<>();
     private ArrayList<OnRefreshListener> mRefreshListeners = new ArrayList<>();
@@ -338,7 +345,22 @@ public class RefreshLayout extends ViewGroup {
      * 结束刷新
      */
     public void setRefreshEnd() {
-        if (mCurState == FINISH || mCurState == NORMAL || mCurState == MOVE) {
+        /**如果激活了延迟加载, ...*/
+        if (delayLoadEnd && System.currentTimeMillis() - refreshTime < 600) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    setRefreshEnd();
+                }
+            });
+            return;
+        }
+
+        if (mCurState == FINISH || mCurState == NORMAL /*|| mCurState == MOVE*/) {
+            return;
+        }
+
+        if (mCurState == MOVE && isTouchDown) {
             return;
         }
 
@@ -351,6 +373,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     private void refreshTop() {
+        refreshTime = System.currentTimeMillis();
         if (mTopView != null) {
             //设置正在刷新
             mCurState = TOP;
@@ -363,6 +386,7 @@ public class RefreshLayout extends ViewGroup {
     }
 
     private void refreshBottom() {
+        refreshTime = System.currentTimeMillis();
         if (mBottomView != null) {
             //设置正在上拉
             mCurState = BOTTOM;

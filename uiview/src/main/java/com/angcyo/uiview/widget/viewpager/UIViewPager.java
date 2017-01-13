@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.utils.Reflect;
@@ -15,6 +16,11 @@ import java.util.ArrayList;
  */
 
 public class UIViewPager extends ViewPager implements Runnable {
+
+    /**
+     * 是否要拦截事件
+     */
+    public static boolean interceptTouch = true;
 
     private int lastItem = -1;
 
@@ -67,6 +73,17 @@ public class UIViewPager extends ViewPager implements Runnable {
     public void setCurrentItem(int item, boolean smoothScroll) {
         lastItem = getCurrentItem();
         super.setCurrentItem(item, smoothScroll);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (!interceptTouch) {
+            if (ev.getX() < 200) {
+                return super.onInterceptTouchEvent(ev);
+            }
+            return false;
+        }
+        return super.onInterceptTouchEvent(ev);
     }
 
     @Override

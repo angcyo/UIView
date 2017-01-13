@@ -1,6 +1,7 @@
 package com.angcyo.uiview.dialog;
 
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.base.UIIDialogImpl;
 
 /**
@@ -30,11 +32,18 @@ public class UIDialog extends UIIDialogImpl {
     String dialogTitle, dialogContent;
 
     /**
+     * 取消文本, 确定文本, 为空不显示
+     */
+    String cancelText, okText;
+
+    /**
      * 2个监听事件
      */
     View.OnClickListener cancelListener, okListener;
 
     private UIDialog() {
+        cancelText = RApplication.getApp().getString(R.string.base_cancel);
+        okText = RApplication.getApp().getString(R.string.base_ok);
     }
 
     public static UIDialog build() {
@@ -43,6 +52,7 @@ public class UIDialog extends UIIDialogImpl {
 
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
+        setGravity(Gravity.CENTER_VERTICAL);
         return inflater.inflate(R.layout.base_dialog_layout, dialogRootLayout);
     }
 
@@ -62,6 +72,16 @@ public class UIDialog extends UIIDialogImpl {
         return this;
     }
 
+    public UIDialog setOkText(String text) {
+        this.okText = text;
+        return this;
+    }
+
+    public UIDialog setCancelText(String text) {
+        this.cancelText = text;
+        return this;
+    }
+
     public UIDialog setCancelListener(View.OnClickListener listener) {
         this.cancelListener = listener;
         return this;
@@ -75,12 +95,17 @@ public class UIDialog extends UIIDialogImpl {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
+
         mBaseDialogTitleView = (TextView) rootView.findViewById(R.id.base_dialog_title_view);
         mBaseDialogContentView = (TextView) rootView.findViewById(R.id.base_dialog_content_view);
         mBaseDialogRootLayout = (LinearLayout) rootView.findViewById(R.id.base_dialog_root_layout);
         mBaseDialogOkView = (TextView) rootView.findViewById(R.id.base_dialog_ok_view);
         mBaseDialogCancelView = (TextView) rootView.findViewById(R.id.base_dialog_cancel_view);
         mLineLayout = rootView.findViewById(R.id.line_layout);
+
+        //默认文本设置
+        //mBaseDialogOkView.setText(mActivity.getResources().getString(R.string.base_cancel));
+        //mBaseDialogCancelView.setText(mActivity.getResources().getString(R.string.base_ok));
 
         mBaseDialogOkView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +128,20 @@ public class UIDialog extends UIIDialogImpl {
 
         mBaseDialogTitleView.setVisibility(TextUtils.isEmpty(dialogTitle) ? View.GONE : View.VISIBLE);
         mBaseDialogContentView.setVisibility(TextUtils.isEmpty(dialogContent) ? View.GONE : View.VISIBLE);
+        mBaseDialogCancelView.setVisibility(TextUtils.isEmpty(cancelText) ? View.GONE : View.VISIBLE);
+        mBaseDialogOkView.setVisibility(TextUtils.isEmpty(okText) ? View.GONE : View.VISIBLE);
         mLineLayout.setVisibility((TextUtils.isEmpty(dialogTitle) && TextUtils.isEmpty(dialogContent)) ? View.GONE : View.VISIBLE);
 
         mBaseDialogTitleView.setText(dialogTitle);
         mBaseDialogContentView.setText(dialogContent);
+        mBaseDialogOkView.setText(okText);
+        mBaseDialogCancelView.setText(cancelText);
+
+        if (TextUtils.isEmpty(okText)) {
+            mBaseDialogCancelView.setBackgroundResource(R.drawable.base_bottom_round_bg_selector);
+        } else if (TextUtils.isEmpty(cancelText)) {
+            mBaseDialogOkView.setBackgroundResource(R.drawable.base_bottom_round_bg_selector);
+        }
 
         mDialogRootLayout.setGravity(gravity);
     }

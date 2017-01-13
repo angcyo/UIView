@@ -129,6 +129,7 @@ public class EmptyView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         canvas.save();
         canvas.translate(getPaddingLeft(), getPaddingTop());
         mRectF.set(0, 0, mDefaultGroupHeight, mDefaultGroupHeight);

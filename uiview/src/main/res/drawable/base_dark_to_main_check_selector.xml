@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/theme_color_primary_dark_tran" android:state_pressed="true"/>
+    <item android:drawable="@color/theme_color_primary_dark_tran" android:state_checked="true"/>
+    <item android:drawable="@color/default_base_tran_dark"/>
+</selector>

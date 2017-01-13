@@ -128,7 +128,9 @@ public class T {
     private static View createToastView(Context context) {
         RelativeLayout root = new RelativeLayout(context);
         root.setTag("root");
-        root.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
+        if (isSupport()) {
+            root.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
+        }
         //root.setBackgroundColor(Color.RED);
         WindowManager.LayoutParams rootParams = new WindowManager.LayoutParams(-1, -2);
         rootParams.gravity = Gravity.TOP;
@@ -136,7 +138,9 @@ public class T {
 
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
-        layout.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
+        if (isSupport()) {
+            layout.setBackgroundResource(context.getResources().getIdentifier("colorAccent", "color", context.getPackageName()));
+        }
 //        layout.setBackgroundResource(android.R.color.holo_red_dark);
 //        layout.setVerticalGravity(Gravity.VERTICAL_GRAVITY_MASK);
         final RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-2, -2);
@@ -174,8 +178,9 @@ public class T {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
     }
 
+
     private static void makeToastFullscreen(Context context, Toast toast) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (!isSupport()) {
             return;
         }
 
@@ -193,6 +198,10 @@ public class T {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static boolean isSupport() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
     private static boolean checkMainThread() {

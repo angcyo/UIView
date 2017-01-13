@@ -3,12 +3,15 @@ package com.lzy.imagepicker.ui;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.R;
@@ -16,6 +19,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.view.CropImageView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +40,75 @@ public class ImageCropActivity extends ImageBaseActivity implements View.OnClick
     private int mOutputY;
     private ArrayList<ImageItem> mImageItems;
     private ImagePicker imagePicker;
+
+    /**
+     * Gets exif orientation.
+     *
+     * @param fileName the file name
+     * @return the exif orientation
+     */
+    public static int getExifOrientation(String fileName) {
+        if (TextUtils.isEmpty(fileName)) {
+            return 0;
+        }
+        int degree = 0;
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(fileName);
+        } catch (IOException ex) {
+        }
+        if (exif != null) {
+            int orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION, -1);
+            if (orientation != -1) {
+// We only recognize a subset of orientation tag values.
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        degree = 90;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        degree = 180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        degree = 270;
+                        break;
+                }
+
+            }
+        }
+        return degree;
+    }
+
+    /**
+     * Rotate bitmap.
+     *
+     * @param original the original
+     * @param angle    the angle
+     * @return the bitmap
+     */
+    public static Bitmap rotate(Bitmap original, final int angle) {
+        if ((angle % 360) == 0) {
+            return original;
+        }
+
+        final boolean dimensionsChanged = angle == 90 || angle == 270;
+        final int oldWidth = original.getWidth();
+        final int oldHeight = original.getHeight();
+        final int newWidth = dimensionsChanged ? oldHeight : oldWidth;
+        final int newHeight = dimensionsChanged ? oldWidth : oldHeight;
+
+        Bitmap bitmap = Bitmap.createBitmap(newWidth, newHeight, original.getConfig());
+        Canvas canvas = new Canvas(bitmap);
+
+        Matrix matrix = new Matrix();
+        matrix.preTranslate((newWidth - oldWidth) / 2f, (newHeight - oldHeight) / 2f);
+        matrix.postRotate(angle, bitmap.getWidth() / 2f, bitmap.getHeight() / 2);
+        canvas.drawBitmap(original, matrix, null);
+
+        original.recycle();
+
+        return bitmap;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +146,12 @@ public class ImageCropActivity extends ImageBaseActivity implements View.OnClick
         options.inSampleSize = calculateInSampleSize(options, displayMetrics.widthPixels, displayMetrics.heightPixels);
         options.inJustDecodeBounds = false;
         mBitmap = BitmapFactory.decodeFile(imagePath, options);
+
+        int orientation = getExifOrientation(imagePath);
+        if (orientation != 0) {
+            mBitmap = rotate(mBitmap, orientation);
+        }
+
         mCropImageView.setImageBitmap(mBitmap);
 
 //        mCropImageView.setImageURI(Uri.fromFile(new File(imagePath)));
@@ -132,4 +211,5 @@ public class ImageCropActivity extends ImageBaseActivity implements View.OnClick
             mBitmap = null;
         }
     }
+
 }

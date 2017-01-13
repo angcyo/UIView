@@ -12,6 +12,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.widget.SoftRelativeLayout;
@@ -84,6 +85,22 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
         startLayoutAnim(mDialogRootLayout);
+        initDialogContentView();
+    }
+
+    /**
+     * 初始化内容
+     */
+    protected void initDialogContentView() {
+
+    }
+
+    /**
+     * 对话框的背景需要用来执行变暗的动画
+     */
+    @Override
+    public View getDialogDimView() {
+        return mDialogRootLayout;
     }
 
     /**
@@ -223,6 +240,14 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
         }
     }
 
+    /**
+     * 背景执行了变暗动画, 所以真正的动画需要在子View上执行
+     */
+    @Override
+    public View getAnimView() {
+        return mDialogRootLayout.getChildAt(0);
+    }
+
     public UIIDialogImpl addDismissListener(OnDismissListener dismissListener) {
         mOnDismissListeners.add(dismissListener);
         return this;
@@ -230,6 +255,16 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
 
     public UIIDialogImpl removeDismissListener(OnDismissListener dismissListener) {
         mOnDismissListeners.remove(dismissListener);
+        return this;
+    }
+
+    public UIIDialogImpl showDialog(UIIViewImpl iView) {
+        iView.startIView(this);
+        return this;
+    }
+
+    public UIIDialogImpl showDialog(ILayout iLayout) {
+        iLayout.startIView(this);
         return this;
     }
 
