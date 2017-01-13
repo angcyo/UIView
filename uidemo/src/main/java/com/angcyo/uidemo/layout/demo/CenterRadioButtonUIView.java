@@ -118,6 +118,7 @@ public class CenterRadioButtonUIView extends UIContentView {
         TextView textView = new TextView(mActivity);
         RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(-2, -2);
         p.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         layout.addView(textView, p);
         textView.setTextColor(Color.WHITE);
         textView.setText("---->Demo __");
