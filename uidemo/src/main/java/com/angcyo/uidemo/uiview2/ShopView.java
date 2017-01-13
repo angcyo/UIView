@@ -37,7 +37,7 @@ public class ShopView extends UIBaseView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
 
     }
 

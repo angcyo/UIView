@@ -51,8 +51,8 @@ public class StaggerView extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
-        super.initContentLayout();
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
         initRecyclerView();
     }
 

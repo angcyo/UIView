@@ -34,8 +34,8 @@ public class NavUIView extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
-        super.initContentLayout();
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
 
         final Uri data = mActivity.getIntent().getData();
         if (data != null) {

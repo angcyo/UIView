@@ -26,7 +26,7 @@ public class HomeView extends UIBaseView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
 
     }
 

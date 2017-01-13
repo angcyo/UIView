@@ -66,7 +66,7 @@ public class LoginView extends UIContentView implements Login.ILoginView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
         mUILayout = ((UILayoutImpl) getILayout().getLayout());
     }
 

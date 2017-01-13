@@ -41,8 +41,8 @@ public class Emoji2UIView extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
-        super.initContentLayout();
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
         mSoftInputLayout.addOnEmojiLayoutChangeListener(new ExSoftInputLayout.OnEmojiLayoutChangeListener() {
             @Override
             public void onEmojiLayoutChange(boolean isEmojiShow, boolean isKeyboardShow, int oldHeight, int height) {

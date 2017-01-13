@@ -21,7 +21,7 @@ import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.rsen.RefreshLayout;
 
-import java.util.List;
+import static android.R.id.list;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -60,8 +60,8 @@ public class RecyclerView extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
-        super.initContentLayout();
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
         initRecyclerView();
     }
 
@@ -99,7 +99,7 @@ public class RecyclerView extends UIContentView {
             }
 
             @Override
-            protected void onUnselectorPosition(List<Integer> list) {
+            protected void onUnSelectorPosition(RBaseViewHolder viewHolder, int position) {
                 unselector(list, mRecyclerView, "check_box");
             }
 

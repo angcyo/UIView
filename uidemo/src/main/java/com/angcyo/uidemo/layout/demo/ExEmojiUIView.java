@@ -31,8 +31,8 @@ public class ExEmojiUIView extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
-        super.initContentLayout();
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
         mControl = new Control((RecyclerView) mViewHolder.v(R.id.recycler_view),
                 (RSoftInputLayout) mViewHolder.v(R.id.soft_input_layout),
                 mActivity);

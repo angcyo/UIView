@@ -31,7 +31,7 @@ public class EditTextViewDemo extends UIBaseView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
         mExEditText.setHint("我就是一个测试的");
     }
 

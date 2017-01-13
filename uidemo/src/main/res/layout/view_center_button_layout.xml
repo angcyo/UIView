@@ -10,7 +10,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:clickable="true"
-        android:background="@drawable/base_check_box_bg_selector"
+        android:background="@drawable/base_dark_color_border_check_selector"
         android:scaleType="centerInside"
         android:src="@drawable/live_48_color"/>
 

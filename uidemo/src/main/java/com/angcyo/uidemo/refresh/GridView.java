@@ -48,8 +48,8 @@ public class GridView extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
-        super.initContentLayout();
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
         initRecyclerView();
     }
 

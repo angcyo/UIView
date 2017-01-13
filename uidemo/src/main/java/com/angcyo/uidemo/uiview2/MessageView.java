@@ -47,7 +47,7 @@ public class MessageView extends UIBaseView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
         mBaseAdapter = new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {

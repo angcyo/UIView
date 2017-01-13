@@ -49,7 +49,7 @@ public class RefreshLayoutDemo extends UIContentView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
         mNormalView = new NormalView();
         mWebviewView = new WebviewView();
         mRecyclerView = new RecyclerView();

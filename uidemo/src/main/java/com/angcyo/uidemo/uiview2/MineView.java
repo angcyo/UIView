@@ -27,7 +27,7 @@ public class MineView extends UIBaseView {
     }
 
     @Override
-    protected void initContentLayout() {
+    protected void initOnShowContentLayout() {
 
     }
 
