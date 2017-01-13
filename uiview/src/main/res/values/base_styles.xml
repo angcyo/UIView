@@ -308,4 +308,10 @@
         <item name="android:shadowDy">1.5</item>
         <item name="android:shadowRadius">1.5</item>
     </style>
+
+    <!--Toast的动画-->
+    <style name="BaseToastAnimation">
+        <item name="android:windowExitAnimation">@anim/base_tran_top_exit</item>
+        <item name="android:windowEnterAnimation">@anim/base_tran_top_enter</item>
+    </style>
 </resources>

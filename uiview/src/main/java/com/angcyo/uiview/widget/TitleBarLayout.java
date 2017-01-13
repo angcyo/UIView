@@ -35,8 +35,9 @@ public class TitleBarLayout extends RelativeLayout {
     }
 
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int height = getMeasuredHeight();
         Context context = getContext();
         if (context instanceof Activity) {
             if (ResUtil.isLayoutFullscreen((Activity) context)) {
@@ -44,9 +45,29 @@ public class TitleBarLayout extends RelativeLayout {
                 setClipToPadding(false);
                 setClipChildren(false);
                 setPadding(getPaddingLeft(),
-                        getPaddingTop() + statusBarHeight,
+                        statusBarHeight,
                         getPaddingRight(), getPaddingBottom());
+                height = statusBarHeight + getResources().getDimensionPixelSize(R.dimen.action_bar_height);
             }
+        }
+        setMeasuredDimension(widthMeasureSpec, height);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setElevation(40);
         }
     }
 }
