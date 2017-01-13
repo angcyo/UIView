@@ -3,14 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <com.angcyo.uidemo.layout.demo.view.CenterButton
         android:id="@+id/center_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:clickable="true"
+        android:layout_marginTop="@dimen/base_100dpi"
         android:background="@drawable/base_dark_color_border_check_selector"
+        android:clickable="true"
         android:scaleType="centerInside"
         android:src="@drawable/live_48_color"/>
 
