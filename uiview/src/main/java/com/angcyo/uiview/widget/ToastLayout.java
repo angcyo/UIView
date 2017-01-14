@@ -1,14 +1,12 @@
 package com.angcyo.uiview.widget;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.R;
-import com.angcyo.uiview.resources.ResUtil;
 
 /**
  * 用来控制状态栏的padding
@@ -39,8 +37,8 @@ public class ToastLayout extends RelativeLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int height = getMeasuredHeight();
         Context context = getContext();
-        if (context instanceof Activity) {
-            if (ResUtil.isLayoutFullscreen((Activity) context)) {
+//        if (context instanceof Activity) {
+//            if (ResUtil.isLayoutFullscreen((Activity) context)) {
                 int statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 setClipToPadding(false);
                 setClipChildren(false);
@@ -50,8 +48,8 @@ public class ToastLayout extends RelativeLayout {
                 height = statusBarHeight +
                         getResources().getDimensionPixelSize(R.dimen.action_bar_height) +
                         getResources().getDimensionPixelSize(R.dimen.base_toast_shadow_height);
-            }
-        }
+//            }
+//        }
         setMeasuredDimension(widthMeasureSpec, height);
     }
 }
