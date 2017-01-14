@@ -52,4 +52,5 @@
     <dimen name="base_90dpi">90dp</dimen>
     <dimen name="base_100dpi">100dp</dimen>
     <dimen name="base_120dpi">120dp</dimen>
+    <dimen name="base_toast_shadow_height">8dp</dimen>
 </resources>

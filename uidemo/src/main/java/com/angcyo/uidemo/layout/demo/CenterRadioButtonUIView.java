@@ -1,11 +1,9 @@
 package com.angcyo.uidemo.layout.demo;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,7 +13,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.view.CenterButton;
 import com.angcyo.uiview.base.UIContentView;
-import com.angcyo.uiview.widget.TitleBarLayout;
+import com.angcyo.uiview.utils.T2;
 
 import java.lang.reflect.Field;
 
@@ -40,6 +38,7 @@ import rx.schedulers.Schedulers;
 public class CenterRadioButtonUIView extends UIContentView {
     @BindView(R.id.center_button)
     CenterButton mCenterButton;
+    int type = 0;
 
     private static void makeToastFullscreen(Context context, Toast toast) {
 
@@ -91,7 +90,8 @@ public class CenterRadioButtonUIView extends UIContentView {
                                 }
                             });
                 } else {
-                    show();
+                    //show();
+                    T2.show(mActivity, System.currentTimeMillis() + "-->", type++);
                 }
             }
         });
@@ -111,18 +111,20 @@ public class CenterRadioButtonUIView extends UIContentView {
         final Toast toast = Toast.makeText(mActivity, "Angcyo Test Demo", Toast.LENGTH_SHORT);
         makeToastFullscreen(mActivity, toast);
 
-        TitleBarLayout layout = new TitleBarLayout(mActivity);
-        layout.setBackgroundColor(Color.RED);
-        layout.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+//        TitleBarLayout layout = new TitleBarLayout(mActivity);
+//        layout.setBackgroundColor(Color.RED);
+//        layout.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+//
+//        TextView textView = new TextView(mActivity);
+//        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(-2, -2);
+//        p.addRule(RelativeLayout.CENTER_HORIZONTAL);
+//        p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//        layout.addView(textView, p);
+//        textView.setTextColor(Color.WHITE);
+//        textView.setText("---->Demo __");X
 
-        TextView textView = new TextView(mActivity);
-        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(-2, -2);
-        p.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        p.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        layout.addView(textView, p);
-        textView.setTextColor(Color.WHITE);
-        textView.setText("---->Demo __");
-
+        View layout = LayoutInflater.from(mActivity).inflate(R.layout.base_toast, null);
+        ((TextView) layout.findViewById(R.id.base_toast_text_view)).setText("很帅的Toast");
         toast.setView(layout);
         toast.setGravity(Gravity.TOP, 0, 0);
         toast.getView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);

@@ -15,22 +15,22 @@ import com.angcyo.uiview.resources.ResUtil;
  * Created by angcyo on 2016-11-05.
  */
 
-public class TitleBarLayout extends RelativeLayout {
+public class ToastLayout extends RelativeLayout {
 
-    public TitleBarLayout(Context context) {
+    public ToastLayout(Context context) {
         super(context);
     }
 
-    public TitleBarLayout(Context context, AttributeSet attrs) {
+    public ToastLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ToastLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ToastLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -47,7 +47,9 @@ public class TitleBarLayout extends RelativeLayout {
                 setPadding(getPaddingLeft(),
                         statusBarHeight,
                         getPaddingRight(), getPaddingBottom());
-                height = statusBarHeight + getResources().getDimensionPixelSize(R.dimen.action_bar_height);
+                height = statusBarHeight +
+                        getResources().getDimensionPixelSize(R.dimen.action_bar_height) +
+                        getResources().getDimensionPixelSize(R.dimen.base_toast_shadow_height);
             }
         }
         setMeasuredDimension(widthMeasureSpec, height);
