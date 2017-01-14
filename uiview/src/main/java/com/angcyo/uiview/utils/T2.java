@@ -83,7 +83,7 @@ public class T2 {
             WindowManager.LayoutParams params = (WindowManager.LayoutParams) mParams.get(mTNObj);
             params.width = -1;
             params.height = -2;// (int) dpToPx(context, T_HEIGHT);
-            params.gravity = Gravity.TOP;
+//            params.gravity = Gravity.TOP;
             params.windowAnimations = R.style.BaseToastAnimation;
         } catch (Exception e) {
             e.printStackTrace();

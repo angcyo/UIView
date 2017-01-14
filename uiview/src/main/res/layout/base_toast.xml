@@ -18,7 +18,7 @@
             android:id="@+id/base_toast_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/base_ok"/>
+            android:src="@drawable/base_info"/>
 
         <TextView
             android:id="@+id/base_toast_text_view"

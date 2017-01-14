@@ -3,6 +3,7 @@
     <dimen name="status_bar_height">25dp</dimen>
     <dimen name="action_bar_height">40dp</dimen>
     <dimen name="title_bar_height">70dp</dimen>
+    <dimen name="base_toast_shadow_height">8dp</dimen>
 
     <!--默认文本大小-->
     <dimen name="default_text_size">14sp</dimen>
@@ -52,5 +53,4 @@
     <dimen name="base_90dpi">90dp</dimen>
     <dimen name="base_100dpi">100dp</dimen>
     <dimen name="base_120dpi">120dp</dimen>
-    <dimen name="base_toast_shadow_height">8dp</dimen>
 </resources>
