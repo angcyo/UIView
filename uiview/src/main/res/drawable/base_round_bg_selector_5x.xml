@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/base_border_little_size"/>
+            <solid android:color="@color/default_base_bg_press"/>
+        </shape>
+    </item>
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/base_border_little_size"/>
+            <solid android:color="@color/default_base_bg_disable"/>
+        </shape>
+    </item>
+    <item android:drawable="@android:color/transparent"/>
+</selector>

@@ -1,6 +1,7 @@
 package com.angcyo.uiview.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,9 @@ public class T2 {
             ((TextView) layout.findViewById(R.id.base_toast_text_view)).setText(charSequence);
             toast.setView(layout);
             toast.setGravity(Gravity.TOP, 0, 0);
-            toast.getView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                toast.getView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
         } else {
             layout = toast.getView();
         }

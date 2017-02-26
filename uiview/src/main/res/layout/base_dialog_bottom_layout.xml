@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.widget.MaxHeightScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/default_base_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/base_title_view"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/base_xhdpi"
+            android:visibility="gone"
+            tools:text="我是测试的标题我是测试的标题我是测试的标题我是测试的标题"/>
+
+        <!--Item填充-->
+        <LinearLayout
+            android:id="@+id/item_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/base_shape_line"
+            android:orientation="vertical"
+            android:showDividers="middle"/>
+
+        <LinearLayout
+            android:id="@+id/cancel_control_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_hdpi"
+                android:background="@color/default_base_line"/>
+
+            <TextView
+                android:id="@+id/cancel_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/base_item_size"
+                android:background="@color/default_base_white"
+                android:clickable="true"
+                android:foreground="@drawable/base_bg_selector"
+                android:gravity="center"
+                android:text="@string/base_cancel"
+                android:textColor="@color/base_text_color"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</com.angcyo.uiview.widget.MaxHeightScrollView>
