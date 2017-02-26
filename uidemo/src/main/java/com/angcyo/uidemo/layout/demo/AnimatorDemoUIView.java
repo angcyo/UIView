@@ -45,7 +45,7 @@ public class AnimatorDemoUIView extends UIContentView {
 
     private static void animTo(View target, float startX, float startY, float endX, float endY, float scaleX, float scaleY) {
         ViewCompat.animate(target)
-                .setDuration(1000)
+                .setDuration(300)
                 .setInterpolator(new LinearInterpolator())
                 .x(endX)
                 .y(endY)
