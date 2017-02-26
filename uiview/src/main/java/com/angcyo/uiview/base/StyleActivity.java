@@ -1,6 +1,7 @@
 package com.angcyo.uiview.base;
 
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,8 @@ public abstract class StyleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);//TBS X5
+
         loadActivityStyle();
         initWindow();
         initUIActivity();

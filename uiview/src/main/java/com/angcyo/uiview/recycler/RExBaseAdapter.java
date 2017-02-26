@@ -16,7 +16,7 @@ import java.util.List;
  * 修改备注：
  * Version: 1.0.0
  */
-public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
+public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
 
     public static final int TYPE_HEADER = 10;
     public static final int TYPE_FOOTER = 12;
@@ -72,15 +72,15 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
     /**
      * 判断当前的位置,是否在头部范围之内
      */
-    private boolean isInHeader(int position) {
+    public boolean isInHeader(int position) {
         return position < getHeaderCount();
     }
 
-    private boolean isInFooter(int position) {
+    public boolean isInFooter(int position) {
         return position < getHeaderCount() + getDataCount() + getFooterCount();
     }
 
-    private boolean isInData(int position) {
+    public boolean isInData(int position) {
         return position < getHeaderCount() + getDataCount();
     }
 
@@ -105,8 +105,12 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
         return mAllDatas == null ? 0 : mAllDatas.size();
     }
 
+    public int getRawItemCount() {
+        return getHeaderCount() + getDataCount() + getFooterCount();
+    }
+
     @Override
-    final protected void onBindView(RBaseViewHolder holder, int position, T bean) {
+    final protected void onBindCommonView(RBaseViewHolder holder, int position, T bean) {
         if (isInHeader(position)) {
             onBindHeaderView(holder, position, mAllHeaderDatas.size() > position ? mAllHeaderDatas.get(position) : null);
         } else if (isInData(position)) {
@@ -116,6 +120,16 @@ public abstract class RExBaseAdapter<H, T, F> extends RBaseAdapter<T> {
             position -= getHeaderCount() - getDataCount();
             onBindFooterView(holder, position, mAllFooterDatas.size() > position ? mAllFooterDatas.get(position) : null);
         }
+    }
+
+    @Override
+    protected void onBindModelView(int model, boolean isSelector, RBaseViewHolder holder, int position, T bean) {
+
+    }
+
+    @Override
+    protected void onBindNormalView(RBaseViewHolder holder, int position, T bean) {
+
     }
 
     /**

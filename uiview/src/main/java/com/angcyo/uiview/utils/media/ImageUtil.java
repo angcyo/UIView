@@ -13,6 +13,7 @@ import android.text.TextUtils;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.RApplication;
+import com.angcyo.uiview.utils.ScreenUtil;
 import com.angcyo.uiview.utils.file.AttachmentStore;
 import com.angcyo.uiview.utils.file.FileUtil;
 import com.angcyo.uiview.utils.storage.StorageType;
@@ -211,6 +212,18 @@ public class ImageUtil {
             }
         }
         return bRet;
+    }
+
+    public static int getImageMaxEdge() {
+        return (int) (165.0 / 320.0 * ScreenUtil.screenWidth);
+    }
+
+    public static int getImageMinEdge() {
+        return (int) (76.0 / 320.0 * ScreenUtil.screenWidth);
+    }
+
+    public static ImageSize getThumbnailDisplaySize(float srcWidth, float srcHeight) {
+        return getThumbnailDisplaySize(srcWidth, srcHeight, getImageMaxEdge(), getImageMinEdge());
     }
 
     public static ImageSize getThumbnailDisplaySize(float srcWidth, float srcHeight, float dstMaxWH, float dstMinWH) {

@@ -10,6 +10,8 @@
 
         <attr name="item_dark_textSize" format="dimension"/>
         <attr name="item_draw_padding" format="dimension"/>
+        <attr name="item_dark_image_size" format="dimension"/>
+        <attr name="item_is_red_dot_mode" format="boolean"/>
 
         <attr name="item_left_res" format="reference"/>
         <attr name="item_right_res" format="reference"/>

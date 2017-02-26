@@ -142,8 +142,15 @@ public class RecyclerViewPager extends RRecyclerView {
     public RecyclerViewPager(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        //setHasFixedSize(true);
-        addOnScrollListener(mOnScrollListener);
+        setHasFixedSize(true);
+//        addOnScrollListener(mOnScrollListener);
+        new ViewPagerSnapHelper(getItemCount()).setPageListener(new ViewPagerSnapHelper.PageListener() {
+            @Override
+            public void onPageSelector(int position) {
+                onViewPagerSelect(position);
+            }
+        }).attachToRecyclerView(this);
+
         mViewPagerListeners = new ArrayList<>();
     }
 

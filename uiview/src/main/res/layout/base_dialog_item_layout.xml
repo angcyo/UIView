@@ -33,7 +33,7 @@
             android:background="@drawable/base_round_bg_selector"
             android:clickable="true"
             android:gravity="center"
-            android:text="取消"
+            android:text="@string/base_cancel"
             android:textColor="@color/theme_color_accent"
             android:textSize="@dimen/default_text_size"
             android:textStyle="bold"/>

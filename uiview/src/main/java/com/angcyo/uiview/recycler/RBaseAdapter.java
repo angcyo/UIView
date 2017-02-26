@@ -1,6 +1,7 @@
 package com.angcyo.uiview.recycler;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHolder> {
 
+    public static final int ITEM_TYPE_LOAD_MORE = 666;
     protected List<T> mAllDatas;
     protected Context mContext;
     /**
@@ -75,9 +77,9 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     @Override
-    public int getItemViewType(int position) {
+    final public int getItemViewType(int position) {
         if (mEnableLoadMore && isLast(position)) {
-            return 666;
+            return ITEM_TYPE_LOAD_MORE;
         }
         return getItemType(position);
     }
@@ -85,7 +87,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     @Override
     public RBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item;
-        if (mEnableLoadMore && viewType == 666) {
+        if (mEnableLoadMore && viewType == ITEM_TYPE_LOAD_MORE) {
             item = LayoutInflater.from(mContext)
                     .inflate(R.layout.base_item_load_more_layout, parent, false);
             mLoadMore = (ILoadMore) item;
@@ -97,8 +99,22 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
                 item = LayoutInflater.from(mContext).inflate(itemLayoutId, parent, false);
             }
         }
+//        if (item == null) {
+//            return createItemViewHolder(parent, viewType);
+//        }
+        return createBaseViewHolder(viewType, item);
+    }
+
+    @NonNull
+    protected RBaseViewHolder createBaseViewHolder(int viewType, View item) {
         return new RBaseViewHolder(item, viewType);
     }
+
+//    /**用来实现...*/
+//    @NonNull
+//    protected RBaseViewHolder createItemViewHolder(ViewGroup parent, int viewType) {
+//        return null;
+//    }
 
     @Override
     final public void onBindViewHolder(RBaseViewHolder holder, int position, List<Object> payloads) {
@@ -173,12 +189,18 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     public void setNoMore() {
-        mLoadState = ILoadMore.NO_MORE;
-        setEnableLoadMore(true);
-//        updateLoadMoreView();//不需要及时刷新
+        setNoMore(false);
     }
 
-    private boolean isLast(int position) {
+    public void setNoMore(boolean refresh) {
+        mLoadState = ILoadMore.NO_MORE;
+        setEnableLoadMore(true);
+        if (refresh) {
+            updateLoadMoreView();//不需要及时刷新
+        }
+    }
+
+    public boolean isLast(int position) {
         return position == getLastPosition();
     }
 

@@ -62,11 +62,7 @@ public class ExEditText extends AppCompatEditText {
             String tagString = String.valueOf(tag);
             if (tagString.contains("emoji")) {
                 //激活emoji表情过滤
-                final InputFilter[] filters = getFilters();
-                final InputFilter[] newFilters = new InputFilter[filters.length + 1];
-                System.arraycopy(filters, 0, newFilters, 0, filters.length);
-                newFilters[filters.length] = new EmojiFilter();
-                setFilters(newFilters);
+                addFilter(new EmojiFilter());
             }
 
             if (tagString.contains("password")) {
@@ -82,12 +78,25 @@ public class ExEditText extends AppCompatEditText {
                 showClear = true;
             }
         }
-        if (showClear) {
+        getClearDrawable();
+    }
+
+    private Drawable getClearDrawable() {
+        if (showClear && clearDrawable == null) {
             clearDrawable = ResourcesCompat.getDrawable(
                     getResources(),
                     R.drawable.base_edit_delete_selector,
                     getContext().getTheme());
         }
+        return clearDrawable;
+    }
+
+    private void addFilter(InputFilter filter) {
+        final InputFilter[] filters = getFilters();
+        final InputFilter[] newFilters = new InputFilter[filters.length + 1];
+        System.arraycopy(filters, 0, newFilters, 0, filters.length);
+        newFilters[filters.length] = filter;
+        setFilters(newFilters);
     }
 
     @Override
@@ -100,7 +109,7 @@ public class ExEditText extends AppCompatEditText {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if (showClear) {
-            clearRect.set(w - getPaddingRight() - clearDrawable.getIntrinsicWidth(),
+            clearRect.set(w - getPaddingRight() - getClearDrawable().getIntrinsicWidth(),
                     getPaddingTop(), w - getPaddingRight(), Math.min(w, h) - getPaddingBottom());
         }
     }
@@ -169,7 +178,7 @@ public class ExEditText extends AppCompatEditText {
         }
     }
 
-    private void checkEdit(boolean focused) {
+    public void checkEdit(boolean focused) {
         if (showClear) {
             final Drawable[] compoundDrawables = getCompoundDrawables();
             if (TextUtils.isEmpty(getText()) || !focused) {
@@ -177,13 +186,19 @@ public class ExEditText extends AppCompatEditText {
                         null, compoundDrawables[3]);
             } else {
                 setCompoundDrawablesWithIntrinsicBounds(compoundDrawables[0], compoundDrawables[1],
-                        clearDrawable, compoundDrawables[3]);
+                        getClearDrawable(), compoundDrawables[3]);
             }
         }
     }
 
     private boolean checkClear(float x, float y) {
         return clearRect.contains(((int) x), (int) y);
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(text, type);
+        checkEdit(isFocused());
     }
 
     @Override
@@ -282,5 +297,27 @@ public class ExEditText extends AppCompatEditText {
 
     public String string() {
         return getText().toString().trim();
+    }
+
+    public boolean isEmpty() {
+        return TextUtils.isEmpty(string());
+    }
+
+    public void setMaxLength(int length) {
+        InputFilter[] filters = getFilters();
+        boolean have = false;
+        InputFilter.LengthFilter lengthFilter = new InputFilter.LengthFilter(length);
+        for (int i = 0; i < filters.length; i++) {
+            InputFilter filter = filters[i];
+            if (filter instanceof InputFilter.LengthFilter) {
+                have = true;
+                filters[i] = lengthFilter;
+                setFilters(filters);
+                break;
+            }
+        }
+        if (!have) {
+            addFilter(lengthFilter);
+        }
     }
 }

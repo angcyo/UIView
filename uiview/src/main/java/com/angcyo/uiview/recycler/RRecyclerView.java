@@ -1,6 +1,7 @@
 package com.angcyo.uiview.recycler;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +11,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.angcyo.uiview.recycler.recyclerview.adapters.AnimationAdapter;
@@ -33,7 +35,7 @@ public class RRecyclerView extends RecyclerView {
     protected Class<? extends AnimationAdapter> animatorAdapter;
     protected RBaseAdapter mAdapterRaw;
     protected AnimationAdapter mAnimationAdapter;
-    protected boolean mItemAnim = true;
+    protected boolean mItemAnim = false;
     protected boolean isFirstAnim = true;//布局动画只执行一次
     protected boolean layoutAnim = false;//是否使用布局动画
     OnTouchListener mInterceptTouchListener;
@@ -70,7 +72,7 @@ public class RRecyclerView extends RecyclerView {
         initView(context);
     }
 
-    private void initView(Context context) {
+    protected void initView(Context context) {
         String tag = (String) this.getTag();
         if (TextUtils.isEmpty(tag) || "V".equalsIgnoreCase(tag)) {
             layoutManager = new LinearLayoutManager(context, orientation, false);
@@ -179,7 +181,7 @@ public class RRecyclerView extends RecyclerView {
     /**
      * 设置Item 动画类, 用于 添加 和 删除 Item时候的动画
      */
-    public RRecyclerView setItemAnimator(Class<? extends BaseItemAnimator> animator) {
+    public RRecyclerView setBaseItemAnimator(Class<? extends BaseItemAnimator> animator) {
         try {
             super.setItemAnimator(animator.newInstance());
         } catch (Exception e) {
@@ -219,10 +221,28 @@ public class RRecyclerView extends RecyclerView {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        boolean result = super.onTouchEvent(e);
+        return result;
+    }
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         if (mInterceptTouchListener != null) {
             mInterceptTouchListener.onTouch(this, e);
         }
+
+        //项目特殊处理, 可以删除
+        for (int i = 0; i < getChildCount(); i++) {
+            View childAt = getChildAt(0);
+            Rect rect = new Rect();
+            childAt.getGlobalVisibleRect(rect);
+            if (childAt instanceof RecyclerView && rect.contains(((int) e.getRawX()), (int) e.getRawY())) {
+                //如果touch在另一个RecycleView上面, 那么不拦截事件
+                return false;
+            }
+        }
+        //--------end--------
         return super.onInterceptTouchEvent(e);
     }
 

@@ -171,6 +171,11 @@ public interface IView {
     boolean onBackPressed();//2016-12-16
 
     /**
+     * 滑动返回的时候,请求是否可以结束.
+     */
+    boolean canSwipeBackPressed();//星期三 2017-2-22
+
+    /**
      * 在导航上, 左边的按钮界面, 调到右边的按钮界面, 或者 右边的按钮界面, 跳到左边的按钮界面.
      * 用来决定动画是否需要反向执行
      */
@@ -180,4 +185,9 @@ public interface IView {
      * 会在start iVew 之后, 最先执行
      */
     void onAttachedToILayout(ILayout iLayout);
+
+    /**
+     * 是否可以滑动关闭
+     */
+    boolean canTryCaptureView();//星期二 2017-2-14
 }

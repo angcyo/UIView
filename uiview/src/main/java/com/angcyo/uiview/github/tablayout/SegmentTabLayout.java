@@ -28,6 +28,9 @@ import com.angcyo.uiview.github.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
 
+/**
+ * https://github.com/H07000223/FlycoTabLayout
+ */
 public class SegmentTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
     /**
      * title

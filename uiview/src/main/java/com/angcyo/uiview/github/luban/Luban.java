@@ -292,6 +292,9 @@ public class Luban {
     }
 
     public static void logFileItems(Context context, ArrayList<ImageItem> files) {
+        if (files == null) {
+            return;
+        }
         for (ImageItem s : files) {
             File originFile = new File(s.path);
             File thumbFile = new File(s.thumbPath);
@@ -631,7 +634,7 @@ public class Luban {
 
         thbBitmap = rotatingImage(angle, thbBitmap);
 
-        return saveImage(thumbFilePath, thbBitmap, size);
+        return saveImage(thumbFilePath, thbBitmap, size, thbBitmap.getWidth(), thbBitmap.getHeight());
     }
 
     /**
@@ -641,8 +644,10 @@ public class Luban {
      * @param filePath the image file save path 储存路径
      * @param bitmap   the image what be save   目标图片
      * @param size     the file size of image   期望大小
+     * @param width    width of thumbnail
+     * @param height   height of thumbnail
      */
-    private File saveImage(String filePath, Bitmap bitmap, long size) {
+    private File saveImage(String filePath, Bitmap bitmap, long size, int width, int height) {
         checkNotNull(bitmap, TAG + "bitmap cannot be null");
 
         File result = new File(filePath.substring(0, filePath.lastIndexOf("/")));
@@ -661,6 +666,7 @@ public class Luban {
         bitmap.recycle();
 
         try {
+            filePath += "_s_" + width + "x" + height;
             FileOutputStream fos = new FileOutputStream(filePath);
             fos.write(stream.toByteArray());
             fos.flush();
@@ -723,6 +729,7 @@ public class Luban {
     public static class ImageItem {
         public String path = "";//源文件的路径
         public String thumbPath = "";//压缩后的文件路径
+        public String url = "";//网络地址
 
         public ImageItem() {
         }
@@ -730,6 +737,10 @@ public class Luban {
         public ImageItem(String path, String thumbPath) {
             this.path = path;
             this.thumbPath = thumbPath;
+        }
+
+        public ImageItem(String url) {
+            this.url = url;
         }
 
         public static ImageItem get(String string) {

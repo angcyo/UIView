@@ -72,16 +72,15 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
         <item name="android:clickable">true</item>
-        <item name="android:textColor">@drawable/base_text_color_selector</item>
+        <item name="android:textColor">@color/base_text_color_selector_color</item>
         <item name="android:background">@drawable/base_bg_selector</item>
     </style>
 
     <!--标准的Item Info 样式-->
     <style name="BaseItemInfoStyle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_height">@dimen/base_item_size</item>
         <item name="android:background">@drawable/base_white_bg_selector</item>
-        <item name="android:clickable">true</item>
         <item name="android:paddingLeft">@dimen/base_xhdpi</item>
         <item name="android:paddingRight">@dimen/base_xhdpi</item>
         <item name="item_dark_textColor">@color/base_text_color_dark</item>
@@ -173,7 +172,7 @@
     <!--手机输入框的样式-->
     <style name="BasePhoneEditStyle" parent="BaseEditStyle">
         <item name="android:inputType">number</item>
-        <item name="android:maxLength">11</item>
+        <item name="android:maxLength">@integer/phone_number_count</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
 

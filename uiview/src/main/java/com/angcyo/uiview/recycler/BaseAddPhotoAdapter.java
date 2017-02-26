@@ -83,8 +83,7 @@ public abstract class BaseAddPhotoAdapter<T> extends RBaseAdapter<T> {
     }
 
     @Override
-    public int getItemViewType(int position) {
-
+    public int getItemType(int position) {
         if (mAllDatas == null || mAllDatas.size() == 0) {
             return TYPE_ADD;
         }

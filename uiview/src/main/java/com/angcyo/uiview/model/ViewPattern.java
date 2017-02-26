@@ -34,4 +34,13 @@ public class ViewPattern {
         mView = view;
         return this;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder(mIView.getClass().getSimpleName());
+        builder.append(" isAnimToStart:" + isAnimToStart);
+        builder.append(" isAnimToEnd:" + isAnimToEnd);
+        builder.append(" interrupt:" + interrupt);
+        return builder.toString();
+    }
 }

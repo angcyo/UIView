@@ -155,24 +155,29 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
-    public void setDividerSize(float dividerSize) {
+    public RBaseItemDecoration setDividerSize(float dividerSize) {
         mDividerSize = dividerSize;
+        return this;
     }
 
-    public void setDividerDrawableV(Drawable dividerDrawableV) {
+    public RBaseItemDecoration setDividerDrawableV(Drawable dividerDrawableV) {
         mDividerDrawableV = dividerDrawableV;
+        return this;
     }
 
-    public void setDividerDrawableH(Drawable dividerDrawableH) {
+    public RBaseItemDecoration setDividerDrawableH(Drawable dividerDrawableH) {
         mDividerDrawableH = dividerDrawableH;
+        return this;
     }
 
-    public void setMarginStart(int marginStart) {
+    public RBaseItemDecoration setMarginStart(int marginStart) {
         mMarginStart = marginStart;
+        return this;
     }
 
-    public void setMarginEnd(int marginEnd) {
+    public RBaseItemDecoration setMarginEnd(int marginEnd) {
         mMarginEnd = marginEnd;
+        return this;
     }
 
 

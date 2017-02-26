@@ -1,5 +1,7 @@
 package com.lzy.imagepicker.bean;
 
+import android.graphics.drawable.Drawable;
+
 import java.io.Serializable;
 
 /**
@@ -17,6 +19,7 @@ public class ImageItem implements Serializable {
     public String path;       //图片的路径
     public String thumbPath;  //图片的占位路径
     public String url;        //图片的网络地址
+    public Drawable placeholderDrawable; //第一次需要显示的占位图
     public long size;         //图片的大小
     public int width;         //图片的宽度
     public int height;        //图片的高度

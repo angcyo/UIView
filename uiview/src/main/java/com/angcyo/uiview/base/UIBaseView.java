@@ -1,8 +1,11 @@
 package com.angcyo.uiview.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -193,12 +196,26 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected TitleBarPattern getTitleBar() {
-        return TitleBarPattern.build(getTitle())
+        return TitleBarPattern.build(getTitleResource() == View.NO_ID ?
+                getTitleString() : mActivity.getResources().getString(getTitleResource()))
                 .setTitleBarBGColor(mActivity.getResources().getColor(R.color.theme_color_primary));
     }
 
-    protected String getTitle() {
+    protected String getTitleString() {
         return mActivity.getTitle().toString();
+    }
+
+    /**
+     * 设置标题文本
+     */
+    public void setTitleString(String title) {
+        if (mUITitleBarContainer != null) {
+            mUITitleBarContainer.getTitleView().setText(title);
+        }
+    }
+
+    protected int getTitleResource() {
+        return View.NO_ID;
     }
 
     /**
@@ -249,21 +266,46 @@ public abstract class UIBaseView extends UIIViewImpl {
         changeState(mLayoutState, LayoutState.EMPTY);
     }
 
+    public void showNonetLayout() {
+        showNonetLayout(null, null);
+    }
+
     /**
      * 显示无网络布局
      */
-    public void showNonetLayout() {
+    public void showNonetLayout(View.OnClickListener settingListener, View.OnClickListener refreshListener) {
+        mNonetSettingClickListener = settingListener;
+        mNonetRefreshClickListener = refreshListener;
         if (mBaseNonetLayout == null) {
             mBaseNonetLayout = UILayoutImpl.safeAssignView(mBaseContentRootLayout,
                     inflateNonetLayout(mBaseContentRootLayout, LayoutInflater.from(mActivity)));//填充无网络布局
         }
-        showNonetLayout(null, null);
+        changeState(mLayoutState, LayoutState.NONET);
     }
 
-    public void showNonetLayout(View.OnClickListener settingListener, View.OnClickListener refreshListener) {
-        mNonetSettingClickListener = settingListener;
-        mNonetRefreshClickListener = refreshListener;
-        changeState(mLayoutState, LayoutState.NONET);
+    public void showNonetLayout(View.OnClickListener refreshListener) {
+        final View.OnClickListener settingListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = null;
+                // 判断手机系统的版本 即API大于10 就是3.0或以上版本及魅族手机
+                if (Build.VERSION.SDK_INT > 10 && !Build.MANUFACTURER.equals("Meizu")) {
+                    intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                } else if (Build.VERSION.SDK_INT > 17 && Build.MANUFACTURER.equals("Meizu")) {
+                    //魅族更高版本调转的方式与其它手机型号一致  可能之前的版本有些一样  所以另加条件(tsp)
+                    intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                } else {
+                    intent = new Intent(Settings.ACTION_SETTINGS);
+//                    intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+//                    intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+//                    ComponentName component = new ComponentName("com.android.settings", "com.android.settings.WirelessSettings");
+//                    intent.setComponent(component);
+//                    intent.setAction("android.intent.action.VIEW");
+                }
+                mActivity.startActivity(intent);
+            }
+        };
+        showNonetLayout(settingListener, refreshListener);
     }
 
     /**
@@ -289,12 +331,12 @@ public abstract class UIBaseView extends UIIViewImpl {
         return rotateAnimation;
     }
 
+
+    //-----------------以下私有方法------------------//
+
     protected void fixInsertsTop() {
         mBaseRootLayout.fixInsertsTop();
     }
-
-
-    //-----------------以下私有方法------------------//
 
     private void safeSetView(View view) {
         if (view != null) {
@@ -381,15 +423,6 @@ public abstract class UIBaseView extends UIIViewImpl {
             mUITitleBarContainer.hideLoadView();
         }
         return this;
-    }
-
-    /**
-     * 设置标题文本
-     */
-    public void setTitleString(String title) {
-        if (mUITitleBarContainer != null) {
-            mUITitleBarContainer.getTitleView().setText(title);
-        }
     }
 
     /**

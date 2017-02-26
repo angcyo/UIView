@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.os.Process;
 import android.os.StatFs;
@@ -411,10 +412,15 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
      * @return 当前可用内存单位为B。
      */
     public static long getAvailableMemory(Context context) {
+        ActivityManager.MemoryInfo memoryInfo = getMemoryInfo(context);
+        return memoryInfo.availMem;
+    }
+
+    public static ActivityManager.MemoryInfo getMemoryInfo(Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
         am.getMemoryInfo(memoryInfo);
-        return memoryInfo.availMem;
+        return memoryInfo;
     }
 
     /**
@@ -541,6 +547,10 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         // 手机型号
         pw.print("Model: ");
         pw.println(Build.MODEL);
+        pw.print("Device: ");
+        pw.println(Build.DEVICE);
+        pw.print("Hardware: ");
+        pw.println(Build.HARDWARE);
         pw.println();
 
         // cpu架构
@@ -560,17 +570,33 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         pw.println(Formatter.formatFileSize(context, Runtime.getRuntime().maxMemory()));
 //        pw.println();
 
-        pw.print("APP可用内存大小:");
-        pw.println(Formatter.formatFileSize(context, getAvailableMemory(context)));
-//        pw.println();
+        final ActivityManager.MemoryInfo memoryInfo = getMemoryInfo(context);
+        pw.print("系统总内存:");
+        pw.println(Formatter.formatFileSize(context, memoryInfo.totalMem));
+        pw.print("系统剩余内存:");
+        pw.println(Formatter.formatFileSize(context, memoryInfo.availMem));
+        pw.print("是否内存警告:");
+        pw.println(memoryInfo.lowMemory);
+        pw.print("阈值:");
+        pw.println(Formatter.formatFileSize(context, memoryInfo.threshold));
+        pw.println();
+
+        pw.print("getNativeHeapSize:");
+        pw.println(Formatter.formatFileSize(context, Debug.getNativeHeapSize()));
+
+        pw.print("getNativeHeapAllocatedSize:");
+        pw.println(Formatter.formatFileSize(context, Debug.getNativeHeapAllocatedSize()));
+
+        pw.print("getNativeHeapFreeSize:");
+        pw.println(Formatter.formatFileSize(context, Debug.getNativeHeapFreeSize()));
+        pw.println();
 
         pw.print("SD空间大小:");
         pw.println(Formatter.formatFileSize(context, getTotalExternalMemorySize()));
-//        pw.println();
 
         pw.print("SD可用空间大小:");
         pw.println(Formatter.formatFileSize(context, getAvailableExternalMemorySize()));
-        pw.println();
+//        pw.println();
 
     }
 }

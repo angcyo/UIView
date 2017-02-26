@@ -57,6 +57,10 @@ public abstract class UIIViewImpl implements IView {
      * 最后一次显示的时间
      */
     protected long mLastShowTime = 0;
+    /**
+     * 当{@link #onViewShow(Bundle)}被调用一次, 计数器就会累加
+     */
+    private long viewShowCount = 0;
     private boolean mIsRightJumpLeft = false;
 
     public static void setDefaultConfig(Animation animation) {
@@ -152,15 +156,22 @@ public abstract class UIIViewImpl implements IView {
     public void onViewShow(Bundle bundle) {
         L.d(this.getClass().getSimpleName(), "onViewShow: ");
         long lastShowTime = mLastShowTime;
+        viewShowCount++;
         mIViewStatus = STATE_VIEW_SHOW;
         mLastShowTime = System.currentTimeMillis();
         if (lastShowTime == 0) {
             onViewShowFirst(bundle);
         }
+        onViewShow(viewShowCount);
     }
 
     public void onViewShowFirst(Bundle bundle) {
         L.d(this.getClass().getSimpleName(), "onViewShowFirst: ");
+    }
+
+    //星期五 2017-2-17
+    public void onViewShow(long viewShowCount) {
+        L.d(this.getClass().getSimpleName(), "onViewShowCount" + viewShowCount);
     }
 
     @CallSuper
@@ -447,11 +458,22 @@ public abstract class UIIViewImpl implements IView {
         }
     }
 
+    public void removeCallbacks(Runnable action) {
+        if (mRootView != null) {
+            mRootView.removeCallbacks(action);
+        }
+    }
+
     /**
      * @return true 允许退出
      */
     @Override
     public boolean onBackPressed() {
+        return true;
+    }
+
+    @Override
+    public boolean canSwipeBackPressed() {
         return true;
     }
 
@@ -478,5 +500,10 @@ public abstract class UIIViewImpl implements IView {
     public IView bindOtherILayout(ILayout otherILayout) {
         mOtherILayout = otherILayout;
         return this;
+    }
+
+    @Override
+    public boolean canTryCaptureView() {
+        return true;
     }
 }

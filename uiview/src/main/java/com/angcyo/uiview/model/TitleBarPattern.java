@@ -1,8 +1,10 @@
 package com.angcyo.uiview.model;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -111,6 +113,11 @@ public class TitleBarPattern {
         return this;
     }
 
+    public TitleBarPattern setTitleString(Context context, @StringRes int res) {
+        mTitleString = context.getResources().getString(res);
+        return this;
+    }
+
     public TitleBarPattern setTitleSize(float size) {
         this.mTitleSize = size;
         return this;
@@ -167,8 +174,8 @@ public class TitleBarPattern {
         public String text;
         @DrawableRes
         public int res = -1;
-
         public View.OnClickListener listener;
+        public int visibility = View.VISIBLE;
 
         private TitleBarItem() {
 
@@ -179,7 +186,7 @@ public class TitleBarPattern {
             this.listener = listener;
         }
 
-        public TitleBarItem(int res, View.OnClickListener listener) {
+        public TitleBarItem(@DrawableRes int res, View.OnClickListener listener) {
             this.res = res;
             this.listener = listener;
         }
@@ -188,8 +195,8 @@ public class TitleBarPattern {
             return new TitleBarItem(text, listener);
         }
 
-        public static TitleBarItem build(int res, View.OnClickListener listener) {
-            return new TitleBarItem(res, listener);
+        public static TitleBarItem build(@DrawableRes int icoRes, View.OnClickListener listener) {
+            return new TitleBarItem(icoRes, listener);
         }
 
         public static TitleBarItem build() {
@@ -203,6 +210,11 @@ public class TitleBarPattern {
 
         public TitleBarItem setRes(int res) {
             this.res = res;
+            return this;
+        }
+
+        public TitleBarItem setVisibility(int visibility) {
+            this.visibility = visibility;
             return this;
         }
 

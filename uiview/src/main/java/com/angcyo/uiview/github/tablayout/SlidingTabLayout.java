@@ -34,6 +34,8 @@ import java.util.Collections;
 
 /**
  * 滑动TabLayout,对于ViewPager的依赖性强
+ *
+ * https://github.com/H07000223/FlycoTabLayout
  */
 public class SlidingTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
     private static final int STYLE_NORMAL = 0;

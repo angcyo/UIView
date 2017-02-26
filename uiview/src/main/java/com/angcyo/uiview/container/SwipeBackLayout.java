@@ -43,6 +43,10 @@ public abstract class SwipeBackLayout extends FrameLayout {
 
     private Paint mPaint;
 
+    private boolean enableSwipeBack = true;
+    private boolean mIsLocked;
+    private boolean mIsLeftEdge;
+    private float mRawDownX;
     /**
      * The drag helper callback interface for the Left position
      */
@@ -50,9 +54,12 @@ public abstract class SwipeBackLayout extends FrameLayout {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
-            boolean isLeft = mDragHelper.isEdgeTouched(ViewDragHelper.EDGE_LEFT, pointerId);
+            if (!enableSwipeBack) {
+                return false;
+            }
+            mIsLeftEdge = mDragHelper.isEdgeTouched(ViewDragHelper.EDGE_LEFT, pointerId);
             mTargetView = child;
-            if (isLeft) {
+            if (mIsLeftEdge || isForceIntercept()) {
                 return canTryCaptureView(child);
             }
             return false;
@@ -111,6 +118,7 @@ public abstract class SwipeBackLayout extends FrameLayout {
             switch (state) {
                 case ViewDragHelper.STATE_IDLE:
                     //滚动结束
+                    onStateIdle();
                     if (mTargetView.getLeft() == 0) {
                         // State Open
                         onRequestOpened();
@@ -134,7 +142,6 @@ public abstract class SwipeBackLayout extends FrameLayout {
 
     };
 
-    private boolean mIsLocked;
 
     public SwipeBackLayout(Context context) {
         super(context);
@@ -158,6 +165,13 @@ public abstract class SwipeBackLayout extends FrameLayout {
      */
     public static int clamp(int value, int min, int max) {
         return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * 是否激活滑动删除
+     */
+    public void setEnableSwipeBack(boolean enableSwipeBack) {
+        this.enableSwipeBack = enableSwipeBack;
     }
 
     /**
@@ -209,6 +223,12 @@ public abstract class SwipeBackLayout extends FrameLayout {
 
         //canDragFromEdge(ev);
 
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            mRawDownX = ev.getRawX();
+        } else if (ev.getAction() == MotionEvent.ACTION_UP) {
+            mRawDownX = -1;
+        }
+
         // Fix for pull request #13 and issue #12
         try {
             interceptForDrag = mDragHelper.shouldInterceptTouchEvent(ev);
@@ -217,6 +237,17 @@ public abstract class SwipeBackLayout extends FrameLayout {
         }
 
         return interceptForDrag && !mIsLocked;
+    }
+
+    boolean isForceIntercept() {
+//        if (Build.USER.contains("nubia") && mRawDownX > 0 && mRawDownX <= 100f) {
+//            return true;
+//        }
+        float density = getResources().getDisplayMetrics().density;
+        if (mRawDownX > 0 && mRawDownX <= 50f * density) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -292,6 +323,13 @@ public abstract class SwipeBackLayout extends FrameLayout {
      * 开始拖拽的时候回调
      */
     protected void onStateDragging() {
+
+    }
+
+    /**
+     * 结束拖拽的时候回调
+     */
+    protected void onStateIdle() {
 
     }
 

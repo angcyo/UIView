@@ -1,6 +1,7 @@
 package com.angcyo.uiview.widget;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +32,9 @@ public class RImageCheckView extends ImageView implements View.OnClickListener, 
         super.onAttachedToWindow();
         super.setOnClickListener(this);
         setScaleType(ScaleType.CENTER_INSIDE);
+        if (getTag() != null && TextUtils.equals("checked", getTag().toString())) {
+            setChecked(true);
+        }
     }
 
     @Override

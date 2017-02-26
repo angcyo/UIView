@@ -35,14 +35,13 @@ public abstract class SingleFrescoImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
 
-        SimpleDraweeView draweeView = new SimpleDraweeView(container.getContext());
+        final SimpleDraweeView draweeView = new SimpleDraweeView(container.getContext());
         GenericDraweeHierarchy hierarchy = draweeView.getHierarchy();
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-        hierarchy.setPlaceholderImage(placeholderImageRes, ScalingUtils.ScaleType.CENTER_INSIDE);
+        hierarchy.setPlaceholderImage(placeholderImageRes, ScalingUtils.ScaleType.CENTER_CROP);
 
-        DraweeViewUtil.setDraweeViewHttp(draweeView, getImageUrl(position));
         container.addView(draweeView, new ViewGroup.LayoutParams(width, height));
-
+        DraweeViewUtil.setDraweeViewHttp(draweeView, getImageUrl(position));
         draweeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

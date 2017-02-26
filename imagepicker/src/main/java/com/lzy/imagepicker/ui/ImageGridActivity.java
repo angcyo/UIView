@@ -3,22 +3,27 @@ package com.lzy.imagepicker.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
 
 import com.lzy.imagepicker.ImageDataSource;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.R;
 import com.lzy.imagepicker.adapter.ImageFolderAdapter;
-import com.lzy.imagepicker.adapter.ImageGridAdapter;
+import com.lzy.imagepicker.adapter.ImageGridAdapter2;
 import com.lzy.imagepicker.bean.ImageFolder;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.view.FolderPopUpWindow;
@@ -34,7 +39,8 @@ import java.util.List;
  * 修订历史：
  * ================================================
  */
-public class ImageGridActivity extends ImageBaseActivity implements ImageDataSource.OnImagesLoadedListener, ImageGridAdapter.OnImageItemClickListener, ImagePicker.OnImageSelectedListener, View.OnClickListener {
+public class ImageGridActivity extends ImageBaseActivity implements ImageDataSource.OnImagesLoadedListener,
+        ImageGridAdapter2.OnImageItemClickListener, ImagePicker.OnImageSelectedListener, View.OnClickListener {
 
     public static final int REQUEST_PERMISSION_STORAGE = 0x01;
     public static final int REQUEST_PERMISSION_CAMERA = 0x02;
@@ -47,7 +53,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     private ImagePicker imagePicker;
 
     private boolean isOrigin = false;  //是否选中原图
-    private GridView mGridView;  //图片展示控件
+    // private GridView mGridView;  //图片展示控件
+    private RecyclerView mRecyclerView;  //图片展示控件
     private View mFooterBar;     //底部栏
     private Button mBtnOk;       //确定按钮
     private Button mBtnDir;      //文件夹切换按钮
@@ -55,7 +62,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     private ImageFolderAdapter mImageFolderAdapter;    //图片文件夹的适配器
     private FolderPopUpWindow mFolderPopupWindow;  //ImageSet的PopupWindow
     private List<ImageFolder> mImageFolders;   //所有的图片文件夹
-    private ImageGridAdapter mImageGridAdapter;  //图片九宫格展示的适配器
+    //private ImageGridAdapter mImageGridAdapter;  //图片九宫格展示的适配器
+    private ImageGridAdapter2 mImageGridAdapter;  //图片九宫格展示的适配器
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +85,26 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
         mBtnDir.setOnClickListener(this);
         mBtnPre = (Button) findViewById(R.id.btn_preview);
         mBtnPre.setOnClickListener(this);
-        mGridView = (GridView) findViewById(R.id.gridview);
+//        mGridView = (GridView) findViewById(R.id.gridview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        mRecyclerView.addItemDecoration(new RExItemDecoration(new RExItemDecoration.ItemDecorationCallback() {
+            @Override
+            public Rect getItemOffsets(LinearLayoutManager layoutManager, int position) {
+                Rect rect = new Rect(0, 0, 0, 0);
+                int offset = (int) (getResources().getDisplayMetrics().density * 2);
+                if (position % 3 != 2) {
+                    rect.right = offset;
+                    rect.bottom = offset;
+                }
+                return rect;
+            }
+
+            @Override
+            public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
+
+            }
+        }));
         mFooterBar = findViewById(R.id.footer_bar);
         if (imagePicker.isMultiMode()) {
             mBtnOk.setVisibility(View.VISIBLE);
@@ -87,7 +114,7 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
             mBtnPre.setVisibility(View.GONE);
         }
 
-        mImageGridAdapter = new ImageGridAdapter(this, null);
+        mImageGridAdapter = new ImageGridAdapter2(this, null);
         mImageFolderAdapter = new ImageFolderAdapter(this, null);
 
         onImageSelected(0, null, false);
@@ -178,7 +205,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
                     mImageGridAdapter.refreshData(imageFolder.images);
                     mBtnDir.setText(imageFolder.name);
                 }
-                mGridView.smoothScrollToPosition(0);//滑动到顶部
+//                mGridView.smoothScrollToPosition(0);//滑动到顶部
+                mRecyclerView.smoothScrollToPosition(0);//滑动到顶部
             }
         });
         mFolderPopupWindow.setMargin(mFooterBar.getHeight());
@@ -191,7 +219,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
         if (imageFolders.size() == 0) mImageGridAdapter.refreshData(null);
         else mImageGridAdapter.refreshData(imageFolders.get(0).images);
         mImageGridAdapter.setOnImageItemClickListener(this);
-        mGridView.setAdapter(mImageGridAdapter);
+//        mGridView.setAdapter(mImageGridAdapter);
+        mRecyclerView.setAdapter(mImageGridAdapter);
         mImageFolderAdapter.refreshData(imageFolders);
     }
 
@@ -223,7 +252,8 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
     @Override
     public void onImageSelected(int position, ImageItem item, boolean isAdd) {
         if (imagePicker.getSelectImageCount() > 0) {
-            mBtnOk.setText(getString(R.string.select_complete, imagePicker.getSelectImageCount(), imagePicker.getSelectLimit()));
+            mBtnOk.setText(getString(R.string.select_complete,
+                    imagePicker.getSelectImageCount() + "", imagePicker.getSelectLimit() + ""));
             mBtnOk.setEnabled(true);
             mBtnPre.setEnabled(true);
         } else {
@@ -231,8 +261,9 @@ public class ImageGridActivity extends ImageBaseActivity implements ImageDataSou
             mBtnOk.setEnabled(false);
             mBtnPre.setEnabled(false);
         }
-        mBtnPre.setText(getResources().getString(R.string.preview_count, imagePicker.getSelectImageCount()));
-        mImageGridAdapter.notifyDataSetChanged();
+        mBtnPre.setText(getResources().getString(R.string.preview_count, imagePicker.getSelectImageCount() + ""));
+//        mImageGridAdapter.notifyDataSetChanged();
+        mImageGridAdapter.notifyItemChanged(position);
     }
 
     @Override

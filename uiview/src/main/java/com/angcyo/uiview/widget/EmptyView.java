@@ -12,6 +12,8 @@ import android.view.View;
 
 import com.angcyo.uiview.R;
 
+import java.util.Random;
+
 /**
  * Created by angcyo on 2017-01-01 10:46.
  */
@@ -48,6 +50,7 @@ public class EmptyView extends View {
 
     RectF mRectF;
     RectF mRectFLittle;
+    private Random mRandom;
 
     public EmptyView(Context context) {
         this(context, null);
@@ -84,6 +87,12 @@ public class EmptyView extends View {
 
     private float getDensity() {
         return getResources().getDisplayMetrics().density;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mRandom = new Random(System.currentTimeMillis());
     }
 
     /**
@@ -155,21 +164,30 @@ public class EmptyView extends View {
     }
 
     private void drawLittleRect(Canvas canvas) {
+
         int height = (mDefaultGroupHeight - 2 * mVSpace) / 3;
         final int right = getMeasuredWidth() - getPaddingRight() - getPaddingLeft();
 
-        mRectFLittle.set(mDefaultGroupHeight + mHSpace, 0, right, height);
+        final int left = mDefaultGroupHeight + mHSpace;
+
+        mRectFLittle.set(left, 0, left + (right - left) * ratio(0.6f), height);
         canvas.drawRoundRect(mRectFLittle, mRoundRadius, mRoundRadius, mPaint);
 
-        mRectFLittle.set(mDefaultGroupHeight + mHSpace, height + mVSpace,
-                getPaddingLeft() + mDefaultGroupHeight / 2 + mHSpace / 2 + right / 2,
+//        mRectFLittle.set(mDefaultGroupHeight + mHSpace, height + mVSpace,
+//                (getPaddingLeft() + mDefaultGroupHeight / 2 + mHSpace / 2 + right / 2) * ratio(0.3f),
+//                2 * height + mVSpace);
+        mRectFLittle.set(left, height + mVSpace, left + (right - left) * ratio(0.3f),
                 2 * height + mVSpace);
         canvas.drawRoundRect(mRectFLittle, mRoundRadius, mRoundRadius, mPaint);
 
-        mRectFLittle.set(mDefaultGroupHeight + mHSpace,
-                2 * height + 2 * mVSpace, right,
+        mRectFLittle.set(left,
+                2 * height + 2 * mVSpace, left + (right - left) * ratio(0.5f),
                 3 * height + 2 * mVSpace);
         canvas.drawRoundRect(mRectFLittle, mRoundRadius, mRoundRadius, mPaint);
+    }
+
+    private float ratio(float min) {
+        return Math.min(min + 0.6f * mRandom.nextFloat(), 0.8f);
     }
 
     public void setDefaultColor(int defaultColor) {

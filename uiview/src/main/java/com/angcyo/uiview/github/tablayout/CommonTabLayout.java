@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 /**
  * 没有继承HorizontalScrollView不能滑动,对于ViewPager无依赖
+ * https://github.com/H07000223/FlycoTabLayout
  */
 public class CommonTabLayout extends FrameLayout implements ValueAnimator.AnimatorUpdateListener {
     private static final int STYLE_NORMAL = 0;

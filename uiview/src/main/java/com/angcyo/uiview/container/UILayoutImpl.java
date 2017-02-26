@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -133,6 +134,10 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     private boolean isSwipeDrag = false;
 
     /**
+     * 是否需要滑动返回, 如果正在滑动返回,则阻止onLayout的进行
+     */
+    private boolean isWantSwipeBack = false;
+    /**
      * 需要中断IView启动的的列表
      */
     private Set<IView> interruptSet;
@@ -184,11 +189,19 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
      */
     @Override
     protected boolean canTryCaptureView(View child) {
-        if (mAttachViews.size() > 1
-                && !mLastShowViewPattern.mIView.isDialog()
-                && mLastShowViewPattern.mView == child) {
-            hideSoftInput();
-            return true;
+        if (mLastShowViewPattern == null || mLastShowViewPattern.isAnimToStart) {
+            return false;
+        }
+
+        if (mAttachViews.size() > 1) {
+            if (!mLastShowViewPattern.mIView.isDialog()//最前的不是对话框
+                    && mLastShowViewPattern.mIView.canTryCaptureView()//激活滑动关闭
+                    && mLastShowViewPattern.mView == child) {
+                hideSoftInput();
+                return true;
+            } else {
+                return false;
+            }
         } else if (enableRootSwipe) {
             hideSoftInput();
             return true;
@@ -270,6 +283,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    isFinishing = false;
                     startIView(iView, param);
                 }
             }, UIIViewImpl.DEFAULT_ANIM_TIME);
@@ -290,23 +304,28 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 //如果已经是最前显示, 调用onViewShow方法
                 oldViewPattern.mIView.onViewShow(param.mBundle);
             } else {
-                ViewPattern viewPatternByIView = findViewPatternByIView(iView);
+                ViewPattern viewPatternByIView = findViewPatternByClass(iView.getClass());
                 if (viewPatternByIView == null) {
                     //这个IView 还不存在
                     final ViewPattern newViewPattern = startIViewInternal(iView);
 //                    startIViewAnim(oldViewPattern, newViewPattern, param);
                     viewPatternByIView = newViewPattern;
+                    startIViewAnim(oldViewPattern, viewPatternByIView, param, false);
+
                 } else {
                     //这个IView 存在, 但是不在最前显示
 //                    bottomViewFinish(oldViewPattern, viewPatternByIView, param);
 //                    topViewStart(viewPatternByIView, param);
+
+                    mAttachViews.remove(viewPatternByIView);
+                    mAttachViews.push(viewPatternByIView);
+                    startIViewAnim(oldViewPattern, viewPatternByIView, param, true);
                 }
-                startIViewAnim(oldViewPattern, viewPatternByIView, param);
             }
         } else {
             //正常的启动模式
             final ViewPattern newViewPattern = startIViewInternal(iView);
-            startIViewAnim(oldViewPattern, newViewPattern, param);
+            startIViewAnim(oldViewPattern, newViewPattern, param, false);
         }
     }
 
@@ -386,7 +405,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
         //首先调用IView接口的inflateContentView方法,(inflateContentView请不要初始化View)
         //其次会调用loadContentView方法,用来初始化View.(此方法调用之后, 就支持ButterKnife了)
+        //1:
         final View view = iView.inflateContentView(mCompatActivity, this, this, LayoutInflater.from(mCompatActivity));
+        //2:
         iView.onViewCreate();
 
         View rawView;
@@ -428,18 +449,20 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             return;
         }
 
-        L.d("请求关闭2:" + viewPattern.mIView.getClass().getSimpleName());
+        L.d("请求关闭2:" + viewPattern.toString() + " isFinishing:" + isFinishing);
 
         ViewPattern lastViewPattern = findLastShowViewPattern(viewPattern);
 
-        if (viewPattern.isAnimToStart || isFinishing) {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    finishIViewInner(viewPattern, param);
-                }
-            });
-            return;
+        if (!viewPattern.interrupt) {
+            if (viewPattern.isAnimToStart || isFinishing) {
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        finishIViewInner(viewPattern, param);
+                    }
+                });
+                return;
+            }
         }
 
         if (param.isSwipeBack) {
@@ -460,7 +483,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 //            return;
 //        }
 
-        topViewFinish(viewPattern, param.mAnim);
+        topViewFinish(lastViewPattern, viewPattern, param.mAnim);
         bottomViewStart(lastViewPattern, viewPattern, param.mAnim, param.isQuiet);
 
 //        if (param.mAnim) {
@@ -483,7 +506,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 //            removeViewPattern(viewPattern);
 //        }
 
-        mLastShowViewPattern = lastViewPattern;
+        //mLastShowViewPattern = lastViewPattern;//在top view 完全remove 之后, 再赋值
     }
 
     @Override
@@ -509,6 +532,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     @Override
     public void finishIView(final IView iview, final UIParam param) {
         if (iview == null) {
+            isBackPress = false;
             return;
         }
         L.d("请求关闭/中断:" + iview.getClass().getSimpleName());
@@ -517,6 +541,17 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         final ViewPattern viewPattern = findViewPatternByIView(iview);
         if (viewPattern != null) {
             viewPattern.interrupt = true;//中断启动
+        }
+
+        if (mLastShowViewPattern != null && mLastShowViewPattern != viewPattern && mLastShowViewPattern.mIView.isDialog()) {
+            L.d("等待对话框:" + mLastShowViewPattern.mIView.getClass().getSimpleName() + " 的关闭");
+            postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finishIView(iview, param);
+                }
+            }, DEFAULT_ANIM_TIME);
+            return;
         }
 
         final Runnable endRunnable = new Runnable() {
@@ -696,8 +731,14 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             }
         }
 
-        if (!param.isSwipeBack) {
+        if (param.isSwipeBack) {
+            if (!mLastShowViewPattern.mIView.canSwipeBackPressed()) {
+                //不能滑动返回
+                return false;
+            }
+        } else {
             if (!mLastShowViewPattern.mIView.onBackPressed()) {
+                //不能退出
                 return false;
             }
         }
@@ -729,9 +770,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 final ViewPattern oldViewPattern = getLastViewPattern();
                 final ViewPattern newViewPattern = startIViewInternal(iView);
 
-                if (newViewPattern != null) {
-                    newViewPattern.mIView.onViewLoad();
-                }
+                //3:
+                newViewPattern.mIView.onViewLoad();
+
                 topViewStart(newViewPattern, param);
 
                 final Runnable endRunnable = new Runnable() {
@@ -772,10 +813,11 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
     private void startIViewAnim(final ViewPattern oldViewPattern, final ViewPattern newViewPattern,
-                                final UIParam param) {
+                                final UIParam param, boolean reLoad) {
         if (isAttachedToWindow) {
             mLastShowViewPattern = newViewPattern;
-            if (newViewPattern != null) {
+
+            if (!reLoad) {
                 newViewPattern.mIView.onViewLoad();
             }
 
@@ -845,15 +887,17 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     /**
      * 顶上视图退出的动画
      */
-    private void topViewFinish(final ViewPattern topViewPattern, final boolean anim) {
+    private void topViewFinish(final ViewPattern bottomViewPattern, final ViewPattern topViewPattern, final boolean anim) {
         final Animation animation = topViewPattern.mIView.loadFinishAnimation();
         final Runnable endRunnable = new Runnable() {
             @Override
             public void run() {
                 L.d(topViewPattern.mIView.getClass().getSimpleName() + " 关闭完成.");
+                mLastShowViewPattern = bottomViewPattern;//星期一 2017-1-16
 
                 topViewPattern.isAnimToEnd = false;
                 isFinishing = false;
+                isBackPress = false;
                 viewHide(topViewPattern);
                 removeViewPattern(topViewPattern);
 
@@ -910,6 +954,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
                 if (!quiet) {
                     viewShow(bottomViewPattern, null);
                 }
+                bottomViewPattern.mIView.onViewReShow(null);
             }
         };
         bottomViewPattern.mView.setVisibility(VISIBLE);
@@ -1193,6 +1238,15 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         return null;
     }
 
+    public ViewPattern findViewPatternByClass(Class<?> clz) {
+        for (ViewPattern viewPattern : mAttachViews) {
+            if (TextUtils.equals(viewPattern.mIView.getClass().getSimpleName(), clz.getSimpleName())) {
+                return viewPattern;
+            }
+        }
+        return null;
+    }
+
     public ViewPattern findLastShowViewPattern() {
         return findViewPattern(mAttachViews.size() - 2);
     }
@@ -1218,7 +1272,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
     public void removeViewPattern(ViewPattern viewPattern) {
         hideSoftInput();
-
+        interruptSet.remove(viewPattern.mIView);
         viewPattern.mIView.onViewUnload();
         final View view = viewPattern.mView;
         view.setVisibility(GONE);
@@ -1312,6 +1366,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        if (isWantSwipeBack) {
+            return;
+        }
         super.onLayout(changed, left, top, right, bottom);
     }
 
@@ -1408,9 +1465,18 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         manager.showSoftInputFromInputMethod(getWindowToken(), 0);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         if (mLastShowViewPattern != null) {
-            mLastShowViewPattern.mIView.onActivityResult(requestCode, resultCode, data);
+            if (mLastShowViewPattern.isAnimToEnd) {
+                post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onActivityResult(requestCode, resultCode, data);
+                    }
+                });
+            } else {
+                mLastShowViewPattern.mIView.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 
@@ -1498,8 +1564,15 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
     @Override
+    protected void onStateIdle() {
+        super.onStateIdle();
+        isWantSwipeBack = false;
+    }
+
+    @Override
     protected void onStateDragging() {
         super.onStateDragging();
+        isWantSwipeBack = true;
         isSwipeDrag = true;
 
         //开始偏移时, 偏移的距离

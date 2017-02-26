@@ -224,6 +224,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
                         Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f,
                         Animation.RELATIVE_TO_PARENT, 1f, Animation.RELATIVE_TO_PARENT, 0f);
                 setDefaultConfig(translateAnimation);
+                translateAnimation.setDuration(160);
                 return translateAnimation;
             } else {
                 return layoutAnimation;

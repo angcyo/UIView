@@ -45,7 +45,7 @@ public class UIViewPager extends ViewPager implements Runnable {
                 post(UIViewPager.this);
             }
         });
-        setCurrentItem(defaultShowItem);
+        //setCurrentItem(defaultShowItem);
     }
 
     private Class<?> getSuperclass() {
@@ -65,13 +65,13 @@ public class UIViewPager extends ViewPager implements Runnable {
 
     @Override
     public void setCurrentItem(int item) {
-        lastItem = getCurrentItem();
+        //lastItem = getCurrentItem();
         super.setCurrentItem(item);
     }
 
     @Override
     public void setCurrentItem(int item, boolean smoothScroll) {
-        lastItem = getCurrentItem();
+        //lastItem = getCurrentItem();
         super.setCurrentItem(item, smoothScroll);
     }
 

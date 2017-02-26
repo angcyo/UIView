@@ -234,7 +234,7 @@ public class UITitleBarContainer extends FrameLayout {
     }
 
     /**
-     * 根据 scrollY 动态计算背景颜色
+     * 根据 scrollY 动态计算背景颜色, 并自动隐藏标题
      */
     public void evaluateBackgroundColor(int scrollY, View titleView) {
         float factor = 6 * scrollY * 0.1f / getMeasuredHeight();
@@ -306,6 +306,7 @@ public class UITitleBarContainer extends FrameLayout {
                 //创建图片按钮
                 view = createImageItem(item.res, item.listener);
             }
+            view.setVisibility(item.visibility);
             view.setMinimumWidth(itemSize);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -1);
             view.setTag(i);//方便之后查找这个view
@@ -379,8 +380,23 @@ public class UITitleBarContainer extends FrameLayout {
         return mTitleBarPattern;
     }
 
+    public ViewGroup getCenterControlLayout() {
+        return mCenterControlLayout;
+    }
+
+    public LinearLayout getLeftControlLayout() {
+        return mLeftControlLayout;
+    }
+
+    public LinearLayout getRightControlLayout() {
+        return mRightControlLayout;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return true;
+        if (mTitleBarPattern == null) {
+            return true;
+        }
+        return !mTitleBarPattern.isFloating;
     }
 }

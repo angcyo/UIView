@@ -47,8 +47,8 @@ public class DraweeViewUtil {
 
     public static void setDraweeViewFile(SimpleDraweeView view, String filePath) {
         String url = "file://" + filePath;
-//        view.setImageURI(Uri.parse(url));
-        resize(view, Uri.parse(url), DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        view.setImageURI(Uri.parse(url));
+//        resize(view, Uri.parse(url), DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     public static void setDraweeViewHttp(SimpleDraweeView view, String url) {
@@ -56,13 +56,13 @@ public class DraweeViewUtil {
             view.setImageURI("");
             return;
         }
-        resize(view, Uri.parse(url), DEFAULT_WIDTH, DEFAULT_HEIGHT);
-//        if (url.startsWith("http")) {
-//            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-//            view.setImageURI(Uri.parse(url));
-//        } else {
-//            setDraweeViewHttp2Inner(view, url);
-//        }
+//        resize(view, Uri.parse(url), DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        if (url.startsWith("http")) {
+            view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+            view.setImageURI(Uri.parse(url));
+        } else {
+            setDraweeViewHttp2Inner(view, url);
+        }
     }
 
     public static void setDraweeViewHttp2(SimpleDraweeView view, String url) {

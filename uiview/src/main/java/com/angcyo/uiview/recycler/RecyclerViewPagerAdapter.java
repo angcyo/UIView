@@ -25,7 +25,7 @@ public abstract class RecyclerViewPagerAdapter<T> extends RBaseAdapter<T> {
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemType(int position) {
         if (position < rawSize) {
             return 200;
         }

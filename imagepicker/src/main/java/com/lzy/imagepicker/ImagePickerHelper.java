@@ -97,6 +97,13 @@ public class ImagePickerHelper {
     }
 
     /**
+     * 清空所有状态
+     */
+    public static void clearAllSelectedImages() {
+        ImagePicker.getInstance().clear();
+    }
+
+    /**
      * 是否是原图
      */
     public static boolean isOrigin(int requestCode, int resultCode, Intent data) {

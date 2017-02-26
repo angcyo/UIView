@@ -1,5 +1,8 @@
 package com.angcyo.uiview.net;
 
+import com.angcyo.uiview.R;
+import com.angcyo.uiview.RApplication;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -14,6 +17,6 @@ package com.angcyo.uiview.net;
 public class NonetException extends RuntimeException {
     @Override
     public String getMessage() {
-        return "无网络...";
+        return RApplication.getApp().getString(R.string.no_network);
     }
 }

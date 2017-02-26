@@ -19,6 +19,12 @@ import com.angcyo.uiview.base.UIIDialogImpl;
  */
 
 public class UIDialog extends UIIDialogImpl {
+
+    /**
+     * 是否使用5.0以上的样式
+     */
+    boolean isX5Style = true;
+
     TextView mBaseDialogTitleView;
     TextView mBaseDialogContentView;
     TextView mBaseDialogCancelView;
@@ -53,7 +59,11 @@ public class UIDialog extends UIIDialogImpl {
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
         setGravity(Gravity.CENTER_VERTICAL);
-        return inflater.inflate(R.layout.base_dialog_layout, dialogRootLayout);
+        if (isX5Style) {
+            return inflater.inflate(R.layout.base_dialog_layout_5x, dialogRootLayout);
+        } else {
+            return inflater.inflate(R.layout.base_dialog_layout, dialogRootLayout);
+        }
     }
 
     /**
@@ -101,7 +111,9 @@ public class UIDialog extends UIIDialogImpl {
         mBaseDialogRootLayout = (LinearLayout) rootView.findViewById(R.id.base_dialog_root_layout);
         mBaseDialogOkView = (TextView) rootView.findViewById(R.id.base_dialog_ok_view);
         mBaseDialogCancelView = (TextView) rootView.findViewById(R.id.base_dialog_cancel_view);
-        mLineLayout = rootView.findViewById(R.id.line_layout);
+        if (!isX5Style) {
+            mLineLayout = rootView.findViewById(R.id.line_layout);
+        }
 
         //默认文本设置
         //mBaseDialogOkView.setText(mActivity.getResources().getString(R.string.base_cancel));
@@ -130,7 +142,10 @@ public class UIDialog extends UIIDialogImpl {
         mBaseDialogContentView.setVisibility(TextUtils.isEmpty(dialogContent) ? View.GONE : View.VISIBLE);
         mBaseDialogCancelView.setVisibility(TextUtils.isEmpty(cancelText) ? View.GONE : View.VISIBLE);
         mBaseDialogOkView.setVisibility(TextUtils.isEmpty(okText) ? View.GONE : View.VISIBLE);
-        mLineLayout.setVisibility((TextUtils.isEmpty(dialogTitle) && TextUtils.isEmpty(dialogContent)) ? View.GONE : View.VISIBLE);
+
+        if (!isX5Style) {
+            mLineLayout.setVisibility((TextUtils.isEmpty(dialogTitle) && TextUtils.isEmpty(dialogContent)) ? View.GONE : View.VISIBLE);
+        }
 
         mBaseDialogTitleView.setText(dialogTitle);
         mBaseDialogContentView.setText(dialogContent);

@@ -484,6 +484,9 @@ public class RUtils {
         context.startActivity(intent);
     }
 
+    /**
+     * 使用,分割string, 并返回一个列表
+     */
     public static List<String> split(String string) {
         final ArrayList<String> list = new ArrayList<>();
         if (!TextUtils.isEmpty(string)) {

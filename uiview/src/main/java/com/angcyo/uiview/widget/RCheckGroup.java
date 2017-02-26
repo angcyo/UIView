@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.angcyo.uiview.R;
@@ -48,7 +49,7 @@ public class RCheckGroup extends LinearLayout implements View.OnClickListener {
     public RCheckGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RCheckGroup);
-        checkId = typedArray.getResourceId(R.styleable.RCheckGroup_checked_id, View.NO_ID);
+        checkId = typedArray.getResourceId(R.styleable.RCheckGroup_checked_id, checkId);
         typedArray.recycle();
         initGroup();
     }
@@ -58,14 +59,25 @@ public class RCheckGroup extends LinearLayout implements View.OnClickListener {
     }
 
     @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        super.addView(child, index, params);
+        //动态添加的view, 设置了默认的选中item, 不会有事件通知.
+        if (child instanceof ICheckView) {
+            child.setOnClickListener(this);
+            ((ICheckView) child).setChecked(child.getId() == checkId);
+            if (child.getId() == checkId) {
+                checkView = child;
+            }
+        }
+    }
+
+    @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         View oldView = checkView;
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             if (view instanceof ICheckView) {
-                view.setOnClickListener(this);
-                ((ICheckView) view).setChecked(view.getId() == checkId);
                 if (view.getId() == checkId) {
                     checkView = view;
                 }
@@ -123,14 +135,18 @@ public class RCheckGroup extends LinearLayout implements View.OnClickListener {
 
         if (v instanceof ICheckView) {
             checkView = v;
+            ICheckView iCheckView = (ICheckView) checkView;
 
-            if (v == oldView) {
-                ((ICheckView) v).setChecked(true);
+            if (iCheckView.isChecked()) {
+                //已经是选中状态
             } else {
+                //非选中状态
                 if (oldView != null) {
                     ((ICheckView) oldView).setChecked(false);
                 }
+                iCheckView.setChecked(true);
             }
+
             notifyListener(oldView, v);
         }
     }

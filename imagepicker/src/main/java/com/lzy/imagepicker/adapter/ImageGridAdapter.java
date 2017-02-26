@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -34,7 +35,7 @@ public class ImageGridAdapter extends BaseAdapter {
 
     private static final int ITEM_TYPE_CAMERA = 0;  //第一个条目是相机
     private static final int ITEM_TYPE_NORMAL = 1;  //第一个条目不是相机
-
+    TextureView mTextureView;
     private ImagePicker imagePicker;
     private Activity mActivity;
     private ArrayList<ImageItem> images;       //当前需要显示的所有的图片数据
@@ -108,6 +109,7 @@ public class ImageGridAdapter extends BaseAdapter {
                     }
                 }
             });
+            mTextureView = (TextureView) convertView.findViewById(R.id.texture_view);
         } else {
             final ViewHolder holder;
             if (convertView == null) {

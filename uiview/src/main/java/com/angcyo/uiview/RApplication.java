@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.angcyo.library.facebook.DraweeViewUtil;
+import com.angcyo.library.utils.L;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.hawk.Hawk;
 
@@ -141,6 +142,7 @@ public class RApplication extends Application {
         super.onCreate();
         app = this;
         if (isInitOnce(this)) {
+            L.e("RApplication 正在初始化:isInitOnce()");
 
             /*崩溃异常处理*/
             RCrashHandler.init(this);
