@@ -22,6 +22,7 @@ import java.util.Stack;
  * Created by angcyo on 2016-11-05.
  */
 
+@Deprecated
 public class UIContainer extends ContainerWrapper {
     private static final String TAG = "UIContainer";
 
