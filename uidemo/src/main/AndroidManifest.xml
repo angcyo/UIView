@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <!--读取联系人-->
+    <!--读取 联系人-->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
