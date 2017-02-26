@@ -4,19 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <View
-        android:id="@+id/red_view"
-        android:layout_height="150dp"
-        android:layout_width="@dimen/base_100dpi"
-        android:layout_margin="@dimen/base_40dpi"
-        android:background="@color/base_red"/>
+    <!--<View-->
+    <!--android:id="@+id/red_view"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:layout_width="@dimen/base_100dpi"-->
+    <!--android:layout_margin="@dimen/base_40dpi"-->
+    <!--android:background="@color/base_red"/>-->
 
-    <View
-        android:id="@+id/blue_view"
-        android:layout_height="150dp"
-        android:layout_width="@dimen/base_100dpi"
-        android:layout_margin="@dimen/base_40dpi"
-        android:background="@android:color/holo_blue_dark"/>
+    <!--<View-->
+    <!--android:id="@+id/blue_view"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:layout_width="@dimen/base_100dpi"-->
+    <!--android:layout_margin="@dimen/base_40dpi"-->
+    <!--android:background="@android:color/holo_blue_dark"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            android:background="@android:color/darker_gray"
+            android:layout_width="@dimen/base_xhdpi"
+            android:layout_height="10dp"/>
+
+        <View
+            android:id="@+id/red_view"
+            android:layout_width="@dimen/base_100dpi"
+            android:layout_height="150dp"
+            android:layout_margin="@dimen/base_40dpi"
+            android:background="@color/base_red"/>
+
+        <View
+            android:id="@+id/blue_view"
+            android:layout_width="@dimen/base_100dpi"
+            android:layout_height="150dp"
+            android:layout_margin="@dimen/base_40dpi"
+            android:background="@android:color/holo_blue_dark"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/reset_button"
