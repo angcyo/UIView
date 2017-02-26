@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uidemo.R;
-import com.angcyo.uidemo.T_;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
@@ -20,6 +19,7 @@ import com.angcyo.uiview.recycler.RModelAdapter;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.rsen.RefreshLayout;
+import com.angcyo.uiview.utils.T_;
 
 import static android.R.id.list;
 

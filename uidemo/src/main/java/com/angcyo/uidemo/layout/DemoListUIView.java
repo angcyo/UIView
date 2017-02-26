@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
@@ -103,6 +104,13 @@ public class DemoListUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 startIView(new CenterRadioButtonUIView());
+            }
+        });
+
+        addItem("-> Animator Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new AnimatorDemoUIView());
             }
         });
 
