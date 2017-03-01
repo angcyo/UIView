@@ -3,12 +3,12 @@ package com.angcyo.uiview.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
+import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
@@ -29,7 +29,7 @@ public interface IView {
      * 生命周期顺序: 1
      * 请在此方法中, 进行xml的inflate操作, 如果使用了ButterKnife, 请在loadContentView方法之后初始化view的相应操作.
      */
-    View inflateContentView(AppCompatActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
+    View inflateContentView(UILayoutActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater);
 
     /**
      * 生命周期顺序: 2

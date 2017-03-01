@@ -1,5 +1,6 @@
 package com.angcyo.uiview.dialog;
 
+import android.support.annotation.DrawableRes;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,6 +43,11 @@ public class UIItemDialog extends UIIDialogImpl {
 
     public UIItemDialog addItem(String text, View.OnClickListener clickListener) {
         addItem(new ItemInfo(text, clickListener));
+        return this;
+    }
+
+    public UIItemDialog addItem(String text, @DrawableRes int leftRes, View.OnClickListener clickListener) {
+        addItem(new ItemInfo(text, leftRes, clickListener));
         return this;
     }
 
@@ -121,9 +127,17 @@ public class UIItemDialog extends UIIDialogImpl {
         public String mItemText;
         public View.OnClickListener mClickListener;
         public boolean autoCloseDialog = true;
+        @DrawableRes
+        public int leftRes = 0;
 
         public ItemInfo(String itemText, View.OnClickListener clickListener) {
             mItemText = itemText;
+            mClickListener = clickListener;
+        }
+
+        public ItemInfo(String itemText, int leftRes, View.OnClickListener clickListener) {
+            mItemText = itemText;
+            this.leftRes = leftRes;
             mClickListener = clickListener;
         }
 
@@ -131,6 +145,26 @@ public class UIItemDialog extends UIIDialogImpl {
             mItemText = itemText;
             mClickListener = clickListener;
             this.autoCloseDialog = autoCloseDialog;
+        }
+
+        public ItemInfo setItemText(String itemText) {
+            mItemText = itemText;
+            return this;
+        }
+
+        public ItemInfo setClickListener(View.OnClickListener clickListener) {
+            mClickListener = clickListener;
+            return this;
+        }
+
+        public ItemInfo setAutoCloseDialog(boolean autoCloseDialog) {
+            this.autoCloseDialog = autoCloseDialog;
+            return this;
+        }
+
+        public ItemInfo setLeftRes(@DrawableRes int leftRes) {
+            this.leftRes = leftRes;
+            return this;
         }
     }
 }

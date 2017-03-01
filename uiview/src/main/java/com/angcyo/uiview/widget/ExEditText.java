@@ -57,6 +57,16 @@ public class ExEditText extends AppCompatEditText {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        initView();
+    }
+
+    @Override
+    public void setTag(Object tag) {
+        super.setTag(tag);
+        initView();
+    }
+
+    private void initView() {
         Object tag = getTag();
         if (tag != null) {
             String tagString = String.valueOf(tag);

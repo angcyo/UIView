@@ -2,19 +2,22 @@ package com.angcyo.uiview.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
+import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
@@ -34,6 +37,7 @@ import butterknife.ButterKnife;
 public abstract class UIIViewImpl implements IView {
 
     public static final int DEFAULT_ANIM_TIME = 300;
+    public static final int DEFAULT_FINISH_ANIM_TIME = 150;
     public static final int STATE_NORMAL = 1;
     public static final int STATE_VIEW_SHOW = 3;
     public static final int STATE_VIEW_HIDE = 4;
@@ -42,7 +46,7 @@ public abstract class UIIViewImpl implements IView {
 
     protected ILayout mILayout;
     protected ILayout mOtherILayout;
-    protected AppCompatActivity mActivity;
+    protected UILayoutActivity mActivity;
     /**
      * 根布局
      */
@@ -63,9 +67,14 @@ public abstract class UIIViewImpl implements IView {
     private long viewShowCount = 0;
     private boolean mIsRightJumpLeft = false;
 
-    public static void setDefaultConfig(Animation animation) {
-        animation.setDuration(DEFAULT_ANIM_TIME);
-        animation.setInterpolator(new DecelerateInterpolator());
+    public static void setDefaultConfig(Animation animation, boolean isFinish) {
+        if (isFinish) {
+            animation.setDuration(DEFAULT_FINISH_ANIM_TIME);
+            animation.setInterpolator(new AccelerateInterpolator());
+        } else {
+            animation.setDuration(DEFAULT_ANIM_TIME);
+            animation.setInterpolator(new DecelerateInterpolator());
+        }
         animation.setFillAfter(false);
     }
 
@@ -84,7 +93,7 @@ public abstract class UIIViewImpl implements IView {
     }
 
     @Override
-    public View inflateContentView(AppCompatActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
+    public View inflateContentView(UILayoutActivity activity, ILayout iLayout, FrameLayout container, LayoutInflater inflater) {
         L.d(this.getClass().getSimpleName(), "inflateContentView: ");
         mActivity = activity;
         return inflateBaseView(container, inflater);
@@ -205,7 +214,7 @@ public abstract class UIIViewImpl implements IView {
             translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0,
                     Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         }
-        setDefaultConfig(translateAnimation);
+        setDefaultConfig(translateAnimation, false);
         return translateAnimation;
     }
 
@@ -214,7 +223,7 @@ public abstract class UIIViewImpl implements IView {
         L.d(this.getClass().getSimpleName(), "loadFinishAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1f,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
-        setDefaultConfig(translateAnimation);
+        setDefaultConfig(translateAnimation, true);
         return translateAnimation;
     }
 
@@ -241,7 +250,7 @@ public abstract class UIIViewImpl implements IView {
             translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1f,
                     Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         }
-        setDefaultConfig(translateAnimation);
+        setDefaultConfig(translateAnimation, false);
         return translateAnimation;
     }
 
@@ -250,7 +259,7 @@ public abstract class UIIViewImpl implements IView {
         L.d(this.getClass().getSimpleName(), "loadOtherEnterAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
-        setDefaultConfig(translateAnimation);
+        setDefaultConfig(translateAnimation, false);
         return translateAnimation;
     }
 
@@ -505,5 +514,19 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public boolean canTryCaptureView() {
         return true;
+    }
+
+    public Resources getResources() {
+        return mActivity.getResources();
+    }
+
+    //星期二 2017-2-28
+    public String getString(@StringRes int id) {
+        return getResources().getString(id);
+    }
+
+    //星期二 2017-2-28
+    public String getString(@StringRes int id, Object... formatArgs) {
+        return getResources().getString(id, formatArgs);
     }
 }

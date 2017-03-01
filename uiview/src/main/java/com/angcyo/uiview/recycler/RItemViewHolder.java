@@ -14,6 +14,7 @@ import android.view.ViewGroup;
  * 修改备注：
  * Version: 1.0.0
  */
+@Deprecated
 public abstract class RItemViewHolder extends RBaseViewHolder {
     public RItemViewHolder(ViewGroup parent, int viewType) {
         super(parent, viewType);

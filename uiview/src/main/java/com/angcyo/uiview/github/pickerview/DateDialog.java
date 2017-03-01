@@ -34,6 +34,27 @@ public class DateDialog extends UIIDialogImpl {
         mDateConfig = dateConfig;
     }
 
+    /**
+     * 获取周岁(时间格式 必须是: yyyy-MM-dd)
+     */
+    public static int getBirthday(String date) {
+        if (TextUtils.isEmpty(date)) {
+            return 0;
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        int year = calendar.get(Calendar.YEAR);//当前那一年
+
+        try {
+            calendar.setTime(WheelTime.Date_FORMAT.parse(date));
+            int y = calendar.get(Calendar.YEAR);//当前那一年
+            return year - y;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
         return inflate(com.angcyo.uiview.R.layout.pickerview_time);

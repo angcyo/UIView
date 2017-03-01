@@ -41,7 +41,7 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
     }
 
     @Override
-    public int getItemType(int position) {
+    final public int getItemType(int position) {
         if (isInHeader(position)) {
             return getHeaderItemType(position);
         } else if (isInData(position)) {

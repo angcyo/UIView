@@ -25,6 +25,12 @@ public class TitleBarPattern {
      * 是否显示返回按钮
      */
     public boolean isShowBackImageView;
+
+    /**
+     * 返回按钮的图片资源
+     */
+    @DrawableRes
+    public int backImageRes = 0;
     /**
      * 标题进入的动画
      */
@@ -170,12 +176,19 @@ public class TitleBarPattern {
         return this;
     }
 
+    public TitleBarPattern setBackImageRes(int backImageRes) {
+        this.backImageRes = backImageRes;
+        return this;
+    }
+
     public static class TitleBarItem {
         public String text;
         @DrawableRes
         public int res = -1;
         public View.OnClickListener listener;
         public int visibility = View.VISIBLE;
+        @ColorInt
+        public int textColor = -1;
 
         private TitleBarItem() {
 
@@ -220,6 +233,11 @@ public class TitleBarPattern {
 
         public TitleBarItem setListener(View.OnClickListener listener) {
             this.listener = listener;
+            return this;
+        }
+
+        public TitleBarItem setTextColor(@ColorInt int textColor) {
+            this.textColor = textColor;
             return this;
         }
     }

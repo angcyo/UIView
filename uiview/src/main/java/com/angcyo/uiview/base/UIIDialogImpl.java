@@ -37,7 +37,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
     /**
      * 是否激活布局动画
      */
-    protected boolean layoutAnim = true;
+    protected boolean layoutAnim = false;
 
     /**
      * 是否可以取消对话框
@@ -187,8 +187,8 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0f);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
-        setDefaultConfig(translateAnimation);
-        setDefaultConfig(alphaAnimation);
+        setDefaultConfig(translateAnimation, false);
+        setDefaultConfig(alphaAnimation, false);
 
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.addAnimation(alphaAnimation);
@@ -204,8 +204,8 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0f,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 1f);
         AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
-        setDefaultConfig(translateAnimation);
-        setDefaultConfig(alphaAnimation);
+        setDefaultConfig(translateAnimation, true);
+        setDefaultConfig(alphaAnimation, true);
 
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.addAnimation(alphaAnimation);
@@ -223,7 +223,7 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
                 TranslateAnimation translateAnimation = new TranslateAnimation(
                         Animation.RELATIVE_TO_PARENT, 0f, Animation.RELATIVE_TO_PARENT, 0f,
                         Animation.RELATIVE_TO_PARENT, 1f, Animation.RELATIVE_TO_PARENT, 0f);
-                setDefaultConfig(translateAnimation);
+                setDefaultConfig(translateAnimation, false);
                 translateAnimation.setDuration(160);
                 return translateAnimation;
             } else {

@@ -137,13 +137,14 @@ public class RCheckGroup extends LinearLayout implements View.OnClickListener {
             checkView = v;
             ICheckView iCheckView = (ICheckView) checkView;
 
+            if (oldView != null) {
+                ((ICheckView) oldView).setChecked(false);
+            }
+
             if (iCheckView.isChecked()) {
                 //已经是选中状态
             } else {
                 //非选中状态
-                if (oldView != null) {
-                    ((ICheckView) oldView).setChecked(false);
-                }
                 iCheckView.setChecked(true);
             }
 

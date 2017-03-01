@@ -323,7 +323,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     protected Animation loadLoadingAnimation() {
         RotateAnimation rotateAnimation = new RotateAnimation(0, 360,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        setDefaultConfig(rotateAnimation);
+        setDefaultConfig(rotateAnimation, false);
         rotateAnimation.setInterpolator(new LinearInterpolator());
         rotateAnimation.setRepeatMode(Animation.RESTART);
         rotateAnimation.setRepeatCount(Animation.INFINITE);
@@ -434,6 +434,12 @@ public abstract class UIBaseView extends UIIViewImpl {
         }
         InputMethodManager manager = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.showSoftInputFromInputMethod(mActivity.getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    public void showSoftInput(View view) {
+        view.requestFocus();
+        InputMethodManager manager = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        manager.showSoftInput(view, 0);
     }
 
     /**

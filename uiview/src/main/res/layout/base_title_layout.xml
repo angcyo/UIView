@@ -14,7 +14,7 @@
         android:id="@+id/base_left_control_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.25"
         android:orientation="horizontal">
 
         <ImageView
@@ -34,7 +34,7 @@
         android:id="@+id/base_center_control_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:orientation="horizontal"
         tools:background="@android:color/holo_red_dark">
 
@@ -55,10 +55,10 @@
             android:id="@+id/base_title_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/base_ldpi"
+            android:layout_marginStart="@dimen/base_ldpi"
             android:ellipsize="end"
             android:gravity="center"
-            android:maxLength="20"
+            android:maxLength="@integer/title_text_count"
             android:maxLines="1"
             android:singleLine="true"
             android:tag="title"
@@ -75,8 +75,8 @@
         android:id="@+id/base_right_control_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="right"
+        android:layout_weight="0.25"
+        android:gravity="end"
         android:orientation="horizontal">
 
     </LinearLayout>

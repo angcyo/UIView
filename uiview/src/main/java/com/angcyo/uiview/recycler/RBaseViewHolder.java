@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.angcyo.library.facebook.DraweeViewUtil;
+import com.angcyo.library.utils.L;
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.RApplication;
 import com.bumptech.glide.Glide;
@@ -251,7 +252,7 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
                         try {
                             value = f.get(bean).toString();
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            L.w("the clz=" + clz + " bean=" + bean.getClass().getSimpleName() + " field=" + name + " is null");
                         }
                     }
                     if (view instanceof TextView) {

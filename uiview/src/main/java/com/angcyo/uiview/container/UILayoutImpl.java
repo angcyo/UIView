@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -22,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 
 import com.angcyo.library.utils.L;
+import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.view.ILifecycle;
@@ -53,7 +53,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
      */
     protected ViewPattern mLastShowViewPattern;
     protected boolean isAttachedToWindow = false;
-    protected AppCompatActivity mCompatActivity;
+    protected UILayoutActivity mLayoutActivity;
     Application.ActivityLifecycleCallbacks mCallbacks = new Application.ActivityLifecycleCallbacks() {
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
         @Override
         public void onActivityStarted(Activity activity) {
-            if (activity == mCompatActivity) {
+            if (activity == mLayoutActivity) {
                 if (mLastShowViewPattern != null
                         && mLastShowViewPattern.mView.getVisibility() != VISIBLE) {
                     viewShow(mLastShowViewPattern, null);
@@ -72,21 +72,21 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 
         @Override
         public void onActivityResumed(Activity activity) {
-//            if (activity == mCompatActivity) {
+//            if (activity == mLayoutActivity) {
 //                viewShow(mLastShowViewPattern, null);
 //            }
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-//            if (activity == mCompatActivity) {
+//            if (activity == mLayoutActivity) {
 //                viewHide(mLastShowViewPattern);
 //            }
         }
 
         @Override
         public void onActivityStopped(Activity activity) {
-            if (activity == mCompatActivity) {
+            if (activity == mLayoutActivity) {
                 if (mLastShowViewPattern != null
                         && mLastShowViewPattern.mView.getVisibility() == VISIBLE) {
                     viewHide(mLastShowViewPattern);
@@ -214,14 +214,14 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     }
 
     private void initLayout() {
-        mCompatActivity = (AppCompatActivity) getContext();
+        mLayoutActivity = (UILayoutActivity) getContext();
         interruptSet = new HashSet<>();
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        mCompatActivity.getApplication().registerActivityLifecycleCallbacks(mCallbacks);
+        mLayoutActivity.getApplication().registerActivityLifecycleCallbacks(mCallbacks);
         setFocusable(true);
         setFocusableInTouchMode(true);
         post(new Runnable() {
@@ -236,7 +236,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mCompatActivity.getApplication().unregisterActivityLifecycleCallbacks(mCallbacks);
+        mLayoutActivity.getApplication().unregisterActivityLifecycleCallbacks(mCallbacks);
         isAttachedToWindow = false;
         unloadViewInternal();
     }
@@ -406,7 +406,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         //首先调用IView接口的inflateContentView方法,(inflateContentView请不要初始化View)
         //其次会调用loadContentView方法,用来初始化View.(此方法调用之后, 就支持ButterKnife了)
         //1:
-        final View view = iView.inflateContentView(mCompatActivity, this, this, LayoutInflater.from(mCompatActivity));
+        final View view = iView.inflateContentView(mLayoutActivity, this, this, LayoutInflater.from(mLayoutActivity));
         //2:
         iView.onViewCreate();
 
@@ -1529,15 +1529,15 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     @Override
     public void finish() {
         finishAll();
-        mCompatActivity.onBackPressed();
+        mLayoutActivity.onBackPressed();
     }
 
     @Override
     protected void onRequestClose() {
         super.onRequestClose();
         if (enableRootSwipe && getIViewSize() == 1) {
-            mCompatActivity.finish();
-            mCompatActivity.overridePendingTransition(0, 0);
+            mLayoutActivity.finish();
+            mLayoutActivity.overridePendingTransition(0, 0);
         } else {
             finishIView(mLastShowViewPattern.mIView, new UIParam(false, true, false));
         }
@@ -1626,7 +1626,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
     /**
      * 打印堆栈信息
      */
-    public void logLayoutInfo() {
+    public String logLayoutInfo() {
         StringBuilder stringBuilder = new StringBuilder("\n");
         for (int i = 0; i < mAttachViews.size(); i++) {
             ViewPattern viewPattern = mAttachViews.get(i);
@@ -1649,7 +1649,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             stringBuilder.append(vis);
             stringBuilder.append("\n");
         }
-        L.e(stringBuilder.toString());
+        String string = stringBuilder.toString();
+        L.e(string);
+        return string;
     }
 
     /**

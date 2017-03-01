@@ -1,6 +1,8 @@
 package com.angcyo.uiview.dialog;
 
+import android.graphics.Color;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,11 @@ public class UIBottomItemDialog extends UIItemDialog {
     /*标题文本, 没有则隐藏标题*/
     String titleString;
 
+    /**
+     * 使用微信的样式
+     */
+    boolean useWxStyle = false;
+
     public UIBottomItemDialog() {
     }
 
@@ -52,6 +59,11 @@ public class UIBottomItemDialog extends UIItemDialog {
         return this;
     }
 
+    public UIBottomItemDialog setUseWxStyle(boolean use) {
+        this.useWxStyle = use;
+        return this;
+    }
+
     @Override
     protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
         return inflate(R.layout.base_dialog_bottom_layout);
@@ -60,7 +72,7 @@ public class UIBottomItemDialog extends UIItemDialog {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
-        if (!showCancelButton) {
+        if (useWxStyle || !showCancelButton) {
             mViewHolder.v(R.id.cancel_control_layout).setVisibility(View.GONE);
         }
 
@@ -72,7 +84,7 @@ public class UIBottomItemDialog extends UIItemDialog {
             titleView.setText(titleString);
         }
 
-        if (showDivider) {
+        if (showDivider && !useWxStyle) {
             mItemContentLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE | LinearLayout.SHOW_DIVIDER_BEGINNING);
         } else {
             mItemContentLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_NONE);
@@ -85,11 +97,30 @@ public class UIBottomItemDialog extends UIItemDialog {
         for (int i = 0; i < size; i++) {
             ItemInfo info = mItemInfos.get(i);
             TextView textView = getItem(info);
-            textView.setTextColor(mActivity.getResources().getColor(R.color.base_text_color));
+            if (useWxStyle) {
+                textView.setTextColor(Color.parseColor("#999999"));
+            } else {
+                textView.setTextColor(mActivity.getResources().getColor(R.color.base_text_color));
+            }
             textView.setBackgroundResource(R.drawable.base_bg_selector);
             mItemContentLayout.addView(textView,
                     new ViewGroup.LayoutParams(-1,
                             mActivity.getResources().getDimensionPixelSize(R.dimen.base_item_size)));
         }
+    }
+
+    @Override
+    protected TextView getItem(ItemInfo info) {
+        TextView item = super.getItem(info);
+        int offset = getResources().getDimensionPixelOffset(R.dimen.base_xxhdpi);
+        if (info.leftRes != 0) {
+            item.setCompoundDrawablePadding(offset);
+            item.setCompoundDrawablesWithIntrinsicBounds(info.leftRes, 0, 0, 0);
+        }
+        if (useWxStyle) {
+            item.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
+            item.setPadding(offset, 0, 0, 0);
+        }
+        return item;
     }
 }

@@ -14,6 +14,7 @@ import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
+import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
@@ -111,6 +112,13 @@ public class DemoListUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 startIView(new AnimatorDemoUIView());
+            }
+        });
+
+        addItem("-> Loop RecyclerView Demo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new LoopRecyclerViewUIView());
             }
         });
 

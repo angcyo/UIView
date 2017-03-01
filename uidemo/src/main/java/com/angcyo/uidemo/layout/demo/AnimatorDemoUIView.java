@@ -22,11 +22,6 @@ public class AnimatorDemoUIView extends UIContentView {
     @BindView(R.id.blue_view)
     View mBlueView;
 
-    @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        inflate(R.layout.view_animator_layout);
-    }
-
     /**
      * 计算缩放比例, 从给定的宽高, 到最大的宽高, 计算出宽高需要变化的比例
      */
@@ -52,6 +47,16 @@ public class AnimatorDemoUIView extends UIContentView {
                 .scaleX(scaleX)
                 .scaleY(scaleY)
                 .start();
+    }
+
+    @Override
+    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        inflate(R.layout.view_animator_layout);
+    }
+
+    @Override
+    protected String getTitleString() {
+        return "图片查看动画";
     }
 
     @OnClick({R.id.reset_button, R.id.move_button})

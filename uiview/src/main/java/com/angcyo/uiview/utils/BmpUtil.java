@@ -23,6 +23,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -205,6 +206,78 @@ public class BmpUtil {
 
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
+    }
+
+    /**
+     * 获得圆角的bitmap
+     *
+     * @param bitmap             the bitmap
+     * @param roundPx            the round px
+     * @param backgroundDrawable 背景图片资源
+     * @return rounded corner bitmap
+     */
+    public static Bitmap getRoundedCornerBitmap(Context context, Bitmap bitmap, int width, int height,
+                                                @DrawableRes int backgroundDrawable, float roundPx, int offset) {
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        //绘制背景
+        Drawable bgDrawable = context.getResources().getDrawable(backgroundDrawable);
+        bgDrawable.setBounds(0, 0, width, height);
+        bgDrawable.draw(canvas);
+
+        //在背景的上面绘制圆角图片
+        int out = (int) (context.getResources().getDisplayMetrics().density * offset);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(out, out, width - out, width - out);
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        int layer = canvas.saveLayer(0, 0, width, height, null, Canvas.ALL_SAVE_FLAG);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+//        第二个参数为null,表示绘制整个目标图片
+        canvas.drawBitmap(bitmap, null, rect, paint);
+        canvas.restoreToCount(layer);
+
+        return output;
+    }
+
+    public static Bitmap getRoundedCornerBitmap(Context context, @DrawableRes int drawable, int width, int height,
+                                                @DrawableRes int backgroundDrawable, float roundPx) {
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        //绘制背景
+        Drawable bgDrawable = context.getResources().getDrawable(backgroundDrawable);
+        bgDrawable.setBounds(0, 0, width, height);
+        bgDrawable.draw(canvas);
+
+        //在背景的上面绘制圆角图片
+        int offset = (int) (context.getResources().getDisplayMetrics().density * 10);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(offset, offset, width - offset, width - offset);
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        int layer = canvas.saveLayer(0, 0, width, height, null, Canvas.ALL_SAVE_FLAG);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+//        第二个参数为null,表示绘制整个目标图片
+        canvas.drawBitmap(getBitmap(context.getResources().getDrawable(drawable)), null, rect, paint);
+        canvas.restoreToCount(layer);
+
         return output;
     }
 

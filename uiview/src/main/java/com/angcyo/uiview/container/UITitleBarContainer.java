@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
@@ -184,6 +185,9 @@ public class UITitleBarContainer extends FrameLayout {
         /*返回按钮*/
         if (mTitleBarPattern.isShowBackImageView) {
             mBackImageView.setVisibility(VISIBLE);
+            if (mTitleBarPattern.backImageRes != 0) {
+                mBackImageView.setImageResource(mTitleBarPattern.backImageRes);
+            }
             mBackImageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -301,7 +305,7 @@ public class UITitleBarContainer extends FrameLayout {
             View view;
             if (item.res == -1) {
                 //不是图片, 就创建文本按钮
-                view = createTextItem(item.text, item.listener);
+                view = createTextItem(item.text, item.textColor, item.listener);
             } else {
                 //创建图片按钮
                 view = createImageItem(item.res, item.listener);
@@ -340,10 +344,10 @@ public class UITitleBarContainer extends FrameLayout {
         return item;
     }
 
-    private TextView createTextItem(String text, OnClickListener listener) {
+    private TextView createTextItem(String text, @ColorInt int color, OnClickListener listener) {
         TextView item = new TextView(getContext());
         item.setText(text);
-        item.setTextColor(Color.WHITE);
+        item.setTextColor(color == -1 ? Color.WHITE : color);
         item.setGravity(Gravity.CENTER);
         item.setBackgroundResource(R.drawable.base_bg2_selector);
         item.setOnClickListener(listener);
@@ -390,6 +394,12 @@ public class UITitleBarContainer extends FrameLayout {
 
     public LinearLayout getRightControlLayout() {
         return mRightControlLayout;
+    }
+
+    public void showRightItem(int index) {
+        if (mRightControlLayout.getChildCount() > index) {
+            mRightControlLayout.getChildAt(index).setVisibility(VISIBLE);
+        }
     }
 
     @Override

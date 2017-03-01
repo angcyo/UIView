@@ -166,8 +166,8 @@ public class ItemInfoLayout extends RelativeLayout {
         } else {
             int padding = (int) dpToPx(2);
             imageParam.setMargins(0, 0, -padding, 0);
+            mImageView.setPadding(0, padding, 0, padding);
         }
-//        mImageView.setPadding(0, padding, 0, padding);
         //mImageView.setBackgroundColor(Color.RED);
 
         addView(mTextView, params);
