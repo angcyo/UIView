@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_dialog_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/base_xxxhdpi"
+    android:layout_marginRight="@dimen/base_xxxhdpi"
+    android:background="@drawable/base_white_round_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/base_dialog_title_view"
+        style="@style/BaseDialogTextStyle"
+        android:textStyle="bold"
+        tools:text="对话框标题"/>
+
+    <TextView
+        android:id="@+id/base_dialog_content_view"
+        style="@style/BaseDialogTextStyle"
+        tools:text="对话框内容对话框内容对话框内容"/>
+
+    <View
+        android:id="@+id/line_layout"
+        style="@style/BaseHLine"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/base_shape_line"
+        android:dividerPadding="4dp"
+        android:layoutAnimation="@anim/base_layout_tran_to_top"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/base_dialog_cancel_view"
+            style="@style/BaseAvgHTextStyle"
+            android:background="@drawable/base_left_button_round_selector"
+            android:clickable="true"
+            tools:text="@string/base_cancel"/>
+
+        <TextView
+            android:id="@+id/base_dialog_ok_view"
+            style="@style/BaseAvgHTextStyle"
+            android:background="@drawable/base_right_button_round_selector"
+            android:clickable="true"
+            tools:text="@string/base_ok"
+            android:textColor="@color/theme_color_accent"/>
+    </LinearLayout>
+
+</LinearLayout>

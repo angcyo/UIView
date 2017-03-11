@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.recycler.ItemLoadMoreLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/default_base_line"
+    android:padding="@dimen/base_xhdpi">
+
+    <!--正在加载更多-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:tag="load_view"
+        android:visibility="visible">
+
+        <com.angcyo.uiview.widget.LoadingImageView
+            android:id="@+id/load_view"
+            android:layout_width="@dimen/base_xxhdpi"
+            android:layout_height="@dimen/base_xxhdpi"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base_hdpi"
+            android:text="正在加载更多..."
+            android:textColor="@color/base_text_color_dark"
+            android:textSize="@dimen/default_text_size"/>
+    </LinearLayout>
+
+    <!--我是有底线的-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:tag="no_more_view"
+        android:visibility="invisible">
+
+        <View
+            android:layout_width="260dp"
+            android:layout_height="2dp"
+            android:layout_centerInParent="true"
+            android:background="#EFEFEF"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/default_base_line"
+            android:paddingLeft="@dimen/base_xhdpi"
+            android:paddingRight="@dimen/base_xhdpi"
+            android:text="我是有底线的"
+            android:textColor="@color/base_text_color_dark"
+            android:textSize="@dimen/default_text_size"/>
+
+    </RelativeLayout>
+
+    <!--网络异常-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:tag="error_view"
+        android:visibility="invisible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="网络异常, 请稍后重试"
+            android:textColor="@color/base_text_color_dark"
+            android:textSize="@dimen/default_text_size"/>
+
+    </RelativeLayout>
+
+</com.angcyo.uiview.recycler.ItemLoadMoreLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="base_root_layout_id" type="id"/>
+    <item name="base_root_title_id" type="id"/>
+    <item name="base_root_content_id" type="id"/>
+
+    <item name="zxt_tag_vh" type="id"/>
+    <item name="zxt_tag_vdb" type="id"/>
+</resources>

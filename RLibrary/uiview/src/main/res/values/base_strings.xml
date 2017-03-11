@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="base_cancel">取消</string>
+    <string name="base_ok">确定</string>
+    <string name="no_network">无网络...</string>
+    <string name="tip_drag">长按编辑,拖拽排序</string>
+    <string name="base_edit">编辑</string>
+    <string name="base_finish">完成</string>
+    <string name="my_channel">我的标签</string>
+    <string name="other_channel">推荐标签</string>
+</resources>

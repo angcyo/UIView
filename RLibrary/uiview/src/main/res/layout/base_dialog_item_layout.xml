@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/base_xxhdpi"
+    android:layout_marginRight="@dimen/base_xxhdpi"
+    android:orientation="vertical">
+
+    <!--Item填充-->
+    <LinearLayout
+        android:id="@+id/item_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_white_round_bg"
+        android:divider="@drawable/base_shape_line"
+        android:orientation="vertical"
+        android:showDividers="middle"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_xxhdpi"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_button_height"
+        android:background="@drawable/base_white_round_bg">
+
+        <TextView
+            android:id="@+id/cancel_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/base_round_bg_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/base_cancel"
+            android:textColor="@color/theme_color_accent"
+            android:textSize="@dimen/default_text_size"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_xxhdpi"/>
+
+</LinearLayout>

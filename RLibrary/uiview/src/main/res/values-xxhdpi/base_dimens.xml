@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSize_sidebar">12sp</dimen>
+    <dimen name="large_textSize_sidebar">36sp</dimen>
+    <dimen name="textSize_sidebar_choose">14sp</dimen>
+    <dimen name="textSize_sidebar_padding">22sp</dimen>
+
+    <!--默认文本大小-->
+    <dimen name="default_text_size">16sp</dimen>
+    <dimen name="default_text_little_size">14sp</dimen>
+    <dimen name="default_text_size16">18sp</dimen>
+    <dimen name="default_text_size9">11sp</dimen>
+    <dimen name="default_text_size10">12sp</dimen>
+    <!--标题的字体大小-->
+    <dimen name="base_title_size">18sp</dimen>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--验证码最大长度-->
+    <integer name="code_count">6</integer>
+    <!--密码最大长度-->
+    <integer name="password_count">12</integer>
+    <!--名称最大长度-->
+    <integer name="name_count">20</integer>
+    <!--帧动画每帧时间-->
+    <integer name="animation_list_time">150</integer>
+    <!--每次查询消息的数量-->
+    <integer name="message_limit">150</integer>
+    <!--内容文本最大显示多少行-->
+    <integer name="content_max_line">3</integer>
+    <!--内容最大显示长度-->
+    <integer name="content_show_length">20</integer>
+    <!--手机号码最大长度-->
+    <integer name="phone_number_count">11</integer>
+    <!--个性签名的最大字符数-->
+    <integer name="signature_count">100</integer>
+    <!--标题最大字符数-->
+    <integer name="title_text_count">16</integer>
+    <!--动态字符长度限制-->
+    <integer name="dynamic_status_text_count">2000</integer>
+    <!--最大录制视频长度-->
+    <integer name="max_video_record_length">30</integer>
+</resources>

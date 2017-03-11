@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RCheckGroup">
+        <!--默认选中的按钮id-->
+        <attr name="checked_id" format="reference"/>
+    </declare-styleable>
+</resources>

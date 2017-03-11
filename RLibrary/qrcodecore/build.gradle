@@ -1,0 +1,14 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.C_SDK as int
+    buildToolsVersion rootProject.B_TOOLS
+
+    defaultConfig {
+        minSdkVersion rootProject.M_SDK as int
+        targetSdkVersion rootProject.T_SDK as int
+    }
+}
+
+// gradle uploadArchives
+//apply from: 'https://raw.githubusercontent.com/bingoogolapple/PublishAar/master/central-publish.gradle'

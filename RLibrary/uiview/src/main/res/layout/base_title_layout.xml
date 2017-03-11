@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_title_bar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/action_bar_height"
+    android:orientation="horizontal"
+    tool:background="@android:color/holo_blue_dark">
+
+    <!--左边控制区-->
+    <LinearLayout
+        android:id="@+id/base_left_control_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/base_back_image_view"
+            android:layout_width="@dimen/base_title_bar_item_size"
+            android:layout_height="match_parent"
+            android:background="@drawable/base_bg2_selector"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@drawable/base_back"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <!--中间标题区-->
+    <com.angcyo.uiview.widget.RTitleCenterLayout
+        android:id="@+id/base_center_control_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        tools:background="@android:color/holo_red_dark">
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <com.angcyo.uiview.widget.LoadingImageView
+            android:id="@+id/base_load_view"
+            android:layout_width="@dimen/base_load_view_size"
+            android:layout_height="@dimen/base_load_view_size"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/base_title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/base_ldpi"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLength="@integer/title_text_count"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:tag="title"
+            android:textColor="@color/default_base_white"
+            android:textSize="@dimen/base_title_size"
+            tools:text="标题"/>
+
+        <!--</LinearLayout>-->
+    </com.angcyo.uiview.widget.RTitleCenterLayout>
+
+
+    <!--右边控制区-->
+    <LinearLayout
+        android:id="@+id/base_right_control_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+</LinearLayout>
