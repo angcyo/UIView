@@ -1,1 +1,1 @@
-include ':uiview', ':library', ':uidemo', 'imagepicker'
+include ':RLibrary:uiview', ':RLibrary:library', ':uidemo', ':RLibrary:imagepicker'

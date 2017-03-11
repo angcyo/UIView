@@ -67,6 +67,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':uiview')
+    compile project(':RLibrary:uiview')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
