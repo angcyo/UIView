@@ -36,6 +36,8 @@ public abstract class SingleItem implements Item {
                 this.topOffset = RApplication.getApp().getResources().getDimensionPixelSize(R.dimen.base_xhdpi);
                 break;
             case LINE:
+                this.topOffset = RApplication.getApp().getResources().getDimensionPixelSize(R.dimen.base_line);
+                break;
             case TOP_LINE:
                 this.leftOffset = RApplication.getApp().getResources().getDimensionPixelSize(R.dimen.base_xhdpi);
                 this.topOffset = RApplication.getApp().getResources().getDimensionPixelSize(R.dimen.base_line);

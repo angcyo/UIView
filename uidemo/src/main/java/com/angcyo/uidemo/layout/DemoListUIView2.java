@@ -34,7 +34,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
 
     @Override
     protected void createItems(List<SingleItem> items) {
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.TOP) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Scroller IView", new View.OnClickListener() {
@@ -46,7 +46,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Refresh Layout Demo", new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Test Demo", new View.OnClickListener() {
@@ -70,7 +70,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "RTL Demo", new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Emoji Layout Demo (Android5.+)", new View.OnClickListener() {
@@ -94,7 +94,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "ExEmoji Layout Demo", new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Swipe RecyclerView Demo", new View.OnClickListener() {
@@ -118,7 +118,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Link Url Demo", new View.OnClickListener() {
@@ -130,7 +130,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Center Button Demo", new View.OnClickListener() {
@@ -142,7 +142,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Animator Demo", new View.OnClickListener() {
@@ -154,7 +154,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-        items.add(new SingleItem() {
+        items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Loop RecyclerView Demo", new View.OnClickListener() {
