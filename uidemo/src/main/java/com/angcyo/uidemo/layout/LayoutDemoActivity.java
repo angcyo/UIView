@@ -31,7 +31,7 @@ public class LayoutDemoActivity extends UILayoutActivity {
             }
         });
 
-        mLayout.startIView(new DemoListUIView());
+        mLayout.startIView(new DemoListUIView2());
     }
 
 }

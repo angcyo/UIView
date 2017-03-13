@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Created by angcyo on 2016-12-18.
  */
-
+@Deprecated
 public class DemoListUIView extends UIContentView {
 
     LinearLayout rootLayout;

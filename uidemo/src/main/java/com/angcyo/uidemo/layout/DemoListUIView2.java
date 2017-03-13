@@ -1,0 +1,177 @@
+package com.angcyo.uidemo.layout;
+
+import android.view.View;
+
+import com.angcyo.uidemo.NavUIView;
+import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
+import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
+import com.angcyo.uidemo.layout.demo.EmojiUIView;
+import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
+import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
+import com.angcyo.uidemo.layout.demo.RTLUIView;
+import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
+import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
+import com.angcyo.uidemo.uiview.ScrollerIView;
+import com.angcyo.uidemo.uiview.TestDemo;
+import com.angcyo.uiview.base.Item;
+import com.angcyo.uiview.base.SingleItem;
+import com.angcyo.uiview.base.UIItemUIView;
+import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.widget.ItemInfoLayout;
+
+import java.util.List;
+
+/**
+ * Created by angcyo on 2017-03-13.
+ */
+public class DemoListUIView2 extends UIItemUIView<SingleItem> {
+
+    @Override
+    protected int getItemLayoutId(int viewType) {
+        return R.layout.item_demo_list_layout;
+    }
+
+    @Override
+    protected void createItems(List<SingleItem> items) {
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Scroller IView", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new ScrollerIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Refresh Layout Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RefreshLayoutDemo());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Test Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new TestDemo());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "RTL Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RTLUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Emoji Layout Demo (Android5.+)", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new EmojiUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "ExEmoji Layout Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new ExEmojiUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Swipe RecyclerView Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new SwipeRecyclerViewUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Link Url Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new NavUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Center Button Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new CenterRadioButtonUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Animator Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new AnimatorDemoUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Loop RecyclerView Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new LoopRecyclerViewUIView());
+                    }
+                });
+            }
+        });
+    }
+
+    private void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
+        ItemInfoLayout infoLayout = holder.v(R.id.item_info_layout);
+        infoLayout.setItemText(itemText);
+        infoLayout.setOnClickListener(onClickListener);
+    }
+
+}
