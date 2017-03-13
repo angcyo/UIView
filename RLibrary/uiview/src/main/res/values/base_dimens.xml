@@ -45,6 +45,8 @@
     <!--加载进度视图默认的大小-->
     <dimen name="base_load_view_size">20dp</dimen>
 
+    <!--导航栏默认高度-->
+    <dimen name="base_navigation_bar_height">50dp</dimen>
 
     <dimen name="base_0dpi">0dp</dimen>
     <dimen name="base_dpi">1dp</dimen>

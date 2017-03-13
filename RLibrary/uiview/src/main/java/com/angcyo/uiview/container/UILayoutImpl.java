@@ -407,8 +407,6 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         //其次会调用loadContentView方法,用来初始化View.(此方法调用之后, 就支持ButterKnife了)
         //1:
         final View view = iView.inflateContentView(mLayoutActivity, this, this, LayoutInflater.from(mLayoutActivity));
-        //2:
-        iView.onViewCreate();
 
         View rawView;
 
@@ -418,6 +416,9 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         } else {
             rawView = view;
         }
+
+        //2:
+        iView.onViewCreate(view);
 
         return rawView;
     }

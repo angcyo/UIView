@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
@@ -15,7 +14,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UIParam;
-import com.angcyo.uiview.utils.T;
+import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.view.IView;
 import com.tbruyelle.rxpermissions.Permission;
 import com.tbruyelle.rxpermissions.RxPermissions;
@@ -42,39 +41,32 @@ public abstract class UILayoutActivity extends StyleActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
 
         mRxPermissions = new RxPermissions(this);
-        mRxPermissions.requestEach(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.CAMERA,
-                Manifest.permission.READ_CONTACTS)
+        mRxPermissions.requestEach(needPermissions())
                 .map(new Func1<Permission, String>() {
                     @Override
                     public String call(Permission permission) {
                         if (permission.granted) {
-                            return "1";
+                            return permission.name + "1";
                         }
-                        return "0";
+                        return permission.name + "0";
                     }
                 })
                 .scan(new Func2<String, String, String>() {
                     @Override
                     public String call(String s, String s2) {
-                        return s + s2;
+                        return s + "\n" + s2;
                     }
                 })
                 .last()
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        L.e(getClass().getSimpleName() + " -->" + s);
+                        L.e("\n" + UILayoutActivity.this.getClass().getSimpleName() + " 权限状态-->\n"
+                                + s.replaceAll("1", " 允许").replaceAll("0", " 拒绝"));
                         if (s.contains("0")) {
                             finishSelf();
                             notifyAppDetailView();
-                            T.show(UILayoutActivity.this, "必要的权限被拒绝!");
+                            T_.show("必要的权限被拒绝!");
                         } else {
                             onLoadView();
                         }
@@ -92,6 +84,19 @@ public abstract class UILayoutActivity extends StyleActivity {
 //                    }
 //                });
 
+    }
+
+    protected String[] needPermissions() {
+        return new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_CONTACTS
+        };
     }
 
     public void finishSelf() {

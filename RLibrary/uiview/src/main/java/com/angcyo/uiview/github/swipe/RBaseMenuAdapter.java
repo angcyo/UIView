@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.github.swipe.recyclerview.SwipeMenuAdapter;
-import com.angcyo.uiview.recycler.ILoadMore;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.recycler.widget.ILoadMore;
 
 import java.util.ArrayList;
 import java.util.List;

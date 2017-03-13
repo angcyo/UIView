@@ -34,6 +34,7 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
             final int adapterPosition = layoutParams.getViewAdapterPosition();
             groupText = mGroupCallBack.getGroupText(adapterPosition);
             if (TextUtils.isEmpty(groupText)) {
+                mGroupCallBack.onItemDraw(c, view, adapterPosition);
                 continue;
             }
             if (adapterPosition == 0) {
@@ -46,6 +47,8 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
                 if (!TextUtils.equals(preGroupText, groupText)) {
                     //如果和上一个分组信息不相等
                     mGroupCallBack.onGroupDraw(c, view, adapterPosition);
+                } else {
+                    mGroupCallBack.onItemDraw(c, view, adapterPosition);
                 }
             }
         }
@@ -71,7 +74,8 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
             if ((isHorizontal ? view.getLeft() : view.getTop()) <= 0) {
                 mGroupCallBack.onGroupOverDraw(c, view, adapterPosition, 0);
             } else {
-                mGroupCallBack.onGroupOverDraw(c, view, adapterPosition, mGroupCallBack.getGroupHeight() - (isHorizontal ? view.getLeft() : view.getTop()));
+                mGroupCallBack.onGroupOverDraw(c, view, adapterPosition,
+                        mGroupCallBack.getGroupHeight(adapterPosition) - (isHorizontal ? view.getLeft() : view.getTop()));
             }
         } else {
             if (parent.getLayoutManager().getItemCount() > adapterPosition + 1) {
@@ -84,7 +88,8 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
                         mGroupCallBack.onGroupOverDraw(c, view, adapterPosition, 0);
                     } else {
                         mGroupCallBack.onGroupOverDraw(c, view, adapterPosition,
-                                Math.max(0, 2 * mGroupCallBack.getGroupHeight() - (isHorizontal ? nextView.getLeft() : nextView.getTop())));
+                                Math.max(0, 2 * mGroupCallBack.getGroupHeight(adapterPosition) - (isHorizontal
+                                        ? nextView.getLeft() : nextView.getTop())));
                     }
                 } else {
                     mGroupCallBack.onGroupOverDraw(c, view, adapterPosition, 0);
@@ -111,14 +116,15 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
         String groupText = mGroupCallBack.getGroupText(adapterPosition);
         if (TextUtils.isEmpty(groupText)) {
             outRect.set(0, 0, 0, 0);
+            mGroupCallBack.onItemOffsets(outRect, adapterPosition);
             return;
         }
         if (adapterPosition == 0) {
             //第一个位置, 肯定是有分组信息的
             if (((LinearLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.HORIZONTAL) {
-                outRect.set(mGroupCallBack.getGroupHeight(), 0, 0, 0);
+                outRect.set(mGroupCallBack.getGroupHeight(adapterPosition), 0, 0, 0);
             } else {
-                outRect.set(0, mGroupCallBack.getGroupHeight(), 0, 0);
+                outRect.set(0, mGroupCallBack.getGroupHeight(adapterPosition), 0, 0);
             }
         } else {
             //上一个分组信息
@@ -127,10 +133,12 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
             if (!TextUtils.equals(preGroupText, groupText)) {
                 //如果和上一个分组信息不相等
                 if (((LinearLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.HORIZONTAL) {
-                    outRect.set(mGroupCallBack.getGroupHeight(), 0, 0, 0);
+                    outRect.set(mGroupCallBack.getGroupHeight(adapterPosition), 0, 0, 0);
                 } else {
-                    outRect.set(0, mGroupCallBack.getGroupHeight(), 0, 0);
+                    outRect.set(0, mGroupCallBack.getGroupHeight(adapterPosition), 0, 0);
                 }
+            } else {
+                mGroupCallBack.onItemOffsets(outRect, adapterPosition);
             }
         }
     }
@@ -139,12 +147,22 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
         /**
          * 返回分组的高度
          */
-        int getGroupHeight();
+        int getGroupHeight(int position);
 
         /**
          * 返回分组的文本
          */
         String getGroupText(int position);
+
+        /**
+         * 用来处理相同分组Item之间的分割线间隙
+         */
+        void onItemOffsets(Rect outRect, int position);
+
+        /**
+         * 用来绘制相同分组Item之间的分割线
+         */
+        void onItemDraw(Canvas canvas, View view, int position);
 
         /**
          * 绘制分组信息
@@ -158,4 +176,37 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
          */
         void onGroupOverDraw(Canvas canvas, View view, int position, int offset);
     }
+
+    public static class SingleGroupCallBack implements GroupCallBack {
+        @Override
+        public int getGroupHeight(int position) {
+            return 0;
+        }
+
+        @Override
+        public String getGroupText(int position) {
+            return null;
+        }
+
+        @Override
+        public void onItemOffsets(Rect outRect, int position) {
+
+        }
+
+        @Override
+        public void onItemDraw(Canvas canvas, View view, int position) {
+
+        }
+
+        @Override
+        public void onGroupDraw(Canvas canvas, View view, int position) {
+
+        }
+
+        @Override
+        public void onGroupOverDraw(Canvas canvas, View view, int position, int offset) {
+
+        }
+    }
+
 }

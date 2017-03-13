@@ -94,7 +94,7 @@ public class DeviceUtils {
      *
      * @return MAC地址
      */
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "WifiManagerLeak"})
     private static String getMacAddressByWifiInfo() {
         try {
             WifiManager wifi = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
@@ -197,7 +197,10 @@ public class DeviceUtils {
     /**
      * 重启
      * <p>需要root权限或者系统权限 {@code <android:sharedUserId="android.uid.system"/>}</p>
+<<<<<<< HEAD
+=======
      *
+>>>>>>> init commit
      */
     public static void reboot() {
         ShellUtils.execCmd("reboot", true);

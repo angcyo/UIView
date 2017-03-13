@@ -46,19 +46,24 @@ public class RImageView extends AppCompatImageView {
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                Drawable drawableUp = getDrawable();
-                if (drawableUp != null) {
-                    drawableUp.mutate().clearColorFilter();
-                }
+                clearColor();
                 break;
         }
 
         return super.onTouchEvent(event);
     }
 
+    private void clearColor() {
+        Drawable drawableUp = getDrawable();
+        if (drawableUp != null) {
+            drawableUp.mutate().clearColorFilter();
+        }
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        clearColor();
         //setImageDrawable(null);
     }
 }

@@ -66,6 +66,9 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
 
     @Override
     public int getItemCount() {
+        if (isStateLayout()) {
+            return super.getItemCount();
+        }
         return getHeaderCount() + getDataCount() + getFooterCount() + (isEnableLoadMore() ? 1 : 0);
     }
 

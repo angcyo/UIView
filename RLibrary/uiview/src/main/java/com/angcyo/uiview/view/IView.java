@@ -35,7 +35,7 @@ public interface IView {
      * 生命周期顺序: 2
      * 当loadContentView完成之后会调用
      */
-    void onViewCreate();
+    void onViewCreate(View rootView);
 
     /**
      * 生命周期顺序: 3
@@ -179,7 +179,7 @@ public interface IView {
      * 在导航上, 左边的按钮界面, 调到右边的按钮界面, 或者 右边的按钮界面, 跳到左边的按钮界面.
      * 用来决定动画是否需要反向执行
      */
-    void setIsRightJumpLeft(boolean isRightJumpLeft);//2016-12-16
+    IView setIsRightJumpLeft(boolean isRightJumpLeft);//2016-12-16
 
     /**
      * 会在start iVew 之后, 最先执行

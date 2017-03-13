@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.recycler.widget.ItemShowStateLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--空数据布局-->
+    <include
+        layout="@layout/base_empty_layout"
+        android:visibility="gone"/>
+
+    <!--加载中-->
+    <com.angcyo.uiview.widget.EmptyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/base_xhdpi"
+        android:tag="loading"
+        android:visibility="gone"/>
+
+    <!--无网络-->
+    <include
+        layout="@layout/base_nonet_layout"
+        android:visibility="gone"/>
+
+    <!--错误-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:tag="error"
+        android:text="error"
+        android:visibility="gone"/>
+</com.angcyo.uiview.recycler.widget.ItemShowStateLayout>

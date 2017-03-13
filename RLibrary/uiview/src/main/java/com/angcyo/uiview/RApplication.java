@@ -142,7 +142,9 @@ public class RApplication extends Application {
         super.onCreate();
         app = this;
         if (isInitOnce(this)) {
-            L.e("RApplication 正在初始化:isInitOnce()");
+            final long startTime = System.currentTimeMillis();
+
+            L.e("RApplication 正在初始化:isInitOnce()  --start:" + startTime);
 
             /*崩溃异常处理*/
             RCrashHandler.init(this);
@@ -160,6 +162,10 @@ public class RApplication extends Application {
             DraweeViewUtil.init(this);
 
             onInit();
+
+            final long endTime = System.currentTimeMillis();
+
+            L.e("RApplication 正在初始化:isInitOnce() --end:" + (endTime - startTime) / 1000 + "s" + (endTime - startTime) % 1000);
         }
     }
 

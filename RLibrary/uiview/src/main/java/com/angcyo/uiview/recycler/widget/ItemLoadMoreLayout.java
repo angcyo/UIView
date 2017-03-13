@@ -1,4 +1,4 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.widget;
 
 import android.content.Context;
 import android.text.TextUtils;

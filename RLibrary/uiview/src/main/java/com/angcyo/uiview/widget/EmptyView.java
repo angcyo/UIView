@@ -27,11 +27,11 @@ public class EmptyView extends View {
     int defaultColor = Color.parseColor("#80E3E3E3");
 
     /**
-     * 多少个组,每一组由一个大的三个小的组成
+     * 多少个组,每一组由一个大的三个小的组成, 仅在AT_MOST时有效
      */
-    int mGroupCount = 3;
+    int mGroupCount = 10;
 
-    int mDefaultGroupHeight = 100;//px
+    int mDefaultGroupHeight = 80;//px
 
     /**
      * 横向空隙大小
@@ -40,8 +40,7 @@ public class EmptyView extends View {
     /**
      * 竖向空隙大小
      */
-    int mVSpace = 20;//px
-
+    int mVSpace = 10;//px
 
     /**
      * 圆角大小

@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.recycler.widget.ILoadMore;
+import com.angcyo.uiview.recycler.widget.IShowState;
+import com.angcyo.uiview.recycler.widget.ItemShowStateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHolder> {
 
     public static final int ITEM_TYPE_LOAD_MORE = 666;
+    public static final int ITEM_TYPE_SHOW_STATE = 667;
     protected List<T> mAllDatas;
     protected Context mContext;
     /**
@@ -27,9 +31,16 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     protected ILoadMore mLoadMore;
     protected OnAdapterLoadMoreListener mLoadMoreListener;
     /**
+     * 是否激活布局状态显示, 可以在Item中显示,空布局, 无网络布局, 加载中布局,和错误布局
+     */
+    protected boolean mEnableShowState = true;
+    protected IShowState mIShowState;
+    /**
      * 当前加载状态
      */
     int mLoadState = ILoadMore.NORMAL;
+    int mShowState = IShowState.NORMAL;
+
 
     public RBaseAdapter(Context context) {
         mAllDatas = new ArrayList<>();
@@ -78,16 +89,28 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     @Override
     final public int getItemViewType(int position) {
+        if (isStateLayout()) {
+            return ITEM_TYPE_SHOW_STATE;
+        }
         if (mEnableLoadMore && isLast(position)) {
             return ITEM_TYPE_LOAD_MORE;
         }
         return getItemType(position);
     }
 
+    //是否该显示状态布局
+    protected boolean isStateLayout() {
+        return mEnableShowState && mShowState != IShowState.NORMAL;
+    }
+
     @Override
     public RBaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View item;
-        if (mEnableLoadMore && viewType == ITEM_TYPE_LOAD_MORE) {
+        if (mEnableShowState && viewType == ITEM_TYPE_SHOW_STATE) {
+            item = LayoutInflater.from(mContext)
+                    .inflate(R.layout.base_item_show_state_layout, parent, false);
+            mIShowState = (IShowState) item;
+        } else if (mEnableLoadMore && viewType == ITEM_TYPE_LOAD_MORE) {
             item = LayoutInflater.from(mContext)
                     .inflate(R.layout.base_item_load_more_layout, parent, false);
             mLoadMore = (ILoadMore) item;
@@ -123,7 +146,11 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     @Override
     public void onBindViewHolder(RBaseViewHolder holder, int position) {
-        if (mEnableLoadMore && isLast(position)) {
+        if (isStateLayout()) {
+            if (mIShowState != null) {
+                mIShowState.setShowState(mShowState);
+            }
+        } else if (mEnableLoadMore && isLast(position)) {
             /**如果第一个就是加载更多的布局, 需要调用加载更多么?*/
             onBindLoadMore(position);
         } else {
@@ -219,6 +246,10 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     @Override
     public int getItemCount() {
+        if (isStateLayout()) {
+            return 1;
+        }
+
         int size = mAllDatas == null ? 0 : mAllDatas.size();
         if (mEnableLoadMore) {
             size += 1;
@@ -376,6 +407,36 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
 
     public List<T> getAllDatas() {
         return mAllDatas;
+    }
+
+
+    public void setEnableShowState(boolean enableShowState) {
+        mEnableShowState = enableShowState;
+    }
+
+    /**
+     * 设置布局显示状态
+     */
+    public void setShowState(int showState) {
+        if (mShowState == showState) {
+            return;
+        }
+        mShowState = showState;
+
+        if (mIShowState == null || showState == IShowState.NORMAL) {
+            if (mIShowState != null && mIShowState instanceof ItemShowStateLayout) {
+                ((ItemShowStateLayout) mIShowState).animToHide(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
+            } else {
+                notifyDataSetChanged();
+            }
+        } else {
+            mIShowState.setShowState(showState);
+        }
     }
 
     public interface OnAdapterLoadMoreListener {

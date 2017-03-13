@@ -105,10 +105,8 @@ public abstract class UIIViewImpl implements IView {
     @Override
     public void loadContentView(View rootView) {
         L.d(this.getClass().getSimpleName(), "loadContentView: ");
-        mRootView = rootView;
-        mViewHolder = new RBaseViewHolder(mRootView);
         try {
-            ButterKnife.bind(this, mRootView);
+            ButterKnife.bind(this, rootView);
         } catch (Exception e) {
         }
     }
@@ -142,8 +140,10 @@ public abstract class UIIViewImpl implements IView {
 
     @CallSuper
     @Override
-    public void onViewCreate() {
+    public void onViewCreate(View rootView) {
         L.d(this.getClass().getSimpleName(), "onViewCreate: ");
+        mRootView = rootView;
+        mViewHolder = new RBaseViewHolder(mRootView);
     }
 
     @CallSuper
@@ -180,7 +180,7 @@ public abstract class UIIViewImpl implements IView {
 
     //星期五 2017-2-17
     public void onViewShow(long viewShowCount) {
-        L.d(this.getClass().getSimpleName(), "onViewShowCount" + viewShowCount);
+        L.d(this.getClass().getSimpleName(), "onViewShowCount " + viewShowCount);
     }
 
     @CallSuper
@@ -492,8 +492,9 @@ public abstract class UIIViewImpl implements IView {
     }
 
     @Override
-    public void setIsRightJumpLeft(boolean isRightJumpLeft) {
+    public IView setIsRightJumpLeft(boolean isRightJumpLeft) {
         mIsRightJumpLeft = isRightJumpLeft;
+        return this;
     }
 
     @Override

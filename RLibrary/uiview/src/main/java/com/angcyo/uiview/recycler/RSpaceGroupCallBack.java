@@ -52,9 +52,9 @@ public abstract class RSpaceGroupCallBack implements RGroupItemDecoration.GroupC
         paint.setColor(mBackgroundColor);
 
         if (isHorizontal()) {
-            mRectF.set(view.getLeft() - getGroupHeight(), view.getTop(), view.getLeft(), view.getBottom());
+            mRectF.set(view.getLeft() - getGroupHeight(position), view.getTop(), view.getLeft(), view.getBottom());
         } else {
-            mRectF.set(view.getLeft(), view.getTop() - getGroupHeight(), view.getRight(), view.getTop());
+            mRectF.set(view.getLeft(), view.getTop() - getGroupHeight(position), view.getRight(), view.getTop());
         }
 
         //canvas.drawRoundRect(mRectF, dp2px(2), dp2px(2), paint);
@@ -75,9 +75,9 @@ public abstract class RSpaceGroupCallBack implements RGroupItemDecoration.GroupC
         paint.setColor(mBackgroundColor);
 
         if (isHorizontal()) {
-            mRectF.set(-offset, view.getTop(), getGroupHeight() - offset, view.getBottom());
+            mRectF.set(-offset, view.getTop(), getGroupHeight(position) - offset, view.getBottom());
         } else {
-            mRectF.set(view.getLeft(), -offset, view.getRight(), getGroupHeight() - offset);
+            mRectF.set(view.getLeft(), -offset, view.getRight(), getGroupHeight(position) - offset);
         }
 
         //canvas.drawRoundRect(mRectF, dp2px(2), dp2px(2), paint);
@@ -91,5 +91,15 @@ public abstract class RSpaceGroupCallBack implements RGroupItemDecoration.GroupC
         } else {
             //canvas.drawText(letter, view.getLeft() + dp2px(10), (getGroupHeight() + mRect.height()) / 2 - offset, paint);
         }
+    }
+
+    @Override
+    public void onItemOffsets(Rect outRect, int position) {
+
+    }
+
+    @Override
+    public void onItemDraw(Canvas canvas, View view, int position) {
+
     }
 }

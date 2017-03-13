@@ -1,5 +1,6 @@
 package com.angcyo.uiview.github.utilcode.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -143,6 +144,7 @@ public class NetworkUtils {
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
+    @SuppressLint("WifiManagerLeak")
     public static boolean getWifiEnabled() {
         WifiManager wifiManager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
         return wifiManager.isWifiEnabled();
@@ -154,6 +156,7 @@ public class NetworkUtils {
      *
      * @param enabled {@code true}: 打开<br>{@code false}: 关闭
      */
+    @SuppressLint("WifiManagerLeak")
     public static void setWifiEnabled(boolean enabled) {
         WifiManager wifiManager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
         if (enabled) {
