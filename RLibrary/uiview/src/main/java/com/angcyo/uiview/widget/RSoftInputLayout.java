@@ -91,20 +91,32 @@ public class RSoftInputLayout extends ViewGroup {
         super.onAttachedToWindow();
 
         if (!isInEditMode()) {
-            if (getChildCount() != 2) {
-                throw new IllegalArgumentException("必须含有2个子View.");
-            }
             setFitsSystemWindows(true);
             setClipToPadding(false);
         }
+    }
 
+    @Override
+    public void addView(View child, int index, LayoutParams params) {
+        super.addView(child, index, params);
+        int childCount = getChildCount();
         /*请按顺序布局*/
-        contentLayout = getChildAt(0);
-        emojiLayout = getChildAt(1);
+        if (childCount > 0) {
+            contentLayout = getChildAt(0);
+        }
+        if (childCount > 1) {
+            emojiLayout = getChildAt(1);
+        }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (contentLayout == null) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            return;
+        }
+
+
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 //        int maxHeight = heightSize - getPaddingBottom() - getPaddingTop();
@@ -117,8 +129,10 @@ public class RSoftInputLayout extends ViewGroup {
             contentLayout.measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
             setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-            emojiLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY),
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY));
+            if (emojiLayout != null) {
+                emojiLayout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY));
+            }
             setMeasuredDimension(widthSize, heightSize);
             return;
         }
@@ -154,23 +168,33 @@ public class RSoftInputLayout extends ViewGroup {
 
         contentLayout.measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(contentHeight, MeasureSpec.EXACTLY));
-        emojiLayout.measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(emojiHeight, MeasureSpec.EXACTLY));
+        if (emojiLayout != null) {
+            emojiLayout.measure(MeasureSpec.makeMeasureSpec(widthSize, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(emojiHeight, MeasureSpec.EXACTLY));
+        }
         setMeasuredDimension(widthSize, heightSize);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if (contentLayout == null) {
+            return;
+        }
+
         if (isInEditMode()) {
             contentLayout.layout(l, t, r, b);
-            emojiLayout.layout(l, b, r, b);
+            if (emojiLayout != null) {
+                emojiLayout.layout(l, b, r, b);
+            }
             return;
         }
 
         int paddingTop = getPaddingTop();
         t += paddingTop;
         contentLayout.layout(l, t, r, contentLayout.getMeasuredHeight() + paddingTop);
-        emojiLayout.layout(l, contentLayout.getMeasuredHeight() + paddingTop, r, getMeasuredHeight());
+        if (emojiLayout != null) {
+            emojiLayout.layout(l, contentLayout.getMeasuredHeight() + paddingTop, r, getMeasuredHeight());
+        }
     }
 
     @Override

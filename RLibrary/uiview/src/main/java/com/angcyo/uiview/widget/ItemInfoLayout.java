@@ -190,6 +190,14 @@ public class ItemInfoLayout extends RelativeLayout {
         return mImageView;
     }
 
+    public RTextView getTextView() {
+        return mTextView;
+    }
+
+    public RTextView getDarkTextView() {
+        return mDarkTextView;
+    }
+
     public void setDarkDrawableRes(int darkDrawableRes) {
         this.darkDrawableRes = darkDrawableRes;
         final Drawable[] compoundDrawables = mDarkTextView.getCompoundDrawables();

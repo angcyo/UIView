@@ -80,6 +80,10 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         boolean loadMore = mEnableLoadMore;
         mEnableLoadMore = enableLoadMore;
 
+        if (isStateLayout()) {
+            return;
+        }
+
         if (enableLoadMore && !loadMore) {
             notifyItemInserted(getLastPosition());
         } else if (!enableLoadMore && loadMore) {

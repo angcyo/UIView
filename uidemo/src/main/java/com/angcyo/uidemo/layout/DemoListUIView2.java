@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout;
 
+import android.os.Bundle;
 import android.view.View;
 
 import com.angcyo.uidemo.NavUIView;
@@ -26,6 +27,13 @@ import java.util.List;
  * Created by angcyo on 2017-03-13.
  */
 public class DemoListUIView2 extends UIItemUIView<SingleItem> {
+
+    @Override
+    public void onViewShowFirst(Bundle bundle) {
+        super.onViewShowFirst(bundle);
+        //mRootView.setEnabled(false);
+        //showLoadView();
+    }
 
     @Override
     protected int getItemLayoutId(int viewType) {

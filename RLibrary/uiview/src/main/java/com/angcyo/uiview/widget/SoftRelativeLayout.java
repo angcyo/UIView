@@ -270,4 +270,12 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         hideSoftInput();
         return true;
     }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (!isEnabled()) {
+            return true;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
 }

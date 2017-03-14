@@ -195,6 +195,7 @@ public class ExEditText extends AppCompatEditText {
                 setCompoundDrawablesWithIntrinsicBounds(compoundDrawables[0], compoundDrawables[1],
                         null, compoundDrawables[3]);
             } else {
+                setError(null);
                 setCompoundDrawablesWithIntrinsicBounds(compoundDrawables[0], compoundDrawables[1],
                         getClearDrawable(), compoundDrawables[3]);
             }

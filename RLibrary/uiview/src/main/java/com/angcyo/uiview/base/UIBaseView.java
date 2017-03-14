@@ -233,7 +233,13 @@ public abstract class UIBaseView extends UIIViewImpl {
             }
         } else if (toState == LayoutState.NONET && mBaseNonetLayout != null) {
             mBaseNonetLayout.findViewById(R.id.base_setting_view).setOnClickListener(mNonetSettingClickListener);
-            mBaseNonetLayout.findViewById(R.id.base_refresh_view).setOnClickListener(mNonetRefreshClickListener);
+            mBaseNonetLayout.findViewById(R.id.base_refresh_view).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showLoadLayout();
+                    mNonetRefreshClickListener.onClick(v);
+                }
+            });
         }
     }
 

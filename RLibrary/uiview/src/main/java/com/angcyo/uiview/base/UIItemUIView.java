@@ -27,12 +27,12 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
 
     @Override
     public int getDefaultBackgroundColor() {
-        return getResources().getColor(R.color.base_chat_bg_color);
+        return getColor(R.color.base_chat_bg_color);
     }
 
     @Override
     protected RExBaseAdapter<String, T, String> createAdapter() {
-        createItems(mItems);
+        refreshLayout();
         return new RExBaseAdapter<String, T, String>(mActivity, mItems) {
             @Override
             protected void onBindDataView(RBaseViewHolder holder, int posInData, T dataBean) {
@@ -49,6 +49,17 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
                 return UIItemUIView.this.getItemLayoutId(viewType);
             }
         };
+    }
+
+    /**
+     * 更新布局
+     */
+    public void refreshLayout() {
+        mItems.clear();
+        createItems(mItems);
+        if (mExBaseAdapter != null) {
+            mExBaseAdapter.notifyDataSetChanged();
+        }
     }
 
     /**

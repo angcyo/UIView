@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
@@ -34,8 +35,12 @@ public interface IView {
     /**
      * 生命周期顺序: 2
      * 当loadContentView完成之后会调用
+     * 请使用{@link #onViewCreate(View, UIParam)}
      */
+    @Deprecated
     void onViewCreate(View rootView);
+
+    void onViewCreate(View rootView, UIParam param);//2017-3-13
 
     /**
      * 生命周期顺序: 3
