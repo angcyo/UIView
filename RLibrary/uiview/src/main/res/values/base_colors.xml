@@ -4,6 +4,7 @@
     <color name="theme_color_primary_dark">#20a886</color>
     <color name="theme_color_primary_dark_tran">#800BD1A0</color>
     <color name="theme_color_primary_dark_tran2">#200BD1A0</color>
+    <color name="theme_color_primary_dark_tran3">#400BD1A0</color>
     <color name="theme_color_accent">#0BD1A0</color>
     <color name="transparent">#00000000</color>
 

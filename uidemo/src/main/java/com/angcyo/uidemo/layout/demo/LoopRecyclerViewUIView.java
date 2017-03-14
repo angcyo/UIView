@@ -59,7 +59,7 @@ public class LoopRecyclerViewUIView extends UIContentView {
 
             @Override
             protected int getItemLayoutId(int viewType) {
-                return R.layout.item_single_text_view;
+                return R.layout.item_loop_text_view;
             }
         };
         loopRecyclerView.setAdapter(mLoopAdapter);
