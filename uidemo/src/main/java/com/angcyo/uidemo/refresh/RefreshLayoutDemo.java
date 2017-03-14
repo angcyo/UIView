@@ -55,6 +55,7 @@ public class RefreshLayoutDemo extends UIContentView {
         mRecyclerView = new RecyclerView();
         mGridView = new GridView();
         mStaggerView = new StaggerView();
+        mUILayout.setEnableSwipeBack(false);
         mUILayout.startIView(mNormalView);
         mUILayout.startIView(mWebviewView);
         mUILayout.startIView(mRecyclerView);
