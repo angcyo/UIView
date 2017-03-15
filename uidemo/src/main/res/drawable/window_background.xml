@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+<!--<item>-->
+<!--<shape>-->
+<!--<solid android:color="@color/default_base_white"/>-->
+<!--</shape>-->
+<!--</item>-->
+<!--&lt;!&ndash;    <item-->
+<!--android:drawable="@mipmap/demo_logo"-->
+<!--android:gravity="center_horizontal"-->
+<!--android:top="@dimen/base_50dpi"/>&ndash;&gt;-->
+<!--</layer-list>-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/default_base_white"/>
+</shape>

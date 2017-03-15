@@ -2,7 +2,6 @@ package com.angcyo.uidemo.layout.demo;
 
 import android.graphics.Color;
 import android.text.Editable;
-import android.text.Spannable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
@@ -63,26 +62,31 @@ public class MentionDemoUIView extends UIItemUIView<SingleItem> {
                 mEditText.setOnMentionInputListener(new ExEditText.OnMentionInputListener() {
                     @Override
                     public void onMentionCharacterInput() {
-                        switch (index) {
-                            case 1:
-                                mEditText.addMention("测试1");
-                                break;
-                            case 2:
-                                mEditText.addMention("测试2");
-                                break;
-                            case 3:
-                                mEditText.addMention("测试3");
-                                break;
-                            case 4:
-                                mEditText.addMention("测试4");
-                                break;
-                            case 5:
-                                mEditText.addMention("测试5");
-                                break;
-                            default:
-                                mEditText.addMention("angcyo");
-                        }
-
+                        post(new Runnable() {
+                            @Override
+                            public void run() {
+                                switch (index) {
+                                    case 1:
+                                        mEditText.addMention("测试1");
+                                        break;
+                                    case 2:
+                                        mEditText.addMention("测试2");
+                                        break;
+                                    case 3:
+                                        mEditText.addMention("测试3");
+                                        break;
+                                    case 4:
+                                        mEditText.addMention("测试4");
+                                        break;
+                                    case 5:
+                                        mEditText.addMention("测试5");
+                                        break;
+                                    default:
+                                        mEditText.addMention("angcyo");
+                                }
+                                index = 0;
+                            }
+                        });
                     }
                 });
 
@@ -100,11 +104,11 @@ public class MentionDemoUIView extends UIItemUIView<SingleItem> {
                         ExEditText.checkMentionSpannable(mTipTextView, RUtils.safe(builder), mEditText.getAllMention());
 
                         //mTipTextView.setText(RUtils.safe(builder));
-                        index = 0;
-
-                        if (mTipTextView.getText() instanceof Spannable) {
-                            index = 0;
-                        }
+//                        index = 0;
+//
+//                        if (mTipTextView.getText() instanceof Spannable) {
+//                            index = 0;
+//                        }
                     }
                 });
             }
