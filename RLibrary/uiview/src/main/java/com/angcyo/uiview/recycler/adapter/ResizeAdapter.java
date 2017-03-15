@@ -1,10 +1,12 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.utils.ScreenUtil;
 
 import java.util.List;

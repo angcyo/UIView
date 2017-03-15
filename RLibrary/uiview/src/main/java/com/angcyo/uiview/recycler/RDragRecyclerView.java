@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 
+import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
+
 import java.util.Collections;
 import java.util.List;
 

@@ -26,7 +26,7 @@ public class UIParam {
      */
     public boolean isSwipeBack = false;
     /**
-     * 是否安静执行
+     * 是否安静执行, 不回调部分生命周期, 影响部分动画的执行.
      */
     public boolean isQuiet = false;
 

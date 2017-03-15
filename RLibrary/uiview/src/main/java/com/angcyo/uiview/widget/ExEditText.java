@@ -99,6 +99,12 @@ public class ExEditText extends AppCompatEditText {
         initView();
     }
 
+    public void setInputText(String text) {
+        setText(text);
+        setSelection(TextUtils.isEmpty(text) ? 0 : text.length());
+        //checkEdit(true);
+    }
+
     private void initView() {
         Object tag = getTag();
         if (tag != null) {

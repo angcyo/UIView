@@ -34,6 +34,8 @@ public interface ILayout<T extends UIParam> {
 
     void finishIView(IView iview, boolean needAnim, boolean quiet);//2016-12-15
 
+    void finishIView(Class<?> clz);//2017-3-15 根据类型, 关闭页面
+
     /**
      * 显示一个View
      */

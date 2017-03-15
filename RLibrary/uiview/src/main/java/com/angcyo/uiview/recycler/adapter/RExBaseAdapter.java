@@ -1,6 +1,8 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.content.Context;
+
+import com.angcyo.uiview.recycler.RBaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,6 +10,8 @@ import android.text.TextUtils;
 
 import com.angcyo.library.facebook.DraweeViewUtil;
 import com.angcyo.library.utils.L;
+import com.angcyo.uiview.utils.T_;
+import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.hawk.Hawk;
 
@@ -179,5 +181,31 @@ public class RApplication extends Application {
         app = this;
         /*65535限制*/
         MultiDex.install(this);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        if (BuildConfig.DEBUG) {
+            T_.show("请注意, 内存过低!");
+        }
+        Glide.get(this).clearMemory();
+        //Fresco.shutDown();
+        if (Fresco.hasBeenInitialized()) {
+            Fresco.getImagePipeline().clearMemoryCaches();
+        }
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+//        if (BuildConfig.DEBUG) {
+//            T_.show("请求释放内存..." + level);
+//        }
+        Glide.get(this).trimMemory(level);
+        Glide.get(this).clearMemory();
+        if (Fresco.hasBeenInitialized()) {
+            Fresco.getImagePipeline().clearMemoryCaches();
+        }
     }
 }

@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
-import com.angcyo.uiview.recycler.RBaseAdapter;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
+import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.rsen.RefreshLayout;
 

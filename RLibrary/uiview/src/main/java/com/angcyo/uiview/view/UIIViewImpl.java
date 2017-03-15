@@ -215,7 +215,7 @@ public abstract class UIIViewImpl implements IView {
 
     @Override
     public Animation loadStartAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadStartAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadStartAnimation: ");
         TranslateAnimation translateAnimation;
         if (mIsRightJumpLeft) {
             translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
@@ -230,7 +230,7 @@ public abstract class UIIViewImpl implements IView {
 
     @Override
     public Animation loadFinishAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadFinishAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadFinishAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1f,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation, true);
@@ -239,19 +239,19 @@ public abstract class UIIViewImpl implements IView {
 
     @Override
     public Animation loadShowAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadShowAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadShowAnimation: ");
         return loadStartAnimation();
     }
 
     @Override
     public Animation loadHideAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadHideAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadHideAnimation: ");
         return loadFinishAnimation();
     }
 
     @Override
     public Animation loadOtherExitAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadOtherExitAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadOtherExitAnimation: ");
         TranslateAnimation translateAnimation;
         if (mIsRightJumpLeft) {
             translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1f,
@@ -266,7 +266,7 @@ public abstract class UIIViewImpl implements IView {
 
     @Override
     public Animation loadOtherEnterAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadOtherEnterAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadOtherEnterAnimation: ");
         TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1f, Animation.RELATIVE_TO_SELF, 0,
                 Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f);
         setDefaultConfig(translateAnimation, false);
@@ -285,7 +285,7 @@ public abstract class UIIViewImpl implements IView {
 
     @Override
     public Animation loadLayoutAnimation() {
-        L.d(this.getClass().getSimpleName(), "loadLayoutAnimation: ");
+        L.v(this.getClass().getSimpleName(), "loadLayoutAnimation: ");
 //        if (mIsRightJumpLeft) {
 //
 //        } else {

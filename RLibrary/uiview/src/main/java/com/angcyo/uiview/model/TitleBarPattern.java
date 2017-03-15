@@ -104,6 +104,18 @@ public class TitleBarPattern {
         return new TitleBarPattern(title);
     }
 
+    public static TitleBarItem buildItem() {
+        return new TitleBarItem();
+    }
+
+    public static TitleBarItem buildText(String text, View.OnClickListener listener) {
+        return new TitleBarItem(text, listener);
+    }
+
+    public static TitleBarItem buildImage(@DrawableRes int icoRes, View.OnClickListener listener) {
+        return new TitleBarItem(icoRes, listener);
+    }
+
     public TitleBarPattern setTitleBarBGColor(@ColorInt int titleBarBGColor) {
         mTitleBarBGColor = titleBarBGColor;
         return this;
@@ -204,14 +216,17 @@ public class TitleBarPattern {
             this.listener = listener;
         }
 
+        @Deprecated
         public static TitleBarItem build(String text, View.OnClickListener listener) {
             return new TitleBarItem(text, listener);
         }
 
+        @Deprecated
         public static TitleBarItem build(@DrawableRes int icoRes, View.OnClickListener listener) {
             return new TitleBarItem(icoRes, listener);
         }
 
+        @Deprecated
         public static TitleBarItem build() {
             return new TitleBarItem();
         }

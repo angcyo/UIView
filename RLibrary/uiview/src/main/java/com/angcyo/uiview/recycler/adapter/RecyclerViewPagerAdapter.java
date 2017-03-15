@@ -1,11 +1,17 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.recycler.RecyclerViewPager;
+
 import java.util.List;
 
+/**
+ * 当Item数量不足一页时, 使用空的View填充, 以达到ViewPager的效果
+ */
 public abstract class RecyclerViewPagerAdapter<T> extends RBaseAdapter<T> {
 
     private RecyclerViewPager mRecyclerViewPager;

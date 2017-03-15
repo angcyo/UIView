@@ -1,4 +1,4 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
@@ -8,6 +8,9 @@ import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.recycler.RRecyclerView;
+import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 import com.angcyo.uiview.utils.Reflect;
 
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.angcyo.library.facebook.DraweeViewUtil;
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
- * 类的描述：九宫格添加图片的适配器
+ * 类的描述：九宫格添加图片的适配器 推荐使用{@link RAddPhotoAdapter}
  * 创建人员：Robi
  * 创建时间：2016/10/18 10:51
  * 修改人员：Robi
@@ -29,6 +30,7 @@ import java.util.List;
  * 修改备注：
  * Version: 1.0.0
  */
+@Deprecated
 public abstract class BaseAddPhotoAdapter<T> extends RBaseAdapter<T> {
 
     public static final int TYPE_ADD = 2;
@@ -43,6 +45,10 @@ public abstract class BaseAddPhotoAdapter<T> extends RBaseAdapter<T> {
      * 每一行中, Item的数量, 用来计算item的宽高
      */
     private int mItemCountLine = 4;
+
+    public BaseAddPhotoAdapter(Context context) {
+        super(context);
+    }
 
     public BaseAddPhotoAdapter(Context context, List<T> datas) {
         super(context, datas);

@@ -1,13 +1,15 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.widget.ILoadMore;
 import com.angcyo.uiview.recycler.widget.IShowState;
 import com.angcyo.uiview.recycler.widget.ItemShowStateLayout;
@@ -296,7 +298,7 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
     }
 
     /**
-     * 解决九宫格添加图片后,添加按钮消失的bug
+     * 解决九宫格添加图片后,添加按钮消失时崩溃的bug
      */
     public void addLastItemSafe(T bean) {
         if (mAllDatas == null) {
@@ -443,7 +445,31 @@ public abstract class RBaseAdapter<T> extends RecyclerView.Adapter<RBaseViewHold
         }
     }
 
+    /**
+     * 使用布局局部刷新
+     */
+    public void localRefresh(RecyclerView recyclerView, OnLocalRefresh localRefresh) {
+        if (recyclerView == null || localRefresh == null) {
+            return;
+        }
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager instanceof LinearLayoutManager) {
+            int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
+            for (int i = 0; i < layoutManager.getChildCount(); i++) {
+                int position = firstVisibleItemPosition + i;
+                RBaseViewHolder vh = (RBaseViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+                if (vh != null) {
+                    localRefresh.onLocalRefresh(vh, position);
+                }
+            }
+        }
+    }
+
     public interface OnAdapterLoadMoreListener {
         void onAdapterLodeMore(RBaseAdapter baseAdapter);
+    }
+
+    public interface OnLocalRefresh {
+        void onLocalRefresh(RBaseViewHolder viewHolder, int position);
     }
 }

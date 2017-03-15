@@ -171,4 +171,23 @@ public class StringUtils {
         }
         return new String(chars);
     }
+
+    public static String getAsciiLeadingUp(char c) {
+        // a-z 0xA
+        if (c >= 0x61 && c <= 0x7A) {
+            return leadingUp[c - 0x61];
+        }
+
+        // A-Z 0x24
+        if (c >= 0x41 && c <= 0x5A) {
+            return leadingUp[c - 0x41];
+        }
+
+        return null;
+    }
+
+    private static final String[] leadingUp = new String[] { "A", "B", "C", "D", "E",
+            "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+            "S", "T", "U", "V", "W", "X", "Y", "Z"
+    };
 }

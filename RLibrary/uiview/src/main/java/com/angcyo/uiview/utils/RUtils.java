@@ -13,6 +13,8 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import com.angcyo.uiview.github.utilcode.utils.RegexUtils;
+
 import java.io.File;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
@@ -571,6 +573,15 @@ public class RUtils {
             }
 
         }
+    }
+
+    /**
+     * 判断是否是网址
+     */
+    public static boolean isHttpUrl(String url) {
+        return RegexUtils.isMatch(
+                "(http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:/~\\+#]*[\\w\\-\\@?^=%&amp;/~\\+#])?",
+                url);
     }
 
     interface OnPutValue {

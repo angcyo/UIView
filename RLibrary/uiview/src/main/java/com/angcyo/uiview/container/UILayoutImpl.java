@@ -190,7 +190,7 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
      */
     @Override
     protected boolean canTryCaptureView(View child) {
-        if (mLastShowViewPattern == null || mLastShowViewPattern.isAnimToStart) {
+        if (isBackPress || mLastShowViewPattern == null || mLastShowViewPattern.isAnimToStart) {
             return false;
         }
 
@@ -487,7 +487,11 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 //        }
 
         topViewFinish(lastViewPattern, viewPattern, param.mAnim);
-        bottomViewStart(lastViewPattern, viewPattern, param.mAnim, param.isQuiet);
+        if (viewPattern != mLastShowViewPattern) {
+            //如果要关闭的IView不是顶上的,比如是下层的
+        } else {
+            bottomViewStart(lastViewPattern, viewPattern, param.mAnim, param.isQuiet);
+        }
 
 //        if (param.mAnim) {
 //            viewPattern.isAnimToEnd = true;
@@ -510,6 +514,15 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
 //        }
 
         //mLastShowViewPattern = lastViewPattern;//在top view 完全remove 之后, 再赋值
+    }
+
+    @Override
+    public void finishIView(Class<?> clz) {
+        ViewPattern pattern = findViewPatternByClass(clz);
+        if (pattern != null) {
+            pattern.interrupt = true;
+            finishIViewInner(pattern, new UIParam(false, true, true));
+        }
     }
 
     @Override
@@ -1662,6 +1675,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
             }
             stringBuilder.append(" visibility-->");
             stringBuilder.append(vis);
+            stringBuilder.append(" alpha-->");
+            stringBuilder.append(viewPattern.mView.getAlpha());
             stringBuilder.append("\n");
         }
         String string = stringBuilder.toString();

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
+import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
+
 import java.util.List;
 
 

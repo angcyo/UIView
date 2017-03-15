@@ -4,18 +4,25 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextPaint;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
-import com.angcyo.uiview.recycler.RExBaseAdapter;
 import com.angcyo.uiview.recycler.RExItemDecoration;
+import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
 import com.angcyo.uiview.rsen.PlaceholderView;
 import com.angcyo.uiview.rsen.RefreshLayout;
+import com.angcyo.uiview.widget.RSoftInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.http.HEAD;
+
 
 /**
  * Created by angcyo on 2017-03-12.
@@ -28,6 +35,11 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
     @Override
     public int getDefaultBackgroundColor() {
         return getColor(R.color.base_chat_bg_color);
+    }
+
+    @Override
+    protected TitleBarPattern getTitleBar() {
+        return super.getTitleBar().setShowBackImageView(true);
     }
 
     @Override
@@ -73,6 +85,17 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
     protected abstract void createItems(List<T> items);
 
     @Override
+    protected RefreshLayout createRefreshLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        RSoftInputLayout softInputLayout = new RSoftInputLayout(mActivity);//为软键盘弹出提供支持
+        RefreshLayout refreshLayout = new RefreshLayout(mActivity);
+        refreshLayout.setRefreshDirection(RefreshLayout.TOP);
+        refreshLayout.addRefreshListener(this);
+        softInputLayout.addView(refreshLayout, new ViewGroup.LayoutParams(-1, -1));
+        baseContentLayout.addView(softInputLayout, new ViewGroup.LayoutParams(-1, -1));
+        return refreshLayout;
+    }
+
+    @Override
     protected void afterInflateView(RelativeLayout baseContentLayout) {
         mRefreshLayout.setRefreshDirection(RefreshLayout.BOTH);
         mRefreshLayout.setTopView(new PlaceholderView(mActivity));
@@ -82,13 +105,11 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
         mExBaseAdapter.setEnableLoadMore(false);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerView.addItemDecoration(new RExItemDecoration(new RExItemDecoration.ItemDecorationCallback() {
+        mRecyclerView.addItemDecoration(new RExItemDecoration(new RExItemDecoration.SingleItemCallback() {
             @Override
-            public Rect getItemOffsets(LinearLayoutManager layoutManager, int position) {
-                Rect rect = new Rect(0, 0, 0, 0);
+            public void getItemOffsets(Rect outRect, int position) {
                 T t = mItems.get(position);
-                t.setItemOffsets(rect);
-                return rect;
+                t.setItemOffsets(outRect);
             }
 
             @Override

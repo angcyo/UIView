@@ -19,14 +19,18 @@ public class UI {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = height;
         view.setLayoutParams(layoutParams);
-        view.getParent().requestLayout();
+        if (view.getParent() != null) {
+            view.getParent().requestLayout();
+        }
     }
 
     public static void setViewWidth(View view, int width) {
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.width = width;
         view.setLayoutParams(layoutParams);
-        view.getParent().requestLayout();
+        if (view.getParent() != null) {
+            view.getParent().requestLayout();
+        }
     }
 
     public static void setView(View view, int width, int height) {
@@ -34,6 +38,8 @@ public class UI {
         layoutParams.height = height;
         layoutParams.width = width;
         view.setLayoutParams(layoutParams);
-        view.getParent().requestLayout();
+        if (view.getParent() != null) {
+            view.getParent().requestLayout();
+        }
     }
 }

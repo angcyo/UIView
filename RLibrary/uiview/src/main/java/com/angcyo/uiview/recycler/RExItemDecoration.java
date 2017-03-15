@@ -103,4 +103,27 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
          */
         void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position);
     }
+
+    public static abstract class SingleItemCallback implements ItemDecorationCallback {
+
+        Rect mRect;
+
+        public SingleItemCallback() {
+            mRect = new Rect();
+        }
+
+        @Override
+        final public Rect getItemOffsets(LinearLayoutManager layoutManager, int position) {
+            mRect.set(0, 0, 0, 0);
+            getItemOffsets(mRect, position);
+            return mRect;
+        }
+
+        public abstract void getItemOffsets(Rect outRect, int position);
+
+        @Override
+        public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
+
+        }
+    }
 }

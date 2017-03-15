@@ -1,6 +1,8 @@
-package com.angcyo.uiview.recycler;
+package com.angcyo.uiview.recycler.adapter;
 
 import android.content.Context;
+
+import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 
 import java.util.List;
 
@@ -13,16 +15,18 @@ public abstract class RMaxAdapter<T> extends RBaseAdapter<T> {
 
     public RMaxAdapter(Context context) {
         super(context);
+        mEnableLoadMore = false;
     }
 
     public RMaxAdapter(Context context, List<T> datas) {
         super(context, datas);
+        mEnableLoadMore = false;
     }
 
     /**
      * 设置显示的最大的数量
      */
-    public void setMaxcount(int max_count) {
+    public void setMaxCount(int max_count) {
         this.max_count = max_count;
     }
 

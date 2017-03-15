@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 import com.angcyo.uiview.recycler.recyclerview.adapters.AnimationAdapter;
 import com.angcyo.uiview.recycler.recyclerview.adapters.ScaleInAnimationAdapter;
 import com.angcyo.uiview.recycler.recyclerview.animators.BaseItemAnimator;
@@ -251,5 +252,15 @@ public class RRecyclerView extends RecyclerView {
 
     public void setOnInterceptTouchListener(OnTouchListener l) {
         mInterceptTouchListener = l;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
     }
 }
