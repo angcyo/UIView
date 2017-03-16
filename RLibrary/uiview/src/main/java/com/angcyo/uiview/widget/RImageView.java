@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -37,10 +38,7 @@ public class RImageView extends AppCompatImageView {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Drawable drawable = getDrawable();
-                if (drawable != null) {
-                    drawable.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-                }
+                setColor();
                 break;
             case MotionEvent.ACTION_MOVE:
                 break;
@@ -53,7 +51,21 @@ public class RImageView extends AppCompatImageView {
         return super.onTouchEvent(event);
     }
 
-    private void clearColor() {
+    public void setColor(@ColorInt int color) {
+        Drawable drawable = getDrawable();
+        if (drawable != null) {
+            drawable.mutate().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        }
+    }
+
+    /**
+     * 设置混合颜色
+     */
+    public void setColor() {
+        setColor(Color.GRAY);
+    }
+
+    public void clearColor() {
         Drawable drawableUp = getDrawable();
         if (drawableUp != null) {
             drawableUp.mutate().clearColorFilter();
