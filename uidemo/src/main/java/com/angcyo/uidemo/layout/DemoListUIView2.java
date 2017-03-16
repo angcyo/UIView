@@ -6,6 +6,7 @@ import android.view.View;
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
+import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
@@ -197,11 +198,23 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Stick Layout Demo", new View.OnClickListener() {
+                initItem(holder, "Stick Layout Demo (Beta)", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
                         startIView(new StickLayoutDemoUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Behavior Stick Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new BehaviorStickDemoUIView());
                     }
                 });
             }

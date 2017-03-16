@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.angcyo.uidemo.layout.demo.view.StickLayout
+<com.angcyo.uiview.design.StickLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,4 +28,4 @@
         android:gravity="right|center_vertical"
         android:text="测试文本2"/>
 
-</com.angcyo.uidemo.layout.demo.view.StickLayout>
+</com.angcyo.uiview.design.StickLayout>

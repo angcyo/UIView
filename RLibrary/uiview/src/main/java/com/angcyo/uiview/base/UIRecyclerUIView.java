@@ -2,7 +2,6 @@ package com.angcyo.uiview.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import com.angcyo.uiview.recycler.RRecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -18,7 +17,8 @@ import com.angcyo.uiview.rsen.RefreshLayout;
  * Created by angcyo on 2017-03-11.
  */
 
-public class UIRecyclerUIView<H, T, F> extends UIContentView implements RefreshLayout.OnRefreshListener, RBaseAdapter.OnAdapterLoadMoreListener {
+public class UIRecyclerUIView<H, T, F> extends UIContentView
+        implements RefreshLayout.OnRefreshListener, RBaseAdapter.OnAdapterLoadMoreListener {
 
     /**
      * 刷新控件

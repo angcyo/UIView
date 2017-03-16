@@ -1,4 +1,4 @@
-package com.angcyo.uidemo.layout.demo.view;
+package com.angcyo.uiview.design;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -52,5 +52,23 @@ public class StickLayoutDemoUIView extends UIItemUIView<SingleItem> {
 
             }
         });
+        items.add(new SingleItem(SingleItem.Type.TOP) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.TOP) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.TOP) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+
+            }
+        });
     }
 }
