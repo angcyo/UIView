@@ -262,6 +262,12 @@ public class RefreshLayout extends ViewGroup {
                     }
                 }
             }
+        } else if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
+            boolean interceptTouchEvent = super.onInterceptTouchEvent(event);
+            if (!interceptTouchEvent) {
+                handleTouchUp();
+                return interceptTouchEvent;
+            }
         }
         return super.onInterceptTouchEvent(event);
     }

@@ -14,6 +14,7 @@ import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemoUIView;
+import com.angcyo.uidemo.layout.demo.StickLayoutManagerUIView;
 import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
@@ -215,6 +216,18 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                     @Override
                     public void onClick(View v) {
                         startIView(new BehaviorStickDemoUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Stick LayoutManager Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new StickLayoutManagerUIView());
                     }
                 });
             }

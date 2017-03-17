@@ -146,7 +146,7 @@ public class RApplication extends Application {
         if (isInitOnce(this)) {
             final long startTime = System.currentTimeMillis();
 
-            L.e("RApplication 正在初始化:isInitOnce()  --start:" + startTime);
+            L.e("RApplication 正在初始化:isInitOnce() --start:" + startTime);
 
             /*崩溃异常处理*/
             RCrashHandler.init(this);
@@ -167,7 +167,7 @@ public class RApplication extends Application {
 
             final long endTime = System.currentTimeMillis();
 
-            L.e("RApplication 正在初始化:isInitOnce() --end:" + (endTime - startTime) / 1000 + "s" + (endTime - startTime) % 1000);
+            L.e("RApplication 正在初始化:isInitOnce() ----end:" + (endTime - startTime) / 1000 + "秒" + (endTime - startTime) % 1000);
         }
     }
 
