@@ -46,13 +46,13 @@ public class StickLayoutManager extends LinearLayoutManager {
 
     @Override
     public boolean canScrollHorizontally() {
-        L.e("call: canScrollHorizontally([])-> ");
+        //L.e("call: canScrollHorizontally([])-> ");
         return super.canScrollHorizontally();
     }
 
     @Override
     public boolean canScrollVertically() {
-        L.e("call: canScrollVertically([])-> ");
+        //L.e("call: canScrollVertically([])-> ");
         return super.canScrollVertically();
     }
 
