@@ -31,13 +31,13 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
 
     protected List<T> mItems = new ArrayList<>();
 
-    public static void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
+    public static void baseInitItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
         ItemInfoLayout infoLayout = holder.v(R.id.base_item_info_layout);
         infoLayout.setItemText(itemText);
         infoLayout.setOnClickListener(onClickListener);
     }
 
-    public static void initItem(RBaseViewHolder holder, @DrawableRes int leftRes, String itemText, View.OnClickListener onClickListener) {
+    public static void baseInitItem(RBaseViewHolder holder, @DrawableRes int leftRes, String itemText, View.OnClickListener onClickListener) {
         ItemInfoLayout infoLayout = holder.v(R.id.base_item_info_layout);
         infoLayout.setItemText(itemText);
         infoLayout.setLeftDrawableRes(leftRes);

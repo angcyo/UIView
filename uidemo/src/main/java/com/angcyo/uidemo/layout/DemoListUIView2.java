@@ -25,6 +25,7 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.widget.ItemInfoLayout;
 
 import java.util.List;
 
@@ -244,6 +245,12 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
+    }
+
+    void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
+        ItemInfoLayout infoLayout = holder.v(R.id.item_info_layout);
+        infoLayout.setItemText(itemText);
+        infoLayout.setOnClickListener(onClickListener);
     }
 
 }
