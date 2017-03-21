@@ -42,6 +42,17 @@ public class FileUtil {
         return filepath;
     }
 
+    //获取路径不带文件名
+    public static String getFileParentPath(String filepath) {
+        if ((filepath != null) && (filepath.length() > 0)) {
+            int sep = filepath.lastIndexOf('/');
+            if ((sep > -1) && (sep < filepath.length() - 1)) {
+                return filepath.substring(0,sep + 1);
+            }
+        }
+        return filepath;
+    }
+
     // 获取不带扩展名的文件名
     public static String getFileNameNoEx(String filename) {
         if ((filename != null) && (filename.length() > 0)) {

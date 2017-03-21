@@ -26,12 +26,16 @@ public abstract class SingleItem implements Item {
      */
     int topOffset = 0;
 
+    int lineColor = -1;
+    Type mType;
+
     public SingleItem() {
 
     }
 
     public SingleItem(Type type) {
-        switch (type) {
+        mType = type;
+        switch (mType) {
             case TOP:
                 this.topOffset = RApplication.getApp().getResources().getDimensionPixelSize(R.dimen.base_xhdpi);
                 break;
@@ -43,6 +47,11 @@ public abstract class SingleItem implements Item {
                 this.topOffset = RApplication.getApp().getResources().getDimensionPixelSize(R.dimen.base_line);
                 break;
         }
+    }
+
+    public SingleItem(Type type, int lineColor) {
+        this(type);
+        this.lineColor = lineColor;
     }
 
     public SingleItem(Context context) {
@@ -67,10 +76,16 @@ public abstract class SingleItem implements Item {
 
     @Override
     public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
-        paint.setColor(Color.WHITE);
-        offsetRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top,
-                itemView.getLeft() + leftOffset, itemView.getTop());
-        canvas.drawRect(offsetRect, paint);
+        if (mType == Type.LINE && lineColor != -1) {
+            paint.setColor(lineColor);
+            offsetRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top, itemView.getRight(), itemView.getTop());
+            canvas.drawRect(offsetRect, paint);
+        } else {
+            paint.setColor(Color.WHITE);
+            offsetRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top,
+                    itemView.getLeft() + leftOffset, itemView.getTop());
+            canvas.drawRect(offsetRect, paint);
+        }
     }
 
     public enum Type {

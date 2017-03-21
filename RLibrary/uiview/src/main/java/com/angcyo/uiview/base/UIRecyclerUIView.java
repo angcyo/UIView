@@ -11,6 +11,7 @@ import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
+import com.angcyo.uiview.rsen.RGestureDetector;
 import com.angcyo.uiview.rsen.RefreshLayout;
 
 /**
@@ -46,7 +47,49 @@ public class UIRecyclerUIView<H, T, F> extends UIContentView
         mRefreshLayout = createRefreshLayout(baseContentLayout, inflater);
         mRecyclerView = createRecyclerView(baseContentLayout, inflater);
         afterInflateView(baseContentLayout);
+
+        baseInitLayout();
     }
+
+    private void baseInitLayout() {
+        if (getUITitleBarContainer() != null) {
+            //双击标题, 自动滚动到顶部
+            RGestureDetector.onDoubleTap(getUITitleBarContainer(), new RGestureDetector.OnDoubleTapListener() {
+                @Override
+                public void onDoubleTap() {
+                    onDoubleScrollToTop();
+                }
+            });
+        }
+
+        if (mRecyclerView != null && hasScrollListener()) {
+            mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    if (mUITitleBarContainer != null) {
+                        mUITitleBarContainer.evaluateBackgroundColorSelf(recyclerView.computeVerticalScrollOffset());
+                    }
+                }
+            });
+        }
+    }
+
+    /**
+     * 自动监听滚动事件, 设置标题栏的透明度
+     */
+    protected boolean hasScrollListener() {
+        return false;
+    }
+
+    /**
+     * 双击自动自动滚动置顶
+     */
+    public void onDoubleScrollToTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
 
     /**
      * 填充试图之前调用

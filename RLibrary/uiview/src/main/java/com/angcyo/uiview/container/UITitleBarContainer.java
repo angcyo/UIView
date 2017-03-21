@@ -21,6 +21,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
@@ -115,13 +116,13 @@ public class UITitleBarContainer extends FrameLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        post(new Runnable() {
-            @Override
-            public void run() {
+//        post(new Runnable() {
+//            @Override
+//            public void run() {
                 isAttachedToWindow = true;
-                loadTitleBar();
-            }
-        });
+//                loadTitleBar();
+//            }
+//        });
     }
 
     //----------------------------私有方法-----------------------------
@@ -223,6 +224,10 @@ public class UITitleBarContainer extends FrameLayout {
         fillViews(mLeftControlLayout, mTitleBarPattern.mLeftItems, mLeftViews);
         /*右边控制按钮*/
         fillViews(mRightControlLayout, mTitleBarPattern.mRightItems, mRightViews);
+
+        if (mTitleBarPattern.mOnInitTitleLayout != null) {
+            mTitleBarPattern.mOnInitTitleLayout.onInitLayout((RelativeLayout) mCenterControlLayout);
+        }
 
         /*控制按钮的动画*/
         //animViews(mLeftViews, true);
@@ -366,9 +371,9 @@ public class UITitleBarContainer extends FrameLayout {
      */
     public void setTitleBarPattern(TitleBarPattern titleBarPattern) {
         mTitleBarPattern = titleBarPattern;
-        if (isAttachedToWindow) {
+//        if (isAttachedToWindow) {
             loadTitleBar();
-        }
+//        }
     }
 
     public TitleBarPattern set() {

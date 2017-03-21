@@ -47,17 +47,22 @@ public class RTitleCenterLayout extends RelativeLayout {
         if (mLoadingView != null) {
             int loadViewWidth = mLoadingView.getMeasuredWidth();
             if (mTitleView != null) {
-                mTitleView.measure(MeasureSpec.makeMeasureSpec(width - 2 * loadViewWidth, MeasureSpec.EXACTLY), heightMeasureSpec);
+                mTitleView.measure(
+                        MeasureSpec.makeMeasureSpec(Math.min(width - 2 * loadViewWidth,
+                                mTitleView.getMeasuredWidth()), MeasureSpec.EXACTLY),
+                        heightMeasureSpec);
             }
         } else {
             if (mTitleView != null) {
-                mTitleView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), heightMeasureSpec);
+                mTitleView.measure(MeasureSpec.makeMeasureSpec(Math.min(width, mTitleView.getMeasuredWidth()),
+                        MeasureSpec.EXACTLY), heightMeasureSpec);
             }
         }
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
         if (mTitleView != null && mLoadingView != null) {
@@ -75,8 +80,6 @@ public class RTitleCenterLayout extends RelativeLayout {
                     layoutCenter(mLoadingView);
                 }
             }
-        } else {
-            super.onLayout(changed, l, t, r, b);
         }
     }
 

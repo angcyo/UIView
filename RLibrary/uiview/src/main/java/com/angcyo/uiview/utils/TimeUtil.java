@@ -75,6 +75,10 @@ public class TimeUtil {
         return getDateTimeString(milliseconds, "yyyyMMdd");
     }
 
+    public static String getDividerDateFormat(long millis){
+        return getDateTimeString(millis,"MM/yyyy");
+    }
+
     public static String getTimeString(long milliseconds) {
         return getDateTimeString(milliseconds, "HHmmss");
     }

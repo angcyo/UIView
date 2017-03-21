@@ -10,6 +10,7 @@ import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
+import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
@@ -24,7 +25,6 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
-import com.angcyo.uiview.widget.ItemInfoLayout;
 
 import java.util.List;
 
@@ -232,12 +232,18 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                 });
             }
         });
-    }
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "GitHub Project Demo", new View.OnClickListener() {
 
-    private void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
-        ItemInfoLayout infoLayout = holder.v(R.id.item_info_layout);
-        infoLayout.setItemText(itemText);
-        infoLayout.setOnClickListener(onClickListener);
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new GithubDemoUIView());
+                    }
+                });
+            }
+        });
     }
 
 }

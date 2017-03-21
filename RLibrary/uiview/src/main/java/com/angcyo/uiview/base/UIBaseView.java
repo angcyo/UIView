@@ -196,6 +196,10 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected TitleBarPattern getTitleBar() {
+        return createTitleBarPattern();
+    }
+
+    public TitleBarPattern createTitleBarPattern() {
         return TitleBarPattern.build(getTitleResource() == View.NO_ID ?
                 getTitleString() : mActivity.getResources().getString(getTitleResource()))
                 .setTitleBarBGColor(mActivity.getResources().getColor(R.color.theme_color_primary));

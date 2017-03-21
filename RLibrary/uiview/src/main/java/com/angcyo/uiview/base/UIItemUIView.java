@@ -2,7 +2,7 @@ package com.angcyo.uiview.base;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.annotation.DrawableRes;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +16,11 @@ import com.angcyo.uiview.recycler.RExItemDecoration;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
 import com.angcyo.uiview.rsen.PlaceholderView;
 import com.angcyo.uiview.rsen.RefreshLayout;
+import com.angcyo.uiview.widget.ItemInfoLayout;
 import com.angcyo.uiview.widget.RSoftInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.http.HEAD;
 
 
 /**
@@ -31,6 +30,19 @@ import retrofit2.http.HEAD;
 public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<String, T, String> {
 
     protected List<T> mItems = new ArrayList<>();
+
+    public static void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
+        ItemInfoLayout infoLayout = holder.v(R.id.base_item_info_layout);
+        infoLayout.setItemText(itemText);
+        infoLayout.setOnClickListener(onClickListener);
+    }
+
+    public static void initItem(RBaseViewHolder holder, @DrawableRes int leftRes, String itemText, View.OnClickListener onClickListener) {
+        ItemInfoLayout infoLayout = holder.v(R.id.base_item_info_layout);
+        infoLayout.setItemText(itemText);
+        infoLayout.setLeftDrawableRes(leftRes);
+        infoLayout.setOnClickListener(onClickListener);
+    }
 
     @Override
     public int getDefaultBackgroundColor() {
@@ -77,7 +89,9 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
     /**
      * 返回布局
      */
-    protected abstract int getItemLayoutId(int viewType);
+    protected int getItemLayoutId(int viewType) {
+        return R.layout.base_item_info_layout;
+    }
 
     /**
      * 创建Item

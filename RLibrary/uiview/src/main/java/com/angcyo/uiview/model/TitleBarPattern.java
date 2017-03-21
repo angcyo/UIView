@@ -7,6 +7,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class TitleBarPattern {
      */
     public ArrayList<TitleBarItem> mRightItems = new ArrayList<>();
 
+    public OnInitTitleLayout mOnInitTitleLayout;
 
     private TitleBarPattern(String titleString) {
         mTitleString = titleString;
@@ -191,6 +193,15 @@ public class TitleBarPattern {
     public TitleBarPattern setBackImageRes(int backImageRes) {
         this.backImageRes = backImageRes;
         return this;
+    }
+
+    public TitleBarPattern setOnInitTitleLayout(OnInitTitleLayout onInitTitleLayout) {
+        mOnInitTitleLayout = onInitTitleLayout;
+        return this;
+    }
+
+    public interface OnInitTitleLayout {
+        void onInitLayout(RelativeLayout parent);
     }
 
     public static class TitleBarItem {
