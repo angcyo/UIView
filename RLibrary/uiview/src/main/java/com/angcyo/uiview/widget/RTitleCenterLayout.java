@@ -41,6 +41,22 @@ public class RTitleCenterLayout extends RelativeLayout {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+        if (mLoadingView != null) {
+            int loadViewWidth = mLoadingView.getMeasuredWidth();
+            if (mTitleView != null) {
+                mTitleView.measure(MeasureSpec.makeMeasureSpec(width - 2 * loadViewWidth, MeasureSpec.EXACTLY), heightMeasureSpec);
+            }
+        } else {
+            if (mTitleView != null) {
+                mTitleView.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), heightMeasureSpec);
+            }
+        }
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
@@ -53,6 +69,7 @@ public class RTitleCenterLayout extends RelativeLayout {
                             (height - mLoadingView.getMeasuredHeight()) / 2,
                             (int) (mTitleView.getLeft() - offset), height / 2 + mLoadingView.getMeasuredHeight() / 2);
                 }
+                //mTitleView.setBackgroundColor(Color.BLUE);
             } else {
                 if (mLoadingView.getVisibility() == VISIBLE) {
                     layoutCenter(mLoadingView);

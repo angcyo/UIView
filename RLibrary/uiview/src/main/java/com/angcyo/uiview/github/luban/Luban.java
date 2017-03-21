@@ -217,7 +217,7 @@ public class Luban {
             File saveFile = new File(saveDirectory, filename);
             if (!saveFile.exists()) saveFile.createNewFile();
             stream = new BufferedOutputStream(new FileOutputStream(saveFile.getAbsolutePath()));
-            Bitmap.CompressFormat format = Bitmap.CompressFormat.JPEG;
+            Bitmap.CompressFormat format = Bitmap.CompressFormat.PNG;
             int quality = 100;
             bmp.compress(format, quality, stream);
 
@@ -656,17 +656,17 @@ public class Luban {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         int options = 100;
-        bitmap.compress(Bitmap.CompressFormat.JPEG, options, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, options, stream);
 
         while (stream.toByteArray().length / 1024 > size && options > 6) {
             stream.reset();
             options -= 6;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, options, stream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, options, stream);
         }
         bitmap.recycle();
 
         try {
-            filePath += "_s_" + width + "x" + height;
+            filePath += "_s_" + width + "x" + height + ".png";
             FileOutputStream fos = new FileOutputStream(filePath);
             fos.write(stream.toByteArray());
             fos.flush();

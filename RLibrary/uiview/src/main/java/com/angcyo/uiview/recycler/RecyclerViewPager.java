@@ -299,7 +299,7 @@ public class RecyclerViewPager extends RRecyclerView {
 
     private void to(int dx, int dy) {
         smoothScrollBy(dx, dy, new AccelerateInterpolator(2f));
-//        scrollBy(dx, dy);
+//        scrollByInner(dx, dy);
     }
 
     public void addOnViewPagerListener(OnViewPagerListener listener) {

@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIRecyclerUIView;
-import com.angcyo.uiview.design.BaseLinearLayoutManager;
+import com.angcyo.uiview.design.StickLayoutManager;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
@@ -33,9 +33,10 @@ public class StickLayoutManagerUIView extends UIRecyclerUIView<String, String, S
     @Override
     protected void afterInflateView(RelativeLayout baseContentLayout) {
         super.afterInflateView(baseContentLayout);
-//        mRecyclerView.setLayoutManager(new StickLayoutManager(mActivity));
+//        mRecyclerView.setLayoutManager(new FloatLayoutManager(mActivity).setFloatPosition(4));
+        mRecyclerView.setLayoutManager(new StickLayoutManager(mActivity).setStickPosition(8).setStickTop(200));
 //        mRecyclerView.setLayoutManager(new TestLayoutManager());
-        mRecyclerView.setLayoutManager(new BaseLinearLayoutManager(mActivity));
+//        mRecyclerView.setLayoutManager(new BaseLinearLayoutManager(mActivity));
 //        mRecyclerView.getRecycledViewPool().setMaxRecycledViews(11, 2);
 //        mRecyclerView.setItemViewCacheSize(4);
 //        mRecyclerView.setVerticalScrollBarEnabled(true);
@@ -47,6 +48,8 @@ public class StickLayoutManagerUIView extends UIRecyclerUIView<String, String, S
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+        //showLoadView();
+        //getUITitleBarContainer().getCenterControlLayout().setBackgroundColor(Color.RED);
     }
 
     @Override
