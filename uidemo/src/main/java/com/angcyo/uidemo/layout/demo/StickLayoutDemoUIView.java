@@ -1,24 +1,39 @@
 package com.angcyo.uidemo.layout.demo;
 
-import com.angcyo.uidemo.R;
-import com.angcyo.uiview.base.Item;
-import com.angcyo.uiview.base.SingleItem;
-import com.angcyo.uiview.base.UIItemUIView;
-import com.angcyo.uiview.recycler.RBaseViewHolder;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.view.LayoutInflater;
+import android.widget.RelativeLayout;
 
-import java.util.List;
+import com.angcyo.uidemo.R;
+import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.design.StickLayout;
+import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.widget.viewpager.UIViewPager;
+
+import butterknife.BindView;
 
 /**
  * Created by angcyo on 2017-03-15.
  */
 
-public class StickLayoutDemoUIView extends UIItemUIView<SingleItem> {
+public class StickLayoutDemoUIView extends UIContentView {
+
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @BindView(R.id.view_pager)
+    UIViewPager mViewPager;
+    @BindView(R.id.root_layout)
+    StickLayout mRootLayout;
+
     @Override
-    protected int getItemLayoutId(int viewType) {
-        if (viewType == 0) {
-            return R.layout.item_stick_layout_top;
-        }
-        return R.layout.item_stick_layout_normal;
+    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        inflate(R.layout.view_stick_layout);
+    }
+
+    @Override
+    protected TitleBarPattern getTitleBar() {
+        return super.getTitleBar().setShowBackImageView(true);
     }
 
     @Override
@@ -27,48 +42,19 @@ public class StickLayoutDemoUIView extends UIItemUIView<SingleItem> {
     }
 
     @Override
-    protected void createItems(List<SingleItem> items) {
-        items.add(new SingleItem() {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
+        initPager();
+    }
 
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.TOP) {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+    @Override
+    public void onViewShow(Bundle bundle) {
+        super.onViewShow(bundle);
+    }
 
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.TOP) {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.TOP) {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.TOP) {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.TOP) {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.TOP) {
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-
-            }
-        });
+    void initPager() {
+        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setAdapter(new BehaviorStickDemoUIView.PagerAdapter());
+        //mViewPager.setSlowTouch(true);
     }
 }

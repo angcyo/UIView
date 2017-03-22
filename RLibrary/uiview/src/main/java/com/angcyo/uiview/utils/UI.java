@@ -1,5 +1,7 @@
 package com.angcyo.uiview.utils;
 
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,5 +43,66 @@ public class UI {
         if (view.getParent() != null) {
             view.getParent().requestLayout();
         }
+    }
+
+    /**
+     * View 顶部是否还有可滚动的距离
+     *
+     * @param view
+     */
+    public static boolean canChildScrollUp(View view) {
+        return canChildScroll(view, -1);
+    }
+
+    /**
+     * View 底部是否还有可滚动的距离
+     *
+     * @param view
+     */
+    public static boolean canChildScrollDown(View view) {
+        return canChildScroll(view, 1);
+    }
+
+    private static boolean canChildScroll(View view, int direction) {
+
+        if (view == null) {
+            return false;
+        }
+
+        if (view instanceof ViewGroup) {
+            final ViewGroup vGroup = (ViewGroup) view;
+            View child;
+            boolean result;
+            for (int i = 0; i < vGroup.getChildCount(); i++) {
+                child = vGroup.getChildAt(i);
+                if (child instanceof RecyclerView) {
+                    result = ViewCompat.canScrollVertically(child, direction);
+                } else if (child instanceof ViewGroup) {
+                    result = canChildScroll(child, direction);
+                } else if (child instanceof View) {
+                    result = ViewCompat.canScrollVertically(child, direction);
+                } else {
+                    result = canChildScroll(child, direction);
+                }
+
+                if (result) {
+                    return true;
+                }
+            }
+        }
+
+        return ViewCompat.canScrollVertically(view, direction);
+    }
+
+    public static RecyclerView getRecyclerView(ViewGroup parent) {
+        for (int i = 0; i < parent.getChildCount(); i++) {
+            View childAt = parent.getChildAt(i);
+            if (childAt instanceof RecyclerView) {
+                return (RecyclerView) childAt;
+            } else if (childAt instanceof ViewGroup) {
+                return getRecyclerView((ViewGroup) childAt);
+            }
+        }
+        return null;
     }
 }

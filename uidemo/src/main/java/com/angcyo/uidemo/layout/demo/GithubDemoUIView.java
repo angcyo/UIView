@@ -26,6 +26,10 @@ import java.util.List;
  * Version: 1.0.0
  */
 public class GithubDemoUIView extends UIItemUIView<SingleItem> {
+
+    private Shimmer mShimmer;
+    private Shimmer mShimmer1;
+
     @Override
     protected int getItemLayoutId(int viewType) {
         if (viewType == 0) {
@@ -35,6 +39,13 @@ public class GithubDemoUIView extends UIItemUIView<SingleItem> {
             return R.layout.item_shimmer_textview;
         }
         return 0;
+    }
+
+    @Override
+    public void onViewUnload() {
+        super.onViewUnload();
+        mShimmer.cancel();
+        mShimmer1.cancel();
     }
 
     @Override
@@ -54,11 +65,13 @@ public class GithubDemoUIView extends UIItemUIView<SingleItem> {
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 ShimmerTextView shimmerTextView = holder.v(R.id.shimmer_text_view);
                 shimmerTextView.setText("用来测试的文本");
-                new Shimmer().start(shimmerTextView);
+                mShimmer = new Shimmer();
+                mShimmer.start(shimmerTextView);
 
                 ShimmerButton shimmerButton = holder.v(R.id.shimmer_button_view);
                 shimmerButton.setText("用来测试的文本");
-                new Shimmer().start(shimmerButton);
+                mShimmer1 = new Shimmer();
+                mShimmer1.start(shimmerButton);
             }
         });
     }

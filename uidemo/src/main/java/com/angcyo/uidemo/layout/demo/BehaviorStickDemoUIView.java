@@ -62,7 +62,7 @@ public class BehaviorStickDemoUIView extends UIContentView {
         viewPager.setAdapter(new PagerAdapter());
     }
 
-    static class BehaviorContentUIView extends UIContentView {
+    public static class BehaviorContentUIView extends UIContentView {
 
         private RRecyclerView mRecyclerView;
 
@@ -96,13 +96,13 @@ public class BehaviorStickDemoUIView extends UIContentView {
 
                 @Override
                 protected void onBindView(RBaseViewHolder holder, int position, String bean) {
-
+                    holder.tv(R.id.text_view).setText("测试文本::" + position);
                 }
             });
         }
     }
 
-    public class PagerAdapter extends UIPagerAdapter {
+    public static class PagerAdapter extends UIPagerAdapter {
         @Override
         protected IView getIView(int position) {
             return new BehaviorContentUIView();

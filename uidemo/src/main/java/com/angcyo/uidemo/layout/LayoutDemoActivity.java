@@ -27,7 +27,7 @@ public class LayoutDemoActivity extends UILayoutActivity {
                 Rect outRect5 = new Rect();
                 view.getDrawingRect(outRect5);
 
-                L.i(view.getMeasuredHeight() + " " + view.getMeasuredWidth());
+                L.i(view.getMeasuredWidth() + " " + view.getMeasuredHeight());
             }
         });
 

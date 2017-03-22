@@ -162,6 +162,7 @@ public class Shimmer {
     public void cancel() {
         if (animator != null) {
             animator.cancel();
+            animator = null;
         }
     }
 

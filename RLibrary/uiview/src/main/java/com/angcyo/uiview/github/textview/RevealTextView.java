@@ -29,6 +29,7 @@ public final class RevealTextView extends AppCompatTextView implements Runnable,
      * 无限循环
      */
     private boolean isLoop = false;
+    private ValueAnimator mAnimator;
 
     public RevealTextView(Context context) {
         super(context);
@@ -64,15 +65,15 @@ public final class RevealTextView extends AppCompatTextView implements Runnable,
         green = Color.green(color);
         blue = Color.blue(color);
 
-        ValueAnimator animator = ValueAnimator.ofFloat(0f, 2f);
-        animator.setDuration(animationDuration);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.addUpdateListener(this);
+        mAnimator = ValueAnimator.ofFloat(0f, 2f);
+        mAnimator.setDuration(animationDuration);
+        mAnimator.setInterpolator(new LinearInterpolator());
+        mAnimator.addUpdateListener(this);
         if (isLoop) {
-            animator.setRepeatMode(ValueAnimator.REVERSE);
-            animator.setRepeatCount(ValueAnimator.INFINITE);
+            mAnimator.setRepeatMode(ValueAnimator.REVERSE);
+            mAnimator.setRepeatCount(ValueAnimator.INFINITE);
         }
-        animator.start();
+        mAnimator.start();
     }
 
     protected int clamp(double value) {
@@ -87,6 +88,17 @@ public final class RevealTextView extends AppCompatTextView implements Runnable,
             builder.setSpan(new ForegroundColorSpan(Color.argb(clamp(value + alphas[i]), red, green, blue)), i, i + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         setText(builder);
+    }
+
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (mAnimator != null) {
+            mAnimator.end();
+            mAnimator.cancel();
+            mAnimator = null;
+        }
     }
 
     @Override

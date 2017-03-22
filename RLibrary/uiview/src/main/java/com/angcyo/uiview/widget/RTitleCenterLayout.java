@@ -98,6 +98,10 @@ public class RTitleCenterLayout extends RelativeLayout {
         }
     }
 
+    public void setTitleView(View titleView) {
+        mTitleView = titleView;
+    }
+
     private void layoutCenter(View view) {
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.design.StickLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--头部-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <com.angcyo.uiview.widget.RImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="用来测试的文本"
+            android:textColor="@color/base_red"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <com.angcyo.uiview.widget.viewpager.UIViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--悬浮布局-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        style="@style/BaseTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_60dpi"
+        android:tag="float"/>
+
+</com.angcyo.uiview.design.StickLayout>

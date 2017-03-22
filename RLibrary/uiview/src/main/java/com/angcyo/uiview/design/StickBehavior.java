@@ -51,7 +51,7 @@ public class StickBehavior<V extends View> extends CoordinatorLayout.Behavior<V>
         if (mTargetView == null) {
             lastTop = 0;
         }
-        if (dependency instanceof StickLayout) {
+        if (dependency instanceof TestLayout) {
             //StickLayout只是用来判断是否是目标的标识, 没有任何不同支持,
             //你也可以通过getId判断id是否相等, 来处理
             mTargetView = dependency;
