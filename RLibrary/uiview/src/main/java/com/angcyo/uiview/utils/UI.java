@@ -1,9 +1,18 @@
 package com.angcyo.uiview.utils;
 
+import android.content.Context;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -104,5 +113,54 @@ public class UI {
             }
         }
         return null;
+    }
+
+    public static boolean copyAssetsTo(Context context, String assetsName, String fullPath) {
+        if (TextUtils.isEmpty(assetsName) || TextUtils.isEmpty(fullPath)) {
+            return false;
+        }
+
+        try {
+            File targetFile = new File(fullPath);
+            InputStream inputStream = context.getAssets().open(assetsName);
+
+            if (!targetFile.exists()) {
+                targetFile.getParentFile().mkdir();
+            }
+
+            OutputStream os = null;
+            try {
+                os = new BufferedOutputStream(new FileOutputStream(targetFile));
+                byte data[] = new byte[1024];
+                int len;
+                while ((len = inputStream.read(data, 0, 1024)) != -1) {
+                    os.write(data, 0, len);
+                }
+                os.flush();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            } finally {
+                if (os != null) {
+                    try {
+                        os.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
