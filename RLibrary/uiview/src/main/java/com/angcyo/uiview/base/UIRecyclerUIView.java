@@ -51,6 +51,22 @@ public class UIRecyclerUIView<H, T, F> extends UIContentView
         baseInitLayout();
     }
 
+    /**
+     * 自动监听滚动事件, 设置标题栏的透明度
+     */
+    protected boolean hasScrollListener() {
+        return false;
+    }
+
+    /**
+     * 双击自动自动滚动置顶
+     */
+    public void onDoubleScrollToTop() {
+        if (mRecyclerView != null) {
+            mRecyclerView.smoothScrollToPosition(0);
+        }
+    }
+
     private void baseInitLayout() {
         if (getUITitleBarContainer() != null) {
             //双击标题, 自动滚动到顶部
@@ -73,23 +89,6 @@ public class UIRecyclerUIView<H, T, F> extends UIContentView
             });
         }
     }
-
-    /**
-     * 自动监听滚动事件, 设置标题栏的透明度
-     */
-    protected boolean hasScrollListener() {
-        return false;
-    }
-
-    /**
-     * 双击自动自动滚动置顶
-     */
-    public void onDoubleScrollToTop() {
-        if (mRecyclerView != null) {
-            mRecyclerView.smoothScrollToPosition(0);
-        }
-    }
-
 
     /**
      * 填充试图之前调用
