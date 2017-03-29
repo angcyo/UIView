@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.OverScroller;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.widget.RImageView;
 
@@ -100,7 +101,7 @@ public class GameCircleLayout extends ViewGroup {
             addView(image3);
         }
 
-        setPadding(10, 20, 30, 40);
+        //setPadding(10, 20, 30, 40);
     }
 
     @Override
@@ -123,13 +124,16 @@ public class GameCircleLayout extends ViewGroup {
             View childAt = getChildAt(i);
             int measuredHeight = childAt.getMeasuredHeight();
             int top = b - offsetTop - measuredHeight;
-            if (i % 2 == 0) {
-                childAt.layout(l, top, (int) (3 / 2f * r), (int) (top + 3 / 2f * measuredHeight));
-            } else {
-                childAt.layout(l, top, r, top + measuredHeight);
-            }
+//            if (i % 2 == 0) {
+//                childAt.layout(l, top, (int) (3 / 2f * r), (int) (top + 3 / 2f * measuredHeight));
+//            } else {
+//                childAt.layout(l, top, r, top + measuredHeight);
+//            }
+            childAt.layout(l, top, r, top + measuredHeight);
+
             offsetTop += measuredHeight;
         }
+        postLayout();
     }
 
     @Override
@@ -144,6 +148,7 @@ public class GameCircleLayout extends ViewGroup {
     @Override
     public void scrollTo(@Px int x, @Px int y) {
         super.scrollTo(x, Math.min(0, y));
+        postLayout();
     }
 
     @Override
@@ -157,5 +162,31 @@ public class GameCircleLayout extends ViewGroup {
         super.onDraw(canvas);
         //canvas.drawColor(Color.RED);
         //L.e("call: onDraw([canvas])-> ");
+    }
+
+    private void postLayout() {
+        int measuredHeight = getMeasuredHeight();
+        for (int i = 0; i < getChildCount(); i++) {
+            View childAt = getChildAt(i);
+            int childAtMeasuredHeight = childAt.getMeasuredHeight();
+            int viewBottomOffset = getViewBottomOffset(childAt);
+            if (viewBottomOffset > 0 && viewBottomOffset < (measuredHeight + childAtMeasuredHeight)) {
+                L.e("call: postLayout([])-> i:" + i + " " + viewBottomOffset + " " + getScrollY());
+                childAt.setAlpha(1);
+                //childAt.offsetTopAndBottom(childAtMeasuredHeight/2);
+            } else {
+                childAt.setAlpha(0);
+            }
+        }
+    }
+
+    /**
+     * child 距离底部的距离
+     */
+    private int getViewBottomOffset(View child) {
+        int scrollY = getScrollY();
+        int childTop = child.getTop();
+        int top = getMeasuredHeight() - childTop;
+        return top + scrollY;
     }
 }
