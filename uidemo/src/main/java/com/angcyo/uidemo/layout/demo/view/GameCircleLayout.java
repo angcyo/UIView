@@ -2,6 +2,8 @@ package com.angcyo.uidemo.layout.demo.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Px;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
@@ -12,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.OverScroller;
 
-import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.widget.RImageView;
 
@@ -28,6 +29,12 @@ import com.angcyo.uiview.widget.RImageView;
  * Version: 1.0.0
  */
 public class GameCircleLayout extends ViewGroup {
+
+    /**
+     * 决定不同item之间的间隙, 值越大间隙越大
+     */
+    float radius;
+    float angdegStep = 30, angdegOffset;
 
     OverScroller mOverScroller;
     GestureDetectorCompat mGestureDetectorCompat;
@@ -82,7 +89,7 @@ public class GameCircleLayout extends ViewGroup {
 //        addView(image2);
 //        addView(image3);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
 
             RImageView image1 = new RImageView(getContext());
             RImageView image2 = new RImageView(getContext());
@@ -96,9 +103,17 @@ public class GameCircleLayout extends ViewGroup {
             image2.setScaleType(ImageView.ScaleType.FIT_XY);
             image3.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            addView(image1);
-            addView(image2);
-            addView(image3);
+            image1.setClickable(true);
+            image2.setClickable(true);
+            image3.setClickable(true);
+
+            image1.setTag(String.valueOf(i * 3));
+            image2.setTag(String.valueOf(1 + i * 3));
+            image3.setTag(String.valueOf(2 + i * 3));
+
+            addView(image1, 0);
+            addView(image2, 0);
+            addView(image3, 0);
         }
 
         //setPadding(10, 20, 30, 40);
@@ -115,24 +130,29 @@ public class GameCircleLayout extends ViewGroup {
         }
 
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+
+        radius = getMeasuredHeight() * 2 / 3;
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int offsetTop = 0;
-        for (int i = 0; i < getChildCount(); i++) {
-            View childAt = getChildAt(i);
-            int measuredHeight = childAt.getMeasuredHeight();
-            int top = b - offsetTop - measuredHeight;
-//            if (i % 2 == 0) {
-//                childAt.layout(l, top, (int) (3 / 2f * r), (int) (top + 3 / 2f * measuredHeight));
-//            } else {
-//                childAt.layout(l, top, r, top + measuredHeight);
-//            }
-            childAt.layout(l, top, r, top + measuredHeight);
-
-            offsetTop += measuredHeight;
-        }
+//        int offsetTop = 0;
+//        for (int i = 0; i < getChildCount(); i++) {
+//            View childAt = getChildAt(i);
+//            int measuredHeight = childAt.getMeasuredHeight();
+//            int top = b - offsetTop - measuredHeight;
+////            if (i % 2 == 0) {
+////                childAt.layout(l, top, (int) (3 / 2f * r), (int) (top + 3 / 2f * measuredHeight));
+////            } else {
+////                childAt.layout(l, top, r, top + measuredHeight);
+////            }
+//
+//            top = calcLayoutTop(childAt, i * angdegStep);
+//
+//            childAt.layout(l, top, r, top + measuredHeight);
+//
+//            offsetTop += measuredHeight;
+//        }
         postLayout();
     }
 
@@ -157,27 +177,95 @@ public class GameCircleLayout extends ViewGroup {
         return true;
     }
 
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        mGestureDetectorCompat.onTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev);
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //canvas.drawColor(Color.RED);
         //L.e("call: onDraw([canvas])-> ");
+
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.RED);
+        for (int i = 0; i < 360; i++) {
+            double sin = Math.sin(Math.toRadians(i));
+            canvas.drawPoint(i, (float) sin * 200 - getScrollY(), paint);
+        }
     }
 
     private void postLayout() {
-        int measuredHeight = getMeasuredHeight();
-        for (int i = 0; i < getChildCount(); i++) {
+//        int measuredHeight = getMeasuredHeight();
+//        for (int i = 0; i < getChildCount(); i++) {
+//            View childAt = getChildAt(i);
+//            int childAtMeasuredHeight = childAt.getMeasuredHeight();
+//            int viewBottomOffset = getViewBottomOffset(childAt);
+//            if (viewBottomOffset > 0 && viewBottomOffset < (measuredHeight + childAtMeasuredHeight)) {
+//                L.e("call: postLayout([])-> i:" + i + " " + viewBottomOffset + " " + getScrollY());
+//                childAt.setAlpha(1);
+//                //childAt.offsetTopAndBottom(childAtMeasuredHeight/2);
+//            } else {
+//                childAt.setAlpha(0);
+//            }
+//        }
+//        getChildAt(0).layout(0, getScrollY(), getMeasuredWidth(), getScrollY() + getChildAt(0).getMeasuredHeight());
+
+        int childHeight = 0;
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
-            int childAtMeasuredHeight = childAt.getMeasuredHeight();
-            int viewBottomOffset = getViewBottomOffset(childAt);
-            if (viewBottomOffset > 0 && viewBottomOffset < (measuredHeight + childAtMeasuredHeight)) {
-                L.e("call: postLayout([])-> i:" + i + " " + viewBottomOffset + " " + getScrollY());
-                childAt.setAlpha(1);
-                //childAt.offsetTopAndBottom(childAtMeasuredHeight/2);
+            int height = childAt.getMeasuredHeight();
+            int scrollY = Math.abs(getScrollY());
+            childHeight += height;
+            if (scrollY > childHeight) {
+                childAt.setVisibility(GONE);
+                //childAt.setAlpha(0);
             } else {
-                childAt.setAlpha(0);
+                //childAt.setAlpha(1);
+                childAt.setVisibility(VISIBLE);
+
+//                float angdeg = (childCount - i - 1) * angdegStep + calcOffsetAngdeg();
+                float angdeg = i * angdegStep + calcOffsetAngdeg();
+
+//                if (angdeg % 180 > 180f) {
+//                    childAt.setVisibility(GONE);
+//                } else {
+
+                double radians = Math.toRadians(angdeg);
+                double sin = Math.sin(radians);
+                double top = sin * radius;
+
+                int t = (int) (getMeasuredHeight() - top - childAt.getMeasuredHeight() / 2 + getScrollY());
+                childAt.layout(0, t, getMeasuredWidth(), t + childAt.getMeasuredHeight());
+//                }
             }
         }
+//
+//        for (int i = 0; i < getChildCount(); i++) {
+//
+//        }
+    }
+
+    /**
+     * 根据滚动距离, 计算角度偏移
+     */
+    private float calcOffsetAngdeg() {
+        int scrollY = Math.abs(getScrollY());
+
+        return scrollY / 45f;
+    }
+
+    /**
+     * @param angdeg 角度
+     */
+    private int calcLayoutTop(View child, double angdeg) {
+        double a = Math.sin(Math.toRadians(angdeg)) * radius;
+
+        return (int) (getMeasuredHeight() - a - child.getMeasuredHeight() / 2);
     }
 
     /**
