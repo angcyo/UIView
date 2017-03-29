@@ -1,6 +1,7 @@
 package com.angcyo.uiview.recycler;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v7.widget.LinearLayoutManager;
@@ -123,7 +124,9 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
 
         @Override
         public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
-
+            paint.setColor(Color.GRAY);
+            offsetRect.set(0, itemView.getTop() - offsetRect.top, itemView.getRight(), itemView.getTop());
+            canvas.drawRect(offsetRect, paint);
         }
     }
 }

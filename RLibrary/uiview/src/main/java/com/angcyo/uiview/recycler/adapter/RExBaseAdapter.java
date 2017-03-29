@@ -20,9 +20,9 @@ import java.util.List;
  */
 public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
 
-    public static final int TYPE_HEADER = 10;
-    public static final int TYPE_FOOTER = 12;
-    public static final int TYPE_DATA = 11;
+    public static final int TYPE_HEADER = 0x100000;
+    public static final int TYPE_FOOTER = 0x200000;
+    public static final int TYPE_DATA = 0x300000;
 
     /**
      * 头部数据集合
@@ -90,6 +90,36 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
     }
 
     /**
+     * position 是否是头部的第一个
+     */
+    public boolean isHeaderFirst(int position) {
+        return position == 0;
+    }
+
+    /**
+     * position 是否是头部的最后一个
+     */
+    public boolean isHeaderLast(int position) {
+        return position == getHeaderCount() - 1;
+    }
+
+    public boolean isDataFirst(int position) {
+        return position == getHeaderCount();
+    }
+
+    public boolean isDataLast(int position) {
+        return position == getHeaderCount() + getDataCount() - 1;
+    }
+
+    public boolean isFooterFirst(int position) {
+        return position == getHeaderCount() + getDataCount();
+    }
+
+    public boolean isFooterLast(int position) {
+        return position == getHeaderCount() + getDataCount() + getFooterCount() - 1;
+    }
+
+    /**
      * 获取头部数据数量
      */
     public int getHeaderCount() {
@@ -122,7 +152,7 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
             position -= getHeaderCount();
             onBindDataView(holder, position, mAllDatas.size() > position ? mAllDatas.get(position) : null);
         } else if (isInFooter(position)) {
-            position -= getHeaderCount() - getDataCount();
+            position -= getHeaderCount() + getDataCount();
             onBindFooterView(holder, position, mAllFooterDatas.size() > position ? mAllFooterDatas.get(position) : null);
         }
     }
@@ -237,6 +267,12 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
         notifyItemRangeChanged(startPosition, getItemCount());
     }
 
+    public void appendHeaderData(H headerData) {
+        List<H> heads = new ArrayList<>();
+        heads.add(headerData);
+        appendHeaderData(heads);
+    }
+
     /**
      * 重置尾部数据
      */
@@ -273,6 +309,12 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
         notifyItemRangeChanged(startPosition, getItemCount());
     }
 
+    public void appendFooterData(F footerData) {
+        List<F> heads = new ArrayList<>();
+        heads.add(footerData);
+        appendFooterData(heads);
+    }
+
     /**
      * 重置中间标准数据
      */
@@ -285,6 +327,12 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
      */
     public void appendAllData(List<T> allDatas) {
         appendData(allDatas);
+    }
+
+    public void appendData(T data) {
+        List<T> heads = new ArrayList<>();
+        heads.add(data);
+        appendAllData(heads);
     }
 
 

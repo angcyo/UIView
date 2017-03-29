@@ -17,7 +17,7 @@ import android.view.View;
 
 public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
     static int dividerColor = Color.parseColor("#E0E0E0");//分割线的颜色
-    float mDividerSize;
+    protected float mDividerSize;
     Drawable mDividerDrawableV;//垂直方向绘制的Drawable
     Drawable mDividerDrawableH;//水平方向绘制的Drawable
     /**
@@ -287,7 +287,7 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 绘制view对应垂直方向的分割线
      */
-    private void drawDrawableV(Canvas c, View view) {
+    protected void drawDrawableV(Canvas c, View view) {
         final RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
         mDividerDrawableV.setBounds(
                 view.getRight() + p.rightMargin,
@@ -300,7 +300,7 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
     /**
      * 绘制view对应水平方向的分割线
      */
-    private void drawDrawableH(Canvas c, View view) {
+    protected void drawDrawableH(Canvas c, View view) {
         final RecyclerView.LayoutParams p = (RecyclerView.LayoutParams) view.getLayoutParams();
         mDividerDrawableH.setBounds(
                 view.getLeft() + mMarginStart,
@@ -310,7 +310,7 @@ public class RBaseItemDecoration extends RecyclerView.ItemDecoration {
         drawDrawable(c, mDividerDrawableH);
     }
 
-    private void drawDrawable(Canvas c, Drawable drawable) {
+    protected void drawDrawable(Canvas c, Drawable drawable) {
         drawable.draw(c);
     }
 }

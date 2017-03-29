@@ -1,5 +1,7 @@
 package com.angcyo.uiview.widget;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -7,9 +9,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uiview.R;
 
 import java.util.Random;
@@ -49,7 +53,13 @@ public class EmptyView extends View {
 
     RectF mRectF;
     RectF mRectFLittle;
+    /**
+     * 动画因子
+     */
+    int last = 0;
+    float factor = 1f;
     private Random mRandom;
+    private ValueAnimator mObjectAnimator;
 
     public EmptyView(Context context) {
         this(context, null);
@@ -92,6 +102,59 @@ public class EmptyView extends View {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mRandom = new Random(System.currentTimeMillis());
+    }
+
+    private void initAnimator() {
+        if (mObjectAnimator == null) {
+            mObjectAnimator = ObjectAnimator.ofInt(3, 6);
+            mObjectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int value = (int) animation.getAnimatedValue();
+                    if (value != last) {
+                        last = value;
+                        factor = last / 10f;
+                        L.e("call: onAnimationUpdate([animation])-> " + factor);
+                        postInvalidate();
+                    }
+                }
+            });
+            mObjectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            mObjectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+            mObjectAnimator.setDuration(300);
+            mObjectAnimator.start();
+        }
+    }
+
+    public void startAnimator() {
+        initAnimator();
+    }
+
+    public void stopAnimator() {
+        clearAnimator();
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == VISIBLE) {
+            //initAnimator();
+        } else {
+            clearAnimator();
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        clearAnimator();
+    }
+
+    private void clearAnimator() {
+        if (mObjectAnimator != null) {
+            mObjectAnimator.cancel();
+            mObjectAnimator = null;
+        }
     }
 
     /**
@@ -186,7 +249,7 @@ public class EmptyView extends View {
     }
 
     private float ratio(float min) {
-        return Math.min(min + 0.6f * mRandom.nextFloat(), 0.8f);
+        return Math.min(min * factor + 0.6f * mRandom.nextFloat(), 0.8f);
     }
 
     public void setDefaultColor(int defaultColor) {

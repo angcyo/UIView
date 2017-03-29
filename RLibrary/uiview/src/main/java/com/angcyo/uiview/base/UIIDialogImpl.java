@@ -113,6 +113,11 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
         return true;
     }
 
+    @Override
+    public boolean canTryCaptureView() {
+        return false;
+    }
+
     public int getGravity() {
         return gravity;
     }

@@ -2,6 +2,8 @@ package com.angcyo.uiview.rsen;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.View;
 
 import com.angcyo.uiview.resources.ResUtil;
@@ -16,7 +18,15 @@ public class PlaceholderView extends View implements RefreshLayout.OnTopViewMove
     private int width;//px
 
     public PlaceholderView(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public PlaceholderView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initView();
+    }
+
+    protected void initView() {
         height = (int) ResUtil.dpToPx(getResources(), 30);
         width = (int) ResUtil.dpToPx(getResources(), 1);
         setWillNotDraw(true);

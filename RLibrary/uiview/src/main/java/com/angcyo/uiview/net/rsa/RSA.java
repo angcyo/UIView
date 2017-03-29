@@ -14,6 +14,10 @@ package com.angcyo.uiview.net.rsa;
 public class RSA {
 
     static final String PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+OdspoCjCgBf/jv+Sdx3mP+JIC1i8YCi+jU6rkeBNWOTfFovA3HSk1ODZ0shWD+E0dRTMlJmFpgffFqbytsRJPsDieeNgP/0psJsejOogG6S+lSZgWAnrxRWYpno8Z5CSgBWWgXHjPGN9u22zc23TFoxjcZUjvee4AM72It/9dQIDAQAB";
+    /**
+     * 资讯API签名
+     */
+    static final String PUBLIC_KEY_INFO = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+OdspoCjCgBf/jv+Sdx3mP+JIC1i8YCi+jU6rkeBNWOTfFovA3HSk1ODZ0shWD+E0dRTMlJmFpgffFqbytsRJPsDieeNgP/0psJsejOogG6S+lSZgWAnrxRWYpno8Z5CSgBWWgXHjPGN9u22zc23TFoxjcZUjvee4AM72It/9dQIDAQAB";
 
     /**
      * 加密
@@ -23,6 +27,17 @@ public class RSA {
         byte[] encodedData;
         try {
             encodedData = RSAUtils.encryptByPublicKey(data.getBytes(), PUBLIC_KEY);
+            encode = Base64Utils.encode(encodedData);
+        } catch (Exception e) {
+        }
+        return encode.replaceAll("\\n", "");
+    }
+
+    public static String encodeInfo(String data) {
+        String encode = "";
+        byte[] encodedData;
+        try {
+            encodedData = RSAUtils.encryptByPublicKey(data.getBytes(), PUBLIC_KEY_INFO);
             encode = Base64Utils.encode(encodedData);
         } catch (Exception e) {
         }

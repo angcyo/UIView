@@ -195,8 +195,8 @@ public class UILayoutImpl extends SwipeBackLayout implements ILayout<UIParam>, U
         }
 
         if (mAttachViews.size() > 1) {
-            if (!mLastShowViewPattern.mIView.isDialog()//最前的不是对话框
-                    && mLastShowViewPattern.mIView.canTryCaptureView()//激活滑动关闭
+            if (/*!mLastShowViewPattern.mIView.isDialog()//最前的不是对话框
+                    &&*/ mLastShowViewPattern.mIView.canTryCaptureView()//激活滑动关闭
                     && mLastShowViewPattern.mView == child) {
                 hideSoftInput();
                 return true;

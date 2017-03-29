@@ -2,14 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/base_round_radius"/>
-            <solid android:color="@color/base_red"/>
+            <solid android:color="@color/default_base_bg_dark"/>
         </shape>
     </item>
-    <item>
+    <item android:state_enabled="false">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/base_round_radius"/>
-            <solid android:color="@color/default_base_line"/>
+            <solid android:color="@color/default_base_bg_disable"/>
         </shape>
     </item>
+    <item android:drawable="@color/default_base_white"/>
 </selector>

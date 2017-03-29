@@ -164,7 +164,12 @@ public class Rx<Rx> extends Observable<Rx> {
                                     L.json(body);
 
                                     JSONObject jsonObject = new JSONObject(body);
-                                    int result = jsonObject.getInt("result");
+                                    int result = 0;
+                                    try {
+                                        result = jsonObject.getInt("result");
+                                    } catch (JSONException e) {
+                                        result = 1;//资讯接口没有此字段
+                                    }
                                     if (result == 1) {
                                         //请求成功
                                         String data = jsonObject.getString("data");

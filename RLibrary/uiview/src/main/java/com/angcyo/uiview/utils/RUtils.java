@@ -487,15 +487,28 @@ public class RUtils {
         context.startActivity(intent);
     }
 
+    public static void sendSMS(Context ctx, String message, String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + phoneNumber));
+        intent.putExtra("sms_body", message);
+        ctx.startActivity(intent);
+    }
+
+
     /**
      * 使用,分割string, 并返回一个列表
      */
     public static List<String> split(String string) {
+        return split(string, ",");
+    }
+
+    public static List<String> split(String string, String regex) {
         final ArrayList<String> list = new ArrayList<>();
         if (!TextUtils.isEmpty(string)) {
-            final String[] split = string.split(",");
+            final String[] split = string.split(regex);
             for (String s : split) {
-                list.add(s);
+                if (!TextUtils.isEmpty(s)) {
+                    list.add(s);
+                }
             }
         }
         return list;

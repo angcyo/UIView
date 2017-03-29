@@ -1,10 +1,10 @@
 package com.angcyo.uiview.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.angcyo.uiview.R;
 
@@ -13,7 +13,7 @@ import com.angcyo.uiview.R;
  * Created by angcyo on 2016-11-05.
  */
 
-public class TitleBarLayout extends RelativeLayout {
+public class TitleBarLayout extends ViewGroup {
 
     public TitleBarLayout(Context context) {
         super(context);
@@ -27,15 +27,11 @@ public class TitleBarLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int height = getMeasuredHeight();
+        if (getChildCount() == 0) {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        } else {
 //        Context context = getContext();
 //        if (context instanceof Activity) {
 //            if (ResUtil.isLayoutFullscreen((Activity) context)) {
@@ -48,13 +44,34 @@ public class TitleBarLayout extends RelativeLayout {
 //                height = statusBarHeight + getResources().getDimensionPixelSize(R.dimen.action_bar_height);
 //            }
 //        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-            height = statusBarHeight + getResources().getDimensionPixelSize(R.dimen.action_bar_height);
-            setPadding(getPaddingLeft(),
-                    statusBarHeight,
-                    getPaddingRight(), getPaddingBottom());
+            int statusBarHeight = getPaddingTop() + getPaddingBottom();
+            if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                statusBarHeight += getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+            }
+
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int height = MeasureSpec.getSize(heightMeasureSpec);
+            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+            View childAt = getChildAt(0);
+            childAt.measure(widthMeasureSpec, heightMeasureSpec);
+            if (heightMode == MeasureSpec.AT_MOST) {
+                setMeasuredDimension(widthMeasureSpec, childAt.getMeasuredHeight() + statusBarHeight);
+            } else {
+                setMeasuredDimension(widthMeasureSpec, height + statusBarHeight);
+            }
         }
-        setMeasuredDimension(widthMeasureSpec, height);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int statusBarHeight = 0;
+        if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+        }
+
+        if (getChildCount() > 0) {
+            View childAt = getChildAt(0);
+            childAt.layout(l, t + statusBarHeight, r, t + statusBarHeight + childAt.getMeasuredHeight());
+        }
     }
 }

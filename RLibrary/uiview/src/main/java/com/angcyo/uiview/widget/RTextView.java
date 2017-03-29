@@ -1,7 +1,13 @@
 package com.angcyo.uiview.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.text.util.LinkifyCompat;
 import android.support.v7.widget.AppCompatTextView;
@@ -9,6 +15,8 @@ import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
+
+import com.angcyo.uiview.R;
 
 import java.util.Locale;
 
@@ -18,6 +26,19 @@ import java.util.Locale;
  */
 
 public class RTextView extends AppCompatTextView {
+
+    /**
+     * 左边垂直矩形的颜色
+     */
+    Rect leftColorRect;
+    Paint colorPaint;
+    int leftWidth = 0;
+    @ColorInt
+    int leftColor;
+    int leftMargin = 0;
+
+    boolean hasUnderline = false;
+
     public RTextView(Context context) {
         this(context, null);
     }
@@ -28,6 +49,32 @@ public class RTextView extends AppCompatTextView {
 
     public RTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RTextView);
+        leftColor = typedArray.getColor(R.styleable.RTextView_r_left_color, Color.TRANSPARENT);
+        leftWidth = typedArray.getDimensionPixelOffset(R.styleable.RTextView_r_left_width, 0);
+        hasUnderline = typedArray.getBoolean(R.styleable.RTextView_r_has_underline, false);
+
+        typedArray.recycle();
+
+        initLeftRes();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        initLeftRes();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        if (hasUnderline) {
+            getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+            getPaint().setAntiAlias(true);
+        }
+        super.onDraw(canvas);
+        if (leftWidth > 0) {
+            canvas.drawRect(leftColorRect, colorPaint);
+        }
     }
 
     @Override
@@ -116,4 +163,32 @@ public class RTextView extends AppCompatTextView {
                 compoundDrawables[2], getResources().getDrawable(bottomIco));
     }
 
+    private void initLeftRes() {
+        if (leftWidth <= 0) {
+            return;
+        }
+
+        int viewHeight = getMeasuredHeight();
+        if (leftColorRect == null) {
+            leftColorRect = new Rect();
+        }
+        if (colorPaint == null) {
+            colorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        }
+        colorPaint.setColor(leftColor);
+        leftColorRect.set(leftMargin, getPaddingTop(),
+                leftMargin + leftWidth, viewHeight - getPaddingBottom());
+    }
+
+    public RTextView setLeftWidth(int leftWidth) {
+        this.leftWidth = leftWidth;
+        initLeftRes();
+        return this;
+    }
+
+    public RTextView setLeftColor(int leftColor) {
+        this.leftColor = leftColor;
+        initLeftRes();
+        return this;
+    }
 }

@@ -275,10 +275,19 @@ public class L {
         if (lineNumber < 0) {
             lineNumber = 0;
         }
+
+        StackTraceElement next = stackTrace[6];
+        String nextFileName = next.getFileName();
+        String nextMethodName = next.getMethodName();
+        int nextLineNumber = next.getLineNumber();
+        if (nextLineNumber < 0) {
+            nextLineNumber = 0;
+        }
+
         String methodNameShort = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
         String msg = (objects == null) ? "Log with null object" : getObjectsString(objects);
 //        String headString = "[(" + className + ":" + lineNumber + ")#" + methodNameShort + " ] ";
-        String headString = "[(" + fileName + ":" + lineNumber + ")#" + Thread.currentThread().getName() + "#" + methodNameShort + " ] ";
+        String headString = "[(" + nextFileName + ":" + nextLineNumber + ")#" + nextMethodName + "(" + fileName + ":" + lineNumber + ")#" + Thread.currentThread().getName() + "#" + methodNameShort + " ] ";
         return new String[]{tag, msg, headString};
     }
 

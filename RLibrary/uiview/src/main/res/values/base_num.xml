@@ -24,4 +24,6 @@
     <integer name="dynamic_status_text_count">2000</integer>
     <!--最大录制视频长度-->
     <integer name="max_video_record_length">30</integer>
+    <!--最大标签选中数量-->
+    <integer name="max_tags_count">3</integer>
 </resources>

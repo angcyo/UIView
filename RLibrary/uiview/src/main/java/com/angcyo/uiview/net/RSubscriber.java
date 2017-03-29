@@ -101,7 +101,7 @@ public abstract class RSubscriber<T> extends Subscriber<T> {
      * 不管是成功订阅,还是异常,都会执行的方法
      */
     public void onEnd() {
-        L.d("订阅异常->onEnd()");
+        L.d("订阅结束->onEnd()");
     }
 
     public void onNoNetwork() {

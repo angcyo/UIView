@@ -144,7 +144,7 @@ public class ImagePickerHelper {
                             //.fitCenter()
                             .asGif()
                             //.centerCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             ;
 
                     if (TextUtils.isEmpty(thumbPath)) {
@@ -160,7 +160,7 @@ public class ImagePickerHelper {
                             //.error(R.mipmap.default_image)           //设置错误图片
                             //.fitCenter()
                             //.centerCrop()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL);
+                            .diskCacheStrategy(DiskCacheStrategy.NONE);
 
                     if (TextUtils.isEmpty(thumbPath)) {
                         requestBuilder.placeholder(R.mipmap.default_image)     //设置占位图片

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RTextView">
+        <!--左边竖线的颜色-->
+        <attr name="r_left_color" format="color"/>
+        <!--左边竖线的宽度-->
+        <attr name="r_left_width" format="dimension"/>
+        <!--距离view左边的距离-->
+        <attr name="r_left_margin" format="dimension"/>
+        <!--是否有下划线-->
+        <attr name="r_has_underline" format="boolean"/>
+    </declare-styleable>
+</resources>

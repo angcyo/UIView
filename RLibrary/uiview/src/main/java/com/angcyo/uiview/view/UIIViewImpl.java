@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -559,7 +562,11 @@ public abstract class UIIViewImpl implements IView {
     //星期一 2017-3-13
     @ColorInt
     public int getColor(@ColorRes int id) {
-        return getResources().getColor(id);
+        return ContextCompat.getColor(mActivity, id);
+    }
+
+    public Drawable getDrawable(@DrawableRes int id) {
+        return ContextCompat.getDrawable(mActivity, id);//.mutate();
     }
 
     public int getDimensionPixelOffset(@DimenRes int id) {

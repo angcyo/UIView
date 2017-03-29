@@ -86,7 +86,10 @@ public class RRecyclerView extends RecyclerView {
                 //读取其他配置信息(数量和方向)
                 final String type = tag.substring(0, 1);
                 if (tag.length() >= 3) {
-                    spanCount = Integer.valueOf(tag.substring(2));//数量
+                    try {
+                        spanCount = Integer.valueOf(tag.substring(2));//数量
+                    } catch (Exception e) {
+                    }
                 }
                 if (tag.length() >= 2) {
                     if ("H".equalsIgnoreCase(tag.substring(1, 2))) {
@@ -108,10 +111,9 @@ public class RRecyclerView extends RecyclerView {
         if (layoutManager instanceof LinearLayoutManager) {
             ((LinearLayoutManager) layoutManager).setRecycleChildrenOnDetach(true);
         }
-
         this.setLayoutManager(layoutManager);
-        setItemAnim(mItemAnim);
 
+        setItemAnim(mItemAnim);
         //clearOnScrollListeners();
         removeOnScrollListener(mScrollListener);
         //添加滚动事件监听
