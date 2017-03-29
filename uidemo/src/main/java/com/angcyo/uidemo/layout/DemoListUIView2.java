@@ -10,6 +10,7 @@ import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
+import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
@@ -241,6 +242,18 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
                     @Override
                     public void onClick(View v) {
                         startIView(new GithubDemoUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Game CircleLayout Demo (Beta)", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new GameCircleLayoutUIView());
                     }
                 });
             }

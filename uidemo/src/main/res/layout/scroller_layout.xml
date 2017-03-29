@@ -3,7 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroller_layout_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false"
+    android:overScrollMode="always"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarSize="@dimen/base_xxxhdpi"
+    android:scrollbarStyle="insideInset"
+    android:scrollbarThumbVertical="@drawable/scroller_slider"
+    android:scrollbarTrackVertical="@color/base_red"
+    android:scrollbars="vertical">
 
     <LinearLayout
         android:id="@+id/first_layout"
