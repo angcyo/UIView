@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.uiview;
 
 import android.graphics.Color;
+import android.support.v4.widget.NestedScrollView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,8 @@ public class ScrollerIView extends UIContentView {
     ExEditText mExEditText3;
     @BindView(R.id.first_layout)
     LinearLayout mFirstLayout;
+    @BindView(R.id.scroller_layout_root)
+    NestedScrollView mScrollerLayoutRoot;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
