@@ -3,6 +3,7 @@ package com.angcyo.uiview.recycler;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.ScrollerCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.angcyo.uiview.recycler.recyclerview.adapters.ScaleInAnimationAdapter;
 import com.angcyo.uiview.recycler.recyclerview.animators.BaseItemAnimator;
 import com.angcyo.uiview.recycler.recyclerview.animators.FadeInDownAnimator;
 import com.angcyo.uiview.resources.AnimUtil;
+import com.angcyo.uiview.utils.Reflect;
 
 import java.lang.reflect.Constructor;
 
@@ -40,6 +42,7 @@ public class RRecyclerView extends RecyclerView {
     protected boolean isFirstAnim = true;//布局动画只执行一次
     protected boolean layoutAnim = false;//是否使用布局动画
     OnTouchListener mInterceptTouchListener;
+    OnScrollEndListener mOnScrollEndListener;
     private OnScrollListener mScrollListener = new OnScrollListener() {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -59,6 +62,7 @@ public class RRecyclerView extends RecyclerView {
             }
         }
     };
+    private float mLastVelocity;
 
     public RRecyclerView(Context context) {
         this(context, null);
@@ -265,4 +269,50 @@ public class RRecyclerView extends RecyclerView {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
     }
+
+    @Override
+    public void onScrolled(int dx, int dy) {
+        super.onScrolled(dx, dy);
+        //L.e("call: onScrolled([dx, dy])-> " + getLastVelocity());
+    }
+
+    @Override
+    public void onScrollStateChanged(int state) {
+        //L.e("call: onScrollStateChanged([state])-> " + getLastVelocity());
+        if (mOnScrollEndListener != null) {
+            if (state == SCROLL_STATE_IDLE && computeVerticalScrollOffset() == 0) {
+                mOnScrollEndListener.onScrollTopEnd(getLastVelocity());
+            }
+        }
+    }
+
+    public void setOnScrollEndListener(OnScrollEndListener onScrollEndListener) {
+        mOnScrollEndListener = onScrollEndListener;
+    }
+
+    /**
+     * 滚动结束后时的速率
+     */
+    public float getLastVelocity() {
+        Object mViewFlinger = Reflect.getMember(RecyclerView.class, this, "mViewFlinger");
+        ScrollerCompat mScroller = (ScrollerCompat) Reflect.getMember(mViewFlinger, "mScroller");
+        float currVelocity = mScroller.getCurrVelocity();
+        if (Float.isNaN(currVelocity)) {
+            currVelocity = mLastVelocity;
+        } else {
+            mLastVelocity = currVelocity;
+        }
+        return currVelocity;
+    }
+
+    /**
+     * RecyclerView滚动结束后的回调
+     */
+    public interface OnScrollEndListener {
+        /**
+         * 突然滚动到顶部, 还剩余的滚动速率
+         */
+        void onScrollTopEnd(float currVelocity);
+    }
+
 }

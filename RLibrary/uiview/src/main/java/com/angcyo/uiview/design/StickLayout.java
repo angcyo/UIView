@@ -11,8 +11,7 @@ import android.view.View;
 import android.widget.OverScroller;
 import android.widget.RelativeLayout;
 
-import com.angcyo.library.utils.L;
-import com.angcyo.uiview.utils.UI;
+import com.angcyo.uiview.recycler.RRecyclerView;
 
 /**
  * Created by angcyo on 2017-03-15.
@@ -32,7 +31,7 @@ public class StickLayout extends RelativeLayout {
     private GestureDetectorCompat mGestureDetectorCompat;
     private int mTouchSlop;
     private int maxScrollY, topHeight;
-    private int mVelocityY;
+    private RRecyclerView.OnScrollEndListener mOnScrollEndListener;
 
     public StickLayout(Context context) {
         this(context, null);
@@ -63,15 +62,17 @@ public class StickLayout extends RelativeLayout {
                             //L.e("call: onFling return");
                             return false;
                         }
-                        mOverScroller.fling(0, getScrollY(), 0, (int) -velocityY, 0, 0, 0, maxScrollY);
-                        postInvalidate();
+                        fling(velocityY);
                         final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
-                        if (velocityY < -3000 && recyclerView != null) {
-                           // L.e("recyclerView fling..............." + -velocityY);
+                        final int velocityDecay = getChildAt(0).getMeasuredHeight() * 3;//速度衰减值
+                        if (velocityY < -velocityDecay && recyclerView != null) {
+                            final int fling = (int) -velocityY - velocityDecay;
+                            //L.e("recyclerView fling..............." + fling);
                             recyclerView.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    recyclerView.fling(0, (int) -velocityY - 3000);
+                                    //L.e("call: run([])-> " + mOverScroller.getCurrVelocity());
+                                    recyclerView.fling(0, fling);
                                 }
                             });
                         }
@@ -81,8 +82,14 @@ public class StickLayout extends RelativeLayout {
         mTouchSlop = 0;//ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
+    private void fling(float velocityY) {
+        mOverScroller.fling(0, getScrollY(), 0, (int) -velocityY, 0, 0, 0, maxScrollY);
+        postInvalidate();
+    }
+
     @Override
     public void computeScroll() {
+        //L.e("call: scrollTo([x, y])-> " + mOverScroller.getCurrVelocity() + "       :" + mOverScroller.getCurrY());
         if (mOverScroller.computeScrollOffset()) {
             int currY = mOverScroller.getCurrY();
             scrollTo(0, currY);
@@ -142,7 +149,7 @@ public class StickLayout extends RelativeLayout {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         //super.onLayout(changed, l, t, r, b);
-        L.w("onLayout() -> " + changed + " l:" + l + " t:" + t + " r:" + r + " b:" + b);
+        //L.w("onLayout() -> " + changed + " l:" + l + " t:" + t + " r:" + r + " b:" + b);
         View firstView = getChildAt(0);
         firstView.layout(0, 0, r, firstView.getMeasuredHeight());
 
@@ -159,6 +166,18 @@ public class StickLayout extends RelativeLayout {
                 mFloatView.layout(mFloatView.getLeft(), firstView.getMeasuredHeight(), r,
                         firstView.getMeasuredHeight() + mFloatView.getMeasuredHeight());
             }
+        }
+
+        if (mScrollTarget.getRecyclerView() instanceof RRecyclerView) {
+            if (mOnScrollEndListener == null) {
+                mOnScrollEndListener = new RRecyclerView.OnScrollEndListener() {
+                    @Override
+                    public void onScrollTopEnd(float currVelocity) {
+                        fling(currVelocity);
+                    }
+                };
+            }
+            ((RRecyclerView) mScrollTarget.getRecyclerView()).setOnScrollEndListener(mOnScrollEndListener);
         }
     }
 
@@ -319,68 +338,6 @@ public class StickLayout extends RelativeLayout {
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
         return true;
     }
-
-    @Override
-    public void onStopNestedScroll(final View child) {
-        super.onStopNestedScroll(child);
-        //L.e("call: onStopNestedScroll([child])-> ");
-        if (child instanceof RecyclerView) {
-            RecyclerView recyclerView = (RecyclerView) child;
-            RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        //L.e("call: onStopNestedScroll([child])->  check fling");
-                        if (!UI.canChildScrollUp(child)) {
-                            if (mVelocityY < 0) {
-                                int dy = 0, time = 0;
-                                if (mVelocityY < -15000) {
-                                    //很快的速度 下滑
-                                    dy = -maxScrollY;
-                                    time = 100;
-                                } else if (mVelocityY < -10000) {
-                                    //很小的速度 下滑
-                                    dy = -(maxScrollY - maxScrollY / 5);
-                                    time = 200;
-                                } else if (mVelocityY < -8000) {
-                                    //很小的速度 下滑
-                                    dy = -(maxScrollY - maxScrollY * 2 / 5);
-                                    time = 300;
-                                } else if (mVelocityY < -5000) {
-                                    //很小的速度 下滑
-                                    dy = -(maxScrollY - maxScrollY * 3 / 5);
-                                    time = 400;
-                                } else if (mVelocityY < -1000) {
-                                    //很小的速度 下滑
-                                    dy = -(maxScrollY - maxScrollY * 4 / 5);
-                                    time = 500;
-                                }
-                                mOverScroller.startScroll(0, getScrollY(), 0, dy, time);
-                                postInvalidate();
-                            }
-                        }
-                        recyclerView.removeOnScrollListener(this);
-                        mVelocityY = 0;
-                    }
-                }
-            };
-            recyclerView.addOnScrollListener(scrollListener);
-        }
-    }
-
-
-    @Override
-    public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
-        //L.e("call: onNestedFling([target, velocityX, velocityY, consumed])-> " + velocityY);
-        if (UI.canChildScrollUp(target)) {
-            mVelocityY = (int) velocityY;
-        } else {
-            mVelocityY = 0;
-        }
-        return false;
-    }
-
 
     public interface CanScrollUpCallBack {
         /**
