@@ -3,6 +3,7 @@ package com.angcyo.uiview.container;
 import android.os.Bundle;
 import android.view.View;
 
+import com.angcyo.uiview.skin.ISkin;
 import com.angcyo.uiview.view.IView;
 
 /**
@@ -96,4 +97,6 @@ public interface ILayout<T extends UIParam> {
      * 强制退出
      */
     void finish();//2016-12-16
+
+    void onSkinChanged(ISkin skin);//星期六 2017-4-1
 }

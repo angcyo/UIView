@@ -43,7 +43,7 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
     }
 
     @Override
-    final public int getItemType(int position) {
+    public int getItemType(int position) {
         if (isInHeader(position)) {
             return getHeaderItemType(position);
         } else if (isInData(position)) {
@@ -145,7 +145,7 @@ public abstract class RExBaseAdapter<H, T, F> extends RModelAdapter<T> {
     }
 
     @Override
-    final protected void onBindCommonView(RBaseViewHolder holder, int position, T bean) {
+    protected void onBindCommonView(RBaseViewHolder holder, int position, T bean) {
         if (isInHeader(position)) {
             onBindHeaderView(holder, position, mAllHeaderDatas.size() > position ? mAllHeaderDatas.get(position) : null);
         } else if (isInData(position)) {

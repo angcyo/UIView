@@ -1028,6 +1028,24 @@ public class BmpUtil {
         }
     }
 
+    public static String saveImage(Bitmap bmp, String filePath) {
+        OutputStream stream = null;
+        try {
+            File saveFile = new File(filePath);
+            File saveDirectory = saveFile.getParentFile();
+            if (!saveDirectory.exists()) saveDirectory.mkdirs();
+            if (!saveFile.exists()) saveFile.createNewFile();
+            stream = new BufferedOutputStream(new FileOutputStream(saveFile.getAbsolutePath()));
+            Bitmap.CompressFormat format = Bitmap.CompressFormat.PNG;
+            int quality = 100;
+            bmp.compress(format, quality, stream);
+            return saveFile.getAbsolutePath();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String saveImageToSystemAlbum(Context context, File file, String fileFolder, String filename) {
         OutputStream stream = null;
         BufferedInputStream bufferedInputStream = null;

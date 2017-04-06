@@ -191,4 +191,11 @@ public class RTextView extends AppCompatTextView {
         initLeftRes();
         return this;
     }
+
+    public RTextView setLeftColor(int leftColor, int leftWidth) {
+        this.leftColor = leftColor;
+        this.leftWidth = leftWidth;
+        initLeftRes();
+        return this;
+    }
 }

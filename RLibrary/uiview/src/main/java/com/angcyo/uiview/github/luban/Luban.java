@@ -286,9 +286,13 @@ public class Luban {
         for (String s : files) {
             File file = new File(s);
             if (file.exists()) {
-                L.e(file.getAbsolutePath() + " " + Formatter.formatFileSize(context, file.length()));
+                L.e(file.getAbsolutePath() + " " + getFileSize(context, file.length()));
             }
         }
+    }
+
+    public static String getFileSize(Context context, long size) {
+        return Formatter.formatFileSize(context, size);
     }
 
     public static void logFileItems(Context context, ArrayList<ImageItem> files) {
@@ -433,8 +437,9 @@ public class Luban {
         String filePath = file.getAbsolutePath();
 
         int angle = getImageSpinAngle(filePath);
-        int width = getImageSize(filePath)[0];
-        int height = getImageSize(filePath)[1];
+        int[] imageSize = getImageSize(filePath);
+        int width = imageSize[0];
+        int height = imageSize[1];
         int thumbW = width % 2 == 1 ? width + 1 : width;
         int thumbH = height % 2 == 1 ? height + 1 : height;
 
@@ -574,10 +579,8 @@ public class Luban {
 
         options.inSampleSize = inSampleSize;
 
-        options.inJustDecodeBounds = false;
-
-        int heightRatio = (int) Math.ceil(options.outHeight / (float) height);
-        int widthRatio = (int) Math.ceil(options.outWidth / (float) width);
+        int heightRatio = (int) Math.ceil(options.outHeight / (float) height);//
+        int widthRatio = (int) Math.ceil(options.outWidth / (float) width);//
 
         if (heightRatio > 1 || widthRatio > 1) {
             if (heightRatio > widthRatio) {
@@ -631,9 +634,7 @@ public class Luban {
      */
     private File compress(String largeImagePath, String thumbFilePath, int width, int height, int angle, long size) {
         Bitmap thbBitmap = compress(largeImagePath, width, height);
-
         thbBitmap = rotatingImage(angle, thbBitmap);
-
         return saveImage(thumbFilePath, thbBitmap, size, thbBitmap.getWidth(), thbBitmap.getHeight());
     }
 
@@ -655,16 +656,15 @@ public class Luban {
         if (!result.exists() && !result.mkdirs()) return null;
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        int options = 100;
-        bitmap.compress(Bitmap.CompressFormat.PNG, options, stream);
+        int options = 60;
+        bitmap.compress(Bitmap.CompressFormat.JPEG, options, stream);
 
         while (stream.toByteArray().length / 1024 > size && options > 6) {
             stream.reset();
             options -= 6;
-            bitmap.compress(Bitmap.CompressFormat.PNG, options, stream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, stream);
         }
         bitmap.recycle();
-
         try {
             filePath += "_s_" + width + "x" + height + ".png";
             FileOutputStream fos = new FileOutputStream(filePath);

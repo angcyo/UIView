@@ -7,8 +7,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.angcyo.uiview.widget.RTitleCenterLayout;
 
 import java.util.ArrayList;
 
@@ -201,7 +202,7 @@ public class TitleBarPattern {
     }
 
     public interface OnInitTitleLayout {
-        void onInitLayout(RelativeLayout parent);
+        void onInitLayout(RTitleCenterLayout parent);
     }
 
     public static class TitleBarItem {

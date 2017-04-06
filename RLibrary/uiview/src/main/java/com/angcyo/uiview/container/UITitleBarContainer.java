@@ -21,13 +21,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.widget.RTitleCenterLayout;
 
 import java.util.ArrayList;
 
@@ -226,7 +226,7 @@ public class UITitleBarContainer extends FrameLayout {
         fillViews(mRightControlLayout, mTitleBarPattern.mRightItems, mRightViews);
 
         if (mTitleBarPattern.mOnInitTitleLayout != null) {
-            mTitleBarPattern.mOnInitTitleLayout.onInitLayout((RelativeLayout) mCenterControlLayout);
+            mTitleBarPattern.mOnInitTitleLayout.onInitLayout((RTitleCenterLayout) mCenterControlLayout);
         }
 
         /*控制按钮的动画*/

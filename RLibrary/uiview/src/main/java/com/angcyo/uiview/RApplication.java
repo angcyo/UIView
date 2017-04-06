@@ -9,7 +9,8 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.angcyo.library.facebook.DraweeViewUtil;
-import com.angcyo.library.utils.L;
+import com.angcyo.uiview.skin.SkinHelper;
+import com.angcyo.uiview.utils.Debug;
 import com.angcyo.uiview.utils.T_;
 import com.bumptech.glide.Glide;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -144,9 +145,8 @@ public class RApplication extends Application {
         super.onCreate();
         app = this;
         if (isInitOnce(this)) {
-            final long startTime = System.currentTimeMillis();
 
-            L.e("RApplication 正在初始化:isInitOnce() --start:" + startTime);
+            Debug.logTimeStart("RApplication 正在初始化:isInitOnce()");
 
             /*崩溃异常处理*/
             RCrashHandler.init(this);
@@ -165,9 +165,9 @@ public class RApplication extends Application {
 
             onInit();
 
-            final long endTime = System.currentTimeMillis();
+            Debug.logTimeEnd("RApplication 正在初始化:isInitOnce()");
 
-            L.e("RApplication 正在初始化:isInitOnce() ----end:" + (endTime - startTime) / 1000 + "秒" + (endTime - startTime) % 1000);
+            SkinHelper.init(this);
         }
     }
 

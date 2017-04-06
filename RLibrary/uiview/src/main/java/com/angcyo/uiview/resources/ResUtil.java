@@ -8,13 +8,16 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.ArcShape;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -271,6 +274,14 @@ public class ResUtil {
         return shopDrawablePress;
     }
 
+    public static Drawable generateBgDrawable(int pressColor, int defaultColor) {
+        StateListDrawable bgStateDrawable = new StateListDrawable();//状态shape
+        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(pressColor));//按下状态
+        bgStateDrawable.addState(new int[]{}, new ColorDrawable(defaultColor));//其他状态
+
+        return bgStateDrawable;
+    }
+
     @SuppressLint("NewApi")
     public static void setBgDrawable(View view, Drawable drawable) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -357,5 +368,35 @@ public class ResUtil {
     public static boolean isLayoutFullscreen(Activity activity) {
         final int visibility = activity.getWindow().getDecorView().getSystemUiVisibility();
         return ((visibility & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static Drawable generateRippleDrawable(int rippleColor) {
+        RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, null);
+        return drawable;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static Drawable generateRippleMaskDrawable(int rippleColor) {
+        RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, new ColorDrawable(rippleColor));
+        return drawable;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public static Drawable generateRippleMaskDrawable(int rippleColor, Drawable content) {
+        RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), content, new ColorDrawable(rippleColor));
+        if (content != null) {
+            drawable.setDrawableByLayerId(android.R.id.mask, content);
+        }
+        return drawable;
+    }
+
+    public static Drawable generateRoundRippleMaskDrawable(float radius, int rippleColor, int pressColor, int defaultColor) {
+        Drawable drawable = ResUtil.generateRoundBorderDrawable(radius, pressColor, defaultColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleMaskDrawable(rippleColor, drawable);
+        } else {
+            return drawable;
+        }
     }
 }

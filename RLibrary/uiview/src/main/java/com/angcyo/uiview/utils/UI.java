@@ -1,11 +1,13 @@
 package com.angcyo.uiview.utils;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -162,5 +164,12 @@ public class UI {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 修改EditText的光标
+     */
+    public static void setCursorDrawableRes(TextView textView, @DrawableRes int res) {
+        Reflect.setMember(TextView.class, textView, "mCursorDrawableRes", res);
     }
 }

@@ -10,7 +10,6 @@ import android.widget.CompoundButton;
 
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
-import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 import com.angcyo.uiview.utils.Reflect;
 
 import java.lang.annotation.Retention;
@@ -93,6 +92,7 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
 
     /**
      * 在单选模式下, 选择其他项时, 将要先取消之前的选中项. 此时会执行此方法, 取消之前按钮的状态
+     * 如果返回true {@link #onBindModelView(int, boolean, RBaseViewHolder, int, Object)}就不会执行
      *
      * @return true 表示处理, false 不处理
      */
@@ -102,6 +102,7 @@ public abstract class RModelAdapter<T> extends RBaseAdapter<T> {
 
     /**
      * 在单选模式下, 如果不需要自动处理CompoundButton状态的改变, 此时会执行此方法, 自己处理状态
+     * 如果返回true {@link #onBindModelView(int, boolean, RBaseViewHolder, int, Object)}就不会执行
      *
      * @return true 表示处理, false 不处理
      */

@@ -23,26 +23,21 @@ import android.widget.FrameLayout;
 
 public abstract class SwipeBackLayout extends FrameLayout {
 
+    protected int mViewDragState = ViewDragHelper.STATE_IDLE;
     private ViewDragHelper mDragHelper;
     private OnPanelSlideListener mListener;
-
     private int mScreenWidth;
     private int mScreenHeight;
-
     /**
      * 正在滑动的view
      */
     private View mTargetView;
-
     /**
      * 阴影的绘制区域
      */
     private Rect mDimRect;
-
     private int dimWidth;//阴影的宽度
-
     private Paint mPaint;
-
     private boolean enableSwipeBack = true;
     private boolean mIsLocked;
     private boolean mIsLeftEdge;
@@ -55,6 +50,10 @@ public abstract class SwipeBackLayout extends FrameLayout {
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
             if (!enableSwipeBack) {
+                return false;
+            }
+            if (child == null || child.getLeft() != 0 || child.getTranslationX() != 0f ||
+                    mViewDragState != ViewDragHelper.STATE_IDLE) {
                 return false;
             }
             mIsLeftEdge = mDragHelper.isEdgeTouched(ViewDragHelper.EDGE_LEFT, pointerId);
@@ -115,6 +114,7 @@ public abstract class SwipeBackLayout extends FrameLayout {
         public void onViewDragStateChanged(int state) {
             super.onViewDragStateChanged(state);
             if (mListener != null) mListener.onStateChanged(state);
+            SwipeBackLayout.this.onViewDragStateChanged(state);
             switch (state) {
                 case ViewDragHelper.STATE_IDLE:
                     //滚动结束
@@ -215,7 +215,7 @@ public abstract class SwipeBackLayout extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean interceptForDrag;
+        boolean interceptForDrag = false;
 
         if (mIsLocked) {
             return false;
@@ -331,6 +331,10 @@ public abstract class SwipeBackLayout extends FrameLayout {
      */
     protected void onStateIdle() {
 
+    }
+
+    protected void onViewDragStateChanged(int state) {
+        mViewDragState = state;
     }
 
     public interface OnPanelSlideListener {

@@ -2,6 +2,8 @@ package com.angcyo.uiview;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -108,6 +110,16 @@ public class RCrashHandler implements Thread.UncaughtExceptionHandler {
         activity.finish();
         activity.startActivity(intent);
         killCurrentProcess();
+    }
+
+    public static void restartActivity(Context context, Class<?> clz) {
+        Intent intent = new Intent(context, clz);
+        PendingIntent restartIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //退出程序
+        AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 300,
+                restartIntent); // 1秒钟后重启应用
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     /**

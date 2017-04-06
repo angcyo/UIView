@@ -1,5 +1,6 @@
 package com.angcyo.uiview.utils;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -487,7 +488,7 @@ public class RUtils {
         context.startActivity(intent);
     }
 
-    public static void sendSMS(Context ctx, String message, String phoneNumber) {
+    public static void sendSMS(Activity ctx, String message, String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + phoneNumber));
         intent.putExtra("sms_body", message);
         ctx.startActivity(intent);

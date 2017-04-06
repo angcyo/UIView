@@ -12,6 +12,7 @@ import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.container.ILayout;
 import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.skin.ISkin;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 /**
@@ -195,4 +196,9 @@ public interface IView {
      * 是否可以滑动关闭
      */
     boolean canTryCaptureView();//星期二 2017-2-14
+
+    /**
+     * 当皮肤更改时回调
+     */
+    void onSkinChanged(ISkin skin);//星期六 2017-4-1
 }

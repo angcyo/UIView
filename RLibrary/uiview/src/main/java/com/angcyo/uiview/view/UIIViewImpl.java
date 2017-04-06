@@ -25,10 +25,12 @@ import android.widget.FrameLayout;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.AnimUtil;
+import com.angcyo.uiview.skin.ISkin;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
 import butterknife.ButterKnife;
@@ -591,6 +593,26 @@ public abstract class UIIViewImpl implements IView {
     public void setLayoutFrozen(boolean frozen) {
         if (mRootView != null) {
             mRootView.setEnabled(frozen);
+        }
+    }
+
+    @Override
+    public void onSkinChanged(ISkin skin) {
+        L.v(this.getClass().getSimpleName(), "onSkinChanged: " + skin.skinName());
+        notifySkinChanged(mRootView, skin);
+    }
+
+    protected void notifySkinChanged(View view, ISkin skin) {
+        if (view != null) {
+            if (view instanceof UILayoutImpl) {
+                ((UILayoutImpl) view).onSkinChanged(skin);
+            }
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < (viewGroup).getChildCount(); i++) {
+                    notifySkinChanged(viewGroup.getChildAt(i), skin);
+                }
+            }
         }
     }
 }

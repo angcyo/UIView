@@ -48,14 +48,16 @@ public class RTitleCenterLayout extends RelativeLayout {
             int loadViewWidth = mLoadingView.getMeasuredWidth();
             if (mTitleView != null) {
                 mTitleView.measure(
-                        MeasureSpec.makeMeasureSpec(Math.min(width - 2 * loadViewWidth,
-                                mTitleView.getMeasuredWidth()), MeasureSpec.EXACTLY),
-                        heightMeasureSpec);
+                        MeasureSpec.makeMeasureSpec(Math.min(width - 2 * loadViewWidth, mTitleView.getMeasuredWidth()), MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(mTitleView.getMeasuredHeight(), MeasureSpec.EXACTLY)
+                );
             }
         } else {
             if (mTitleView != null) {
-                mTitleView.measure(MeasureSpec.makeMeasureSpec(Math.min(width, mTitleView.getMeasuredWidth()),
-                        MeasureSpec.EXACTLY), heightMeasureSpec);
+                mTitleView.measure(
+                        MeasureSpec.makeMeasureSpec(Math.min(width, mTitleView.getMeasuredWidth()), MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(mTitleView.getMeasuredHeight(), MeasureSpec.EXACTLY)
+                );
             }
         }
     }
@@ -65,39 +67,73 @@ public class RTitleCenterLayout extends RelativeLayout {
         super.onLayout(changed, l, t, r, b);
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
-        if (mTitleView != null && mLoadingView != null) {
+
+        float offset = getResources().getDisplayMetrics().density * 4;
+        int loadLeft = 0;
+        if (mLoadingView != null) {
+            loadLeft = width / 2 + mLoadingView.getMeasuredWidth() / 2;
+        }
+        if (mTitleView != null) {
             if (mTitleView.getVisibility() == VISIBLE) {
                 layoutCenter(mTitleView);
-                if (mLoadingView.getVisibility() == VISIBLE) {
-                    float offset = getResources().getDisplayMetrics().density * 4;
-                    mLoadingView.layout((int) (mTitleView.getLeft() - mLoadingView.getMeasuredWidth() - offset),
-                            (height - mLoadingView.getMeasuredHeight()) / 2,
-                            (int) (mTitleView.getLeft() - offset), height / 2 + mLoadingView.getMeasuredHeight() / 2);
-                }
-                //mTitleView.setBackgroundColor(Color.BLUE);
-            } else {
-                if (mLoadingView.getVisibility() == VISIBLE) {
-                    layoutCenter(mLoadingView);
-                }
+                loadLeft = (int) (mTitleView.getLeft() - offset);
+            }
+        }
+        if (mLoadingView != null) {
+            if (mLoadingView.getVisibility() == VISIBLE) {
+                mLoadingView.layout(loadLeft - mLoadingView.getMeasuredWidth(),
+                        (height - mLoadingView.getMeasuredHeight()) / 2,
+                        loadLeft, height / 2 + mLoadingView.getMeasuredHeight() / 2);
             }
         }
     }
 
+    //    @Override
+//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+//        super.onLayout(changed, l, t, r, b);
+//        int width = getMeasuredWidth();
+//        int height = getMeasuredHeight();
+//        if (mTitleView != null && mLoadingView != null) {
+//            if (mTitleView.getVisibility() == VISIBLE) {
+//                layoutCenter(mTitleView);
+//                if (mLoadingView.getVisibility() == VISIBLE) {
+//                    float offset = getResources().getDisplayMetrics().density * 4;
+//                    mLoadingView.layout((int) (mTitleView.getLeft() - mLoadingView.getMeasuredWidth() - offset),
+//                            (height - mLoadingView.getMeasuredHeight()) / 2,
+//                            (int) (mTitleView.getLeft() - offset), height / 2 + mLoadingView.getMeasuredHeight() / 2);
+//                }
+//                //mTitleView.setBackgroundColor(Color.BLUE);
+//            } else {
+//                if (mLoadingView.getVisibility() == VISIBLE) {
+//                    layoutCenter(mLoadingView);
+//                }
+//            }
+//        }
+//    }
+//
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
-            Object tag = view.getTag();
-            if (tag != null && "title".equalsIgnoreCase(tag.toString())) {
-                mTitleView = view;
-            }
+//            Object tag = view.getTag();
+//            if (mTitleView == null && (tag != null && "title".equalsIgnoreCase(tag.toString()))) {
+//                mTitleView = view;
+//            }
             if (view instanceof LoadingImageView) {
                 mLoadingView = view;
+                break;
             }
+        }
+
+        if (mTitleView == null) {
+            mTitleView = findViewWithTag("title");
         }
     }
 
+    /**
+     * Title View 会自动居中显示, 并且loading View始终会在TitleView 的左边
+     */
     public void setTitleView(View titleView) {
         mTitleView = titleView;
     }

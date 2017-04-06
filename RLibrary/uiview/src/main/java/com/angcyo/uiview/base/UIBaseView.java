@@ -27,6 +27,8 @@ import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.skin.ISkin;
+import com.angcyo.uiview.skin.SkinHelper;
 import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.widget.EmptyView;
 import com.angcyo.uiview.widget.SoftRelativeLayout;
@@ -206,7 +208,7 @@ public abstract class UIBaseView extends UIIViewImpl {
     }
 
     protected int getTitleBarBGColor() {
-        return mActivity.getResources().getColor(R.color.theme_color_primary);
+        return SkinHelper.getSkin().getThemeColor();//mActivity.getResources().getColor(R.color.theme_color_primary);
     }
 
     protected String getTitleString() {
@@ -493,6 +495,18 @@ public abstract class UIBaseView extends UIIViewImpl {
     @ColorInt
     public int getDefaultBackgroundColor() {
         return Color.TRANSPARENT;
+    }
+
+    public void updateSkin() {
+        onSkinChanged(SkinHelper.getSkin());
+    }
+
+    @Override
+    public void onSkinChanged(ISkin skin) {
+        super.onSkinChanged(skin);
+        if (mUITitleBarContainer != null) {
+            mUITitleBarContainer.setBackgroundColor(skin.getThemeColor());
+        }
     }
 
     /**
