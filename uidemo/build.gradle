@@ -27,6 +27,14 @@ android {
 //            ]
 //        }
 //    }
+    productFlavors {
+        dev {
+            minSdkVersion 21
+        }
+        pord {
+            minSdkVersion Integer.parseInt(rootProject.M_SDK)
+        }
+    }
     buildTypes {
         release {
             //applicationIdSuffix ".release"
