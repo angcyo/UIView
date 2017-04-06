@@ -27,6 +27,7 @@ import com.angcyo.uiview.R;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.skin.SkinHelper;
 import com.angcyo.uiview.widget.RTitleCenterLayout;
 
 import java.util.ArrayList;
@@ -54,6 +55,8 @@ public class UITitleBarContainer extends FrameLayout {
 
     protected ArrayList<View> mLeftViews = new ArrayList<>();
     protected ArrayList<View> mRightViews = new ArrayList<>();
+    private int mStatusBarHeight;
+    private boolean mLayoutFullscreen;
 
 
     public UITitleBarContainer(Context context) {
@@ -119,7 +122,7 @@ public class UITitleBarContainer extends FrameLayout {
 //        post(new Runnable() {
 //            @Override
 //            public void run() {
-                isAttachedToWindow = true;
+        isAttachedToWindow = true;
 //                loadTitleBar();
 //            }
 //        });
@@ -153,15 +156,16 @@ public class UITitleBarContainer extends FrameLayout {
         mLoadView = mBaseViewHolder.v(R.id.base_load_view);
 
         if (context instanceof Activity) {
-            if (ResUtil.isLayoutFullscreen((Activity) context)) {
-                int statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+            mLayoutFullscreen = ResUtil.isLayoutFullscreen((Activity) context);
+            if (mLayoutFullscreen) {
+                mStatusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
                 mTitleBarLayout.setClipToPadding(false);
                 mTitleBarLayout.setClipChildren(false);
                 mTitleBarLayout.setPadding(getPaddingLeft(),
-                        getPaddingTop() + statusBarHeight,
+                        getPaddingTop() + mStatusBarHeight,
                         getPaddingRight(), getPaddingBottom());
                 ViewGroup.LayoutParams layoutParams = mTitleBarLayout.getLayoutParams();
-                layoutParams.height += statusBarHeight;
+                layoutParams.height += mStatusBarHeight;
                 mTitleBarLayout.setLayoutParams(layoutParams);
             }
         }
@@ -227,6 +231,7 @@ public class UITitleBarContainer extends FrameLayout {
 
         if (mTitleBarPattern.mOnInitTitleLayout != null) {
             mTitleBarPattern.mOnInitTitleLayout.onInitLayout((RTitleCenterLayout) mCenterControlLayout);
+            mTitleBarPattern.mOnInitTitleLayout.onInitLayout(this, mLayoutFullscreen, mStatusBarHeight);
         }
 
         /*控制按钮的动画*/
@@ -252,7 +257,7 @@ public class UITitleBarContainer extends FrameLayout {
         }
         setBackgroundColor((Integer) new ArgbEvaluator()
                 .evaluate(Math.min(1, factor),
-                        Color.TRANSPARENT, getResources().getColor(R.color.theme_color_primary)));
+                        Color.TRANSPARENT, SkinHelper.getSkin().getThemeColor()));
     }
 
     /**
@@ -372,7 +377,7 @@ public class UITitleBarContainer extends FrameLayout {
     public void setTitleBarPattern(TitleBarPattern titleBarPattern) {
         mTitleBarPattern = titleBarPattern;
 //        if (isAttachedToWindow) {
-            loadTitleBar();
+        loadTitleBar();
 //        }
     }
 

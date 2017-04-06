@@ -3,7 +3,6 @@ package com.angcyo.uiview.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -17,6 +16,7 @@ import android.text.util.Linkify;
 import android.util.AttributeSet;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.skin.SkinHelper;
 
 import java.util.Locale;
 
@@ -50,7 +50,7 @@ public class RTextView extends AppCompatTextView {
     public RTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RTextView);
-        leftColor = typedArray.getColor(R.styleable.RTextView_r_left_color, Color.TRANSPARENT);
+        leftColor = typedArray.getColor(R.styleable.RTextView_r_left_color, SkinHelper.getSkin().getThemeColor());
         leftWidth = typedArray.getDimensionPixelOffset(R.styleable.RTextView_r_left_width, 0);
         hasUnderline = typedArray.getBoolean(R.styleable.RTextView_r_has_underline, false);
 

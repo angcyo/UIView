@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.angcyo.uiview.container.UITitleBarContainer;
 import com.angcyo.uiview.widget.RTitleCenterLayout;
 
 import java.util.ArrayList;
@@ -203,7 +204,22 @@ public class TitleBarPattern {
 
     public interface OnInitTitleLayout {
         void onInitLayout(RTitleCenterLayout parent);
+
+        void onInitLayout(UITitleBarContainer barLayout, boolean isLayoutFullscreen, int mStatusBarHeight);
     }
+
+    public static class SingleTitleInit implements OnInitTitleLayout {
+        @Override
+        public void onInitLayout(RTitleCenterLayout parent) {
+
+        }
+
+        @Override
+        public void onInitLayout(UITitleBarContainer barLayout, boolean isLayoutFullscreen, int mStatusBarHeight) {
+
+        }
+    }
+
 
     public static class TitleBarItem {
         public String text;

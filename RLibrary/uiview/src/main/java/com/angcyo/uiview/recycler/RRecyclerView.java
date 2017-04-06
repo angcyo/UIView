@@ -314,5 +314,4 @@ public class RRecyclerView extends RecyclerView {
          */
         void onScrollTopEnd(float currVelocity);
     }
-
 }

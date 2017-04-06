@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.base.UIIDialogImpl;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.skin.SkinHelper;
 
 import java.util.ArrayList;
 
@@ -67,6 +68,7 @@ public class UIItemDialog extends UIIDialogImpl {
         mViewHolder = new RBaseViewHolder(rootView);
         mItemContentLayout = mViewHolder.v(R.id.item_content_layout);
         mCancelView = mViewHolder.v(R.id.cancel_view);
+        mCancelView.setTextColor(SkinHelper.getSkin().getThemeColor());
         mCancelView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +98,8 @@ public class UIItemDialog extends UIIDialogImpl {
                     textView.setBackgroundResource(R.drawable.base_bg_selector);
                 }
             }
+
+            textView.setTextColor(SkinHelper.getSkin().getThemeColor());
 
             mItemContentLayout.addView(textView,
                     new ViewGroup.LayoutParams(-1,
