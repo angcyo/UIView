@@ -81,8 +81,10 @@ public class ResUtil {
      * @return the drawable
      */
     public static Drawable generateRoundBorderDrawable(float radii, int pressColor, int defaultColor) {
-        //按下状态
+        //圆角
         Shape roundRectShape = new RoundRectShape(new float[]{radii, radii, radii, radii, radii, radii, radii, radii}, null, null);//圆角背景
+
+        //按下状态
         ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
         shopDrawablePress.getPaint().setColor(pressColor);//设置颜色
 

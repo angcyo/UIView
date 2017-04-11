@@ -54,7 +54,7 @@ public class ItemInfoLayout extends RelativeLayout {
     /**
      * 文本与图标的距离,px
      */
-    private int drawPadding;
+    private int leftDrawPadding, rightDrawPadding;
     /**
      * 左边的图标, 右边的图标, 附加的图标
      */
@@ -91,7 +91,8 @@ public class ItemInfoLayout extends RelativeLayout {
         itemDarkTextSize = (int) array.getDimension(R.styleable.ItemInfoLayout_item_dark_textSize, dpToPx(DEFAULT_DARK_TEXT_SIZE));
         itemDarkTextColor = array.getColor(R.styleable.ItemInfoLayout_item_dark_textColor, DEFAULT_DARK_TEXT_COLOR);
 
-        drawPadding = (int) array.getDimension(R.styleable.ItemInfoLayout_item_draw_padding, DEFAULT_DRAW_PADDING_SIZE);
+        leftDrawPadding = (int) array.getDimension(R.styleable.ItemInfoLayout_item_left_draw_padding, DEFAULT_DRAW_PADDING_SIZE);
+        rightDrawPadding = (int) array.getDimension(R.styleable.ItemInfoLayout_item_right_draw_padding, DEFAULT_DRAW_PADDING_SIZE);
 
         leftDrawableRes = array.getResourceId(R.styleable.ItemInfoLayout_item_left_res, leftDrawableRes);
         rightDrawableRes = array.getResourceId(R.styleable.ItemInfoLayout_item_right_res, rightDrawableRes);
@@ -130,7 +131,7 @@ public class ItemInfoLayout extends RelativeLayout {
         mTextView.setText(itemText);
         mTextView.setTextColor(itemTextColor);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, itemTextSize);
-        mTextView.setCompoundDrawablePadding(drawPadding);
+        mTextView.setCompoundDrawablePadding(leftDrawPadding);
         mTextView.setGravity(Gravity.CENTER_VERTICAL);
         setLeftDrawableRes(leftDrawableRes);
 
@@ -139,7 +140,7 @@ public class ItemInfoLayout extends RelativeLayout {
         mDarkTextView.setText(itemDarkText);
         mDarkTextView.setTextColor(itemDarkTextColor);
         mDarkTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, itemDarkTextSize);
-        mDarkTextView.setCompoundDrawablePadding(drawPadding);
+        mDarkTextView.setCompoundDrawablePadding(rightDrawPadding);
         mDarkTextView.setGravity(Gravity.CENTER_VERTICAL);
         mDarkTextView.setMaxLines(1);
         mDarkTextView.setSingleLine(true);

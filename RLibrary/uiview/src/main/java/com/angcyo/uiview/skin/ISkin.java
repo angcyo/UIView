@@ -27,7 +27,7 @@ public interface ISkin {
     int getThemeDarkColor();
 
     /**
-     * 波纹无限制, 默认是个圆
+     * 波纹无限制, 默认是个圆形波纹
      */
     Drawable getThemeBackgroundSelector();
 
@@ -35,4 +35,9 @@ public interface ISkin {
      * 波纹有限制
      */
     Drawable getThemeMaskBackgroundSelector();
+
+    /**
+     * 圆角波纹背景
+     */
+    Drawable getThemeMaskBackgroundRoundSelector();
 }

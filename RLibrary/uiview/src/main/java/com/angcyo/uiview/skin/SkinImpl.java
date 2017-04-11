@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 
+import com.angcyo.uiview.R;
+import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.resources.ResUtil;
 
 /**
@@ -20,22 +22,22 @@ import com.angcyo.uiview.resources.ResUtil;
 public class SkinImpl implements ISkin {
     @Override
     public String skinName() {
-        return "";
+        return "Default";
     }
 
     @Override
     public int getThemeColor() {
-        return 0;
+        return Color.BLACK;
     }
 
     @Override
     public int getThemeSubColor() {
-        return 0;
+        return Color.GRAY;
     }
 
     @Override
     public int getThemeDarkColor() {
-        return 0;
+        return Color.DKGRAY;
     }
 
     @Override
@@ -47,6 +49,9 @@ public class SkinImpl implements ISkin {
         }
     }
 
+    /**
+     * @Inherited
+     */
     @Override
     public Drawable getThemeMaskBackgroundSelector() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -54,5 +59,14 @@ public class SkinImpl implements ISkin {
         } else {
             return ResUtil.generateBgDrawable(getThemeColor(), Color.TRANSPARENT);
         }
+    }
+
+    @Override
+    public Drawable getThemeMaskBackgroundRoundSelector() {
+        return ResUtil.generateRoundRippleMaskDrawable(RApplication.getApp()
+                        .getResources()
+                        .getDimensionPixelOffset(R.dimen.base_round_little_radius),
+                Color.WHITE, getThemeDarkColor(), getThemeSubColor()
+        );
     }
 }
