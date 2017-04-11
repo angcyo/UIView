@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uidemo.layout.demo.view.TouchGroupLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/base_xxhdpi">
+
+    <com.angcyo.uidemo.layout.demo.view.TouchView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"/>
+
+</com.angcyo.uidemo.layout.demo.view.TouchGroupLayout>
