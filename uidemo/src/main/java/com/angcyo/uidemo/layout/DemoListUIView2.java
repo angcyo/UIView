@@ -15,6 +15,7 @@ import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
+import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemoUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutManagerUIView;
 import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
@@ -262,11 +263,23 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Touch Event Demo (Beta)", new View.OnClickListener() {
+                initItem(holder, "Touch Event Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
                         startIView(new TouchEventDemoUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Ripple Drawable Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RippleDrawableDemoUIView());
                     }
                 });
             }

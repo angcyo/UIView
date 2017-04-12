@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
 import com.angcyo.library.utils.L;
+import com.angcyo.uiview.utils.RTextPaint;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.

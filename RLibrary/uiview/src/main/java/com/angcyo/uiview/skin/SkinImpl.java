@@ -63,7 +63,7 @@ public class SkinImpl implements ISkin {
 
     @Override
     public Drawable getThemeMaskBackgroundRoundSelector() {
-        return ResUtil.generateRoundRippleMaskDrawable(RApplication.getApp()
+        return ResUtil.generateRippleRoundMaskDrawable(RApplication.getApp()
                         .getResources()
                         .getDimensionPixelOffset(R.dimen.base_round_little_radius),
                 Color.WHITE, getThemeDarkColor(), getThemeSubColor()
@@ -105,7 +105,7 @@ public class SkinImpl implements ISkin {
 
     @Override
     public Drawable getThemeMaskBackgroundRoundSelector(int pressColor) {
-        return ResUtil.generateRoundRippleMaskDrawable(RApplication.getApp()
+        return ResUtil.generateRippleRoundMaskDrawable(RApplication.getApp()
                         .getResources()
                         .getDimensionPixelOffset(R.dimen.base_round_little_radius),
                 Color.WHITE, pressColor, getThemeSubColor()

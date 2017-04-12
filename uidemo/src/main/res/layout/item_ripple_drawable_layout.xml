@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/view1"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view2"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view3"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view4"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view5"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view6"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/view7"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_margin="@dimen/base_mdpi"
+        android:text="ButtonTest"
+        android:textAllCaps="false"/>
+
+</LinearLayout>

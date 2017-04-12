@@ -1,4 +1,4 @@
-package com.angcyo.uidemo.layout.demo.view;
+package com.angcyo.uiview.utils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

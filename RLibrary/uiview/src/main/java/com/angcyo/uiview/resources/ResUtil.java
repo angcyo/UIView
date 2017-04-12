@@ -373,7 +373,7 @@ public class ResUtil {
     }
 
     /**
-     * 边界无限制的Ripple
+     * 边界无限制的Ripple, 默认状态是透明
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable generateRippleDrawable(int rippleColor) {
@@ -381,13 +381,18 @@ public class ResUtil {
         return drawable;
     }
 
-    /***/
+    /**
+     * 边界被限制的Ripple, 默认状态是透明
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable generateRippleMaskDrawable(int rippleColor) {
         RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, new ColorDrawable(rippleColor));
         return drawable;
     }
 
+    /**
+     * 边界被限制的Ripple, 默认状态是参数content对应的
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable generateRippleMaskDrawable(int rippleColor, Drawable content) {
         RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), content, new ColorDrawable(rippleColor));
@@ -397,8 +402,17 @@ public class ResUtil {
         return drawable;
     }
 
-    public static Drawable generateRoundRippleMaskDrawable(float radius, int rippleColor, int pressColor, int defaultColor) {
+    public static Drawable generateRippleRoundMaskDrawable(float radius, int rippleColor, int pressColor, int defaultColor) {
         Drawable drawable = ResUtil.generateRoundBorderDrawable(radius, pressColor, defaultColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleMaskDrawable(rippleColor, drawable);
+        } else {
+            return drawable;
+        }
+    }
+
+    public static Drawable generateRippleMaskDrawable(int rippleColor, int pressColor, int defaultColor) {
+        Drawable drawable = ResUtil.generateBgDrawable(pressColor, defaultColor);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return ResUtil.generateRippleMaskDrawable(rippleColor, drawable);
         } else {
