@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ItemSubInfoLayout">
+        <attr name="item_text"/>
+        <attr name="item_textColor"/>
+        <attr name="item_textSize"/>
+
+        <attr name="item_dark_text"/>
+        <attr name="item_dark_textColor"/>
+        <attr name="item_dark_textSize"/>
+
+        <attr name="item_dark_tag"/>
+        <attr name="item_dark_id"/>
+        <attr name="item_text_tag"/>
+    </declare-styleable>
+</resources>

@@ -1,12 +1,14 @@
 package com.angcyo.uiview.github.tablayout;
 
 
+import android.support.annotation.DrawableRes;
+
 import com.angcyo.uiview.github.tablayout.listener.CustomTabEntity;
 
 public class TabEntity implements CustomTabEntity {
     public String title;
-    public int selectedIcon;
-    public int unSelectedIcon;
+    public int selectedIcon = -1;
+    public int unSelectedIcon = -1;
     /**
      * 显示下拉弹窗箭头
      */
@@ -15,6 +17,10 @@ public class TabEntity implements CustomTabEntity {
     public boolean isHomeNavigation = false;
 
     public boolean isShowBackground = true;
+
+    public TabEntity(String title) {
+        this.title = title;
+    }
 
     public TabEntity(String title, int selectedIcon, int unSelectedIcon) {
         this.title = title;
@@ -57,8 +63,20 @@ public class TabEntity implements CustomTabEntity {
     }
 
     @Override
+    public CustomTabEntity setTabSelectedIcon(@DrawableRes int res) {
+        this.selectedIcon = res;
+        return this;
+    }
+
+    @Override
     public int getTabUnselectedIcon() {
         return unSelectedIcon;
+    }
+
+    @Override
+    public CustomTabEntity setTabUnselectedIcon(@DrawableRes int res) {
+        this.unSelectedIcon = res;
+        return this;
     }
 
     @Override

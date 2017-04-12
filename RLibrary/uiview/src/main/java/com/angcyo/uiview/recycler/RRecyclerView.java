@@ -22,6 +22,7 @@ import com.angcyo.uiview.recycler.recyclerview.animators.BaseItemAnimator;
 import com.angcyo.uiview.recycler.recyclerview.animators.FadeInDownAnimator;
 import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.utils.Reflect;
+import com.angcyo.uiview.utils.UI;
 
 import java.lang.reflect.Constructor;
 
@@ -280,7 +281,9 @@ public class RRecyclerView extends RecyclerView {
     public void onScrollStateChanged(int state) {
         //L.e("call: onScrollStateChanged([state])-> " + getLastVelocity());
         if (mOnScrollEndListener != null) {
-            if (state == SCROLL_STATE_IDLE && computeVerticalScrollOffset() == 0) {
+            if (state == SCROLL_STATE_IDLE
+                    && computeVerticalScrollOffset() == 0
+                    && UI.canChildScrollDown(this)) {
                 mOnScrollEndListener.onScrollTopEnd(getLastVelocity());
             }
         }

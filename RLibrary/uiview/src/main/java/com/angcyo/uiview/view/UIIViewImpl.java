@@ -30,6 +30,7 @@ import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.AnimUtil;
+import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.skin.ISkin;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
@@ -613,6 +614,15 @@ public abstract class UIIViewImpl implements IView {
                     notifySkinChanged(viewGroup.getChildAt(i), skin);
                 }
             }
+        }
+    }
+
+    public float getTitleBarHeight() {
+        float density = getResources().getDisplayMetrics().density;
+        if (ResUtil.isLayoutFullscreen(mActivity)) {
+            return density * 65f;
+        } else {
+            return density * 40f;
         }
     }
 }

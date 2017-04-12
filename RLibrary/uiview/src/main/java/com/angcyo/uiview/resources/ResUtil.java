@@ -372,12 +372,16 @@ public class ResUtil {
         return ((visibility & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    /**
+     * 边界无限制的Ripple
+     */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable generateRippleDrawable(int rippleColor) {
         RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, null);
         return drawable;
     }
 
+    /***/
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static Drawable generateRippleMaskDrawable(int rippleColor) {
         RippleDrawable drawable = new RippleDrawable(ColorStateList.valueOf(rippleColor), null, new ColorDrawable(rippleColor));

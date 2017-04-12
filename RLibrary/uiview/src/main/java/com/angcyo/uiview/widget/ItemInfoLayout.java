@@ -115,6 +115,15 @@ public class ItemInfoLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int mode = MeasureSpec.getMode(heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (mode == MeasureSpec.AT_MOST || mode == MeasureSpec.UNSPECIFIED) {
+            setMeasuredDimension(getMeasuredWidth(),
+                    getResources().getDimensionPixelOffset(R.dimen.default_button_height));
+        }
+    }
 
     public float dpToPx(float dp) {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,

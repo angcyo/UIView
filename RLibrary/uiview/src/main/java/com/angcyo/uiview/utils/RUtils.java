@@ -598,6 +598,13 @@ public class RUtils {
                 url);
     }
 
+    public static boolean isLast(List data, int position) {
+        if (data == null || data.isEmpty()) {
+            return true;
+        }
+        return data.size() - 1 == position;
+    }
+
     interface OnPutValue {
         void onValue(String key, String value);
     }

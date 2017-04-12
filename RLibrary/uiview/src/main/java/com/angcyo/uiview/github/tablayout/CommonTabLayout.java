@@ -32,6 +32,7 @@ import com.angcyo.uiview.github.tablayout.listener.CustomTabEntity;
 import com.angcyo.uiview.github.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 没有继承HorizontalScrollView不能滑动,对于ViewPager无依赖
@@ -207,7 +208,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         ta.recycle();
     }
 
-    public void setTabData(ArrayList<CustomTabEntity> tabEntitys) {
+    public void setTabData(List<CustomTabEntity> tabEntitys) {
         if (tabEntitys == null || tabEntitys.size() == 0) {
             throw new IllegalStateException("TabEntitys can not be NULL or EMPTY !");
         }
@@ -230,6 +231,10 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
     public void setTabData(ArrayList<CustomTabEntity> tabEntitys, FragmentActivity fa, int containerViewId, ArrayList<Fragment> fragments) {
         mFragmentChangeManager = new FragmentChangeManager(fa.getSupportFragmentManager(), containerViewId, fragments);
         setTabData(tabEntitys);
+    }
+
+    public ArrayList<CustomTabEntity> getTabEntitys() {
+        return mTabEntitys;
     }
 
     /**
@@ -314,7 +319,7 @@ public class CommonTabLayout extends FrameLayout implements ValueAnimator.Animat
         mTabsContainer.addView(tabView, position, lp_tab);
     }
 
-    private void updateTabStyles() {
+    public void updateTabStyles() {
         for (int i = 0; i < mTabCount; i++) {
             View tabView = mTabsContainer.getChildAt(i);
             tabView.setPadding((int) mTabPadding, 0, (int) mTabPadding, 0);

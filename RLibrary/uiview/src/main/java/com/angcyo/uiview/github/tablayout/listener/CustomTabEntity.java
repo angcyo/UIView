@@ -8,8 +8,12 @@ public interface CustomTabEntity {
     @DrawableRes
     int getTabSelectedIcon();
 
+    CustomTabEntity setTabSelectedIcon(@DrawableRes int res);
+
     @DrawableRes
     int getTabUnselectedIcon();
+
+    CustomTabEntity setTabUnselectedIcon(@DrawableRes int res);
 
     boolean isShowArrow();
 

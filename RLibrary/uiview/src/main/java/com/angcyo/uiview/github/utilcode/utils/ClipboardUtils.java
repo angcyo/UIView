@@ -30,6 +30,13 @@ public class ClipboardUtils {
         clipboard.setPrimaryClip(ClipData.newPlainText("text", text));
     }
 
+    public static final void clipboardCopyText(Context context, CharSequence text) {
+        android.text.ClipboardManager cm = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        if (cm != null) {
+            cm.setText(text);
+        }
+    }
+
     /**
      * 获取剪贴板的文本
      *

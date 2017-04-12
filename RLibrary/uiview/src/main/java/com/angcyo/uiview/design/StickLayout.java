@@ -26,12 +26,16 @@ public class StickLayout extends RelativeLayout {
     CanScrollUpCallBack mScrollTarget;
     boolean inTopTouch = false, needHandle = true;
     boolean isFirst = true;
-    boolean wantVertical = false;
+    boolean wantVertical = true;
+    OnScrollListener mOnScrollListener;
     private OverScroller mOverScroller;
     private GestureDetectorCompat mGestureDetectorCompat;
     private int mTouchSlop;
     private int maxScrollY, topHeight;
     private RRecyclerView.OnScrollEndListener mOnScrollEndListener;
+    private boolean mIntercept;
+    private float mInterceptDownY;
+    private float mInterceptDownX;
 
     public StickLayout(Context context) {
         this(context, null);
@@ -108,6 +112,9 @@ public class StickLayout extends RelativeLayout {
         if (layout) {
             requestLayout();
         }
+        if (mOnScrollListener != null) {
+            mOnScrollListener.onScrollTo(offset);
+        }
     }
 
     @Override
@@ -137,10 +144,11 @@ public class StickLayout extends RelativeLayout {
 
         measureChild(topView, widthMeasureSpec, heightMeasureSpec);
         measureChild(mFloatView, widthMeasureSpec, heightMeasureSpec);
-        measureChild(scrollView, widthMeasureSpec, MeasureSpec.makeMeasureSpec(heightSize - mFloatView.getMeasuredHeight(), MeasureSpec.EXACTLY));
+        measureChild(scrollView, widthMeasureSpec,
+                MeasureSpec.makeMeasureSpec(heightSize - mFloatView.getMeasuredHeight() - floatTopOffset, MeasureSpec.EXACTLY));
 
         floatTop = topView.getMeasuredHeight();
-        maxScrollY = floatTop;
+        maxScrollY = floatTop - floatTopOffset;
         topHeight = floatTop + mFloatView.getMeasuredHeight();
 
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
@@ -168,11 +176,19 @@ public class StickLayout extends RelativeLayout {
             }
         }
 
-        if (mScrollTarget.getRecyclerView() instanceof RRecyclerView) {
+        initScrollTarget();
+    }
+
+    private void initScrollTarget() {
+        if (mScrollTarget != null && mScrollTarget.getRecyclerView() instanceof RRecyclerView) {
             if (mOnScrollEndListener == null) {
                 mOnScrollEndListener = new RRecyclerView.OnScrollEndListener() {
                     @Override
                     public void onScrollTopEnd(float currVelocity) {
+//                        if (!(currVelocity > 0)) {
+//                            //向下滑动产生的fling操作, 才处理
+//                            fling(currVelocity);
+//                        }
                         fling(currVelocity);
                     }
                 };
@@ -182,7 +198,17 @@ public class StickLayout extends RelativeLayout {
     }
 
     private boolean isFloat() {
-        return getScrollY() >= floatTop;
+        return getScrollY() >= (floatTop - floatTopOffset);
+    }
+
+    public void setFloatTopOffset(int floatTopOffset) {
+        this.floatTopOffset = floatTopOffset;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        return true;
     }
 
     @Override
@@ -220,45 +246,32 @@ public class StickLayout extends RelativeLayout {
                     wantVertical = wantV;
 
                     if (inTopTouch) {
-                        if (wantVertical) {
-                            if (offsetTo(offsetY)) {
-                                return super.dispatchTouchEvent(ev);
-                            }
-                        } else {
-                            return super.dispatchTouchEvent(ev);
-                        }
+                        scrollBy(0, (int) (offsetY));
                     } else {
                         if (wantVertical) {
-                            if (offsetTo(offsetY)) {
-                                return super.dispatchTouchEvent(ev);
-                            }
+                            mIntercept = !offsetTo(offsetY);
                         } else {
-                            return super.dispatchTouchEvent(ev);
+                            mIntercept = false;
                         }
                     }
 
                 } else {
                     if (inTopTouch) {
-                        if (offsetTo(offsetY)) {
-                            return super.dispatchTouchEvent(ev);
-                        }
+                        scrollBy(0, (int) (offsetY));
                     } else {
                         if (wantVertical == wantV) {
                             if (wantV) {
-                                if (offsetTo(offsetY)) {
-                                    return super.dispatchTouchEvent(ev);
-                                }
+                                mIntercept = !offsetTo(offsetY);
                             } else {
-                                return super.dispatchTouchEvent(ev);
+                                mIntercept = false;
                             }
                         } else {
-                            return super.dispatchTouchEvent(ev);
+                            mIntercept = false;
+                            return false;
                         }
                     }
                 }
-
-                return false;
-
+                break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 onTouchUp();
@@ -273,6 +286,7 @@ public class StickLayout extends RelativeLayout {
         needHandle = true;
         isFirst = true;
         wantVertical = true;
+        mIntercept = false;
     }
 
     private boolean offsetTo(float offsetY) {
@@ -298,13 +312,34 @@ public class StickLayout extends RelativeLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean intercept = this.mIntercept;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 onTouchDown(ev);
+                mInterceptDownY = ev.getY();
+                mInterceptDownX = ev.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (intercept) {
+                    float moveY = ev.getY();
+                    float moveX = ev.getX();
+                    float offsetY = mInterceptDownY - moveY;
+                    float offsetX = mInterceptDownX - moveX;
+
+                    ev.offsetLocation(offsetX, 0);
+                }
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 onTouchUp();
+                if (intercept) {
+                    float moveY = ev.getY();
+                    float moveX = ev.getX();
+                    float offsetY = mInterceptDownY - moveY;
+                    float offsetX = mInterceptDownX - moveX;
+
+                    ev.offsetLocation(offsetX, offsetY);
+                }
                 break;
         }
         return super.onInterceptTouchEvent(ev);
@@ -316,7 +351,7 @@ public class StickLayout extends RelativeLayout {
         int scrollY = getScrollY();
 
         if (isFloat()) {
-            if (mFloatView.getMeasuredHeight() > downY) {
+            if (mFloatView.getMeasuredHeight() + floatTopOffset > downY) {
                 inTopTouch = true;
                 needHandle = true;
             } else {
@@ -332,11 +367,21 @@ public class StickLayout extends RelativeLayout {
         }
         isFirst = true;
         wantVertical = true;
+
+        initScrollTarget();
     }
 
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
         return true;
+    }
+
+    public void setOnScrollListener(OnScrollListener onScrollListener) {
+        mOnScrollListener = onScrollListener;
+    }
+
+    public interface OnScrollListener {
+        void onScrollTo(float scrollY);
     }
 
     public interface CanScrollUpCallBack {

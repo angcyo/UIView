@@ -41,11 +41,11 @@ public class SkinImpl implements ISkin {
     }
 
     @Override
-    public Drawable getThemeBackgroundSelector() {
+    public Drawable getThemeTranBackgroundSelector() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return ResUtil.generateRippleDrawable(getThemeColor());
+            return ResUtil.generateRippleDrawable(getThemeSubColor());
         } else {
-            return ResUtil.generateBgDrawable(getThemeColor(), Color.TRANSPARENT);
+            return ResUtil.generateBgDrawable(getThemeSubColor(), Color.TRANSPARENT);
         }
     }
 
@@ -53,11 +53,11 @@ public class SkinImpl implements ISkin {
      * @Inherited
      */
     @Override
-    public Drawable getThemeMaskBackgroundSelector() {
+    public Drawable getThemeTranMaskBackgroundSelector() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return ResUtil.generateRippleMaskDrawable(getThemeColor());
+            return ResUtil.generateRippleMaskDrawable(getThemeSubColor());
         } else {
-            return ResUtil.generateBgDrawable(getThemeColor(), Color.TRANSPARENT);
+            return ResUtil.generateBgDrawable(getThemeSubColor(), Color.TRANSPARENT);
         }
     }
 
@@ -67,6 +67,48 @@ public class SkinImpl implements ISkin {
                         .getResources()
                         .getDimensionPixelOffset(R.dimen.base_round_little_radius),
                 Color.WHITE, getThemeDarkColor(), getThemeSubColor()
+        );
+    }
+
+    @Override
+    public Drawable getThemeBackgroundSelector() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleDrawable(getThemeSubColor());
+        } else {
+            return ResUtil.generateBgDrawable(getThemeDarkColor(), getThemeSubColor());
+        }
+    }
+
+    @Override
+    public Drawable getThemeBackgroundSelector(int pressColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleDrawable(getThemeColor());
+        } else {
+            return ResUtil.generateBgDrawable(pressColor, getThemeColor());
+        }
+    }
+
+    @Override
+    public Drawable getThemeMaskBackgroundSelector() {
+        return null;
+    }
+
+    @Override
+    public Drawable getThemeMaskBackgroundSelector(int pressColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleMaskDrawable(getThemeSubColor());
+        } else {
+            return ResUtil.generateBgDrawable(pressColor, getThemeSubColor());
+        }
+    }
+
+
+    @Override
+    public Drawable getThemeMaskBackgroundRoundSelector(int pressColor) {
+        return ResUtil.generateRoundRippleMaskDrawable(RApplication.getApp()
+                        .getResources()
+                        .getDimensionPixelOffset(R.dimen.base_round_little_radius),
+                Color.WHITE, pressColor, getThemeSubColor()
         );
     }
 }

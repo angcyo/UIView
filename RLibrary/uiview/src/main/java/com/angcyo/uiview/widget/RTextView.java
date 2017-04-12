@@ -39,6 +39,8 @@ public class RTextView extends AppCompatTextView {
 
     boolean hasUnderline = false;
 
+    boolean isAttached = false;
+
     public RTextView(Context context) {
         this(context, null);
     }
@@ -78,8 +80,15 @@ public class RTextView extends AppCompatTextView {
     }
 
     @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        isAttached = false;
+    }
+
+    @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        isAttached = true;
         if (getContentDescription() != null) {
             LinkifyCompat.addLinks(this, Linkify.ALL);
         }
@@ -197,5 +206,20 @@ public class RTextView extends AppCompatTextView {
         this.leftWidth = leftWidth;
         initLeftRes();
         return this;
+    }
+
+    public void setDefaultSKin(int resId) {
+        setDefaultSKin(getResources().getString(resId));
+    }
+
+    public void setDefaultSKin(String text) {
+        setPadding(getResources().getDimensionPixelOffset(R.dimen.base_hdpi), getPaddingTop(),
+                getPaddingRight(), getPaddingBottom());
+        this.leftColor = SkinHelper.getSkin().getThemeSubColor();
+        this.leftWidth = getResources().getDimensionPixelOffset(R.dimen.base_mdpi);
+        setText(text);
+//        if (isAttached) {
+//            postInvalidate();
+//        }
     }
 }

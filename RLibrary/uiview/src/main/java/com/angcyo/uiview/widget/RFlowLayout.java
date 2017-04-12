@@ -97,7 +97,8 @@ public class RFlowLayout extends LinearLayout {
         mAllViews.add(lineViews);
         width += getPaddingLeft() + getPaddingRight();
         height += getPaddingTop() + getPaddingBottom();
-        setMeasuredDimension(modeWidth == MeasureSpec.AT_MOST ? width : sizeWidth, modeHeight == MeasureSpec.AT_MOST ? height : sizeHeight);
+        setMeasuredDimension((modeWidth == MeasureSpec.AT_MOST || modeWidth == MeasureSpec.UNSPECIFIED) ? width : sizeWidth,
+                (modeHeight == MeasureSpec.AT_MOST || modeHeight == MeasureSpec.UNSPECIFIED) ? height : sizeHeight);
     }
 
     @Override

@@ -419,4 +419,13 @@ public class UITitleBarContainer extends FrameLayout {
         }
         return !mTitleBarPattern.isFloating;
     }
+
+    public float getTitleBarHeight() {
+        float density = getResources().getDisplayMetrics().density;
+        if (ResUtil.isLayoutFullscreen((Activity) getContext())) {
+            return density * 65f;
+        } else {
+            return density * 40f;
+        }
+    }
 }

@@ -6,6 +6,7 @@ package com.angcyo.uiview.recycler;
 
 import android.content.Context;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.SparseArray;
@@ -20,6 +21,8 @@ import com.angcyo.library.facebook.DraweeViewUtil;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.RApplication;
+import com.angcyo.uiview.widget.ItemInfoLayout;
+import com.angcyo.uiview.widget.ItemSubInfoLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -126,6 +129,14 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
 
     public RRecyclerView reV(String idName) {
         return (RRecyclerView) viewByName(idName);
+    }
+
+    public ItemSubInfoLayout sub(@IdRes int id) {
+        return v(id);
+    }
+
+    public ItemInfoLayout item(@IdRes int id) {
+        return v(id);
     }
 
     /**
@@ -265,6 +276,8 @@ public class RBaseViewHolder extends RecyclerView.ViewHolder {
                     } else if (view instanceof SimpleDraweeView) {
                         DraweeViewUtil.resize(((SimpleDraweeView) view), value,
                                 view.getMeasuredWidth(), view.getMeasuredHeight());
+                    } else if (view instanceof AppCompatImageView) {
+
                     } else if (view instanceof ImageView) {
                         Glide.with(RApplication.getApp())
                                 .load(value)

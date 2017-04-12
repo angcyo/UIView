@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="item_text" format="string"/>
+    <attr name="item_textColor" format="color"/>
+    <attr name="item_textSize" format="dimension"/>
+
+    <attr name="item_dark_text" format="string"/>
+    <attr name="item_dark_textColor" format="color"/>
+    <attr name="item_dark_textSize" format="dimension"/>
+
+    <attr name="item_dark_tag" format="string"/>
+    <attr name="item_dark_id" format="reference"/>
+    <attr name="item_text_tag" format="string"/>
+
+    <attr name="item_left_draw_padding" format="dimension"/>
+    <attr name="item_right_draw_padding" format="dimension"/>
+    <attr name="item_dark_image_size" format="dimension"/>
+    <attr name="item_is_red_dot_mode" format="boolean"/>
+
+    <attr name="item_left_res" format="reference"/>
+    <attr name="item_right_res" format="reference"/>
+    <attr name="item_dark_res" format="reference"/>
+
     <declare-styleable name="ItemInfoLayout">
-        <attr name="item_text" format="string"/>
-        <attr name="item_textColor" format="color"/>
-        <attr name="item_textSize" format="dimension"/>
+        <attr name="item_text"/>
+        <attr name="item_textColor"/>
+        <attr name="item_textSize"/>
 
-        <attr name="item_dark_text" format="string"/>
-        <attr name="item_dark_textColor" format="color"/>
+        <attr name="item_dark_text"/>
+        <attr name="item_dark_textColor"/>
 
-        <attr name="item_dark_textSize" format="dimension"/>
-        <attr name="item_left_draw_padding" format="dimension"/>
-        <attr name="item_right_draw_padding" format="dimension"/>
-        <attr name="item_dark_image_size" format="dimension"/>
-        <attr name="item_is_red_dot_mode" format="boolean"/>
+        <attr name="item_dark_textSize"/>
+        <attr name="item_left_draw_padding"/>
+        <attr name="item_right_draw_padding"/>
+        <attr name="item_dark_image_size"/>
+        <attr name="item_is_red_dot_mode"/>
 
-        <attr name="item_left_res" format="reference"/>
-        <attr name="item_right_res" format="reference"/>
-        <attr name="item_dark_res" format="reference"/>
-        <attr name="item_dark_tag" format="string"/>
-        <attr name="item_dark_id" format="reference"/>
-        <attr name="item_text_tag" format="string"/>
+        <attr name="item_left_res"/>
+        <attr name="item_right_res"/>
+        <attr name="item_dark_res"/>
+        <attr name="item_dark_tag"/>
+        <attr name="item_dark_id"/>
+        <attr name="item_text_tag"/>
     </declare-styleable>
 </resources>

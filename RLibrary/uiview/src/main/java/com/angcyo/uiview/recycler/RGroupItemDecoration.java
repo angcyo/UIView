@@ -40,6 +40,8 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
             if (adapterPosition == 0) {
                 //第一个位置, 肯定是有分组信息的
                 mGroupCallBack.onGroupDraw(c, view, adapterPosition);
+                // 设置与第二个位置分割线
+                mGroupCallBack.onItemDraw(c,view,adapterPosition);
             } else {
                 //上一个分组信息
                 preGroupText = mGroupCallBack.getGroupText(adapterPosition - 1);
@@ -47,7 +49,19 @@ public class RGroupItemDecoration extends RecyclerView.ItemDecoration {
                 if (!TextUtils.equals(preGroupText, groupText)) {
                     //如果和上一个分组信息不相等
                     mGroupCallBack.onGroupDraw(c, view, adapterPosition);
+                    //设置与下一位置分割线
+                    mGroupCallBack.onItemDraw(c,view,adapterPosition);
+
                 } else {
+
+//                    int count = parent.getChildCount();
+//                    if (adapterPosition + 1 < count) {
+//                        String afterGroupText = mGroupCallBack.getGroupText(adapterPosition + 1);
+//                        if (!TextUtils.equals(afterGroupText,groupText)) {
+//                            return;
+//                        }
+//                    }
+
                     mGroupCallBack.onItemDraw(c, view, adapterPosition);
                 }
             }
