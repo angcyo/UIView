@@ -6,8 +6,17 @@
     android:paddingTop="@dimen/base_xxhdpi">
 
     <com.angcyo.uidemo.layout.demo.view.TouchView
+        android:id="@+id/touch_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="OffsetTo"
+        android:textAllCaps="false"/>
 
 </com.angcyo.uidemo.layout.demo.view.TouchGroupLayout>

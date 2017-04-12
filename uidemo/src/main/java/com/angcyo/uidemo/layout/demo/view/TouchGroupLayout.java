@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.angcyo.library.utils.L;
@@ -45,6 +46,28 @@ public class TouchGroupLayout extends RelativeLayout {
 //
 //            }
 //        });
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        //super.onLayout(changed, l, t, r, b);
+        final int count = getChildCount();
+
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() != GONE) {
+                RelativeLayout.LayoutParams st =
+                        (RelativeLayout.LayoutParams) child.getLayoutParams();
+                child.layout(child.getLeft(), child.getTop(),
+                        child.getLeft() + child.getMeasuredWidth(), child.getTop() + child.getMeasuredHeight());
+            }
+        }
+
+        L.e("call: onLayout([changed, l, t, r, b])-> " +
+                " l:" + l +
+                " t:" + t +
+                " r:" + r +
+                " b:" + b);
     }
 
     @Override
@@ -117,6 +140,7 @@ public class TouchGroupLayout extends RelativeLayout {
         string3 = "onTouchEvent-> " + event.getAction() + " x:" + event.getX() + " y:" + event.getY();
         postInvalidate();
         boolean touchEvent = super.onTouchEvent(event);
+        requestLayout();
         return true;
     }
 

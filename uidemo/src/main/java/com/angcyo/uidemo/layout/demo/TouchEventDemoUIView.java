@@ -1,8 +1,11 @@
 package com.angcyo.uidemo.layout.demo;
 
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 
@@ -45,6 +48,28 @@ public class TouchEventDemoUIView extends UIContentView {
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_touch_event_layout);
+    }
+
+    @Override
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
+        mViewHolder.v(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View touchView = mViewHolder.v(R.id.touch_view);
+                log(touchView);
+                ViewCompat.offsetTopAndBottom(touchView, 100);
+                log(touchView);
+            }
+        });
+    }
+
+    private void log(View touchView) {
+        L.e("call: log([touchView])-> " +
+                " l:" + touchView.getLeft() +
+                " t:" + touchView.getTop() +
+                " r:" + touchView.getRight() +
+                " b:" + touchView.getBottom());
     }
 }
 
