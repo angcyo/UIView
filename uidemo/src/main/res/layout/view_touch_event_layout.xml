@@ -11,6 +11,13 @@
         android:layout_height="200dp"
         android:background="@color/colorPrimary"/>
 
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="200dp"
+        android:gravity="top"/>
+
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"

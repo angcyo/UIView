@@ -50,12 +50,12 @@ public class TouchGroupLayout extends RelativeLayout {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        //super.onLayout(changed, l, t, r, b);
+        super.onLayout(changed, l, t, r, b);
         final int count = getChildCount();
 
         for (int i = 0; i < count; i++) {
             View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
+            if (i == 0 && child.getVisibility() != GONE) {
                 RelativeLayout.LayoutParams st =
                         (RelativeLayout.LayoutParams) child.getLayoutParams();
                 child.layout(child.getLeft(), child.getTop(),

@@ -24,6 +24,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputConnectionWrapper;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
@@ -80,6 +81,58 @@ public class ExEditText extends AppCompatEditText {
 
     public ExEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    /**
+     * 为TextView设置显示@效果
+     */
+    public static void checkMentionSpannable(TextView textView, String content, List<String> allMention) {
+        if (textView == null) {
+            return;
+        }
+        if (allMention.isEmpty() || TextUtils.isEmpty(content)) {
+            textView.setText(content);
+            textView.setMovementMethod(ArrowKeyMovementMethod.getInstance());
+            return;
+        }
+
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(content);
+        int lastMentionIndex = -1;
+
+        for (String mention : allMention) {
+            Matcher matcher = Pattern.compile("@" + mention).matcher(content);
+
+            while (matcher.find()) {
+                String mentionText = matcher.group();
+                int start;
+                if (lastMentionIndex != -1) {
+                    start = content.indexOf(mentionText, lastMentionIndex);
+                } else {
+                    start = content.indexOf(mentionText);
+                }
+                int end = start + mentionText.length();
+                spannableStringBuilder.setSpan(new MentionSpan(mentionText), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
+        textView.setText(spannableStringBuilder);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    public static boolean canVerticalScroll(EditText editText) {
+        //滚动的距离
+        int scrollY = editText.getScrollY();
+        //控件内容的总高度
+        int scrollRange = editText.getLayout().getHeight();
+        //控件实际显示的高度
+        int scrollExtent = editText.getHeight() - editText.getCompoundPaddingTop() - editText.getCompoundPaddingBottom();
+        //控件内容总高度与实际显示高度的差值
+        int scrollDifference = scrollRange - scrollExtent;
+
+        if (scrollDifference == 0) {
+            return false;
+        }
+
+        return (scrollY > 0) || (scrollY < scrollDifference - 1);
     }
 
     @Override
@@ -196,6 +249,8 @@ public class ExEditText extends AppCompatEditText {
                 isDownIn = false;
             }
         }
+
+        //L.e("call: onTouchEvent([event])-> canVerticalScroll:" + canVerticalScroll(this));
 
 //        if (isPassword) {
 //            if (action == MotionEvent.ACTION_DOWN) {
@@ -352,6 +407,8 @@ public class ExEditText extends AppCompatEditText {
         return screenHeight != keyboardHeight && keyboardHeight > 100;
     }
 
+    //------------------------------------@功能支持-----------------------------------------//
+
     public void hideSoftInput() {
         InputMethodManager manager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         manager.hideSoftInputFromWindow(getWindowToken(), 0);
@@ -360,8 +417,6 @@ public class ExEditText extends AppCompatEditText {
     public void setAutoHideSoftInput(boolean autoHideSoftInput) {
         this.autoHideSoftInput = autoHideSoftInput;
     }
-
-    //------------------------------------@功能支持-----------------------------------------//
 
     /**
      * 获取键盘的高度
@@ -582,41 +637,6 @@ public class ExEditText extends AppCompatEditText {
     }
 
     /**
-     * 为TextView设置显示@效果
-     */
-    public static void checkMentionSpannable(TextView textView, String content, List<String> allMention) {
-        if (textView == null) {
-            return;
-        }
-        if (allMention.isEmpty() || TextUtils.isEmpty(content)) {
-            textView.setText(content);
-            textView.setMovementMethod(ArrowKeyMovementMethod.getInstance());
-            return;
-        }
-
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(content);
-        int lastMentionIndex = -1;
-
-        for (String mention : allMention) {
-            Matcher matcher = Pattern.compile("@" + mention).matcher(content);
-
-            while (matcher.find()) {
-                String mentionText = matcher.group();
-                int start;
-                if (lastMentionIndex != -1) {
-                    start = content.indexOf(mentionText, lastMentionIndex);
-                } else {
-                    start = content.indexOf(mentionText);
-                }
-                int end = start + mentionText.length();
-                spannableStringBuilder.setSpan(new MentionSpan(mentionText), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
-        }
-        textView.setText(spannableStringBuilder);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    /**
      * Listener for '@' character
      */
     public interface OnMentionInputListener {
@@ -624,6 +644,31 @@ public class ExEditText extends AppCompatEditText {
          * call when '@' character is inserted into EditText, 当输入@字符之后, 会回调
          */
         void onMentionCharacterInput();
+    }
+
+    /**
+     * {@code @}文本样式Span
+     */
+    public static class MentionSpan extends ClickableSpan {
+
+        String mention;
+
+        public MentionSpan(String mention) {
+            this.mention = mention;
+        }
+
+        @Override
+        public void onClick(View widget) {
+            L.i("onClick @: " + mention);
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            //设置背景色
+            ds.bgColor = RApplication.getApp().getResources().getColor(R.color.theme_color_primary_dark_tran3);
+            //设置前景色
+            //ds.setColor(getResources().getColor(R.color.theme_color_accent));
+        }
     }
 
     /**
@@ -737,31 +782,6 @@ public class ExEditText extends AppCompatEditText {
             } else {
                 return from;
             }
-        }
-    }
-
-    /**
-     * {@code @}文本样式Span
-     */
-    public static class MentionSpan extends ClickableSpan {
-
-        String mention;
-
-        public MentionSpan(String mention) {
-            this.mention = mention;
-        }
-
-        @Override
-        public void onClick(View widget) {
-            L.i("onClick @: " + mention);
-        }
-
-        @Override
-        public void updateDrawState(TextPaint ds) {
-            //设置背景色
-            ds.bgColor = RApplication.getApp().getResources().getColor(R.color.theme_color_primary_dark_tran3);
-            //设置前景色
-            //ds.setColor(getResources().getColor(R.color.theme_color_accent));
         }
     }
 }
