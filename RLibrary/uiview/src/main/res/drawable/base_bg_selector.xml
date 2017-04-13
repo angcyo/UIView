@@ -10,5 +10,5 @@
             <solid android:color="@color/default_base_bg_disable"/>
         </shape>
     </item>
-    <item android:drawable="@color/default_base_white"/>
+    <item android:drawable="@color/transparent"/>
 </selector>

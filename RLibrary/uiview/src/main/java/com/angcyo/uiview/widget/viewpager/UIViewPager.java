@@ -135,22 +135,25 @@ public class UIViewPager extends ViewPager implements Runnable, StickLayout.CanS
             return;
         }
 
+        int currentItem = getCurrentItem();
         for (Object obj : mItems) {
             //对应的是ViewPager 的 ItemInfo结构体
             int position = (int) getPosition(obj);//position成员
             final Object available = getObject(obj);//object成员
-            if (lastItem == position) {
+            if (currentItem == lastItem && lastItem == position) {
+
+            } else if (lastItem == position) {
                 if (obj != null && available instanceof OnPagerShowListener) {
                     ((OnPagerShowListener) available).onHideInPager(this);
                 }
-            } else if (getCurrentItem() == position) {
+            } else if (currentItem == position) {
                 if (obj != null && available instanceof OnPagerShowListener) {
                     ((OnPagerShowListener) available).onShowInPager(this);
                 }
             }
         }
 
-        lastItem = getCurrentItem();
+        lastItem = currentItem;
     }
 
     public void setSlowTouch(boolean slowTouch) {

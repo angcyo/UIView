@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.angcyo.uiview.R;
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.base.UIIDialogImpl;
+import com.angcyo.uiview.skin.SkinHelper;
 
 /**
  * 标准形式的对话框
@@ -159,5 +160,7 @@ public class UIDialog extends UIIDialogImpl {
         }
 
         mDialogRootLayout.setGravity(gravity);
+
+        mBaseDialogOkView.setTextColor(SkinHelper.getSkin().getThemeSubColor());
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -554,11 +555,28 @@ public abstract class UIIViewImpl implements IView {
      */
     //星期三 2017-3-1
     public void fullscreen(boolean enable) {
-        final View decorView = mActivity.getWindow().getDecorView();
-        if (enable) {
-            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        fullscreen(enable, false);
+    }
+
+    public void fullscreen(final boolean enable, boolean checkSdk) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                final View decorView = mActivity.getWindow().getDecorView();
+                if (enable) {
+                    decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() | View.SYSTEM_UI_FLAG_FULLSCREEN);
+                } else {
+                    decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_FULLSCREEN);
+                }
+            }
+        };
+
+        if (checkSdk) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                runnable.run();
+            }
         } else {
-            decorView.setSystemUiVisibility(decorView.getSystemUiVisibility() & ~View.SYSTEM_UI_FLAG_FULLSCREEN);
+            runnable.run();
         }
     }
 

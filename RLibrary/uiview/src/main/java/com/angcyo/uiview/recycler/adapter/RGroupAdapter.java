@@ -3,7 +3,9 @@ package com.angcyo.uiview.recycler.adapter;
 import android.content.Context;
 
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.utils.T;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ import java.util.List;
  * 修改备注：
  * Version: 1.0.0
  */
-public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> {
+public class RGroupAdapter<H, G extends RGroupData, F> extends RExBaseAdapter<H, G, F> {
 
     public static final int TYPE_GROUP_HEAD = 0x11000;
     public static final int TYPE_GROUP_DATA = 0x22000;
@@ -26,21 +28,59 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
         super(context);
     }
 
-    public RGroupAdapter(Context context, List<RGroupData<T>> datas) {
+    public RGroupAdapter(Context context, List<G> datas) {
         super(context, datas);
     }
 
     @Override
     public int getDataCount() {
-        if (mAllDatas == null) {
+        return getCountFromGroup(mAllDatas);
+    }
+
+    /**
+     * 从分组信息中返回真实item的数量
+     */
+    public int getCountFromGroup(List<G> groups) {
+        if (groups == null) {
             return 0;
         }
         int count = 0;
-        for (RGroupData group : mAllDatas) {
-            count += group.getGroupCount();
-            count += group.getDataCount();
+        for (RGroupData group : groups) {
+            count += group.getCount();
         }
         return count;
+    }
+
+    @Override
+    public void resetData(List<G> datas) {
+        int oldSize = getCountFromGroup(mAllDatas);
+        int newSize = getCountFromGroup(datas);
+        if (datas == null) {
+            this.mAllDatas = new ArrayList<>();
+        } else {
+            this.mAllDatas = datas;
+        }
+        if (oldSize == newSize) {
+            notifyItemRangeChanged(getHeaderCount(), oldSize);
+        } else {
+            notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void appendData(List<G> datas) {
+        if (datas == null || datas.size() == 0) {
+            return;
+        }
+        if (this.mAllDatas == null) {
+            this.mAllDatas = new ArrayList<>();
+        }
+
+        int startPosition = getDataCount() + getHeaderCount();
+
+        this.mAllDatas.addAll(datas);
+        notifyItemRangeInserted(startPosition, getCountFromGroup(datas));
+        notifyItemRangeChanged(startPosition, getItemCount());
     }
 
     /**
@@ -51,6 +91,9 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
         return groupIndex >= 0;
     }
 
+    /**
+     * 通过adapter中的位置, 返回在Group头部中的索引
+     */
     private int getGroupIndex(int posInData) {
         if (mAllDatas == null) {
             return -1;
@@ -72,6 +115,9 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
         return index;
     }
 
+    /**
+     * 通过adapter中的位置, 返回在Group数据部分中的索引
+     */
     private int getDataIndex(int posInData) {
         if (mAllDatas == null) {
             return -1;
@@ -80,7 +126,7 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
         int count = 0;
         int index = -1;
         for (int i = 0; i < mAllDatas.size(); i++) {
-            RGroupData<T> groupData = mAllDatas.get(i);
+            RGroupData groupData = mAllDatas.get(i);
             int groupCount = groupData.getGroupCount();
             int dataCount = groupData.getDataCount();
 
@@ -94,14 +140,17 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
         return index;
     }
 
-    public RGroupData<T> getGroupDataFromPosition(int posInData) {
+    /**
+     * 通过adapter中的位置, 返回对应的{@link RGroupData}对象
+     */
+    public RGroupData getGroupDataFromPosition(int posInData) {
         if (mAllDatas == null) {
             return null;
         }
 
         int count = 0;
         for (int i = 0; i < mAllDatas.size(); i++) {
-            RGroupData<T> groupData = mAllDatas.get(i);
+            RGroupData groupData = mAllDatas.get(i);
             int groupCount = groupData.getGroupCount();
             int dataCount = groupData.getDataCount();
 
@@ -113,6 +162,28 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
         }
 
         return null;
+    }
+
+    /**
+     * 返回当前{@link RGroupData}在Adapter中开始的position
+     */
+    public int getPositionFromGroup(RGroupData groupData) {
+        if (groupData == null) {
+            return -1;
+        }
+        int position = getHeaderCount();
+        if (mAllDatas == null) {
+            return position;
+        }
+
+        for (int i = 0; i < mAllDatas.size(); i++) {
+            RGroupData g = mAllDatas.get(i);
+            if (g == groupData) {
+                return position;
+            }
+            position += g.getCount();
+        }
+        return position;
     }
 
     @Override
@@ -131,7 +202,7 @@ public class RGroupAdapter<H, T, F> extends RExBaseAdapter<H, RGroupData<T>, F> 
     }
 
     @Override
-    protected void onBindDataView(RBaseViewHolder holder, int posInData, RGroupData<T> dataBean) {
+    protected void onBindDataView(RBaseViewHolder holder, int posInData, G dataBean) {
         super.onBindDataView(holder, posInData, dataBean);
         int groupIndex = getGroupIndex(posInData);
         if (groupIndex >= 0) {

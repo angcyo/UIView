@@ -2,6 +2,7 @@ package com.angcyo.uiview.recycler.adapter;
 
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.angcyo.uiview.recycler.adapter.RGroupAdapter.TYPE_GROUP_DATA;
@@ -24,15 +25,33 @@ public class RGroupData<T> {
     /**
      * 分组下面的数据集合
      */
-    List<T> mAllDatas;
+    protected List<T> mAllDatas;
 
     /**
      * 分组是否展开
      */
-    boolean isExpand = true;
+    protected boolean isExpand = true;
+
+    public RGroupData() {
+        this(new ArrayList<T>());
+    }
 
     public RGroupData(List<T> allDatas) {
         mAllDatas = allDatas;
+    }
+
+    /**
+     * 头部+数据的总数量
+     */
+    public int getCount() {
+        return getGroupCount() + getDataCount();
+    }
+
+    /**
+     * 分组的数量, 返回0表示没有分组信息
+     */
+    public int getGroupCount() {
+        return 1;
     }
 
     /**
@@ -46,12 +65,58 @@ public class RGroupData<T> {
         return mAllDatas;
     }
 
-    /**
-     * 分组的数量, 返回0表示没有分组信息
-     */
-    public int getGroupCount() {
-        return 1;
+    public void resetDatas(List<T> allDatas) {
+        mAllDatas = allDatas;
     }
+
+    public void appendDatas(List<T> allDatas) {
+        if (mAllDatas == null) {
+            mAllDatas = new ArrayList<>();
+        }
+        mAllDatas.addAll(allDatas);
+    }
+
+
+    public void resetDatas(RGroupAdapter groupAdapter, List<T> allDatas) {
+
+        int oldSize = RBaseAdapter.getListSize(mAllDatas);
+        int newSize = RBaseAdapter.getListSize(allDatas);
+
+        resetDatas(allDatas);
+
+        if (mAllDatas == null) {
+            this.mAllDatas = new ArrayList<>();
+        } else {
+            this.mAllDatas = allDatas;
+        }
+
+        if (oldSize == newSize) {
+            groupAdapter.notifyItemRangeChanged(groupAdapter.getPositionFromGroup(this), oldSize);
+        } else {
+            groupAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void appendDatas(RGroupAdapter groupAdapter, List<T> allDatas) {
+
+        if (allDatas == null || allDatas.size() == 0) {
+            return;
+        }
+
+        int count = getCount();
+
+        appendDatas(allDatas);
+
+        if (this.mAllDatas == null) {
+            this.mAllDatas = new ArrayList<>();
+        }
+
+        int startPosition = groupAdapter.getPositionFromGroup(this) + count;
+
+        groupAdapter.notifyItemRangeInserted(startPosition, allDatas.size());
+        groupAdapter.notifyItemRangeChanged(startPosition, groupAdapter.getItemCount());
+    }
+
 
 //    /**
 //     * @param indexInGroup 当有多个分组时, index表示从0开始的索引

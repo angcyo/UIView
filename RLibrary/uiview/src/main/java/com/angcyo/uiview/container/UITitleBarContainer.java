@@ -406,6 +406,9 @@ public class UITitleBarContainer extends FrameLayout {
         return mRightControlLayout;
     }
 
+    /**
+     * 显示右边第几个Item的View, 从0开始
+     */
     public void showRightItem(int index) {
         if (mRightControlLayout.getChildCount() > index) {
             mRightControlLayout.getChildAt(index).setVisibility(VISIBLE);

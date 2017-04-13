@@ -71,35 +71,13 @@ public class SkinImpl implements ISkin {
     }
 
     @Override
-    public Drawable getThemeBackgroundSelector() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return ResUtil.generateRippleDrawable(getThemeSubColor());
-        } else {
-            return ResUtil.generateBgDrawable(getThemeDarkColor(), getThemeSubColor());
-        }
-    }
-
-    @Override
-    public Drawable getThemeBackgroundSelector(int pressColor) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return ResUtil.generateRippleDrawable(getThemeColor());
-        } else {
-            return ResUtil.generateBgDrawable(pressColor, getThemeColor());
-        }
-    }
-
-    @Override
     public Drawable getThemeMaskBackgroundSelector() {
-        return null;
+        return getThemeMaskBackgroundSelector(getThemeDarkColor());
     }
 
     @Override
     public Drawable getThemeMaskBackgroundSelector(int pressColor) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return ResUtil.generateRippleMaskDrawable(getThemeSubColor());
-        } else {
-            return ResUtil.generateBgDrawable(pressColor, getThemeSubColor());
-        }
+        return ResUtil.generateRippleMaskDrawable(Color.WHITE, pressColor, getThemeSubColor());
     }
 
 

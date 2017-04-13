@@ -30,7 +30,7 @@ public class StickLayout extends RelativeLayout {
     OnScrollListener mOnScrollListener;
     private OverScroller mOverScroller;
     private GestureDetectorCompat mGestureDetectorCompat;
-    private int mTouchSlop;
+    private int mTouchSlop, mTouchCheckSlop;
     private int maxScrollY, topHeight;
     private RRecyclerView.OnScrollEndListener mOnScrollEndListener;
     private boolean mIntercept;
@@ -83,7 +83,8 @@ public class StickLayout extends RelativeLayout {
                         return true;
                     }
                 });
-        mTouchSlop = 0;//ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        mTouchSlop = 0;
+        mTouchCheckSlop = 10;//ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
     private void fling(float velocityY) {
@@ -229,6 +230,11 @@ public class StickLayout extends RelativeLayout {
                 float offsetY = downY - moveY;
                 float offsetX = downX - moveX;
 
+                if (isFirst &&
+                        (Math.abs(offsetX) < mTouchCheckSlop || Math.abs(offsetY) < mTouchCheckSlop)) {
+                    return super.dispatchTouchEvent(ev);
+                }
+
                 downY = moveY;
                 downX = moveX;
 
@@ -267,7 +273,9 @@ public class StickLayout extends RelativeLayout {
                             }
                         } else {
                             mIntercept = false;
-                            return false;
+                            if (wantV) {
+                                return false;
+                            }
                         }
                     }
                 }
@@ -346,6 +354,8 @@ public class StickLayout extends RelativeLayout {
     }
 
     private void onTouchDown(MotionEvent ev) {
+        onTouchUp();
+
         downY = ev.getY();
         downX = ev.getX();
         int scrollY = getScrollY();

@@ -3,9 +3,11 @@ package com.angcyo.uiview.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -69,21 +71,29 @@ public class RTitleCenterLayout extends RelativeLayout {
         int height = getMeasuredHeight();
 
         float offset = getResources().getDisplayMetrics().density * 4;
-        int loadLeft = 0;
+        int loadViewRight = 0;
+        int loadViewWidth = 0;
         if (mLoadingView != null) {
-            loadLeft = width / 2 + mLoadingView.getMeasuredWidth() / 2;
+            loadViewWidth = mLoadingView.getMeasuredWidth();
+            loadViewRight = width / 2 + loadViewWidth / 2;
         }
+
         if (mTitleView != null) {
             if (mTitleView.getVisibility() == VISIBLE) {
-                layoutCenter(mTitleView);
-                loadLeft = (int) (mTitleView.getLeft() - offset);
+                if (mTitleView instanceof TextView && TextUtils.isEmpty(((TextView) mTitleView).getText())) {
+
+                } else {
+                    layoutCenter(mTitleView);
+                    loadViewRight = (int) (mTitleView.getLeft() - offset);
+                }
             }
         }
+
         if (mLoadingView != null) {
             if (mLoadingView.getVisibility() == VISIBLE) {
-                mLoadingView.layout(loadLeft - mLoadingView.getMeasuredWidth(),
+                mLoadingView.layout(loadViewRight - loadViewWidth,
                         (height - mLoadingView.getMeasuredHeight()) / 2,
-                        loadLeft, height / 2 + mLoadingView.getMeasuredHeight() / 2);
+                        loadViewRight, height / 2 + mLoadingView.getMeasuredHeight() / 2);
             }
         }
     }

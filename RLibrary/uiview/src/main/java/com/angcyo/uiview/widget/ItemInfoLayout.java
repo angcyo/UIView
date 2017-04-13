@@ -221,6 +221,16 @@ public class ItemInfoLayout extends RelativeLayout {
         }
     }
 
+    public void setLeftDrawPadding(int leftDrawPadding) {
+        this.leftDrawPadding = leftDrawPadding;
+        mTextView.setCompoundDrawablePadding(leftDrawPadding);
+    }
+
+    public void setRightDrawPadding(int rightDrawPadding) {
+        this.rightDrawPadding = rightDrawPadding;
+        mDarkTextView.setCompoundDrawablePadding(leftDrawPadding);
+    }
+
     public void setRightDrawableRes(int rightDrawableRes) {
         this.rightDrawableRes = rightDrawableRes;
         final Drawable[] compoundDrawables = mDarkTextView.getCompoundDrawables();
