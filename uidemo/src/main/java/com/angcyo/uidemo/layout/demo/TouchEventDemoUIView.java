@@ -60,6 +60,8 @@ public class TouchEventDemoUIView extends UIContentView {
                 log(touchView);
                 ViewCompat.offsetTopAndBottom(touchView, 100);
                 log(touchView);
+
+                //((ViewGroup) mActivity.getWindow().getDecorView()).removeAllViews();
             }
         });
     }
