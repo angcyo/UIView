@@ -1,6 +1,7 @@
 package com.angcyo.uiview.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.skin.SkinHelper;
 
 import java.lang.reflect.Field;
 
@@ -59,9 +61,15 @@ public class T2 {
             switch (type % 4) {
                 case TYPE_OK:
                     imageView.setImageResource(R.drawable.base_ok);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        imageView.setImageTintList(ColorStateList.valueOf(SkinHelper.getSkin().getThemeSubColor()));
+                    }
                     break;
                 case TYPE_INFO:
                     imageView.setImageResource(R.drawable.base_info);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        imageView.setImageTintList(ColorStateList.valueOf(SkinHelper.getSkin().getThemeSubColor()));
+                    }
                     break;
                 case TYPE_ERROR:
                     imageView.setImageResource(R.drawable.base_failed_red);

@@ -83,6 +83,21 @@ public abstract class UIBaseView extends UIIViewImpl {
     protected View.OnClickListener mNonetSettingClickListener, mNonetRefreshClickListener;
     private Animation mLoadingAnimation;
 
+    public static void safeSetVisibility(final View view, final int visibility) {
+        if (view != null) {
+            if (view.getVisibility() == View.VISIBLE) {
+                ViewCompat.animate(view).scaleX(1.2f).scaleY(1.2f).alpha(0).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.setVisibility(visibility);
+                    }
+                }).setInterpolator(new DecelerateInterpolator()).setDuration(UIIViewImpl.DEFAULT_ANIM_TIME).start();
+            } else {
+                view.setVisibility(visibility);
+            }
+        }
+    }
+
     @Override
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         //包含标题栏的根布局
@@ -338,6 +353,9 @@ public abstract class UIBaseView extends UIIViewImpl {
         changeState(mLayoutState, LayoutState.CONTENT);
     }
 
+
+    //-----------------以下私有方法------------------//
+
     protected Animation loadLoadingAnimation() {
         RotateAnimation rotateAnimation = new RotateAnimation(0, 360,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -348,9 +366,6 @@ public abstract class UIBaseView extends UIIViewImpl {
         rotateAnimation.setDuration(1000);
         return rotateAnimation;
     }
-
-
-    //-----------------以下私有方法------------------//
 
     protected void fixInsertsTop() {
         mBaseRootLayout.fixInsertsTop();
@@ -408,21 +423,6 @@ public abstract class UIBaseView extends UIIViewImpl {
             ViewCompat.animate(view).alpha(1).scaleX(1).scaleY(1).start();
         }
         view.setVisibility(visibility);
-    }
-
-    private void safeSetVisibility(final View view, final int visibility) {
-        if (view != null) {
-            if (view.getVisibility() == View.VISIBLE) {
-                ViewCompat.animate(view).scaleX(1.2f).scaleY(1.2f).alpha(0).withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.setVisibility(visibility);
-                    }
-                }).setInterpolator(new DecelerateInterpolator()).setDuration(UIIViewImpl.DEFAULT_ANIM_TIME).start();
-            } else {
-                view.setVisibility(visibility);
-            }
-        }
     }
 
     public UITitleBarContainer getUITitleBarContainer() {

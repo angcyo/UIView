@@ -135,6 +135,10 @@ public class ExEditText extends AppCompatEditText {
         return (scrollY > 0) || (scrollY < scrollDifference - 1);
     }
 
+    public boolean canVerticalScroll() {
+        return canVerticalScroll(this);
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
