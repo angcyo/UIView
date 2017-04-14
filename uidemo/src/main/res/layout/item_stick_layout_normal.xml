@@ -27,7 +27,8 @@
         style="@style/BaseMainTextStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_40dpi"
-        android:background="@color/default_base_white"
+        android:background="@drawable/base_bg_selector"
+        android:clickable="true"
         android:gravity="right|center_vertical"
         android:text="测试文本2"/>
 

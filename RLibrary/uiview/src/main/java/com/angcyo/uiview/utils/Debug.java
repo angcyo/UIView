@@ -1,5 +1,7 @@
 package com.angcyo.uiview.utils;
 
+import android.text.TextUtils;
+
 import com.angcyo.library.utils.L;
 
 import java.util.Stack;
@@ -18,6 +20,8 @@ import java.util.Stack;
 public class Debug {
 
     private static Stack<Long> sStartTime = new Stack<>();
+    private static String lastTag;
+    private static long lastTime;
 
     public static void logTimeStart(String log) {
         long time = System.currentTimeMillis();
@@ -29,5 +33,23 @@ public class Debug {
         final long endTime = System.currentTimeMillis();
         Long pop = sStartTime.pop();
         L.e(log + " ----end:" + (endTime - pop) / 1000 + "秒" + (endTime - pop) % 1000);
+    }
+
+    public static void log(String tag, String log) {
+        String[] contents = L.wrapperContent(6, tag, log);
+        String t = contents[0];
+        String msg = contents[1];
+        String headString = contents[2];
+
+        if (TextUtils.equals(tag, lastTag)) {
+            long time = System.currentTimeMillis();
+            if (time - lastTime > 1000) {
+                L.printDefault(6, t, headString + msg);
+                lastTime = time;
+            }
+        } else {
+            L.printDefault(6, t, headString + msg);
+            lastTag = tag;
+        }
     }
 }

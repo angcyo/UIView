@@ -110,7 +110,7 @@ public class UIItemDialog extends UIIDialogImpl {
     protected TextView getItem(final ItemInfo info) {
         TextView textView = new TextView(mActivity);
         textView.setText(info.mItemText);
-        textView.setTextColor(mActivity.getResources().getColor(R.color.theme_color_accent));
+        textView.setTextColor(SkinHelper.getSkin().getThemeSubColor());
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 mActivity.getResources().getDimensionPixelSize(R.dimen.default_text_size));
         textView.setGravity(Gravity.CENTER);

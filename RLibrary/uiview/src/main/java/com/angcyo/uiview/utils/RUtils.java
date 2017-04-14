@@ -605,6 +605,44 @@ public class RUtils {
         return data.size() - 1 == position;
     }
 
+    /**
+     * 缩短很大的数字
+     */
+    public static String getShortString(long number) {
+        return getShortString(number, "");
+    }
+
+    public static String getShortString(long number, String suffix) {
+        String unit;
+        long num;
+        if (number / 10_000_000 > 0) {
+            unit = "千万";
+            num = number % 10_000_000;
+
+        } else if (number / 1_000_000 > 0) {
+            unit = "百万";
+            num = number / 1_000_000;
+
+        } else if (number / 100_000 > 0) {
+            unit = "十万";
+
+            num = number % 100_000;
+        } else if (number / 10_000 > 0) {
+            unit = "万";
+            num = number % 10_000;
+
+        } else {
+            unit = "";
+            num = number;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(num);
+        builder.append(unit);
+        builder.append(suffix);
+        return builder.toString();
+    }
+
     interface OnPutValue {
         void onValue(String key, String value);
     }

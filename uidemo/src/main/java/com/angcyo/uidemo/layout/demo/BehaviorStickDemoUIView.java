@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.demo;
 
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -11,6 +12,7 @@ import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
+import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.widget.viewpager.UIPagerAdapter;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
@@ -95,8 +97,14 @@ public class BehaviorStickDemoUIView extends UIContentView {
                 }
 
                 @Override
-                protected void onBindView(RBaseViewHolder holder, int position, String bean) {
+                protected void onBindView(RBaseViewHolder holder, final int position, String bean) {
                     holder.tv(R.id.text_view).setText("测试文本::" + position);
+                    holder.tv(R.id.text_view).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            T_.show("测试文本::" + position);
+                        }
+                    });
                 }
             });
         }

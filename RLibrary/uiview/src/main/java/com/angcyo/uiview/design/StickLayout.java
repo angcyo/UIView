@@ -230,9 +230,12 @@ public class StickLayout extends RelativeLayout {
                 float offsetY = downY - moveY;
                 float offsetX = downX - moveX;
 
-                if (isFirst &&
-                        (Math.abs(offsetX) < mTouchCheckSlop || Math.abs(offsetY) < mTouchCheckSlop)) {
-                    return super.dispatchTouchEvent(ev);
+                if (isFirst) {
+                    if (Math.abs(offsetX) > Math.abs(offsetY)) {
+                        return super.dispatchTouchEvent(ev);
+                    } else if (/*Math.abs(offsetX) < mTouchCheckSlop ||*/ Math.abs(offsetY) < mTouchCheckSlop) {
+                        return super.dispatchTouchEvent(ev);
+                    }
                 }
 
                 downY = moveY;
@@ -274,7 +277,7 @@ public class StickLayout extends RelativeLayout {
                         } else {
                             mIntercept = false;
                             if (wantV) {
-                                return false;
+                                //return false;
                             }
                         }
                     }

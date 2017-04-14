@@ -18,7 +18,7 @@
         style="@style/BaseMainTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/base_40dpi"
-        android:background="@color/base_chat_bg_color"
+        android:background="@drawable/base_main_color_bg_selector"
         android:text="测试文本"/>
 
     <TextView

@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.angcyo.uiview.R;
+import com.angcyo.uiview.skin.SkinHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,8 +89,8 @@ public class WaveSideBarView extends View {
         mLetters = Arrays.asList(context.getResources().getStringArray(R.array.waveSideBarLetters));
 
         mTextColor = Color.parseColor("#969696");
-        mWaveColor = Color.parseColor("#be69be91");
-        mTextColorChoose = context.getResources().getColor(android.R.color.white);
+        mWaveColor = SkinHelper.getSkin().getThemeTranColor(0x80); //Color.parseColor("#be69be91");
+        mTextColorChoose = SkinHelper.getSkin().getThemeSubColor();//context.getResources().getColor(android.R.color.white);
         mTextSize = context.getResources().getDimensionPixelSize(R.dimen.textSize_sidebar);
         mLargeTextSize = context.getResources().getDimensionPixelSize(R.dimen.large_textSize_sidebar);
         mPadding = context.getResources().getDimensionPixelSize(R.dimen.textSize_sidebar_padding);

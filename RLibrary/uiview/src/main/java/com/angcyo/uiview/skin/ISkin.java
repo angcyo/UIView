@@ -26,6 +26,8 @@ public interface ISkin {
 
     int getThemeDarkColor();
 
+    int getThemeTranColor(int alpha);
+
     /**
      * 波纹无限制, 默认是个圆形波纹
      */

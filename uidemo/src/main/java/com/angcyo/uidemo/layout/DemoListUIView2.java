@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
+import com.angcyo.uidemo.layout.demo.StickLayoutDemo2UIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemoUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutManagerUIView;
 import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
@@ -215,6 +217,18 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, "Stick Layout Demo2 (Beta)", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new StickLayoutDemo2UIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Behavior Stick Demo", new View.OnClickListener() {
 
                     @Override
@@ -273,6 +287,13 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
             }
         });
         items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void setItemOffsets(Rect rect) {
+                super.setItemOffsets(rect);
+                rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
+            }
+
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, "Ripple Drawable Demo", new View.OnClickListener() {

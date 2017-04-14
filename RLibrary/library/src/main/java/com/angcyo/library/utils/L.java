@@ -147,7 +147,7 @@ public class L {
         }
     }
 
-    private static void printDefault(int type, String tag, String msg) {
+    public static void printDefault(int type, String tag, String msg) {
         if (TextUtils.isEmpty(tag)) {
             tag = TAG;
         }
@@ -258,12 +258,16 @@ public class L {
         printLine(tag, false);
     }
 
-    private static String[] wrapperContent(String tag, Object... objects) {
+    public static String[] wrapperContent(String tag, Object... objects) {
+        return wrapperContent(6, tag, objects);
+    }
+
+    public static String[] wrapperContent(int level, String tag, Object... objects) {
         if (TextUtils.isEmpty(tag)) {
             tag = TAG;
         }
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        StackTraceElement targetElement = stackTrace[5];
+        StackTraceElement targetElement = stackTrace[level];
 //        String className = targetElement.getClassName();
         String fileName = targetElement.getFileName();
 //        String[] classNameInfo = className.split("\\.");
@@ -276,7 +280,7 @@ public class L {
             lineNumber = 0;
         }
 
-        StackTraceElement next = stackTrace[6];
+        StackTraceElement next = stackTrace[level + 1];
         String nextFileName = next.getFileName();
         String nextMethodName = next.getMethodName();
         int nextLineNumber = next.getLineNumber();
@@ -287,7 +291,8 @@ public class L {
         String methodNameShort = methodName.substring(0, 1).toUpperCase() + methodName.substring(1);
         String msg = (objects == null) ? "Log with null object" : getObjectsString(objects);
 //        String headString = "[(" + className + ":" + lineNumber + ")#" + methodNameShort + " ] ";
-        String headString = "[(" + nextFileName + ":" + nextLineNumber + ")#" + nextMethodName + "(" + fileName + ":" + lineNumber + ")#" + Thread.currentThread().getName() + "#" + methodNameShort + " ] ";
+        String headString = "[(" + nextFileName + ":" + nextLineNumber + ")#" + nextMethodName +
+                "(" + fileName + ":" + lineNumber + ")#" + Thread.currentThread().getName() + "#" + methodNameShort + " ] ";
         return new String[]{tag, msg, headString};
     }
 
