@@ -12,6 +12,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IntDef;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -250,7 +251,8 @@ public class RefreshLayout extends ViewGroup {
         if (!isEnabled()) {
             return super.onInterceptTouchEvent(event);
         }
-        int action = event.getActionMasked();
+        int action = MotionEventCompat.getActionMasked(event);//event.getActionMasked();
+
         if (action == MotionEvent.ACTION_DOWN) {
             downY = event.getY();
             downX = event.getX();

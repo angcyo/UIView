@@ -16,7 +16,7 @@ import butterknife.BindView;
 /**
  * Created by angcyo on 2017-03-15.
  */
-
+@Deprecated
 public class StickLayoutDemo2UIView extends UIContentView {
 
     @BindView(R.id.tab_layout)

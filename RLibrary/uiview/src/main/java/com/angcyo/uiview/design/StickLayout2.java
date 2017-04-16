@@ -18,6 +18,7 @@ import com.angcyo.uiview.utils.Debug;
  * Created by angcyo on 2017-03-15.
  */
 
+@Deprecated
 public class StickLayout2 extends RelativeLayout {
 
     View mFloatView;

@@ -10,6 +10,7 @@ import com.angcyo.uiview.github.textview.RevealTextView;
 import com.angcyo.uiview.github.textview.shimmer.Shimmer;
 import com.angcyo.uiview.github.textview.shimmer.ShimmerButton;
 import com.angcyo.uiview.github.textview.shimmer.ShimmerTextView;
+import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 
 import java.util.List;
@@ -27,8 +28,23 @@ import java.util.List;
  */
 public class GithubDemoUIView extends UIItemUIView<SingleItem> {
 
+    boolean isInSubUIView = false;
     private Shimmer mShimmer;
     private Shimmer mShimmer1;
+
+    @Override
+    protected TitleBarPattern getTitleBar() {
+        if (!isInSubUIView) {
+            return super.getTitleBar();
+        } else {
+            return null;
+        }
+    }
+
+    public GithubDemoUIView setInSubUIView(boolean inSubUIView) {
+        isInSubUIView = inSubUIView;
+        return this;
+    }
 
     @Override
     protected int getItemLayoutId(int viewType) {
