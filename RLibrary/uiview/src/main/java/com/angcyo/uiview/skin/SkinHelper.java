@@ -1,6 +1,8 @@
 package com.angcyo.uiview.skin;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 
 import com.angcyo.uiview.container.ILayout;
 
@@ -51,5 +53,12 @@ public class SkinHelper {
         if (layout != null) {
             layout.onSkinChanged(skin);
         }
+    }
+
+    /**
+     * 返回一个颜色的透明颜色
+     */
+    public static int getTranColor(@ColorInt int color, int alpha) {
+        return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
     }
 }

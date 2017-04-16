@@ -1,6 +1,8 @@
 package com.angcyo.uiview.widget.viewpager;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.support.annotation.ColorInt;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.design.StickLayout;
+import com.angcyo.uiview.skin.SkinHelper;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.utils.UI;
 
@@ -47,6 +50,21 @@ public class UIViewPager extends ViewPager implements Runnable, StickLayout.CanS
         init();
     }
 
+    public static void ensureGlow(ViewPager viewPager, int color) {
+        Object mGlow = Reflect.getMember(ViewPager.class, viewPager, "mLeftEdge");
+        setEdgetEffect(mGlow, color);
+        mGlow = Reflect.getMember(ViewPager.class, viewPager, "mRightEdge");
+        setEdgetEffect(mGlow, color);
+    }
+
+    public static void setEdgetEffect(Object edgeEffectCompat, @ColorInt int color) {
+        Object mEdgeEffect = Reflect.getMember(edgeEffectCompat, "mEdgeEffect");
+        Object mPaint = Reflect.getMember(mEdgeEffect, "mPaint");
+        if (mPaint instanceof Paint) {
+            ((Paint) mPaint).setColor(color);
+        }
+    }
+
     private void init() {
         //Reflect.setMember(getSuperclass(), this, "mCurItem", -1);
         addOnPageChangeListener(new SimpleOnPageChangeListener() {
@@ -57,6 +75,12 @@ public class UIViewPager extends ViewPager implements Runnable, StickLayout.CanS
             }
         });
         //setCurrentItem(defaultShowItem);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        ensureGlow(this, SkinHelper.getSkin().getThemeSubColor());
     }
 
     private Class<?> getSuperclass() {

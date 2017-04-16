@@ -38,4 +38,6 @@
     <color name="base_text_color_dark">#999999</color>
 
     <color name="base_chat_bg_color">#F0F0F5</color>
+
+    <color name="base_color_disable">#CBCBCB</color>
 </resources>

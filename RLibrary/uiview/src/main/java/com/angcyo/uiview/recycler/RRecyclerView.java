@@ -1,7 +1,9 @@
 package com.angcyo.uiview.recycler;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.ScrollerCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,6 +23,7 @@ import com.angcyo.uiview.recycler.recyclerview.adapters.ScaleInAnimationAdapter;
 import com.angcyo.uiview.recycler.recyclerview.animators.BaseItemAnimator;
 import com.angcyo.uiview.recycler.recyclerview.animators.FadeInDownAnimator;
 import com.angcyo.uiview.resources.AnimUtil;
+import com.angcyo.uiview.skin.SkinHelper;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.utils.UI;
 
@@ -78,6 +81,34 @@ public class RRecyclerView extends RecyclerView {
         initView(context);
     }
 
+    public static void ensureGlow(RecyclerView recyclerView, int color) {
+        Reflect.invokeMethod(RecyclerView.class, recyclerView, "ensureTopGlow");
+        Reflect.invokeMethod(RecyclerView.class, recyclerView, "ensureBottomGlow");
+        Reflect.invokeMethod(RecyclerView.class, recyclerView, "ensureRightGlow");
+        Reflect.invokeMethod(RecyclerView.class, recyclerView, "ensureLeftGlow");
+
+        setEdgeEffect(recyclerView, color);
+    }
+
+    private static void setEdgeEffect(RecyclerView recyclerView, int color) {
+        Object mGlow = Reflect.getMember(RecyclerView.class, recyclerView, "mTopGlow");
+        setEdgetEffect(mGlow, color);
+        mGlow = Reflect.getMember(RecyclerView.class, recyclerView, "mLeftGlow");
+        setEdgetEffect(mGlow, color);
+        mGlow = Reflect.getMember(RecyclerView.class, recyclerView, "mRightGlow");
+        setEdgetEffect(mGlow, color);
+        mGlow = Reflect.getMember(RecyclerView.class, recyclerView, "mBottomGlow");
+        setEdgetEffect(mGlow, color);
+    }
+
+    public static void setEdgetEffect(Object edgeEffectCompat, @ColorInt int color) {
+        Object mEdgeEffect = Reflect.getMember(edgeEffectCompat, "mEdgeEffect");
+        Object mPaint = Reflect.getMember(mEdgeEffect, "mPaint");
+        if (mPaint instanceof Paint) {
+            ((Paint) mPaint).setColor(color);
+        }
+    }
+
     protected void initView(Context context) {
         String tag = (String) this.getTag();
         if (TextUtils.isEmpty(tag) || "V".equalsIgnoreCase(tag)) {
@@ -126,6 +157,14 @@ public class RRecyclerView extends RecyclerView {
     }
 
     @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        ensureGlow(RRecyclerView.this, SkinHelper.getSkin().getThemeSubColor());
+    }
+
+    //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
+
+    @Override
     public void setTag(Object tag) {
         super.setTag(tag);
         initView(getContext());
@@ -151,7 +190,7 @@ public class RRecyclerView extends RecyclerView {
         }
     }
 
-    //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
+    //----------------end--------------------//
 
     /**
      * 请在{@link RRecyclerView#setAdapter(Adapter)}方法之前调用
@@ -182,8 +221,6 @@ public class RRecyclerView extends RecyclerView {
     public RBaseAdapter getAdapterRaw() {
         return mAdapterRaw;
     }
-
-    //----------------end--------------------//
 
     public AnimationAdapter getAnimationAdapter() {
         return mAnimationAdapter;

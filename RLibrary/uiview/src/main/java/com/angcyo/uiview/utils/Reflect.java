@@ -63,26 +63,34 @@ public class Reflect {
      * @param params     参数值
      * @return 失败返回null
      */
-    public static Object invokeMethod(Object obj, String methodName, Object[] params) {
+    public static Object invokeMethod(Object obj, String methodName, Object... params) {
         if (obj == null || TextUtils.isEmpty(methodName)) {
             return null;
         }
 
         Class<?> clazz = obj.getClass();
+        return invokeMethod(clazz, methodName, methodName, params);
+    }
+
+    public static Object invokeMethod(Class<?> cls, Object obj, String methodName, Object... params) {
+        if (obj == null || TextUtils.isEmpty(methodName)) {
+            return null;
+        }
+
         try {
             Class<?>[] paramTypes = null;
-            if (params != null) {
+            if (params != null && params.length > 0) {
                 paramTypes = new Class[params.length];
                 for (int i = 0; i < params.length; ++i) {
                     paramTypes[i] = params[i].getClass();
                 }
             }
-            Method method = clazz.getMethod(methodName, paramTypes);
+            Method method = cls.getDeclaredMethod(methodName, paramTypes);
             method.setAccessible(true);
-            return method.invoke(obj, params);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            Object invoke = method.invoke(obj, params);
+            return invoke;
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

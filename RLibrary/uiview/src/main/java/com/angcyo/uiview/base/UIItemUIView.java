@@ -44,6 +44,14 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
         infoLayout.setOnClickListener(onClickListener);
     }
 
+    public static void baseInitItem(RBaseViewHolder holder, @DrawableRes int leftRes, String itemText, int leftPadding, View.OnClickListener onClickListener) {
+        ItemInfoLayout infoLayout = holder.v(R.id.base_item_info_layout);
+        infoLayout.setItemText(itemText);
+        infoLayout.setLeftDrawableRes(leftRes);
+        infoLayout.setLeftDrawPadding(leftPadding);
+        infoLayout.setOnClickListener(onClickListener);
+    }
+
     @Override
     public int getDefaultBackgroundColor() {
         return getColor(R.color.base_chat_bg_color);

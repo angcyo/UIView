@@ -29,6 +29,8 @@ import com.angcyo.uiview.github.swipe.recyclerview.touch.DefaultItemTouchHelper;
 import com.angcyo.uiview.github.swipe.recyclerview.touch.OnItemMoveListener;
 import com.angcyo.uiview.github.swipe.recyclerview.touch.OnItemMovementListener;
 import com.angcyo.uiview.github.swipe.recyclerview.touch.OnItemStateChangedListener;
+import com.angcyo.uiview.recycler.RRecyclerView;
+import com.angcyo.uiview.skin.SkinHelper;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -95,6 +97,13 @@ public class SwipeMenuRecyclerView extends RecyclerView {
     public SwipeMenuRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mViewConfig = ViewConfiguration.get(getContext());
+
+        post(new Runnable() {
+            @Override
+            public void run() {
+                RRecyclerView.ensureGlow(SwipeMenuRecyclerView.this, SkinHelper.getSkin().getThemeSubColor());
+            }
+        });
     }
 
     private void initializeItemTouchHelper() {

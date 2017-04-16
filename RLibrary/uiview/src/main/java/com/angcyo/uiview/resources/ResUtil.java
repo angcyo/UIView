@@ -99,6 +99,30 @@ public class ResUtil {
         return bgStateDrawable;
     }
 
+    public static Drawable generateRoundBorderDrawable(float radii, int pressColor, int disableColor, int defaultColor) {
+        //圆角
+        Shape roundRectShape = new RoundRectShape(new float[]{radii, radii, radii, radii, radii, radii, radii, radii}, null, null);//圆角背景
+
+        //按下状态
+        ShapeDrawable shopDrawablePress = new ShapeDrawable(roundRectShape);//圆角shape
+        shopDrawablePress.getPaint().setColor(pressColor);//设置颜色
+
+        //正常状态
+        ShapeDrawable shopDrawableNormal = new ShapeDrawable(roundRectShape);
+        shopDrawableNormal.getPaint().setColor(defaultColor);
+
+        //禁用状态
+        ShapeDrawable disableDrawableNormal = new ShapeDrawable(roundRectShape);
+        disableDrawableNormal.getPaint().setColor(disableColor);
+
+        StateListDrawable bgStateDrawable = new StateListDrawable();//状态shape
+        bgStateDrawable.addState(new int[]{-android.R.attr.state_enabled}, disableDrawableNormal);//
+        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, shopDrawablePress);//按下状态
+        bgStateDrawable.addState(new int[]{}, shopDrawableNormal);//其他状态
+
+        return bgStateDrawable;
+    }
+
     /**
      * Generate bg drawable drawable.
      *
@@ -284,6 +308,15 @@ public class ResUtil {
         return bgStateDrawable;
     }
 
+    public static Drawable generateBgDrawable(int pressColor, int disableColor, int defaultColor) {
+        StateListDrawable bgStateDrawable = new StateListDrawable();//状态shape
+        bgStateDrawable.addState(new int[]{-android.R.attr.state_enabled}, new ColorDrawable(disableColor));//
+        bgStateDrawable.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(pressColor));//按下状态
+        bgStateDrawable.addState(new int[]{}, new ColorDrawable(defaultColor));//其他状态
+
+        return bgStateDrawable;
+    }
+
     @SuppressLint("NewApi")
     public static void setBgDrawable(View view, Drawable drawable) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -404,6 +437,24 @@ public class ResUtil {
 
     public static Drawable generateRippleRoundMaskDrawable(float radius, int rippleColor, int pressColor, int defaultColor) {
         Drawable drawable = ResUtil.generateRoundBorderDrawable(radius, pressColor, defaultColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleMaskDrawable(rippleColor, drawable);
+        } else {
+            return drawable;
+        }
+    }
+
+    public static Drawable generateRippleRoundMaskDrawable(float radius, int rippleColor, int pressColor, int disableColor, int defaultColor) {
+        Drawable drawable = ResUtil.generateRoundBorderDrawable(radius, pressColor, disableColor, defaultColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return ResUtil.generateRippleMaskDrawable(rippleColor, drawable);
+        } else {
+            return drawable;
+        }
+    }
+
+    public static Drawable generateRippleMaskDrawable(int rippleColor, int pressColor, int disableColor, int defaultColor) {
+        Drawable drawable = ResUtil.generateBgDrawable(pressColor, disableColor, defaultColor);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return ResUtil.generateRippleMaskDrawable(rippleColor, drawable);
         } else {

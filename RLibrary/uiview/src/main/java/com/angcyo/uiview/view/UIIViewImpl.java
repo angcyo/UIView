@@ -14,6 +14,8 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.resources.AnimUtil;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.skin.ISkin;
@@ -393,7 +396,6 @@ public abstract class UIIViewImpl implements IView {
         finishIView(iView, true);
     }
 
-
     public void finishIView(final IView iView, final UIParam param) {
         if (iView == null) {
             return;
@@ -625,6 +627,12 @@ public abstract class UIIViewImpl implements IView {
         if (view != null) {
             if (view instanceof UILayoutImpl) {
                 ((UILayoutImpl) view).onSkinChanged(skin);
+            }
+            if (view instanceof RecyclerView) {
+                RRecyclerView.ensureGlow(((RecyclerView) view), skin.getThemeSubColor());
+            }
+            if (view instanceof ViewPager) {
+                UIViewPager.ensureGlow((ViewPager) view, skin.getThemeSubColor());
             }
             if (view instanceof ViewGroup) {
                 ViewGroup viewGroup = (ViewGroup) view;

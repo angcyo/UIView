@@ -61,7 +61,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.TOP) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Scroller IView", new View.OnClickListener() {
+                initItem(holder, "1.Scroller IView", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -73,7 +73,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Refresh Layout Demo", new View.OnClickListener() {
+                initItem(holder, "2.Refresh Layout Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -85,7 +85,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Test Demo", new View.OnClickListener() {
+                initItem(holder, "3.Test Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -97,7 +97,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "RTL Demo", new View.OnClickListener() {
+                initItem(holder, "4.RTL Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -109,7 +109,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Emoji Layout Demo (Android5.+)", new View.OnClickListener() {
+                initItem(holder, "5.Emoji Layout Demo (Android5.+)", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -121,7 +121,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "ExEmoji Layout Demo", new View.OnClickListener() {
+                initItem(holder, "6.ExEmoji Layout Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -133,7 +133,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Swipe RecyclerUIView Demo", new View.OnClickListener() {
+                initItem(holder, "7.Swipe RecyclerUIView Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -145,7 +145,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Link Url Demo", new View.OnClickListener() {
+                initItem(holder, "8.Link Url Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -157,7 +157,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Center Button Demo", new View.OnClickListener() {
+                initItem(holder, "9.Center Button Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -169,7 +169,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Animator Demo", new View.OnClickListener() {
+                initItem(holder, "10.Animator Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -181,7 +181,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Loop RecyclerUIView Demo", new View.OnClickListener() {
+                initItem(holder, "11.Loop RecyclerUIView Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -193,7 +193,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "@ Mention Demo", new View.OnClickListener() {
+                initItem(holder, "12.@ Mention Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -205,7 +205,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Stick Layout Demo (Beta)", new View.OnClickListener() {
+                initItem(holder, "13.Stick Layout Demo (Beta)", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -217,7 +217,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Stick Layout Demo2 (Beta)", new View.OnClickListener() {
+                initItem(holder, "14.Stick Layout Demo2 (Beta)", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -229,7 +229,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Behavior Stick Demo", new View.OnClickListener() {
+                initItem(holder, "15.Behavior Stick Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -241,7 +241,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Stick LayoutManager Demo", new View.OnClickListener() {
+                initItem(holder, "16.Stick LayoutManager Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -253,7 +253,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "GitHub Project Demo", new View.OnClickListener() {
+                initItem(holder, "17.GitHub Project Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -265,7 +265,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Game CircleLayout Demo (Beta)", new View.OnClickListener() {
+                initItem(holder, "18.Game CircleLayout Demo (Beta)", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -277,7 +277,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Touch Event Demo", new View.OnClickListener() {
+                initItem(holder, "19.Touch Event Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -296,7 +296,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Ripple Drawable Demo", new View.OnClickListener() {
+                initItem(holder, "20.Ripple Drawable Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {

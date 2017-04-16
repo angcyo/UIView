@@ -42,10 +42,8 @@ public class SkinImpl implements ISkin {
 
     @Override
     public int getThemeTranColor(int alpha) {
-        int color = getThemeSubColor();
-        return Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
+        return SkinHelper.getTranColor(getThemeSubColor(), alpha);
     }
-
 
     @Override
     public Drawable getThemeTranBackgroundSelector() {
