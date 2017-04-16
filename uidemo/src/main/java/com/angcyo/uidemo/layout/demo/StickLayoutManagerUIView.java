@@ -1,5 +1,9 @@
 package com.angcyo.uidemo.layout.demo;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
@@ -10,6 +14,7 @@ import com.angcyo.uiview.design.StickLayoutManager;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
+import com.angcyo.uiview.utils.Reflect;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -82,6 +87,21 @@ public class StickLayoutManagerUIView extends UIRecyclerUIView<String, String, S
                 L.w("call: onBindViewHolder([holder, position])-> " + position);
                 super.onBindViewHolder(holder, position);
                 holder.tv(R.id.text_view).setText("测试文本: " + position);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Object mTopGlow = Reflect.getMember(RecyclerView.class, mRecyclerView, "mTopGlow");
+                        Object mEdgeEffect = Reflect.getMember(mTopGlow, "mEdgeEffect");
+                        Object mPaint = Reflect.getMember(mEdgeEffect, "mPaint");
+                        if (mPaint instanceof Paint) {
+                            ((Paint) mPaint).setColor(Color.RED);
+                        }
+//                        if (mEdgeEffect instanceof EdgeEffect) {
+//                            ((EdgeEffect) mEdgeEffect).setColor(Color.RED);
+//                        }
+                    }
+                });
             }
         };
     }

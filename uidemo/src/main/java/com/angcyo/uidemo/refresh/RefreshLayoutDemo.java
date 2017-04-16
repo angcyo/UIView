@@ -31,11 +31,11 @@ public class RefreshLayoutDemo extends UIContentView {
 
     @BindView(R.id.content_layout)
     UILayoutImpl mUILayout;
-    private NormalView mNormalView;
-    private WebviewView mWebviewView;
-    private RecyclerView mRecyclerView;
-    private GridView mGridView;
-    private StaggerView mStaggerView;
+    private NormalUIView mNormalUIView;
+    private WebviewUIView mWebviewUIView;
+    private RecyclerUIView mRecyclerUIView;
+    private GridUIView mGridUIView;
+    private StaggerUIView mStaggerUIView;
 
     @Override
     protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
@@ -50,18 +50,18 @@ public class RefreshLayoutDemo extends UIContentView {
 
     @Override
     protected void initOnShowContentLayout() {
-        mNormalView = new NormalView();
-        mWebviewView = new WebviewView();
-        mRecyclerView = new RecyclerView();
-        mGridView = new GridView();
-        mStaggerView = new StaggerView();
+        mNormalUIView = new NormalUIView();
+        mWebviewUIView = new WebviewUIView();
+        mRecyclerUIView = new RecyclerUIView();
+        mGridUIView = new GridUIView();
+        mStaggerUIView = new StaggerUIView();
         mUILayout.setEnableSwipeBack(false);
-        mUILayout.startIView(mNormalView);
-        mUILayout.startIView(mWebviewView);
-        mUILayout.startIView(mRecyclerView);
-        mUILayout.startIView(mGridView);
-        mUILayout.startIView(mStaggerView);
-        mUILayout.showIView(mNormalView);
+        mUILayout.startIView(mNormalUIView);
+        mUILayout.startIView(mWebviewUIView);
+        mUILayout.startIView(mRecyclerUIView);
+        mUILayout.startIView(mGridUIView);
+        mUILayout.startIView(mStaggerUIView);
+        mUILayout.showIView(mNormalUIView);
     }
 
     @Override
@@ -74,19 +74,19 @@ public class RefreshLayoutDemo extends UIContentView {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.in_normal_view:
-                mUILayout.showIView(mNormalView.getView());
+                mUILayout.showIView(mNormalUIView.getView());
                 break;
             case R.id.in_web_view:
-                mUILayout.showIView(mWebviewView.getView());
+                mUILayout.showIView(mWebviewUIView.getView());
                 break;
             case R.id.in_recycler_view:
-                mUILayout.showIView(mRecyclerView.getView());
+                mUILayout.showIView(mRecyclerUIView.getView());
                 break;
             case R.id.in_grid_view:
-                mUILayout.showIView(mGridView.getView());
+                mUILayout.showIView(mGridUIView.getView());
                 break;
             case R.id.in_stagger_view:
-                mUILayout.showIView(mStaggerView.getView());
+                mUILayout.showIView(mStaggerUIView.getView());
                 break;
             case R.id.refresh_view:
                 safeRefresh();

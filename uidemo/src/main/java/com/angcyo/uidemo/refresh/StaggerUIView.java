@@ -26,7 +26,7 @@ import com.angcyo.uiview.rsen.RefreshLayout;
  * 修改备注：
  * Version: 1.0.0
  */
-public class GridView extends UIContentView {
+public class StaggerUIView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
     private RRecyclerView mRecyclerView;
@@ -36,8 +36,11 @@ public class GridView extends UIContentView {
         mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
         mRecyclerView = new RRecyclerView(mActivity);
-        mRecyclerView.setTag("gv4");
+        mRecyclerView.setTag("SV3");
         mRefreshLayout.addView(mRecyclerView);
+//        TextView textView = new TextView(mActivity);
+//        textView.setText("我就是内容.....");
+//        mRefreshLayout.addView(textView);
         baseContentLayout.addView(mRefreshLayout);
     }
 
@@ -62,7 +65,7 @@ public class GridView extends UIContentView {
 
             @Override
             public int getItemCount() {
-                return 40;
+                return 60;
             }
 
             @Override
@@ -79,7 +82,6 @@ public class GridView extends UIContentView {
             }
         });
     }
-
 
     @Override
     protected TitleBarPattern getTitleBar() {

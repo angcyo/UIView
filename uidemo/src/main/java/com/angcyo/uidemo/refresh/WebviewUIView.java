@@ -21,7 +21,7 @@ import com.angcyo.uiview.utils.Web;
  * 修改备注：
  * Version: 1.0.0
  */
-public class WebviewView extends UIContentView {
+public class WebviewUIView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
 

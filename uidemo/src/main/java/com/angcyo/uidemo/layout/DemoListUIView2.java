@@ -133,7 +133,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Swipe RecyclerView Demo", new View.OnClickListener() {
+                initItem(holder, "Swipe RecyclerUIView Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -181,7 +181,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, "Loop RecyclerView Demo", new View.OnClickListener() {
+                initItem(holder, "Loop RecyclerUIView Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {

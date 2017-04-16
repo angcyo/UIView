@@ -87,7 +87,7 @@ public class DemoListUIView extends UIContentView {
             }
         });
 
-        addItem("-> Swipe RecyclerView Demo", new View.OnClickListener() {
+        addItem("-> Swipe RecyclerUIView Demo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startIView(new SwipeRecyclerViewUIView());
@@ -115,7 +115,7 @@ public class DemoListUIView extends UIContentView {
             }
         });
 
-        addItem("-> Loop RecyclerView Demo", new View.OnClickListener() {
+        addItem("-> Loop RecyclerUIView Demo", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startIView(new LoopRecyclerViewUIView());

@@ -15,6 +15,9 @@ public class Reflect {
      * 从一个对象中, 获取指定的成员对象
      */
     public static Object getMember(Object target, String member) {
+        if (target == null) {
+            return null;
+        }
         return getMember(target.getClass(), target, member);
     }
 

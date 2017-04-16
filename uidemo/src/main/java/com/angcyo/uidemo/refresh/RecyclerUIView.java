@@ -34,7 +34,7 @@ import static android.R.id.list;
  * 修改备注：
  * Version: 1.0.0
  */
-public class RecyclerView extends UIContentView {
+public class RecyclerUIView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
     private RRecyclerView mRecyclerView;

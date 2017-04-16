@@ -20,7 +20,7 @@ import com.angcyo.uiview.rsen.RefreshLayout;
  * 修改备注：
  * Version: 1.0.0
  */
-public class NormalView extends UIContentView {
+public class NormalUIView extends UIContentView {
 
     private RefreshLayout mRefreshLayout;
 
