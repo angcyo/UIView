@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -107,6 +108,16 @@ public class StickBehavior2<V extends View> extends CoordinatorLayout.Behavior<V
     @Override
     public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, V child, View directTargetChild, View target, int nestedScrollAxes) {
         return true;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
+        return super.onInterceptTouchEvent(parent, child, ev);
+    }
+
+    @Override
+    public boolean onTouchEvent(CoordinatorLayout parent, V child, MotionEvent ev) {
+        return super.onTouchEvent(parent, child, ev);
     }
 
     /**

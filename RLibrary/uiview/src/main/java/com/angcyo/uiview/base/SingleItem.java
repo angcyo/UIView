@@ -17,6 +17,7 @@ import com.angcyo.uiview.RApplication;
 
 public abstract class SingleItem implements Item {
 
+    protected final Rect mDrawRect = new Rect();
     /**
      * 左边绘制距离
      */
@@ -25,7 +26,6 @@ public abstract class SingleItem implements Item {
      * 上边留出距离
      */
     int topOffset = 0;
-
     int lineColor = -1;
     Type mType;
 
@@ -75,16 +75,21 @@ public abstract class SingleItem implements Item {
     }
 
     @Override
+    public void setItemOffsets2(Rect rect, int edge) {
+        setItemOffsets(rect);
+    }
+
+    @Override
     public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
         if (mType == Type.LINE && lineColor != -1) {
             paint.setColor(lineColor);
-            offsetRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top, itemView.getRight(), itemView.getTop());
-            canvas.drawRect(offsetRect, paint);
+            mDrawRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top, itemView.getRight(), itemView.getTop());
+            canvas.drawRect(mDrawRect, paint);
         } else {
             paint.setColor(Color.WHITE);
-            offsetRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top,
+            mDrawRect.set(itemView.getLeft(), itemView.getTop() - offsetRect.top,
                     itemView.getLeft() + leftOffset, itemView.getTop());
-            canvas.drawRect(offsetRect, paint);
+            canvas.drawRect(mDrawRect, paint);
         }
     }
 

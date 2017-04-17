@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextPaint;
 import android.view.View;
@@ -17,6 +19,22 @@ import android.view.View;
 
 public class RExItemDecoration extends RecyclerView.ItemDecoration {
 
+    /**
+     * 视图靠左边缘
+     */
+    public static final int EDGE_LEFT = 0b0001;
+    /**
+     * 视图靠右边缘
+     */
+    public static final int EDGE_RIGHT = 0b0010;
+    /**
+     * 视图靠顶边缘
+     */
+    public static final int EDGE_TOP = 0b0100;
+    /**
+     * 视图靠底边缘
+     */
+    public static final int EDGE_BOTTOM = 0b1000;
     TextPaint mTextPaint;
     ItemDecorationCallback mItemDecorationCallback;
 
@@ -28,6 +46,8 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
     public static RExItemDecoration build(ItemDecorationCallback itemDecorationCallback) {
         return new RExItemDecoration(itemDecorationCallback);
     }
+
+    //------------------------------------------公共方法---------------------------------
 
     /**
      * 判断 viewLayoutPosition 是否是一排的结束位置 (垂直水平通用)
@@ -48,30 +68,54 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
         return result;
     }
 
-    //------------------------------------------公共方法---------------------------------
+
+    public static boolean isLeftEdge(int edge) {
+        return (edge & EDGE_LEFT) == EDGE_LEFT;
+    }
+
+    public static boolean isRightEdge(int edge) {
+        return (edge & EDGE_RIGHT) == EDGE_RIGHT;
+    }
+
+    public static boolean isTopEdge(int edge) {
+        return (edge & EDGE_TOP) == EDGE_TOP;
+    }
+
+    public static boolean isBottomEdge(int edge) {
+        return (edge & EDGE_BOTTOM) == EDGE_BOTTOM;
+    }
+
+
+    //------------------------------------------私有方法---------------------------------
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         final RecyclerView.LayoutManager manager = parent.getLayoutManager();
+        final int firstItem;
         if (manager instanceof StaggeredGridLayoutManager) {
-            return;
+            final StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) manager;
+            firstItem = layoutManager.findFirstVisibleItemPositions(null)[0];
+            draw(c, parent, firstItem, layoutManager);
+        } else if (manager instanceof LinearLayoutManager) {
+            //线性布局
+            final LinearLayoutManager layoutManager = (LinearLayoutManager) manager;
+            firstItem = layoutManager.findFirstVisibleItemPosition();
+            draw(c, parent, firstItem, layoutManager);
         }
+    }
 
-        //线性布局
-        final LinearLayoutManager layoutManager = (LinearLayoutManager) manager;
-        final int firstItem = layoutManager.findFirstVisibleItemPosition();
+    private void draw(Canvas c, RecyclerView parent, int firstItem, LayoutManager layoutManager) {
         for (int i = 0; i < layoutManager.getChildCount(); i++) {
             final int viewAdapterPosition = firstItem + i;
             final View view = layoutManager.findViewByPosition(viewAdapterPosition);
             if (view != null) {
                 mItemDecorationCallback.draw(c, mTextPaint, view,
-                        mItemDecorationCallback.getItemOffsets(layoutManager, viewAdapterPosition),
+                        mItemDecorationCallback.getItemOffsets(layoutManager, viewAdapterPosition,
+                                getEdge(viewAdapterPosition, layoutManager)),
                         layoutManager.getItemCount(), viewAdapterPosition);
             }
         }
     }
-
-    //------------------------------------------私有方法---------------------------------
 
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -85,11 +129,78 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
         final int viewLayoutPosition = layoutParams.getViewLayoutPosition();//布局时当前View的位置
         final int viewAdapterPosition = layoutParams.getViewAdapterPosition();
 
-        if (layoutManager instanceof StaggeredGridLayoutManager) {
-            return;
+        getItemOffsets(outRect, layoutManager, viewAdapterPosition, getEdge(viewAdapterPosition, layoutManager));
+    }
+
+    private int getEdge(int position, LayoutManager layoutManager) {
+        int edge = 0;
+        if (layoutManager instanceof GridLayoutManager) {
+            return getEdge(((GridLayoutManager) layoutManager).getSpanCount(), position,
+                    layoutManager.getItemCount(), ((GridLayoutManager) layoutManager).getOrientation());
+        } else if (layoutManager instanceof LinearLayoutManager) {
+            if (((LinearLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.VERTICAL) {
+                edge |= EDGE_LEFT;
+                edge |= EDGE_RIGHT;
+                if (position == 0) {
+                    edge |= EDGE_TOP;
+                }
+                if (position == layoutManager.getItemCount() - 1) {
+                    edge |= EDGE_BOTTOM;
+                }
+            } else {
+                edge |= EDGE_TOP;
+                edge |= EDGE_BOTTOM;
+                if (position == 0) {
+                    edge |= EDGE_LEFT;
+                }
+                if (position == layoutManager.getItemCount() - 1) {
+                    edge |= EDGE_RIGHT;
+                }
+            }
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            //瀑布布局,分割线不好加
         }
 
-        final Rect offsets = mItemDecorationCallback.getItemOffsets((LinearLayoutManager) layoutManager, viewAdapterPosition);
+        return edge;
+    }
+
+    private int getEdge(int spanCount, int position, int itemCount, int orientation) {
+        int edge = 0;
+
+        if (orientation == LinearLayoutManager.VERTICAL) {
+            if (position % spanCount == 0) {
+                edge |= EDGE_LEFT;
+            }
+            if ((position + 1) % spanCount == 0) {
+                edge |= EDGE_RIGHT;
+            }
+            if (position < spanCount) {
+                edge |= EDGE_TOP;
+            }
+            final double ceil = Math.ceil(itemCount * 1f / spanCount);
+            if (position >= ceil * spanCount - spanCount) {
+                edge |= EDGE_BOTTOM;
+            }
+        } else {
+            if (position % spanCount == 0) {
+                edge |= EDGE_TOP;
+            }
+            if ((position + 1) % spanCount == 0) {
+                edge |= EDGE_BOTTOM;
+            }
+            if (position < spanCount) {
+                edge |= EDGE_LEFT;
+            }
+            final double ceil = Math.ceil(itemCount * 1f / spanCount);
+            if (position >= ceil * spanCount - spanCount) {
+                edge |= EDGE_RIGHT;
+            }
+        }
+        return edge;
+    }
+
+    private void getItemOffsets(Rect outRect, LayoutManager layoutManager, int viewAdapterPosition, int edge) {
+        final Rect offsets = mItemDecorationCallback.getItemOffsets(layoutManager, viewAdapterPosition, edge);
         outRect.set(offsets.left, offsets.top, offsets.right, offsets.bottom);
     }
 
@@ -97,7 +208,7 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
         /**
          * 返回需要腾出的空间大小
          */
-        Rect getItemOffsets(LinearLayoutManager layoutManager, int position);
+        Rect getItemOffsets(LayoutManager layoutManager, int position, int edge);
 
         /**
          * 绘制分割线
@@ -114,13 +225,20 @@ public class RExItemDecoration extends RecyclerView.ItemDecoration {
         }
 
         @Override
-        final public Rect getItemOffsets(LinearLayoutManager layoutManager, int position) {
+        final public Rect getItemOffsets(LayoutManager layoutManager, int position, int edge) {
             mRect.set(0, 0, 0, 0);
-            getItemOffsets(mRect, position);
+            getItemOffsets2(mRect, position, edge);
             return mRect;
         }
 
-        public abstract void getItemOffsets(Rect outRect, int position);
+        @Deprecated
+        public void getItemOffsets(Rect outRect, int position) {
+
+        }
+
+        public void getItemOffsets2(Rect outRect, int position, int edge) {
+            getItemOffsets(outRect, position);
+        }
 
         @Override
         public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {

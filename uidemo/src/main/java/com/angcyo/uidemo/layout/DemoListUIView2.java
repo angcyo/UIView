@@ -16,6 +16,7 @@ import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
+import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemo2UIView;
@@ -302,6 +303,20 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Ripple Drawable Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RippleDrawableDemoUIView());
+                    }
+                });
+            }
+        });
+
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
             public void setItemOffsets(Rect rect) {
                 super.setItemOffsets(rect);
                 rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
@@ -309,11 +324,11 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Ripple Drawable Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".RRecyclerView Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new RippleDrawableDemoUIView());
+                        startIView(new RRecyclerViewDemoUIView());
                     }
                 });
             }

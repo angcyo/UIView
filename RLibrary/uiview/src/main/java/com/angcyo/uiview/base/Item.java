@@ -15,7 +15,10 @@ import com.angcyo.uiview.recycler.RBaseViewHolder;
 public interface Item {
     void onBindView(RBaseViewHolder holder, int posInData, Item dataBean);
 
+    @Deprecated
     void setItemOffsets(Rect rect);
+
+    void setItemOffsets2(Rect rect, int edge);
 
     void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position);
 }

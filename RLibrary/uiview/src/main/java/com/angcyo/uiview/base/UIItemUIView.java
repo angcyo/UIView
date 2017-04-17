@@ -128,10 +128,11 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mRecyclerView.addItemDecoration(new RExItemDecoration(new RExItemDecoration.SingleItemCallback() {
+
             @Override
-            public void getItemOffsets(Rect outRect, int position) {
+            public void getItemOffsets2(Rect outRect, int position, int edge) {
                 T t = mItems.get(position);
-                t.setItemOffsets(outRect);
+                t.setItemOffsets2(outRect, edge);
             }
 
             @Override
