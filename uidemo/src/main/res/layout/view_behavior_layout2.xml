@@ -7,11 +7,13 @@
 
     <!--头部悬停布局-->
     <com.angcyo.uiview.design.TestLayout
+        android:id="@+id/test_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.angcyo.uiview.widget.RImageView
+            android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:clickable="true"

@@ -40,6 +40,7 @@ public class UILoading extends UIIDialogImpl {
     }
 
 
+    @Deprecated
     public static UILoading build() {
         if (mUILoading == null) {
             mUILoading = new UILoading();
@@ -50,22 +51,42 @@ public class UILoading extends UIIDialogImpl {
     /**
      * 显示
      */
+    @Deprecated
     public static void hide(ILayout layout) {
         if (isShowing) {
             layout.finishIView(mUILoading);
         }
     }
 
+    public static void hide() {
+        if (isShowing && mUILoading != null) {
+            mUILoading.finishDialog();
+        }
+    }
+
+    public static UILoading show2(ILayout layout) {
+        if (isShowing) {
+            mUILoading.initLoadingUI();
+        } else {
+            if (mUILoading == null) {
+                mUILoading = new UILoading();
+            }
+            layout.startIView(mUILoading);
+        }
+
+        return mUILoading;
+    }
+
     /**
      * 显示
      */
+    @Deprecated
     public UILoading show(ILayout layout) {
         if (isShowing) {
             mUILoading.initLoadingUI();
         } else {
             layout.startIView(mUILoading);
         }
-
         return this;
     }
 

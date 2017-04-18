@@ -64,9 +64,11 @@ dependencies {
     //compile "io.reactivex.rxjava2:rxjava:2.0.7"
     //compile "io.reactivex.rxjava2:rxandroid:2.0.1"
 
+    //https://github.com/tbruyelle/RxPermissions
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.3'
 
-    //compile 'zlc.season:rxdownload:1.2.8'
+    //https://github.com/ssseasonnn/RxDownload
+    compile 'zlc.season:rxdownload:1.2.8'
 
     /*https://github.com/JakeWharton/butterknife*/
     compile 'com.jakewharton:butterknife:8.5.1'

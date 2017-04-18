@@ -243,7 +243,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Behavior Stick Demo2", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Behavior Stick Demo2 (Deprecated)", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {

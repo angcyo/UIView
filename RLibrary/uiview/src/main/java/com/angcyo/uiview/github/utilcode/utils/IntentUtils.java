@@ -3,12 +3,14 @@ package com.angcyo.uiview.github.utilcode.utils;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
+
+import com.angcyo.uiview.RApplication;
 
 import java.io.File;
 
@@ -51,7 +53,11 @@ public class IntentUtils {
         } else {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
-        intent.setDataAndType(Uri.fromFile(file), type);
+        Uri uri;
+        uri = FileProvider.getUriForFile(RApplication.getApp(), AppUtils.getAppPackageName(RApplication.getApp()), file);
+//        uri = Uri.fromFile(file);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(uri, type);
         return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 

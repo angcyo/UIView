@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.demo;
 
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uidemo.R;
@@ -43,6 +44,13 @@ public class BehaviorStickDemoUIView2 extends UIContentView {
         tabLayout.setupWithViewPager(viewPager);
 
         viewPager.setAdapter(new BehaviorStickDemoUIView.PagerAdapter());
+
+        mViewHolder.v(R.id.image_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ViewCompat.offsetTopAndBottom(mViewHolder.v(R.id.test_layout), -100);
+            }
+        });
     }
 
 }

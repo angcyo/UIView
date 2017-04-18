@@ -11,26 +11,25 @@ import android.view.View;
 import android.widget.OverScroller;
 import android.widget.RelativeLayout;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uiview.recycler.RRecyclerView;
-import com.angcyo.uiview.utils.Debug;
+import com.angcyo.uiview.utils.Reflect;
 
 /**
  * Created by angcyo on 2017-03-15.
  */
 
-@Deprecated
 public class StickLayout2 extends RelativeLayout {
 
     View mFloatView;
     int floatTopOffset = 0;
     int floatTop = 0;//
-    float downY, downX, lastMoveX, lastMoveY, lastScrollY;
+    float downY, downX, lastX;
     StickLayout.CanScrollUpCallBack mScrollTarget;
     boolean inTopTouch = false, needHandle = true;
     boolean isFirst = true;
     boolean wantVertical = true;
     StickLayout.OnScrollListener mOnScrollListener;
-    boolean lastOffset = false;//之前是否偏移了
     private OverScroller mOverScroller;
     private GestureDetectorCompat mGestureDetectorCompat;
     private int mTouchSlop, mTouchCheckSlop;
@@ -40,6 +39,9 @@ public class StickLayout2 extends RelativeLayout {
     private float mInterceptDownY;
     private float mInterceptDownX;
     private boolean handleTouch = true;
+    private float lastOffsetY;
+    private float mLastVelocity = 0f;
+    private boolean isFling;
 
     public StickLayout2(Context context) {
         this(context, null);
@@ -61,7 +63,7 @@ public class StickLayout2 extends RelativeLayout {
 
                     @Override
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, final float velocityY) {
-                        //L.e("call: onFling([e1, e2, velocityX, velocityY])-> " + velocityX + "  " + velocityY);
+                        L.e("call: onFling([e1, e2, velocityX, velocityY])-> " + velocityX + "  " + velocityY);
                         if (Math.abs(velocityX) > Math.abs(velocityY)) {
                             return false;
                         }
@@ -71,19 +73,19 @@ public class StickLayout2 extends RelativeLayout {
                             return false;
                         }
                         fling(velocityY);
-                        final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
-                        final int velocityDecay = getChildAt(0).getMeasuredHeight() * 3;//速度衰减值
-                        if (velocityY < -velocityDecay && recyclerView != null) {
-                            final int fling = (int) -velocityY - velocityDecay;
-                            //L.e("recyclerView fling..............." + fling);
-                            recyclerView.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //L.e("call: run([])-> " + mOverScroller.getCurrVelocity());
-                                    recyclerView.fling(0, fling);
-                                }
-                            });
-                        }
+//                        final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
+//                        final int velocityDecay = getChildAt(0).getMeasuredHeight() * 3;//速度衰减值
+//                        if (velocityY < -velocityDecay && recyclerView != null) {
+//                            final int fling = (int) -velocityY - velocityDecay;
+//                            //L.e("recyclerView fling..............." + fling);
+//                            recyclerView.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    //L.e("call: run([])-> " + mOverScroller.getCurrVelocity());
+//                                    recyclerView.fling(0, fling);
+//                                }
+//                            });
+//                        }
                         return true;
                     }
                 });
@@ -92,6 +94,7 @@ public class StickLayout2 extends RelativeLayout {
     }
 
     private void fling(float velocityY) {
+        isFling = true;
         mOverScroller.fling(0, getScrollY(), 0, (int) -velocityY, 0, 0, 0, maxScrollY);
         postInvalidate();
     }
@@ -101,6 +104,37 @@ public class StickLayout2 extends RelativeLayout {
         //L.e("call: scrollTo([x, y])-> " + mOverScroller.getCurrVelocity() + "       :" + mOverScroller.getCurrY());
         if (mOverScroller.computeScrollOffset()) {
             int currY = mOverScroller.getCurrY();
+            if (currY - maxScrollY >= 0) {
+
+                if (isFling) {
+//                    post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            final float lastVelocity = getLastVelocity();
+//                            L.e("call: computeScroll([])-> " + lastVelocity);
+//                            final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
+//                            if (recyclerView != null) {
+//                                recyclerView.fling(0, (int) lastVelocity);
+//                            }
+//
+//                        }
+//                    });
+
+                    final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
+                    if (recyclerView != null) {
+                        recyclerView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                final float lastVelocity = getLastVelocity();
+                                L.e("call: computeScroll([])-> " + lastVelocity);
+                                int velocityDecay = getChildAt(0).getMeasuredHeight() * 3;//速度衰减值
+
+                                recyclerView.fling(0, Math.max(0, (int) lastVelocity - velocityDecay));
+                            }
+                        });
+                    }
+                }
+            }
             scrollTo(0, currY);
             postInvalidate();
         }
@@ -216,235 +250,101 @@ public class StickLayout2 extends RelativeLayout {
         return true;
     }
 
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        boolean intercept = this.mIntercept;
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                onTouchDown(ev);
-//                mInterceptDownY = event.getY();
-//                mInterceptDownX = event.getX();
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                if (intercept) {
-//                    float moveY = event.getY();
-//                    float moveX = event.getX();
-//                    float offsetY = mInterceptDownY - moveY;
-//                    float offsetX = mInterceptDownX - moveX;
-//
-//                    event.offsetLocation(offsetX, 0);
-//                }
-//                break;
-//            case MotionEvent.ACTION_CANCEL:
-//            case MotionEvent.ACTION_UP:
-//                onTouchUp();
-//                if (intercept) {
-//                    float moveY = event.getY();
-//                    float moveX = event.getX();
-//                    float offsetY = mInterceptDownY - moveY;
-//                    float offsetX = mInterceptDownX - moveX;
-//
-//                    event.offsetLocation(offsetX, offsetY);
-//                }
-//                break;
-//        }
-//        return super.onInterceptTouchEvent(ev);
-//    }
-
-
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        handleTouchEvent(ev);
-//        return super.onInterceptTouchEvent(ev);
-//    }
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        int action = ev.getAction();
-        boolean isDispatch = true;
-
-        mOverScroller.abortAnimation();
+//        if (!inTopTouch) {
+//            return super.dispatchTouchEvent(ev);
+//        }
         mGestureDetectorCompat.onTouchEvent(ev);
 
-        if (handleTouch) {
-            if (handleTouchEvent(ev)) {
-                isDispatch = false;
-            }
-        }
-        switch (action) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                onTouchDown(ev);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (!handleTouch) {
+                    break;
+                }
+
+                float moveY = ev.getY() + 0.5f;
+                float moveX = ev.getX() + 0.5f;
+                float offsetY = downY - moveY;
+                float offsetX = downX - moveX;
+
+                downY = moveY;
+                downX = moveX;
+
+                boolean wantV;
+                if (Math.abs(offsetX) > Math.abs(offsetY)) {
+                    wantV = false;
+                } else {
+                    wantV = true;
+                }
+
+                boolean first = isFirst;
+                isFirst = false;
+
+                if (first) {
+                    if (!wantV) {
+                        handleTouch = false;
+                        break;
+                    }
+
+                    wantVertical = wantV;
+
+                    if (inTopTouch) {
+                        scrollBy(0, (int) (offsetY));
+                    } else {
+                        if (wantVertical) {
+                            mIntercept = !offsetTo(offsetY);
+                        } else {
+                            mIntercept = false;
+                        }
+                    }
+
+                } else {
+                    ev.setLocation(lastX, moveY);
+
+                    if (inTopTouch) {
+                        scrollBy(0, (int) (offsetY));
+                    } else {
+                        if (wantVertical == wantV) {
+                            if (wantV) {
+                                mIntercept = !offsetTo(offsetY);
+                            } else {
+                                mIntercept = false;
+                            }
+                        } else {
+                            mIntercept = false;
+                            if (wantV) {
+                                //return false;
+                            }
+                        }
+                    }
+                }
+
+                lastOffsetY = offsetY;
+                //L.e("call: dispatchTouchEvent([ev])-> move..." + ensureOffset(offsetY));
+                break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 onTouchUp();
                 break;
         }
-        if (isDispatch) {
-            return super.dispatchTouchEvent(ev);
-        }
-        return true;
+        return super.dispatchTouchEvent(ev);
     }
 
-    private boolean handleTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                onTouchDown(event);
+    private float ensureOffset(float offsetY) {
+        int scrollY = getScrollY();
+        int maxScrollY = this.maxScrollY;
+        float scrollOffset = 0;
 
-                Debug.log("downat:", event.getY() + "");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                float moveY = event.getY();
-                float moveX = event.getX();
-                float offsetY = lastMoveY - moveY;
-                float offsetX = lastMoveX - moveX;
+        int maxOffset = maxScrollY - scrollY;
+        int minOffset = 0 - scrollY;
+        scrollOffset = Math.max(minOffset, Math.min(maxOffset, offsetY));
 
-                boolean isFirst = this.isFirst;
-                this.isFirst = false;
-//
-//                //downY = moveY;
-//                //downX = moveX;
-                lastMoveX = moveX;
-                lastMoveY = moveY;
-//
-//                boolean isCancel = false;
-
-                float scrollOffset = getScrollY() - lastScrollY;
-
-                if (isFirst) {
-                    if (Math.abs(offsetX) > Math.abs(offsetY)) {
-                        //第一次滑动的时候, 意图是横向滚动. 那么之后都不处理touch事件
-                        handleTouch = false;
-                        break;
-                    }
-                } else {
-                    if (Math.abs(offsetX) > Math.abs(offsetY)) {
-                        //event.setAction(MotionEvent.ACTION_DOWN);
-                        //L.e("call: handleTouchEvent([event])-> ----------------------");
-                        //event.setLocation(downX, moveY - scrollOffset);
-                        //isCancel = true;
-                        //break;
-                    }
-                }
-//
-//                if (offsetY != 0) {
-                boolean offsetTo = isOffsetTo(offsetY);
-//                    if (offsetTo) {
-//                        L.e("call: handleTouchEvent([event])-> " + "Cancel");
-//                        event.setAction(MotionEvent.ACTION_CANCEL);
-//                        lastOffset = true;
-//                    } else {
-//                        if (lastOffset) {
-//                            L.e("call: handleTouchEvent([event])-> " + "Down_Move");
-//                            //event.setAction(MotionEvent.ACTION_CANCEL);
-//                            //super.dispatchTouchEvent(event);
-//                            isCancel = true;
-//                            lastOffset = false;
-//                        }
-//                    }
-//                }
-//
-//                if (isCancel) {
-//                    event.setAction(MotionEvent.ACTION_DOWN);
-//                    super.dispatchTouchEvent(event);
-//                    event.setAction(MotionEvent.ACTION_MOVE);
-//                }
-
-                Debug.log("offset:", scrollOffset + "");
-                if (offsetTo) {
-                    // event.setAction(MotionEvent.ACTION_DOWN);
-                    // event.setLocation(downX, downY);
-//                    return true;
-                    event.setLocation(downX, downY - scrollOffset);
-                } else {
-                    Debug.log("moveto:", moveY + " -> " + (moveY + scrollOffset));
-                    event.setLocation(downX, moveY + scrollOffset);
-                }
-
-
-                break;
-        }
-        return false;
+        return scrollOffset;
     }
-
-    private void consumeTouchEvent(MotionEvent event) {
-        //event.setAction(MotionEvent.ACTION_DOWN);
-        event.setLocation(downX, downY);
-    }
-
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-////        if (!inTopTouch) {
-////            return super.dispatchTouchEvent(ev);
-////        }
-//        mOverScroller.abortAnimation();
-//        mGestureDetectorCompat.onTouchEvent(ev);
-//
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                onTouchDown(ev);
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                float moveY = event.getY();
-//                float moveX = event.getX();
-//                float offsetY = downY - moveY;
-//                float offsetX = downX - moveX;
-//
-//                if (isFirst &&
-//                        (Math.abs(offsetX) < mTouchCheckSlop || Math.abs(offsetY) < mTouchCheckSlop)) {
-//                    return super.dispatchTouchEvent(ev);
-//                }
-//
-//                downY = moveY;
-//                downX = moveX;
-//
-//                boolean wantV;
-//                if (Math.abs(offsetX) > Math.abs(offsetY)) {
-//                    wantV = false;
-//                } else {
-//                    wantV = true;
-//                }
-//
-//                boolean first = isFirst;
-//                isFirst = false;
-//
-//                if (first) {
-//                    wantVertical = wantV;
-//
-//                    if (inTopTouch) {
-//                        scrollBy(0, (int) (offsetY));
-//                    } else {
-//                        if (wantVertical) {
-//                            mIntercept = !isOffsetTo(offsetY);
-//                        } else {
-//                            mIntercept = false;
-//                        }
-//                    }
-//
-//                } else {
-//                    if (inTopTouch) {
-//                        scrollBy(0, (int) (offsetY));
-//                    } else {
-//                        if (wantVertical == wantV) {
-//                            if (wantV) {
-//                                mIntercept = !isOffsetTo(offsetY);
-//                            } else {
-//                                mIntercept = false;
-//                            }
-//                        } else {
-//                            mIntercept = false;
-//                            if (wantV) {
-//                                return false;
-//                            }
-//                        }
-//                    }
-//                }
-//                break;
-//            case MotionEvent.ACTION_CANCEL:
-//            case MotionEvent.ACTION_UP:
-//                onTouchUp();
-//                break;
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
 
     private void onTouchUp() {
         downY = 0;
@@ -454,67 +354,74 @@ public class StickLayout2 extends RelativeLayout {
         wantVertical = true;
         mIntercept = false;
         handleTouch = true;
-        lastOffset = false;
     }
 
-    /**
-     * 修正可以滚动的距离offsetY
-     */
-    private float fixOffset(float offsetY) {
-        int scrollY = getScrollY();
-        if (offsetY < 0) {
-            if (scrollY + offsetY >= 0) {
-                return offsetY;
-            } else {
-                return -scrollY;
-            }
-        } else {
-            if (scrollY + offsetY <= maxScrollY) {
-                return offsetY;
-            } else {
-                return maxScrollY - scrollY;
-            }
-        }
-    }
-
-    /**
-     * 返回是否偏移
-     */
-    private boolean isOffsetTo(float offsetY) {
+    private boolean offsetTo(float offsetY) {
         if (Math.abs(offsetY) > mTouchSlop) {
             if (offsetY < 0) {
                 //手指下滑
-                if (getScrollY() + offsetY <= 0) {
-                    //没有位置可以向下滚动了
-                    return false;
-                }
-
                 boolean scrollVertically = mScrollTarget.canChildScrollUp();
                 if (!scrollVertically) {
                     scrollBy(0, (int) (offsetY));
+                } else {
                     return true;
                 }
+
             } else {
                 if (isFloat()) {
-                } else {
-                    scrollBy(0, (int) (offsetY));
                     return true;
                 }
+                scrollBy(0, (int) (offsetY));
             }
         }
         return false;
     }
 
-    private void onTouchDown(MotionEvent event) {
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        boolean intercept = this.mIntercept;
+//        switch (ev.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                onTouchDown(ev);
+//                mInterceptDownY = ev.getY();
+//                mInterceptDownX = ev.getX();
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                if (intercept) {
+//                    float moveY = ev.getY();
+//                    float moveX = ev.getX();
+//                    float offsetY = mInterceptDownY - moveY;
+//                    float offsetX = mInterceptDownX - moveX;
+//
+//                    ev.offsetLocation(offsetX, 0);
+//                }
+//                break;
+//            case MotionEvent.ACTION_CANCEL:
+//            case MotionEvent.ACTION_UP:
+//                onTouchUp();
+//                if (intercept) {
+//                    float moveY = ev.getY();
+//                    float moveX = ev.getX();
+//                    float offsetY = mInterceptDownY - moveY;
+//                    float offsetX = mInterceptDownX - moveX;
+//
+//                    ev.offsetLocation(offsetX, offsetY);
+//                }
+//                break;
+//        }
+//        return super.onInterceptTouchEvent(ev);
+//    }
+
+    private void onTouchDown(MotionEvent ev) {
         onTouchUp();
 
-        downX = event.getX();
-        downY = event.getY();
+        downY = ev.getY() + 0.5f;
+        lastX = downX = ev.getX() + 0.5f;
+        int scrollY = getScrollY();
 
-        lastMoveX = downX;
-        lastMoveY = downY;
+        mOverScroller.abortAnimation();
 
-        lastScrollY = getScrollY();
+        isFling = false;
 
         if (isFloat()) {
             if (mFloatView.getMeasuredHeight() + floatTopOffset > downY) {
@@ -524,7 +431,7 @@ public class StickLayout2 extends RelativeLayout {
                 inTopTouch = false;
             }
         } else {
-            if (topHeight - lastScrollY > downY) {
+            if (topHeight - scrollY > downY) {
                 inTopTouch = true;
                 needHandle = true;
             } else {
@@ -537,20 +444,49 @@ public class StickLayout2 extends RelativeLayout {
         initScrollTarget();
     }
 
+    @Override
+    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
+        return true;
+    }
+
+    /**
+     * 滚动结束后时的速率
+     */
+    public float getLastVelocity() {
+        Object mScrollerY = Reflect.getMember(OverScroller.class, mOverScroller, "mScrollerY");
+        float currVelocity = (float) Reflect.getMember(mScrollerY, "mCurrVelocity");
+        if (Float.isNaN(currVelocity)) {
+            currVelocity = mLastVelocity;
+        } else {
+            mLastVelocity = currVelocity;
+        }
+        return currVelocity;
+    }
+
+    @Override
+    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
+        super.onNestedPreScroll(target, dx, dy, consumed);
+        //L.e("call: onNestedPreScroll([target, dx, dy, consumed])-> scroll..." + dy);
+        if (dy > 0) {
+            consumed[1] = (int) Math.min(dy, ensureOffset(lastOffsetY));
+        }
+    }
+
 //    @Override
-//    public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
-//        return true;
-//    }
+//    public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
+//        if (Math.abs(velocityX) > Math.abs(velocityY)) {
+//            return false;
+//        }
 //
-//    @Override
-//    public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
-//        super.onNestedPreScroll(target, dx, dy, consumed);
-//        consumed[0] = dx;
-//        consumed[1] = dy;
+//        if (isFloat() && velocityY > 0) {
+//            //L.e("call: onFling return");
+//            return super.onNestedPreFling(target, velocityX, velocityY);
+//        }
+//        fling(velocityY);
+//        return super.onNestedPreFling(target, velocityX, velocityY);
 //    }
 
     public void setOnScrollListener(StickLayout.OnScrollListener onScrollListener) {
         mOnScrollListener = onScrollListener;
     }
-
 }

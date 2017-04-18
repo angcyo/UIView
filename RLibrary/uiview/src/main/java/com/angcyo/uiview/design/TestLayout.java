@@ -1,7 +1,9 @@
 package com.angcyo.uiview.design;
 
 import android.content.Context;
+import android.support.v4.view.NestedScrollingChildHelper;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.LinearLayout;
 
 /**
@@ -9,6 +11,8 @@ import android.widget.LinearLayout;
  */
 
 public class TestLayout extends LinearLayout {
+    private NestedScrollingChildHelper mScrollingChildHelper;
+
     public TestLayout(Context context) {
         super(context);
     }
@@ -44,4 +48,21 @@ public class TestLayout extends LinearLayout {
 //        super.onDetachedFromWindow();
 //        L.e("onDetachedFromWindow() -> ");
 //    }
+
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        if (MotionEvent.ACTION_DOWN == MotionEventCompat.getActionMasked(ev)) {
+//            ViewCompat.offsetTopAndBottom(this, -100);
+//            getScrollingChildHelper().startNestedScroll(ViewCompat.SCROLL_AXIS_NONE);
+//        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    private NestedScrollingChildHelper getScrollingChildHelper() {
+        if (mScrollingChildHelper == null) {
+            mScrollingChildHelper = new NestedScrollingChildHelper(this);
+        }
+        return mScrollingChildHelper;
+    }
 }
