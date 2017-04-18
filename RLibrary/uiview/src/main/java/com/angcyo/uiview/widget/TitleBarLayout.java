@@ -3,8 +3,7 @@ package com.angcyo.uiview.widget;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.angcyo.uiview.R;
 
@@ -13,7 +12,7 @@ import com.angcyo.uiview.R;
  * Created by angcyo on 2016-11-05.
  */
 
-public class TitleBarLayout extends ViewGroup {
+public class TitleBarLayout extends LinearLayout {
 
     public TitleBarLayout(Context context) {
         super(context);
@@ -44,34 +43,36 @@ public class TitleBarLayout extends ViewGroup {
 //                height = statusBarHeight + getResources().getDimensionPixelSize(R.dimen.action_bar_height);
 //            }
 //        }
-            int statusBarHeight = getPaddingTop() + getPaddingBottom();
+            int statusBarHeight;
             if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                statusBarHeight += getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+                setPadding(getPaddingLeft(), statusBarHeight, getPaddingRight(), getPaddingBottom());
             }
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-            int width = MeasureSpec.getSize(widthMeasureSpec);
-            int height = MeasureSpec.getSize(heightMeasureSpec);
-            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-            View childAt = getChildAt(0);
-            childAt.measure(widthMeasureSpec, heightMeasureSpec);
-            if (heightMode == MeasureSpec.AT_MOST) {
-                setMeasuredDimension(widthMeasureSpec, childAt.getMeasuredHeight() + statusBarHeight);
-            } else {
-                setMeasuredDimension(widthMeasureSpec, height + statusBarHeight);
-            }
+//            int width = MeasureSpec.getSize(widthMeasureSpec);
+//            int height = MeasureSpec.getSize(heightMeasureSpec);
+//            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+//            View childAt = getChildAt(0);
+//            childAt.measure(widthMeasureSpec, heightMeasureSpec);
+//            if (heightMode == MeasureSpec.AT_MOST) {
+//                setMeasuredDimension(widthMeasureSpec, childAt.getMeasuredHeight() + statusBarHeight);
+//            } else {
+//                setMeasuredDimension(widthMeasureSpec, height + statusBarHeight);
+//            }
         }
     }
 
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int statusBarHeight = 0;
-        if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-        }
-
-        if (getChildCount() > 0) {
-            View childAt = getChildAt(0);
-            childAt.layout(l, t + statusBarHeight, r, t + statusBarHeight + childAt.getMeasuredHeight());
-        }
-    }
+//    @Override
+//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+//        int statusBarHeight = 0;
+//        if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+//        }
+//
+//        if (getChildCount() > 0) {
+//            View childAt = getChildAt(0);
+//            childAt.layout(l, t + statusBarHeight, r, t + statusBarHeight + childAt.getMeasuredHeight());
+//        }
+//    }
 }

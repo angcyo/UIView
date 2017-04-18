@@ -12,18 +12,20 @@
     android:orientation="vertical"
     android:padding="@dimen/base_xhdpi">
 
-    <TextView
+    <com.angcyo.uiview.widget.RTextView
         android:id="@+id/base_dialog_title_view"
         style="@style/BaseDialogTextStyle"
         android:layout_margin="0dp"
+        android:gravity="left"
         android:padding="@dimen/base_xhdpi"
         android:textSize="@dimen/default_text_size16"
         android:textStyle="bold"
         tools:text="对话框标题"/>
 
-    <TextView
+    <com.angcyo.uiview.widget.RTextView
         android:id="@+id/base_dialog_content_view"
         style="@style/BaseDialogTextStyle"
+        android:gravity="left"
         android:lineSpacingExtra="@dimen/base_ldpi"
         tools:text="对话框内容对话框内容对话框内容"/>
 

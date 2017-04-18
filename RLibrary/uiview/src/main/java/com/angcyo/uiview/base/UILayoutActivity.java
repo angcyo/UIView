@@ -40,6 +40,7 @@ public abstract class UILayoutActivity extends StyleActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
 
+        onLoadView();
         mRxPermissions = new RxPermissions(this);
         mRxPermissions.requestEach(needPermissions())
                 .map(new Func1<Permission, String>() {
@@ -68,7 +69,7 @@ public abstract class UILayoutActivity extends StyleActivity {
                             notifyAppDetailView();
                             T_.show("必要的权限被拒绝!");
                         } else {
-                            onLoadView();
+                            //onLoadView();
                         }
                     }
                 });

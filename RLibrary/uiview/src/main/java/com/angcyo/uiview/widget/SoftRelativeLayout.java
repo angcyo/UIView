@@ -37,7 +37,8 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
     /**
      * 锁定高度, 当键盘弹出的时候, 可以不改变size
      */
-    private boolean lockHeight = false;
+    private boolean lockHeight = false;//自动根据页面隐藏显示, 决定是否固定高度
+    private boolean fixHeight = false;//固定高度
 
     public SoftRelativeLayout(Context context) {
         super(context);
@@ -64,6 +65,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
 
     public void fitsSystemWindows(boolean fit) {
         mFitSystemWindow = fit;
+        setFitsSystemWindows(mFitSystemWindow);
     }
 
     @Override
@@ -161,7 +163,7 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
                     }
                 });
                 return super.onApplyWindowInsets(insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
-                        insets.getSystemWindowInsetRight(), lockHeight ? 0 : insets.getSystemWindowInsetBottom()));
+                        insets.getSystemWindowInsetRight(), lockHeight || fixHeight ? 0 : insets.getSystemWindowInsetBottom()));
             } else {
                 setPadding(getPaddingLeft(), 0, getPaddingRight(), 0);
 //                return super.onApplyWindowInsets(insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
@@ -203,8 +205,13 @@ public class SoftRelativeLayout extends RelativeLayout implements ILifecycle {
         return this;
     }
 
+    @Deprecated
     public void setLockHeight(boolean lockHeight) {
         this.lockHeight = lockHeight;
+    }
+
+    public void setFixHeight(boolean fixHeight) {
+        this.fixHeight = fixHeight;
     }
 
     /**

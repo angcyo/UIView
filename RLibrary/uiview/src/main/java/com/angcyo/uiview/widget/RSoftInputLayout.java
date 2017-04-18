@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -28,7 +29,7 @@ import java.util.Iterator;
  * 修改备注：
  * Version: 1.0.0
  */
-public class RSoftInputLayout extends ViewGroup {
+public class RSoftInputLayout extends FrameLayout {
 
     private static final String TAG = "Robi";
     View contentLayout;
@@ -90,15 +91,22 @@ public class RSoftInputLayout extends ViewGroup {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        if (!isInEditMode()) {
+        if (!isInEditMode() && isEnabled()) {
             setFitsSystemWindows(true);
             setClipToPadding(false);
         }
     }
 
     @Override
-    public void addView(View child, int index, LayoutParams params) {
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        setFitsSystemWindows(enabled);
+    }
+
+    @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
+
         int childCount = getChildCount();
         /*请按顺序布局*/
         if (childCount > 0) {
@@ -111,11 +119,10 @@ public class RSoftInputLayout extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (contentLayout == null) {
+        if (contentLayout == null || !isEnabled()) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
-
 
         int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
@@ -177,7 +184,8 @@ public class RSoftInputLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        if (contentLayout == null) {
+        if (contentLayout == null || !isEnabled()) {
+            super.onLayout(changed, l, t, r, b);
             return;
         }
 
@@ -230,6 +238,10 @@ public class RSoftInputLayout extends ViewGroup {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        if (!isEnabled()) {
+            return;
+        }
+
         removeCallbacks(mCheckSizeChanged);
         if (isSoftKeyboardShow()) {
             isEmojiShow = false;

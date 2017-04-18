@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public abstract class UIIDialogImpl extends UIIViewImpl {
 
     protected SoftRelativeLayout mDialogRootLayout;
+    protected View mDialogContentRootLayout;
 
     /**
      * 对话框显示的重力
@@ -70,9 +71,9 @@ public abstract class UIIDialogImpl extends UIIViewImpl {
     protected View inflateBaseView(FrameLayout container, LayoutInflater inflater) {
         mDialogRootLayout = new SoftRelativeLayout(mActivity);
         container.addView(mDialogRootLayout, new ViewGroup.LayoutParams(-1, -1));
-        View xmlRootView = UILayoutImpl.safeAssignView(mDialogRootLayout,
+        mDialogContentRootLayout = UILayoutImpl.safeAssignView(mDialogRootLayout,
                 inflateDialogView(mDialogRootLayout, inflater));
-        xmlRootView.setClickable(true);
+        mDialogContentRootLayout.setClickable(true);
         mDialogRootLayout.setGravity(getGravity());
         return mDialogRootLayout;
     }

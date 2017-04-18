@@ -600,6 +600,10 @@ public abstract class UIIViewImpl implements IView {
         return getResources().getDisplayMetrics().density;
     }
 
+    public float scaledDensity() {
+        return getResources().getDisplayMetrics().scaledDensity;
+    }
+
     public int widthPixels() {
         return getResources().getDisplayMetrics().widthPixels;
     }

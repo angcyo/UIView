@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.text.Layout.Alignment;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.text.style.AlignmentSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.BulletSpan;
@@ -71,43 +72,44 @@ public class SpannableStringUtils {
         private int quoteColor;
 
         private boolean isLeadingMargin;
-        private int     first;
-        private int     rest;
+        private int first;
+        private int rest;
 
         private boolean isBullet;
-        private int     gapWidth;
-        private int     bulletColor;
+        private int gapWidth;
+        private int bulletColor;
 
-        private float     proportion;
-        private float     xProportion;
-        private boolean   isStrikethrough;
-        private boolean   isUnderline;
-        private boolean   isSuperscript;
-        private boolean   isSubscript;
-        private boolean   isBold;
-        private boolean   isItalic;
-        private boolean   isBoldItalic;
-        private String    fontFamily;
+        private float proportion;
+        private float xProportion;
+        private boolean isStrikethrough;
+        private boolean isUnderline;
+        private boolean isSuperscript;
+        private boolean isSubscript;
+        private boolean isBold;
+        private boolean isItalic;
+        private boolean isBoldItalic;
+        private String fontFamily;
         private Alignment align;
 
-        private boolean  imageIsBitmap;
-        private Bitmap   bitmap;
-        private boolean  imageIsDrawable;
+        private boolean imageIsBitmap;
+        private Bitmap bitmap;
+        private boolean imageIsDrawable;
         private Drawable drawable;
-        private boolean  imageIsUri;
-        private Uri      uri;
-        private boolean  imageIsResourceId;
+        private boolean imageIsUri;
+        private Uri uri;
+        private boolean imageIsResourceId;
         @DrawableRes
-        private int      resourceId;
+        private int resourceId;
 
         private ClickableSpan clickSpan;
-        private String        url;
+        private String url;
 
         private boolean isBlur;
-        private float   radius;
-        private Blur    style;
+        private float radius;
+        private Blur style;
 
         private SpannableStringBuilder mBuilder;
+        private int textSize;
 
 
         private Builder(@NonNull CharSequence text) {
@@ -116,6 +118,7 @@ public class SpannableStringUtils {
             foregroundColor = defaultValue;
             backgroundColor = defaultValue;
             quoteColor = defaultValue;
+            textSize = -1;
             proportion = -1;
             xProportion = -1;
             mBuilder = new SpannableStringBuilder();
@@ -438,6 +441,14 @@ public class SpannableStringUtils {
         }
 
         /**
+         * 字体大小 dip单位
+         */
+        public Builder setTextSize(int textSize) {
+            this.textSize = textSize;
+            return this;
+        }
+
+        /**
          * 设置样式
          */
         private void setSpan() {
@@ -467,6 +478,10 @@ public class SpannableStringUtils {
             if (proportion != -1) {
                 mBuilder.setSpan(new RelativeSizeSpan(proportion), start, end, flag);
                 proportion = -1;
+            }
+            if (textSize != -1) {
+                mBuilder.setSpan(new AbsoluteSizeSpan(textSize, true), start, end, flag);
+                textSize = -1;
             }
             if (xProportion != -1) {
                 mBuilder.setSpan(new ScaleXSpan(xProportion), start, end, flag);

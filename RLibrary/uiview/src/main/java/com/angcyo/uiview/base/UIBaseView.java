@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.ColorInt;
@@ -105,7 +107,8 @@ public abstract class UIBaseView extends UIIViewImpl {
         mBaseRootId = R.id.base_root_layout_id;//View.generateViewId();
         mBaseRootLayout.setId(mBaseRootId);
 
-        mBaseRootLayout.setBackgroundColor(getDefaultBackgroundColor());
+        //mBaseRootLayout.setBackgroundColor(getDefaultBackgroundColor());
+        mBaseRootLayout.setBackground(getDefaultDrawable());
 
         TitleBarPattern titleBarPattern = getTitleBar();
         if (titleBarPattern != null) {
@@ -495,6 +498,10 @@ public abstract class UIBaseView extends UIIViewImpl {
     @ColorInt
     public int getDefaultBackgroundColor() {
         return Color.TRANSPARENT;
+    }
+
+    public Drawable getDefaultDrawable() {
+        return new ColorDrawable(getDefaultBackgroundColor());
     }
 
     public void updateSkin() {

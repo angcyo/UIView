@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.github.utilcode.utils.NetworkUtils;
+import com.hwangjr.rxbus.RxBus;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -41,6 +42,9 @@ public class NetworkStateReceiver extends BroadcastReceiver {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         netType = NetworkUtils.getNetworkType(activeNetworkInfo);
 
+        if (netType == NetworkUtils.NetworkType.NETWORK_WIFI) {
+            RxBus.get().post("update", "Wifi");
+        }
         L.w("网络变化至:" + netType + " " + (netType.value() > 0 ? "有网" : "没网"));
     }
 }

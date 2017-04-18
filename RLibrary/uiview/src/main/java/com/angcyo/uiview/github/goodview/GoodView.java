@@ -33,7 +33,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.angcyo.uiview.R;
+import com.angcyo.uiview.skin.SkinHelper;
 
 /**
  * 点赞效果
@@ -88,7 +88,7 @@ public class GoodView extends PopupWindow implements IGoodView {
      */
     public static void build(@NonNull View view) {
         GoodView goodView = new GoodView(view.getContext());
-        goodView.setTextColor(view.getResources().getColor(R.color.theme_color_accent));
+        goodView.setTextColor(SkinHelper.getSkin().getThemeSubColor());
         goodView.setText("+1");
         goodView.show(view);
     }

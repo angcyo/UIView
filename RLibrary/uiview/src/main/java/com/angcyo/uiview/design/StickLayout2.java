@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.OverScroller;
 import android.widget.RelativeLayout;
 
-import com.angcyo.library.utils.L;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.utils.Reflect;
 
@@ -26,18 +25,13 @@ public class StickLayout2 extends RelativeLayout {
     int floatTop = 0;//
     float downY, downX, lastX;
     StickLayout.CanScrollUpCallBack mScrollTarget;
-    boolean inTopTouch = false, needHandle = true;
+    boolean inTopTouch = false;
     boolean isFirst = true;
-    boolean wantVertical = true;
     StickLayout.OnScrollListener mOnScrollListener;
     private OverScroller mOverScroller;
     private GestureDetectorCompat mGestureDetectorCompat;
-    private int mTouchSlop, mTouchCheckSlop;
     private int maxScrollY, topHeight;
     private RRecyclerView.OnScrollEndListener mOnScrollEndListener;
-    private boolean mIntercept;
-    private float mInterceptDownY;
-    private float mInterceptDownX;
     private boolean handleTouch = true;
     private float lastOffsetY;
     private float mLastVelocity = 0f;
@@ -63,34 +57,17 @@ public class StickLayout2 extends RelativeLayout {
 
                     @Override
                     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, final float velocityY) {
-                        L.e("call: onFling([e1, e2, velocityX, velocityY])-> " + velocityX + "  " + velocityY);
                         if (Math.abs(velocityX) > Math.abs(velocityY)) {
                             return false;
                         }
 
                         if (isFloat() && velocityY > 0) {
-                            //L.e("call: onFling return");
                             return false;
                         }
                         fling(velocityY);
-//                        final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
-//                        final int velocityDecay = getChildAt(0).getMeasuredHeight() * 3;//速度衰减值
-//                        if (velocityY < -velocityDecay && recyclerView != null) {
-//                            final int fling = (int) -velocityY - velocityDecay;
-//                            //L.e("recyclerView fling..............." + fling);
-//                            recyclerView.post(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    //L.e("call: run([])-> " + mOverScroller.getCurrVelocity());
-//                                    recyclerView.fling(0, fling);
-//                                }
-//                            });
-//                        }
                         return true;
                     }
                 });
-        mTouchSlop = 0;
-        mTouchCheckSlop = 10;//ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
     private void fling(float velocityY) {
@@ -101,34 +78,17 @@ public class StickLayout2 extends RelativeLayout {
 
     @Override
     public void computeScroll() {
-        //L.e("call: scrollTo([x, y])-> " + mOverScroller.getCurrVelocity() + "       :" + mOverScroller.getCurrY());
         if (mOverScroller.computeScrollOffset()) {
             int currY = mOverScroller.getCurrY();
             if (currY - maxScrollY >= 0) {
-
                 if (isFling) {
-//                    post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            final float lastVelocity = getLastVelocity();
-//                            L.e("call: computeScroll([])-> " + lastVelocity);
-//                            final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
-//                            if (recyclerView != null) {
-//                                recyclerView.fling(0, (int) lastVelocity);
-//                            }
-//
-//                        }
-//                    });
-
                     final RecyclerView recyclerView = mScrollTarget.getRecyclerView();
                     if (recyclerView != null) {
                         recyclerView.post(new Runnable() {
                             @Override
                             public void run() {
                                 final float lastVelocity = getLastVelocity();
-                                L.e("call: computeScroll([])-> " + lastVelocity);
                                 int velocityDecay = getChildAt(0).getMeasuredHeight() * 3;//速度衰减值
-
                                 recyclerView.fling(0, Math.max(0, (int) lastVelocity - velocityDecay));
                             }
                         });
@@ -289,39 +249,10 @@ public class StickLayout2 extends RelativeLayout {
                         handleTouch = false;
                         break;
                     }
-
-                    wantVertical = wantV;
-
-                    if (inTopTouch) {
-                        scrollBy(0, (int) (offsetY));
-                    } else {
-                        if (wantVertical) {
-                            mIntercept = !offsetTo(offsetY);
-                        } else {
-                            mIntercept = false;
-                        }
-                    }
-
                 } else {
                     ev.setLocation(lastX, moveY);
-
-                    if (inTopTouch) {
-                        scrollBy(0, (int) (offsetY));
-                    } else {
-                        if (wantVertical == wantV) {
-                            if (wantV) {
-                                mIntercept = !offsetTo(offsetY);
-                            } else {
-                                mIntercept = false;
-                            }
-                        } else {
-                            mIntercept = false;
-                            if (wantV) {
-                                //return false;
-                            }
-                        }
-                    }
                 }
+                offsetTo(offsetY);
 
                 lastOffsetY = offsetY;
                 //L.e("call: dispatchTouchEvent([ev])-> move..." + ensureOffset(offsetY));
@@ -349,15 +280,12 @@ public class StickLayout2 extends RelativeLayout {
     private void onTouchUp() {
         downY = 0;
         downX = 0;
-        needHandle = true;
         isFirst = true;
-        wantVertical = true;
-        mIntercept = false;
         handleTouch = true;
     }
 
     private boolean offsetTo(float offsetY) {
-        if (Math.abs(offsetY) > mTouchSlop) {
+        if (Math.abs(offsetY) > 0) {
             if (offsetY < 0) {
                 //手指下滑
                 boolean scrollVertically = mScrollTarget.canChildScrollUp();
@@ -366,7 +294,6 @@ public class StickLayout2 extends RelativeLayout {
                 } else {
                     return true;
                 }
-
             } else {
                 if (isFloat()) {
                     return true;
@@ -376,41 +303,6 @@ public class StickLayout2 extends RelativeLayout {
         }
         return false;
     }
-
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        boolean intercept = this.mIntercept;
-//        switch (ev.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                onTouchDown(ev);
-//                mInterceptDownY = ev.getY();
-//                mInterceptDownX = ev.getX();
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                if (intercept) {
-//                    float moveY = ev.getY();
-//                    float moveX = ev.getX();
-//                    float offsetY = mInterceptDownY - moveY;
-//                    float offsetX = mInterceptDownX - moveX;
-//
-//                    ev.offsetLocation(offsetX, 0);
-//                }
-//                break;
-//            case MotionEvent.ACTION_CANCEL:
-//            case MotionEvent.ACTION_UP:
-//                onTouchUp();
-//                if (intercept) {
-//                    float moveY = ev.getY();
-//                    float moveX = ev.getX();
-//                    float offsetY = mInterceptDownY - moveY;
-//                    float offsetX = mInterceptDownX - moveX;
-//
-//                    ev.offsetLocation(offsetX, offsetY);
-//                }
-//                break;
-//        }
-//        return super.onInterceptTouchEvent(ev);
-//    }
 
     private void onTouchDown(MotionEvent ev) {
         onTouchUp();
@@ -426,20 +318,17 @@ public class StickLayout2 extends RelativeLayout {
         if (isFloat()) {
             if (mFloatView.getMeasuredHeight() + floatTopOffset > downY) {
                 inTopTouch = true;
-                needHandle = true;
             } else {
                 inTopTouch = false;
             }
         } else {
             if (topHeight - scrollY > downY) {
                 inTopTouch = true;
-                needHandle = true;
             } else {
                 inTopTouch = false;
             }
         }
         isFirst = true;
-        wantVertical = true;
 
         initScrollTarget();
     }

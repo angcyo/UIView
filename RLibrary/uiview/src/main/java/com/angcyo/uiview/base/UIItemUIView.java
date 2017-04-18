@@ -30,6 +30,7 @@ import java.util.List;
 public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<String, T, String> {
 
     protected List<T> mItems = new ArrayList<>();
+    protected RSoftInputLayout mSoftInputLayout;
 
     public static void baseInitItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
         ItemInfoLayout infoLayout = holder.v(R.id.base_item_info_layout);
@@ -108,12 +109,13 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
 
     @Override
     protected RefreshLayout createRefreshLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        RSoftInputLayout softInputLayout = new RSoftInputLayout(mActivity);//为软键盘弹出提供支持
+        //为软键盘弹出提供支持
+        mSoftInputLayout = new RSoftInputLayout(mActivity);
         RefreshLayout refreshLayout = new RefreshLayout(mActivity);
         refreshLayout.setRefreshDirection(RefreshLayout.TOP);
         refreshLayout.addRefreshListener(this);
-        softInputLayout.addView(refreshLayout, new ViewGroup.LayoutParams(-1, -1));
-        baseContentLayout.addView(softInputLayout, new ViewGroup.LayoutParams(-1, -1));
+        mSoftInputLayout.addView(refreshLayout, new ViewGroup.LayoutParams(-1, -1));
+        baseContentLayout.addView(mSoftInputLayout, new ViewGroup.LayoutParams(-1, -1));
         return refreshLayout;
     }
 

@@ -61,6 +61,7 @@ public class UILoading extends UIIDialogImpl {
     public static void hide() {
         if (isShowing && mUILoading != null) {
             mUILoading.finishDialog();
+            isShowing = false;
         }
     }
 
@@ -72,6 +73,7 @@ public class UILoading extends UIIDialogImpl {
                 mUILoading = new UILoading();
             }
             layout.startIView(mUILoading);
+            isShowing = true;
         }
 
         return mUILoading;

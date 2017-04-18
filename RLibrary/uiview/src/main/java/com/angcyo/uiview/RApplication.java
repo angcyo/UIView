@@ -159,7 +159,7 @@ public class RApplication extends Application {
             //RRealm.init(this, "r_jcenter.realm", true);
 
             /*Facebook图片加载库, 必须*/
-            Fresco.initialize(this);
+            //Fresco.initialize(this);
 
             DraweeViewUtil.init(this);
 
