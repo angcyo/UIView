@@ -1,4 +1,4 @@
-package cn.bingoogolapple.qrcode.zxing;
+package com.angcyo.rcode;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

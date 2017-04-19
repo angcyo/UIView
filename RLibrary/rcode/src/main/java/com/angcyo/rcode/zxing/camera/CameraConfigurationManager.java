@@ -139,7 +139,11 @@ final class CameraConfigurationManager {
 
 		/* 配置修改 */
         focusMode = findSettableValue(parameters.getSupportedFocusModes(),
-                Camera.Parameters.FOCUS_MODE_AUTO);
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+
+//        focusMode = findSettableValue(parameters.getSupportedFocusModes(),
+//                Camera.Parameters.FOCUS_MODE_AUTO);
+
         // if (prefs.getBoolean(PreferencesActivity.KEY_AUTO_FOCUS, true)) {
         // if (safeMode ||
         // prefs.getBoolean(PreferencesActivity.KEY_DISABLE_CONTINUOUS_FOCUS,
