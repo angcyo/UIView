@@ -51,13 +51,16 @@
         android:text="ButtonTest"
         android:textAllCaps="false"/>
 
-    <Button
+    <com.angcyo.uiview.widget.RImageView
         android:id="@+id/view6"
         android:layout_width="@dimen/base_100dpi"
         android:layout_height="@dimen/base_50dpi"
+        android:scaleType="centerCrop"
         android:layout_margin="@dimen/base_mdpi"
+        android:clickable="true"
         android:text="ButtonTest"
         android:textAllCaps="false"/>
+
 
     <Button
         android:id="@+id/view7"

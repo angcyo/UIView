@@ -67,6 +67,7 @@ public class RRecyclerView extends RecyclerView {
         }
     };
     private float mLastVelocity;
+    private int mLastScrollOffset;
 
     public RRecyclerView(Context context) {
         this(context, null);
@@ -316,13 +317,23 @@ public class RRecyclerView extends RecyclerView {
 
     @Override
     public void onScrollStateChanged(int state) {
-        //L.e("call: onScrollStateChanged([state])-> " + getLastVelocity());
-        if (mOnScrollEndListener != null) {
-            if (state == SCROLL_STATE_IDLE
-                    && computeVerticalScrollOffset() == 0
-                    && UI.canChildScrollDown(this)) {
-                mOnScrollEndListener.onScrollTopEnd(getLastVelocity());
-            }
+        //L.e("call: onScrollStateChanged([state])-> " + state + " :" + getLastVelocity());
+        final int scrollOffset = computeVerticalScrollOffset();
+        if (state == SCROLL_STATE_IDLE) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    if (mLastScrollOffset != scrollOffset && mOnScrollEndListener != null) {
+                        if (scrollOffset == 0
+                                && UI.canChildScrollDown(RRecyclerView.this)) {
+                            mOnScrollEndListener.onScrollTopEnd(getLastVelocity());
+                        }
+                    }
+                    mLastScrollOffset = -1;
+                }
+            });
+        } else {
+            mLastScrollOffset = scrollOffset;
         }
     }
 

@@ -13,6 +13,7 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.widget.RImageView;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class RippleDrawableDemoUIView extends UIItemUIView<SingleItem> {
     protected void createItems(List<SingleItem> items) {
         items.add(new SingleItem() {
             @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+            public void onBindView(final RBaseViewHolder holder, int posInData, Item dataBean) {
                 ResUtil.setBgDrawable(holder.v(R.id.view1), ResUtil.generateRippleDrawable(Color.RED));
                 ResUtil.setBgDrawable(holder.v(R.id.view2), ResUtil.generateRippleMaskDrawable(Color.RED));
                 ResUtil.setBgDrawable(holder.v(R.id.view3), ResUtil.generateRippleMaskDrawable(Color.RED, Color.BLUE, Color.GRAY));
@@ -49,6 +50,22 @@ public class RippleDrawableDemoUIView extends UIItemUIView<SingleItem> {
 
                     ResUtil.setBgDrawable(holder.v(R.id.view5), drawable);
                 }
+
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        final TransitionDrawable td = new TransitionDrawable(new Drawable[]{new ColorDrawable(0xfffcfcfc), getDrawable(R.drawable.image_demo)});
+//                        final TransitionDrawable td = new TransitionDrawable(
+//                                new Drawable[]{getDrawable(R.drawable.test_image), getDrawable(R.drawable.image_demo)});
+//                        holder.imgV(R.id.view6).setImageBitmap(td);
+//                        td.startTransition(3000);
+
+                        RImageView imageView = holder.v(R.id.view6);
+//                        imageView.setImageDrawable(new ColorDrawable(0xfffcfcfc), getDrawable(R.drawable.image_demo));
+                        imageView.setImageDrawable(getDrawable(R.drawable.test_image), getDrawable(R.drawable.image_demo));
+                    }
+                }, 500);
+
             }
         });
     }

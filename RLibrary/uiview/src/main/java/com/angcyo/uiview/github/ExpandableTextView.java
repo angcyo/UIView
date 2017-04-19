@@ -199,6 +199,7 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
 
     @Override
     protected void onFinishInflate() {
+        super.onFinishInflate();
         findViews();
     }
 

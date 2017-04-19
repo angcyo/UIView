@@ -1,13 +1,17 @@
 package com.angcyo.uiview.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
@@ -32,6 +36,11 @@ public class RImageView extends AppCompatImageView {
     Drawable mPlayDrawable;
     private boolean isAttachedToWindow;
     private boolean mShowMask;//显示click时的蒙层
+
+    /**
+     * 当调用{@link android.widget.ImageView#setImageDrawable(Drawable)} 时, 是否显示过渡动画
+     */
+    private boolean showDrawableAnim = true;
 
     public RImageView(Context context) {
         super(context);
@@ -121,7 +130,7 @@ public class RImageView extends AppCompatImageView {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         clearColor();
-        //setImageDrawable(null);
+        //setImageBitmap(null);
         isAttachedToWindow = false;
     }
 
@@ -156,5 +165,46 @@ public class RImageView extends AppCompatImageView {
 
     public void setPlayDrawable(@DrawableRes int res) {
         setPlayDrawable(ContextCompat.getDrawable(getContext(), res));
+    }
+
+//    @Override
+//    public void setImageResource(@DrawableRes int resId) {
+//        super.setImageResource(resId);
+//    }
+//
+//    @Override
+//    public void setImageBitmap(Bitmap bm) {
+//        super.setImageBitmap(bm);
+//    }
+//
+//    @Override
+//    public void setImageBitmap(@Nullable Drawable drawable) {
+//        if (showDrawableAnim) {
+//            Drawable drawable1 = getDrawable();
+//            final TransitionDrawable td = new TransitionDrawable(
+//                    new Drawable[]{drawable1 == null ? new ColorDrawable(Color.WHITE) : drawable1,
+//                            drawable});
+//            super.setImageBitmap(td);
+//            td.startTransition(300);
+//        } else {
+//            super.setImageBitmap(drawable);
+//        }
+//    }
+
+    /**
+     * 使用过渡的方式显示Drawable
+     */
+    public void setImageDrawable(@Nullable Drawable fromDrawable, @Nullable Drawable toDrawable) {
+        final TransitionDrawable td = new TransitionDrawable(new Drawable[]{
+                fromDrawable, toDrawable});
+        super.setImageDrawable(td);
+        td.startTransition(300);
+    }
+
+    public void setImageBitmap(@Nullable Drawable fromDrawable, @Nullable Bitmap toBitmap) {
+        final TransitionDrawable td = new TransitionDrawable(new Drawable[]{
+                fromDrawable, new BitmapDrawable(getResources(), toBitmap)});
+        super.setImageDrawable(td);
+        td.startTransition(300);
     }
 }
