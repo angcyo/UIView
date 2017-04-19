@@ -1,0 +1,15 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion Integer.parseInt(rootProject.C_SDK)
+    buildToolsVersion rootProject.B_TOOLS
+
+    defaultConfig {
+        minSdkVersion Integer.parseInt(rootProject.M_SDK)
+        targetSdkVersion Integer.parseInt(rootProject.T_SDK)
+    }
+}
+
+dependencies {
+    compile project(':RLibrary:library')
+}

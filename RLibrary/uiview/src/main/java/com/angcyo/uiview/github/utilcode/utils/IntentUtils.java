@@ -48,14 +48,17 @@ public class IntentUtils {
         if (file == null) return null;
         Intent intent = new Intent(Intent.ACTION_VIEW);
         String type;
-        if (Build.VERSION.SDK_INT < 23) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             type = "application/vnd.android.package-archive";
         } else {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
         Uri uri;
-        uri = FileProvider.getUriForFile(RApplication.getApp(), AppUtils.getAppPackageName(RApplication.getApp()), file);
-//        uri = Uri.fromFile(file);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = FileProvider.getUriForFile(RApplication.getApp(), AppUtils.getAppPackageName(RApplication.getApp()), file);
+        } else {
+            uri = Uri.fromFile(file);
+        }
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setDataAndType(uri, type);
         return intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
