@@ -15,6 +15,7 @@ import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
+import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
@@ -219,7 +220,7 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Stick Layout Demo2 (Deprecated)", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Stick Layout Demo2", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -315,6 +316,18 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         });
 
         items.add(new SingleItem(SingleItem.Type.LINE) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".RRecyclerView Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RRecyclerViewDemoUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
             public void setItemOffsets(Rect rect) {
@@ -324,11 +337,11 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".RRecyclerView Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Math Path Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new RRecyclerViewDemoUIView());
+                        startIView(new MathPathUIView());
                     }
                 });
             }
