@@ -3,7 +3,9 @@ package com.angcyo.uiview.widget;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.angcyo.uiview.R;
 
@@ -12,7 +14,7 @@ import com.angcyo.uiview.R;
  * Created by angcyo on 2016-11-05.
  */
 
-public class TitleBarLayout extends LinearLayout {
+public class TitleBarLayout extends FrameLayout {
 
     public TitleBarLayout(Context context) {
         super(context);
@@ -22,57 +24,33 @@ public class TitleBarLayout extends LinearLayout {
         super(context, attrs);
     }
 
-    public TitleBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
+    @Override
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        super.addView(child, index, params);
+        if (getChildCount() > 1) {
+            throw new IllegalArgumentException("Need Only One Child View.");
+        }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (getChildCount() == 0) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        } else {
-//        Context context = getContext();
-//        if (context instanceof Activity) {
-//            if (ResUtil.isLayoutFullscreen((Activity) context)) {
-//                int statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-//                setClipToPadding(false);
-//                setClipChildren(false);
-//                setPadding(getPaddingLeft(),
-//                        statusBarHeight,
-//                        getPaddingRight(), getPaddingBottom());
-//                height = statusBarHeight + getResources().getDimensionPixelSize(R.dimen.action_bar_height);
-//            }
-//        }
-            int statusBarHeight;
-            if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-                setPadding(getPaddingLeft(), statusBarHeight, getPaddingRight(), getPaddingBottom());
-            }
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-//            int width = MeasureSpec.getSize(widthMeasureSpec);
-//            int height = MeasureSpec.getSize(heightMeasureSpec);
-//            int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-//            View childAt = getChildAt(0);
-//            childAt.measure(widthMeasureSpec, heightMeasureSpec);
-//            if (heightMode == MeasureSpec.AT_MOST) {
-//                setMeasuredDimension(widthMeasureSpec, childAt.getMeasuredHeight() + statusBarHeight);
-//            } else {
-//                setMeasuredDimension(widthMeasureSpec, height + statusBarHeight);
-//            }
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
+
+        if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && getChildCount() > 0) {
+            setPadding(getPaddingLeft(), statusBarHeight, getPaddingRight(), getPaddingBottom());
+            View childAt = getChildAt(0);
+
+            if (heightMode == MeasureSpec.EXACTLY) {
+                childAt.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY));
+            } else {
+                childAt.measure(widthMeasureSpec, heightMeasureSpec);
+                heightSize = childAt.getMeasuredHeight();
+            }
+            setMeasuredDimension(getMeasuredWidth(), heightSize + statusBarHeight + getPaddingBottom());
         }
     }
-
-//    @Override
-//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-//        int statusBarHeight = 0;
-//        if (!isInEditMode() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            statusBarHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
-//        }
-//
-//        if (getChildCount() > 0) {
-//            View childAt = getChildAt(0);
-//            childAt.layout(l, t + statusBarHeight, r, t + statusBarHeight + childAt.getMeasuredHeight());
-//        }
-//    }
 }

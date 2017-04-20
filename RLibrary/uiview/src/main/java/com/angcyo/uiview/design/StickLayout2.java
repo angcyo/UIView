@@ -218,7 +218,7 @@ public class StickLayout2 extends RelativeLayout {
         boolean event = mGestureDetectorCompat.onTouchEvent(ev);
         if (event) {
             ev.setAction(MotionEvent.ACTION_CANCEL);
-            return super.dispatchTouchEvent(ev);
+            //return super.dispatchTouchEvent(ev);
         }
 
         switch (ev.getAction()) {

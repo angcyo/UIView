@@ -188,12 +188,13 @@ public class ItemInfoLayout extends RelativeLayout {
     /**
      * 在右边添加一个View
      */
-    public void addRightView(View view, int width, int height, int rightMargin) {
+    public ItemInfoLayout addRightView(View view, int width, int height, int rightMargin) {
         LayoutParams imageParam = new LayoutParams(width, height);
         imageParam.addRule(RelativeLayout.CENTER_VERTICAL);
         imageParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         imageParam.rightMargin = rightMargin;
         addView(view, imageParam);
+        return this;
     }
 
     public ImageView getImageView() {
@@ -208,7 +209,7 @@ public class ItemInfoLayout extends RelativeLayout {
         return mDarkTextView;
     }
 
-    public void setDarkDrawableRes(int darkDrawableRes) {
+    public ItemInfoLayout setDarkDrawableRes(int darkDrawableRes) {
         this.darkDrawableRes = darkDrawableRes;
         final Drawable[] compoundDrawables = mDarkTextView.getCompoundDrawables();
         if (darkDrawableRes == -1) {
@@ -219,19 +220,22 @@ public class ItemInfoLayout extends RelativeLayout {
                     getResources().getDrawable(darkDrawableRes),
                     compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
         }
+        return this;
     }
 
-    public void setLeftDrawPadding(int leftDrawPadding) {
+    public ItemInfoLayout setLeftDrawPadding(int leftDrawPadding) {
         this.leftDrawPadding = leftDrawPadding;
         mTextView.setCompoundDrawablePadding(leftDrawPadding);
+        return this;
     }
 
-    public void setRightDrawPadding(int rightDrawPadding) {
+    public ItemInfoLayout setRightDrawPadding(int rightDrawPadding) {
         this.rightDrawPadding = rightDrawPadding;
         mDarkTextView.setCompoundDrawablePadding(leftDrawPadding);
+        return this;
     }
 
-    public void setRightDrawableRes(int rightDrawableRes) {
+    public ItemInfoLayout setRightDrawableRes(int rightDrawableRes) {
         this.rightDrawableRes = rightDrawableRes;
         final Drawable[] compoundDrawables = mDarkTextView.getCompoundDrawables();
         if (rightDrawableRes == -1) {
@@ -242,9 +246,10 @@ public class ItemInfoLayout extends RelativeLayout {
                     compoundDrawables[0], compoundDrawables[1],
                     getResources().getDrawable(rightDrawableRes), compoundDrawables[3]);
         }
+        return this;
     }
 
-    public void setLeftDrawableRes(int leftDrawableRes) {
+    public ItemInfoLayout setLeftDrawableRes(int leftDrawableRes) {
         this.leftDrawableRes = leftDrawableRes;
         final Drawable[] compoundDrawables = mTextView.getCompoundDrawables();
         if (leftDrawableRes == -1) {
@@ -255,33 +260,40 @@ public class ItemInfoLayout extends RelativeLayout {
                     getResources().getDrawable(leftDrawableRes),
                     compoundDrawables[1], compoundDrawables[2], compoundDrawables[3]);
         }
+        return this;
     }
 
-    public void setItemDarkText(String itemDarkText) {
+    public ItemInfoLayout setItemDarkText(String itemDarkText) {
         this.itemDarkText = itemDarkText;
         mDarkTextView.setText(itemDarkText);
+        return this;
     }
 
-    public void setItemDarkTag(String darkTag) {
+    public ItemInfoLayout setItemDarkTag(String darkTag) {
         itemDarkTag = darkTag;
         mDarkTextView.setTag(darkTag);
+        return this;
     }
 
-    public void setItemTextTag(String tag) {
+    public ItemInfoLayout setItemTextTag(String tag) {
         itemTag = tag;
         mTextView.setTag(tag);
+        return this;
     }
 
-    public void setItemText(String itemText) {
+    public ItemInfoLayout setItemText(String itemText) {
         this.itemText = itemText;
         mTextView.setText(itemText);
+        return this;
     }
 
-    public void setDarkImageSize(int darkImageSize) {
+    public ItemInfoLayout setDarkImageSize(int darkImageSize) {
         this.darkImageSize = darkImageSize;
+        return this;
     }
 
-    public void setRedDotMode(boolean redDotMode) {
+    public ItemInfoLayout setRedDotMode(boolean redDotMode) {
         isRedDotMode = redDotMode;
+        return this;
     }
 }

@@ -94,6 +94,17 @@ public abstract class SingleItem implements Item {
     }
 
     public enum Type {
-        TOP, LINE, TOP_LINE
+        /**
+         * 距离很大的Line
+         */
+        TOP,
+        /**
+         * Line
+         */
+        LINE,
+        /**
+         * 左边偏移TOP距离的Line
+         */
+        TOP_LINE
     }
 }

@@ -1,6 +1,7 @@
 package com.angcyo.uiview.utils;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -641,6 +642,42 @@ public class RUtils {
         builder.append(unit);
         builder.append(suffix);
         return builder.toString();
+    }
+
+    /**
+     * 该方法是调用了系统的下载管理器
+     */
+    public static long downLoadFile(Context context, String url) {
+        if (TextUtils.isEmpty(url)) {
+            return -1;
+        }
+        /**
+         * 在这里返回的 reference 变量是系统为当前的下载请求分配的一个唯一的ID，
+         * 我们可以通过这个ID重新获得这个下载任务，进行一些自己想要进行的操作
+         * 或者查询下载的状态以及取消下载等等
+         */
+        Uri uri = Uri.parse(url);        //下载连接
+        DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);  //得到系统的下载管理
+        DownloadManager.Request request = new DownloadManager.Request(uri);  //得到连接请求对象
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);   //指定在什么网络下进行下载，这里我指定了WIFI网络
+
+        int indexOf = url.lastIndexOf('/');
+        String fileName = "temp";
+        if (indexOf != -1) {
+            fileName = url.substring(indexOf + 1);
+        }
+
+        request.setDestinationInExternalPublicDir(context.getPackageName() + "/download", fileName);  //制定下载文件的保存路径，我这里保存到根目录
+        request.setVisibleInDownloadsUi(true);  //设置是否显示在系统的下载界面
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);//下载的时候, 完成的时候都显示通知
+        request.allowScanningByMediaScanner();  //表示允许MediaScanner扫描到这个文件，默认不允许。
+
+        request.setTitle(fileName);      //设置下载中通知栏的提示消息, 并且也是系统下载界面的显示名
+        request.setDescription(fileName + "文件正在下载...");//设置设置下载中通知栏提示的介绍, 部分机型无效
+
+        long downLoadId = manager.enqueue(request);   //启动下载,该方法返回系统为当前下载请求分配的一个唯一的ID
+
+        return downLoadId;
     }
 
     interface OnPutValue {

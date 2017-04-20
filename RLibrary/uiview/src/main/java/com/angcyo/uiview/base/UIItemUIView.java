@@ -127,9 +127,13 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
         mRefreshLayout.setNotifyListener(false);
 
         mExBaseAdapter.setEnableLoadMore(false);
+
+        mRecyclerView.setItemAnimator(null);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        mRecyclerView.addItemDecoration(new RExItemDecoration(new RExItemDecoration.SingleItemCallback() {
+        mRecyclerView.addItemDecoration(
+                new RExItemDecoration(
+                        new RExItemDecoration.SingleItemCallback() {
 
             @Override
             public void getItemOffsets2(Rect outRect, int position, int edge) {

@@ -13,21 +13,21 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application>
-        <mDecodeCallback
+        <activity
             android:name=".ui.ImageBaseActivity"
             android:screenOrientation="portrait"/>
-        <mDecodeCallback
+        <activity
             android:name=".ui.ImageGridActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ImagePickerTheme"/>
-        <mDecodeCallback
+        <activity
             android:name=".ui.ImageCropActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="false"
             android:screenOrientation="portrait"
             android:theme="@style/ImagePickerTheme"/>
-        <mDecodeCallback
+        <activity
             android:name=".ui.ImagePreviewActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"

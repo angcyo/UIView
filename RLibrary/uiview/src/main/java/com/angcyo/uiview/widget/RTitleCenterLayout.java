@@ -1,8 +1,6 @@
 package com.angcyo.uiview.widget;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -33,19 +31,13 @@ public class RTitleCenterLayout extends RelativeLayout {
         super(context, attrs);
     }
 
-    public RTitleCenterLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RTitleCenterLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+
+        int width = getResources().getDisplayMetrics().widthPixels;//MeasureSpec.getSize(widthMeasureSpec);// - getPaddingLeft() - getPaddingRight();
+        int maxWidth = (int) (width * 3f / 4);
+
         if (mLoadingView != null) {
             int loadViewWidth = mLoadingView.getMeasuredWidth();
             if (mTitleView != null) {
@@ -62,41 +54,50 @@ public class RTitleCenterLayout extends RelativeLayout {
                 );
             }
         }
+
+        setMeasuredDimension(maxWidth, MeasureSpec.getSize(heightMeasureSpec));
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
+        //super.onLayout(changed, l, t, r, b);
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
 
         float offset = getResources().getDisplayMetrics().density * 4;
-        int loadViewRight = 0;
-        int loadViewWidth = 0;
-        if (mLoadingView != null) {
-            loadViewWidth = mLoadingView.getMeasuredWidth();
-            loadViewRight = width / 2 + loadViewWidth / 2;
-        }
 
-        if (mTitleView != null) {
-            if (mTitleView.getVisibility() == VISIBLE) {
-                if (mTitleView instanceof TextView && TextUtils.isEmpty(((TextView) mTitleView).getText())) {
-
-                } else {
-                    layoutCenter(mTitleView);
-                    loadViewRight = (int) (mTitleView.getLeft() - offset);
+        int loadViewRight = -1;
+        //有标题view的情况
+        if (mTitleView != null && mTitleView.getVisibility() == VISIBLE) {
+            if (mTitleView instanceof TextView) {
+                if (!TextUtils.isEmpty(((TextView) mTitleView).getText())) {
+                    loadViewRight = (int) (layoutCenter(mTitleView, width, height) - offset);
                 }
+            } else {
+                loadViewRight = (int) (layoutCenter(mTitleView, width, height) - offset);
             }
         }
 
-        if (mLoadingView != null) {
-            if (mLoadingView.getVisibility() == VISIBLE) {
-                mLoadingView.layout(loadViewRight - loadViewWidth,
-                        (height - mLoadingView.getMeasuredHeight()) / 2,
-                        loadViewRight, height / 2 + mLoadingView.getMeasuredHeight() / 2);
+        if (mLoadingView != null && mLoadingView.getVisibility() == VISIBLE) {
+            int top = (height - mLoadingView.getMeasuredHeight()) / 2;
+
+            if (loadViewRight == -1) {
+                layoutCenter(mLoadingView, width, height);
+            } else {
+                mLoadingView.layout(loadViewRight - mLoadingView.getMeasuredWidth(), top,
+                        loadViewRight, top + mLoadingView.getMeasuredHeight());
             }
         }
+
     }
+
+    private int layoutCenter(View view, int width, int height) {
+        int left = (width - view.getMeasuredWidth()) / 2;
+        int top = (height - view.getMeasuredHeight()) / 2;
+        view.layout(left, top, left + view.getMeasuredWidth(), top + view.getMeasuredHeight());
+        return left;
+    }
+
 
     //    @Override
 //    protected void onLayout(boolean changed, int l, int t, int r, int b) {

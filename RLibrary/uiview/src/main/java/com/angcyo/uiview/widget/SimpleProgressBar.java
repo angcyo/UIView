@@ -8,7 +8,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.angcyo.uiview.R;
+import com.angcyo.uiview.skin.SkinHelper;
 
 
 /**
@@ -42,7 +42,7 @@ public class SimpleProgressBar extends View {
     }
 
     private void init() {
-        mProgressColor = getResources().getColor(R.color.theme_color_accent);
+        mProgressColor = SkinHelper.getSkin().getThemeSubColor();//getResources().getColor(R.color.theme_color_accent);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setColor(mProgressColor);
         mPaint.setStyle(Paint.Style.FILL);
@@ -60,6 +60,11 @@ public class SimpleProgressBar extends View {
             mProgress = progress;
             postInvalidate();
         }
+    }
+
+    public void setProgressColor(int progressColor) {
+        mProgressColor = progressColor;
+        mPaint.setColor(mProgressColor);
     }
 
     @Override

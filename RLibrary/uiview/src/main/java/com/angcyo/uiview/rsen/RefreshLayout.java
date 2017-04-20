@@ -612,7 +612,7 @@ public class RefreshLayout extends ViewGroup {
      *
      * @param direction 如果是大于0, 表示视图底部没有数据了, 即不能向上滚动了, 反之...
      */
-    private boolean innerCanChildScrollVertically(View view, int direction, float rawX, float rawY) {
+    protected boolean innerCanChildScrollVertically(View view, int direction, float rawX, float rawY) {
         //项目特殊处理,可以注释掉
         if (view instanceof RecyclerView) {
             RecyclerView recyclerView = (RecyclerView) view;
