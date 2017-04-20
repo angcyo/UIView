@@ -135,17 +135,18 @@ public abstract class UIItemUIView<T extends Item> extends UIRecyclerUIView<Stri
                 new RExItemDecoration(
                         new RExItemDecoration.SingleItemCallback() {
 
-            @Override
-            public void getItemOffsets2(Rect outRect, int position, int edge) {
-                T t = mItems.get(position);
-                t.setItemOffsets2(outRect, edge);
-            }
 
-            @Override
-            public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
-                T t = mItems.get(position);
-                t.draw(canvas, paint, itemView, offsetRect, itemCount, position);
-            }
-        }));
+                            @Override
+                            public void getItemOffsets2(Rect outRect, int position, int edge) {
+                                T t = mItems.get(position);
+                                t.setItemOffsets2(outRect, edge);
+                            }
+
+                            @Override
+                            public void draw(Canvas canvas, TextPaint paint, View itemView, Rect offsetRect, int itemCount, int position) {
+                                T t = mItems.get(position);
+                                t.draw(canvas, paint, itemView, offsetRect, itemCount, position);
+                            }
+                        }));
     }
 }

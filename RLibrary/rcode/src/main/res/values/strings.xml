@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 <resources>
     <string name="app_name">RCode</string>
 </resources>
+=======
+<resources>
+    <string name="app_name">RCode</string>
+</resources>
+>>>>>>> rebase

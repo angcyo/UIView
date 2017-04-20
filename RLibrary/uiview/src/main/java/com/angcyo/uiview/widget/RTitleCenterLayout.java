@@ -65,7 +65,6 @@ public class RTitleCenterLayout extends RelativeLayout {
         int height = getMeasuredHeight();
 
         float offset = getResources().getDisplayMetrics().density * 4;
-
         int loadViewRight = -1;
         //有标题view的情况
         if (mTitleView != null && mTitleView.getVisibility() == VISIBLE) {
@@ -98,30 +97,6 @@ public class RTitleCenterLayout extends RelativeLayout {
         return left;
     }
 
-
-    //    @Override
-//    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-//        super.onLayout(changed, l, t, r, b);
-//        int width = getMeasuredWidth();
-//        int height = getMeasuredHeight();
-//        if (mTitleView != null && mLoadingView != null) {
-//            if (mTitleView.getVisibility() == VISIBLE) {
-//                layoutCenter(mTitleView);
-//                if (mLoadingView.getVisibility() == VISIBLE) {
-//                    float offset = getResources().getDisplayMetrics().density * 4;
-//                    mLoadingView.layout((int) (mTitleView.getLeft() - mLoadingView.getMeasuredWidth() - offset),
-//                            (height - mLoadingView.getMeasuredHeight()) / 2,
-//                            (int) (mTitleView.getLeft() - offset), height / 2 + mLoadingView.getMeasuredHeight() / 2);
-//                }
-//                //mTitleView.setBackgroundColor(Color.BLUE);
-//            } else {
-//                if (mLoadingView.getVisibility() == VISIBLE) {
-//                    layoutCenter(mLoadingView);
-//                }
-//            }
-//        }
-//    }
-//
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -147,12 +122,5 @@ public class RTitleCenterLayout extends RelativeLayout {
      */
     public void setTitleView(View titleView) {
         mTitleView = titleView;
-    }
-
-    private void layoutCenter(View view) {
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-        view.layout((width - view.getMeasuredWidth()) / 2, (height - view.getMeasuredHeight()) / 2,
-                width / 2 + view.getMeasuredWidth() / 2, height / 2 + view.getMeasuredHeight() / 2);
     }
 }
