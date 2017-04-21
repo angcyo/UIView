@@ -13,6 +13,7 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.skin.SkinHelper;
 import com.angcyo.uiview.widget.RImageView;
 
 import java.util.List;
@@ -39,6 +40,8 @@ public class RippleDrawableDemoUIView extends UIItemUIView<SingleItem> {
         items.add(new SingleItem() {
             @Override
             public void onBindView(final RBaseViewHolder holder, int posInData, Item dataBean) {
+                ResUtil.setBgDrawable(holder.v(R.id.edit_text), SkinHelper.getThemeRoundBorderSelector());
+
                 ResUtil.setBgDrawable(holder.v(R.id.view1), ResUtil.generateRippleDrawable(Color.RED));
                 ResUtil.setBgDrawable(holder.v(R.id.view2), ResUtil.generateRippleMaskDrawable(Color.RED));
                 ResUtil.setBgDrawable(holder.v(R.id.view3), ResUtil.generateRippleMaskDrawable(Color.RED, Color.BLUE, Color.GRAY));

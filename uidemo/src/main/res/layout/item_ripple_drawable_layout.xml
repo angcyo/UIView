@@ -7,8 +7,10 @@
     android:orientation="vertical">
 
     <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/base_xhdpi"
         android:gravity="top"/>
 
     <Button
@@ -55,9 +57,9 @@
         android:id="@+id/view6"
         android:layout_width="@dimen/base_100dpi"
         android:layout_height="@dimen/base_50dpi"
-        android:scaleType="centerCrop"
         android:layout_margin="@dimen/base_mdpi"
         android:clickable="true"
+        android:scaleType="centerCrop"
         android:text="ButtonTest"
         android:textAllCaps="false"/>
 
