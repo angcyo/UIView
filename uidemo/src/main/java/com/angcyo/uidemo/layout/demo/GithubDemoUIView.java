@@ -3,9 +3,9 @@ package com.angcyo.uidemo.layout.demo;
 import android.graphics.Color;
 
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
-import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.github.textview.RevealTextView;
 import com.angcyo.uiview.github.textview.shimmer.Shimmer;
 import com.angcyo.uiview.github.textview.shimmer.ShimmerButton;
@@ -26,7 +26,7 @@ import java.util.List;
  * 修改备注：
  * Version: 1.0.0
  */
-public class GithubDemoUIView extends UIItemUIView<SingleItem> {
+public class GithubDemoUIView extends BaseItemUIView {
 
     boolean isInSubUIView = false;
     private Shimmer mShimmer;

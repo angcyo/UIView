@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView2;
@@ -20,6 +21,7 @@ import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
+import com.angcyo.uidemo.layout.demo.SpanUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemo2UIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemoUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutManagerUIView;
@@ -30,7 +32,6 @@ import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
-import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.widget.ItemInfoLayout;
@@ -40,7 +41,7 @@ import java.util.List;
 /**
  * Created by angcyo on 2017-03-13.
  */
-public class DemoListUIView2 extends UIItemUIView<SingleItem> {
+public class DemoListUIView2 extends BaseItemUIView {
 
     @Override
     protected TitleBarPattern getTitleBar() {
@@ -330,6 +331,19 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Math Path Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new MathPathUIView());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
             public void setItemOffsets(Rect rect) {
                 super.setItemOffsets(rect);
                 rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
@@ -337,11 +351,11 @@ public class DemoListUIView2 extends UIItemUIView<SingleItem> {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Math Path Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Span Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new MathPathUIView());
+                        startIView(new SpanUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }

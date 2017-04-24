@@ -8,9 +8,9 @@ import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
-import com.angcyo.uiview.base.UIItemUIView;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.skin.SkinHelper;
@@ -29,7 +29,7 @@ import java.util.List;
  * 修改备注：
  * Version: 1.0.0
  */
-public class RippleDrawableDemoUIView extends UIItemUIView<SingleItem> {
+public class RippleDrawableDemoUIView extends BaseItemUIView {
     @Override
     protected int getItemLayoutId(int viewType) {
         return R.layout.item_ripple_drawable_layout;

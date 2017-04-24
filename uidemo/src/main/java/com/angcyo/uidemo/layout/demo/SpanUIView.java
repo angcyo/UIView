@@ -13,17 +13,16 @@ import java.util.List;
  * 项目名称：
  * 类的描述：
  * 创建人员：Robi
- * 创建时间：2017/04/20 16:17
+ * 创建时间：2017/04/24 16:20
  * 修改人员：Robi
- * 修改时间：2017/04/20 16:17
+ * 修改时间：2017/04/24 16:20
  * 修改备注：
  * Version: 1.0.0
  */
-public class MathPathUIView extends BaseItemUIView {
-
+public class SpanUIView extends BaseItemUIView {
     @Override
     protected int getItemLayoutId(int viewType) {
-        return R.layout.item_math_path;
+        return R.layout.view_span_demo_layout;
     }
 
     @Override
@@ -31,7 +30,8 @@ public class MathPathUIView extends BaseItemUIView {
         items.add(new SingleItem() {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-
+                String text = "https://www.baidu.com http://www.baidu.com www.baidu.com https://baidu.com";
+                holder.tv(R.id.text1).setText(text);
             }
         });
     }
