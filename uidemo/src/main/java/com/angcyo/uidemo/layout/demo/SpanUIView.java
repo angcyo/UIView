@@ -34,7 +34,8 @@ public class SpanUIView extends BaseItemUIView {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 String text = "https://www.baidu.com http://www.baidu.com www.baidu.com https://baidu.com " +
-                        "<m id='60763'>@爱你是一种习惯i</m> <m id='61145'>@爱情水深王八多</m> <m id='61536'>@爱苦、但亦甜</m>";
+                        "<m id='60763'>@爱你是一种习惯i</m> <m id='61145'>@爱情水深王八多</m> <m id='61536'>@爱苦、但亦甜</m>" +
+                        "http://video.weibo.com/show?fid=1034:76bf2b107c72c8c06e30f5b8ed9a406e";
                 holder.tv(R.id.text1).setText(text);
 
                 holder.tv(R.id.text2).setText(text);
