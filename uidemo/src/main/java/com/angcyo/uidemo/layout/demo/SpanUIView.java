@@ -1,5 +1,8 @@
 package com.angcyo.uidemo.layout.demo;
 
+import android.support.v4.text.util.LinkifyCompat;
+import android.text.util.Linkify;
+
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uiview.base.Item;
@@ -30,8 +33,12 @@ public class SpanUIView extends BaseItemUIView {
         items.add(new SingleItem() {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                String text = "https://www.baidu.com http://www.baidu.com www.baidu.com https://baidu.com";
+                String text = "https://www.baidu.com http://www.baidu.com www.baidu.com https://baidu.com " +
+                        "<m id='60763'>@爱你是一种习惯i</m> <m id='61145'>@爱情水深王八多</m> <m id='61536'>@爱苦、但亦甜</m>";
                 holder.tv(R.id.text1).setText(text);
+
+                holder.tv(R.id.text2).setText(text);
+                LinkifyCompat.addLinks(holder.tv(R.id.text2), Linkify.ALL);
             }
         });
     }

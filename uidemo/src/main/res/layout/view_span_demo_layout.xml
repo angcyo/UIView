@@ -17,6 +17,21 @@
             android:layout_height="wrap_content"
             android:background="@drawable/base_bg_selector"
             android:textSize="16sp"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xxxhdpi"
+        android:background="@color/base_gray">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/base_bg_selector"
+            android:textSize="16sp"/>
     </FrameLayout>
 
 </LinearLayout>
