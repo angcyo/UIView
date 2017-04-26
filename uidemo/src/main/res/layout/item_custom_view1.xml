@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/base_xxhdpi">
+
+    <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:background="@color/default_base_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="很长的文本很长的文本很长的文本"/>
+
+        <com.angcyo.uiview.widget.RImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
+    </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
+
+
+    <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:background="@color/default_base_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="很长的文本很长的文本很长的文本很长的文本很长的文本很很长的文本很长的文本很长的文本很长的文本很长的文本很长的文本长的文本很长的文本很长的文本很长的文本很长的文本很长的文本很长的文本"/>
+
+        <com.angcyo.uiview.widget.RImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
+    </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView2;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
+import com.angcyo.uidemo.layout.demo.CustomViewUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
@@ -344,6 +345,19 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Span Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new SpanUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
             public void setItemOffsets(Rect rect) {
                 super.setItemOffsets(rect);
                 rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
@@ -351,11 +365,11 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Span Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Custom View Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new SpanUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                        startIView(new CustomViewUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
