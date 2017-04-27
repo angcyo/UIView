@@ -110,6 +110,7 @@ public class BatteryView extends View {
                 width - mBorderWidth / 2, bottom,
                 mPaint);
 
+        //60帧重绘
         postDelayed(new Runnable() {
             @Override
             public void run() {
