@@ -47,4 +47,8 @@
 
     </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
 
+    <com.angcyo.uidemo.layout.demo.view.BatteryView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>
