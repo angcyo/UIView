@@ -64,7 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
             android:layout_weight="1"
+            android:paddingBottom="@dimen/base_xhdpi"
             android:paddingStart="@dimen/base_50dpi"
+            android:paddingTop="@dimen/base_xhdpi"
             app:r_cur_progress="50"/>
 
         <com.angcyo.uiview.widget.RTextView
