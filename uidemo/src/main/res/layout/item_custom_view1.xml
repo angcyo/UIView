@@ -51,4 +51,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.RSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/base_50dpi"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/progress_view"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:minWidth="30dp"
+            android:text="000"/>
+
+    </LinearLayout>
+
 </LinearLayout>

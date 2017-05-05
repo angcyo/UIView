@@ -88,6 +88,11 @@ public class MentionDemoUIView extends BaseItemUIView {
                             }
                         });
                     }
+
+                    @Override
+                    public void onMentionTextChanged(List<String> allMention) {
+
+                    }
                 });
 
                 mEditText.addTextChangedListener(new SingleTextWatcher() {
