@@ -1,10 +1,18 @@
 package com.angcyo.uidemo.layout.demo.view;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.angcyo.library.utils.L;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -18,6 +26,11 @@ import android.widget.LinearLayout;
  * Version: 1.0.0
  */
 public class MaxLinearLayout extends LinearLayout {
+
+    private boolean drawMask;
+    private Paint mPaint;
+    private float mDensity;
+
     public MaxLinearLayout(Context context) {
         super(context);
     }
@@ -49,5 +62,79 @@ public class MaxLinearLayout extends LinearLayout {
         }
 
         setMeasuredDimension(getMeasuredWidth(), Math.max(firstView.getMeasuredHeight(), secondHeight));
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        //setWillNotDraw(true);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        L.e("call: onDraw([canvas])-> ");
+        super.onDraw(canvas);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        L.e("call: dispatchDraw([canvas])-> ");
+        super.dispatchDraw(canvas);
+    }
+
+    @Override
+    protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+        L.e("call: drawChild([canvas, child, drawingTime])-> ");
+        return super.drawChild(canvas, child, drawingTime);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        L.e("call: draw([canvas])-> ");
+        super.draw(canvas);
+
+        if (drawMask) {
+            int height = getMeasuredHeight();
+            LinearGradient linearGradient = new LinearGradient(0, height, 0,
+                    height - 74 * mDensity,
+                    new int[]{Color.BLACK, Color.TRANSPARENT /*Color.parseColor("#40000000")*/},
+                    null, Shader.TileMode.CLAMP);
+            mPaint.setShader(linearGradient);
+            canvas.drawPaint(mPaint);
+        }
+    }
+
+    /**
+     * 是否绘制蒙层
+     */
+    public void setDrawMask(boolean drawMask) {
+        this.drawMask = drawMask;
+        setWillNotDraw(drawMask);
+        if (drawMask) {
+            ensurePaint();
+            postInvalidate();
+        }
+    }
+
+    private void ensurePaint() {
+        if (mPaint == null) {
+            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mPaint.setFlags(Paint.FILTER_BITMAP_FLAG);
+            mDensity = getResources().getDisplayMetrics().density;
+        }
+    }
+
+    @Override
+    public void onDrawForeground(Canvas canvas) {
+        L.e("call: onDrawForeground([canvas])-> ");
+        super.onDrawForeground(canvas);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            setDrawMask(true);
+        }
+        return super.onInterceptTouchEvent(ev);
     }
 }
