@@ -72,25 +72,25 @@ public class MaxLinearLayout extends LinearLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        L.e("call: onDraw([canvas])-> ");
+        L.e("父View call: onDraw([canvas])-> ");
         super.onDraw(canvas);
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        L.e("call: dispatchDraw([canvas])-> ");
+        L.e("父View call: dispatchDraw([canvas])-> ");
         super.dispatchDraw(canvas);
     }
 
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
-        L.e("call: drawChild([canvas, child, drawingTime])-> ");
+        L.e("父View call: drawChild([canvas, child, drawingTime])-> ");
         return super.drawChild(canvas, child, drawingTime);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        L.e("call: draw([canvas])-> ");
+        L.e("父View call: draw([canvas])-> ");
         super.draw(canvas);
 
         if (drawMask) {
@@ -126,7 +126,7 @@ public class MaxLinearLayout extends LinearLayout {
 
     @Override
     public void onDrawForeground(Canvas canvas) {
-        L.e("call: onDrawForeground([canvas])-> ");
+        L.e("父View call: onDrawForeground([canvas])-> ");
         super.onDrawForeground(canvas);
     }
 

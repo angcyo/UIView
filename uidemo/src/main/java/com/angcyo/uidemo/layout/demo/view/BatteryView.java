@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.angcyo.library.utils.L;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -78,7 +80,20 @@ public class BatteryView extends View {
     }
 
     @Override
+    public void draw(Canvas canvas) {
+        L.e("子View call: draw([canvas])-> ");
+        super.draw(canvas);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        L.e("子View call: dispatchDraw([canvas])-> ");
+        super.dispatchDraw(canvas);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
+        L.e("子View call: onDraw([canvas])-> ");
         canvas.drawColor(Color.BLACK);
 
         int width = getMeasuredWidth();
