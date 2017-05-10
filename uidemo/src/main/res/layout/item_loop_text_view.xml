@@ -17,6 +17,6 @@
         android:drawableStart="@mipmap/ic_launcher"
         android:gravity="center"
         android:padding="@dimen/base_xxhdpi"
-        tools:content="测试数据"/>
+        tools:text="测试数据"/>
 
 </LinearLayout>
