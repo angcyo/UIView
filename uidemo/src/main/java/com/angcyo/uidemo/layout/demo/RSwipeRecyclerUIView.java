@@ -1,8 +1,8 @@
 package com.angcyo.uidemo.layout.demo;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uidemo.R;
@@ -13,11 +13,14 @@ import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.RSwipeRecycleView;
 import com.angcyo.uiview.recycler.adapter.RBaseSwipeAdapter;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
+import com.angcyo.uiview.recycler.widget.MenuBuilder;
 import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.uiview.utils.T_;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.angcyo.uiview.rsen.RefreshLayout.TOP;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -45,6 +48,16 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
     protected void afterInflateView(RelativeLayout baseContentLayout) {
         super.afterInflateView(baseContentLayout);
         mRefreshLayout.setRefreshDirection(RefreshLayout.BOTH);
+        mRefreshLayout.addOnRefreshListener(new RefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(@RefreshLayout.Direction int direction) {
+                if (direction == TOP) {
+                    mRefreshLayout.setShowTip("正在刷新...");
+                } else {
+
+                }
+            }
+        });
     }
 
     @Override
@@ -70,37 +83,29 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
             }
 
             @Override
-            protected void onBindMenuView(RBaseViewHolder holder, final int position) {
-                super.onBindMenuView(holder, position);
-                holder.v(R.id.menu1).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        T_.show("position:" + position + "  menu 1");
-                    }
-                });
-                holder.v(R.id.menu2).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        T_.show("position:" + position + "  menu 2");
-                    }
-                });
-
-                if (holder.getItemViewType() != 0) {
-                    holder.v(R.id.menu3).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            T_.show("position:" + position + "  menu 3");
-                        }
-                    });
-                }
-            }
-
-            @Override
-            protected View onCreateMenuView(ViewGroup parent, int viewType) {
+            protected void onBindMenuView(MenuBuilder menuBuilder, int viewType, final int position) {
+                menuBuilder
+                        .addMenu("菜单1", Color.GREEN, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                T_.show("position:" + position + "  menu 1");
+                            }
+                        })
+                        .addMenu("菜单2", Color.YELLOW, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                T_.show("position:" + position + "  menu 2");
+                            }
+                        })
+                ;
                 if (viewType == 0) {
-                    return LayoutInflater.from(mContext).inflate(R.layout.item_base_menu, parent, false);
-                } else {
-                    return LayoutInflater.from(mContext).inflate(R.layout.item_base_menu_3item, parent, false);
+                    menuBuilder
+                            .addMenu("菜单3", Color.BLUE, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    T_.show("position:" + position + "  menu 3");
+                                }
+                            });
                 }
             }
         };
@@ -108,7 +113,7 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
 
     private List<String> createData() {
         List<String> datas = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             datas.add("Data: " + i);
         }
         return datas;
