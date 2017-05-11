@@ -13,6 +13,7 @@ import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.RSwipeRecycleView;
 import com.angcyo.uiview.recycler.adapter.RBaseSwipeAdapter;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
+import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.uiview.utils.T_;
 
 import java.util.ArrayList;
@@ -38,6 +39,12 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
     @Override
     protected RRecyclerView createRecyclerView(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         return initRecyclerView(new RSwipeRecycleView(mActivity), baseContentLayout);
+    }
+
+    @Override
+    protected void afterInflateView(RelativeLayout baseContentLayout) {
+        super.afterInflateView(baseContentLayout);
+        mRefreshLayout.setRefreshDirection(RefreshLayout.BOTH);
     }
 
     @Override
