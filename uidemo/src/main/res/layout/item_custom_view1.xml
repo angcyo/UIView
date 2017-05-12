@@ -48,9 +48,20 @@
 
     </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
 
-    <com.angcyo.uidemo.layout.demo.view.BatteryView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.angcyo.uidemo.layout.demo.view.BatteryView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.angcyo.uidemo.layout.demo.view.ToughDrumView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xxhdpi"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
