@@ -5,6 +5,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.angcyo.library.utils.L;
+import com.angcyo.uiview.RCrashHandler;
 import com.angcyo.uiview.base.UILayoutActivity;
 
 public class LayoutDemoActivity extends UILayoutActivity {
@@ -32,6 +33,7 @@ public class LayoutDemoActivity extends UILayoutActivity {
         });
 
         mLayout.startIView(new DemoListUIView2());
-    }
 
+        RCrashHandler.checkCrash(mLayout);
+    }
 }

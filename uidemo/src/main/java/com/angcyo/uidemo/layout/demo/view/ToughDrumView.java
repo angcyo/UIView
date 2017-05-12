@@ -74,8 +74,17 @@ public class ToughDrumView extends View {
         super.onDraw(canvas);
         canvas.drawColor(Color.DKGRAY);
 
+
         //绘制进度
         drawProgress(canvas);
+
+        //绘制底部椭圆
+        canvas.save();
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.GREEN);
+        canvas.drawOval(0 + mBorderWidth / 2, getMeasuredHeight() - toughHeight + mBorderWidth / 2,
+                getMeasuredWidth() - mBorderWidth / 2, getMeasuredHeight() - mBorderWidth / 2, mPaint);
+        canvas.restore();
 
         //绘制左右边框
         canvas.save();
@@ -87,15 +96,7 @@ public class ToughDrumView extends View {
         canvas.drawLine(getMeasuredWidth() - mBorderWidth / 2, toughHeight / 2 + mBorderWidth / 2,
                 getMeasuredWidth() - mBorderWidth / 2, getMeasuredHeight() - toughHeight / 2 - mBorderWidth / 2, mPaint);
         canvas.restore();
-
-        //绘制底部椭圆
-        canvas.save();
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.GREEN);
-        canvas.drawOval(0 + mBorderWidth / 2, getMeasuredHeight() - toughHeight + mBorderWidth / 2,
-                getMeasuredWidth() - mBorderWidth / 2, getMeasuredHeight() - mBorderWidth / 2, mPaint);
-        canvas.restore();
-
+        
         //绘制顶部椭圆
         canvas.save();
         mPaint.setStyle(Paint.Style.STROKE);

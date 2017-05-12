@@ -4,6 +4,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.angcyo.uiview.RApplication;
+import com.angcyo.uiview.Root;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -35,5 +36,7 @@ public class RApp extends RApplication {
     public void onCreate() {
         super.onCreate();
         app = this;
+
+        Root.APP_FOLDER = "UIDemo";
     }
 }
