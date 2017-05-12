@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.getkeepsafe.dexcount'
 
+def build_time = buildTime()
+
 android {
     signingConfigs {
         angcyo {
@@ -20,6 +22,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        resValue "string", "build_time", build_time
+        resValue "bool", "SHOW_DEBUG", "true"
     }
 //    sourceSets {
 //        main {
@@ -29,11 +34,20 @@ android {
 //        }
 //    }
     productFlavors {
+        //develop
         dev {
             minSdkVersion 21
+            buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
+        //preview
+        pre {
+            minSdkVersion Integer.parseInt(rootProject.M_SDK)
+            buildConfigField "boolean", "SHOW_DEBUG", "true"
+        }
+        //apk
         apk {
             minSdkVersion Integer.parseInt(rootProject.M_SDK)
+            buildConfigField "boolean", "SHOW_DEBUG", "false"
         }
     }
     buildTypes {
