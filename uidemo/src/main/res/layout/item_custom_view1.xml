@@ -7,6 +7,39 @@
     android:orientation="vertical"
     android:padding="@dimen/base_xxhdpi">
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="bottom"
+            android:hint="文本测试"
+            app:r_left_text="Demo:"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="文本测试"
+        android:singleLine="true"
+        app:r_left_text="agG测试文本"
+        app:r_left_text_color="@color/colorAccent"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:hint="文本测试"
+        app:r_left_text="agG"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:hint="文本测试"/>
+
     <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

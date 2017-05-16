@@ -72,25 +72,25 @@ public class MaxLinearLayout extends LinearLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        L.e("父View call: onDraw([canvas])-> ");
+        e("父View call: onDraw([canvas])-> ");
         super.onDraw(canvas);
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        L.e("父View call: dispatchDraw([canvas])-> ");
+        e("父View call: dispatchDraw([canvas])-> ");
         super.dispatchDraw(canvas);
     }
 
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
-        L.e("父View call: drawChild([canvas, child, drawingTime])-> ");
+        e("父View call: drawChild([canvas, child, drawingTime])-> ");
         return super.drawChild(canvas, child, drawingTime);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        L.e("父View call: draw([canvas])-> ");
+        e("父View call: draw([canvas])-> ");
         super.draw(canvas);
 
         if (drawMask) {
@@ -126,7 +126,7 @@ public class MaxLinearLayout extends LinearLayout {
 
     @Override
     public void onDrawForeground(Canvas canvas) {
-        L.e("父View call: onDrawForeground([canvas])-> ");
+        e("父View call: onDrawForeground([canvas])-> ");
         super.onDrawForeground(canvas);
     }
 
@@ -136,5 +136,11 @@ public class MaxLinearLayout extends LinearLayout {
             setDrawMask(true);
         }
         return super.onInterceptTouchEvent(ev);
+    }
+
+    private void e(String log) {
+        if (!isInEditMode()) {
+            L.e(log);
+        }
     }
 }

@@ -81,19 +81,19 @@ public class BatteryView extends View {
 
     @Override
     public void draw(Canvas canvas) {
-        L.e("子View call: draw([canvas])-> ");
+        e("子View call: draw([canvas])-> ");
         super.draw(canvas);
     }
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
-        L.e("子View call: dispatchDraw([canvas])-> ");
+        e("子View call: dispatchDraw([canvas])-> ");
         super.dispatchDraw(canvas);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        L.e("子View call: onDraw([canvas])-> ");
+        e("子View call: onDraw([canvas])-> ");
         canvas.drawColor(Color.BLACK);
 
         int width = getMeasuredWidth();
@@ -136,5 +136,11 @@ public class BatteryView extends View {
                 postInvalidate();
             }
         }, 16);
+    }
+
+    private void e(String log) {
+        if (!isInEditMode()) {
+            L.e(log);
+        }
     }
 }
