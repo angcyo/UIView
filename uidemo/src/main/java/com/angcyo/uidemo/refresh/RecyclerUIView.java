@@ -100,7 +100,7 @@ public class RecyclerUIView extends UIContentView {
 
             @Override
             protected boolean onUnSelectorPosition(RBaseViewHolder viewHolder, int position, boolean isSelector) {
-                unselector(list, mRecyclerView, "check_box");
+                unSelector(list, mRecyclerView, "check_box");
                 return true;
             }
 

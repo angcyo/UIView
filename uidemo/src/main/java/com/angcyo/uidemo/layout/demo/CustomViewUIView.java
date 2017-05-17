@@ -23,7 +23,10 @@ import java.util.List;
 public class CustomViewUIView extends BaseItemUIView {
     @Override
     protected int getItemLayoutId(int viewType) {
-        return R.layout.item_custom_view1;
+        if (viewType == 0) {
+            return R.layout.item_custom_view1;
+        }
+        return R.layout.item_custom_view2;
     }
 
     @Override
@@ -38,6 +41,11 @@ public class CustomViewUIView extends BaseItemUIView {
                         holder.tv(R.id.progress_view).setText(progress + "");
                     }
                 });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(final RBaseViewHolder holder, final int posInData, Item dataBean) {
             }
         });
     }

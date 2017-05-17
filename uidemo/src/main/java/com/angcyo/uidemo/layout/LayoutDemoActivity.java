@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.RCrashHandler;
+import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.base.UILayoutActivity;
 
 public class LayoutDemoActivity extends UILayoutActivity {
@@ -32,7 +33,8 @@ public class LayoutDemoActivity extends UILayoutActivity {
             }
         });
 
-        mLayout.startIView(new DemoListUIView2());
+        mLayout.startIView(new DemoListUIView2()
+                .setEnableClipMode(UIBaseView.ClipMode.CLIP_START));
 
         RCrashHandler.checkCrash(mLayout);
     }
