@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -11,7 +12,7 @@ import com.angcyo.uiview.base.UILayoutActivity;
 
 public class LayoutDemoActivity extends UILayoutActivity {
     @Override
-    protected void onLoadView() {
+    protected void onLoadView(Intent intent) {
         mLayout.getLayout().post(new Runnable() {
             @Override
             public void run() {

@@ -1,5 +1,7 @@
 package com.angcyo.uidemo;
 
+import android.content.Intent;
+
 import com.angcyo.uiview.base.UILayoutActivity;
 
 /**
@@ -15,7 +17,7 @@ import com.angcyo.uiview.base.UILayoutActivity;
  */
 public class NavActivity extends UILayoutActivity {
     @Override
-    protected void onLoadView() {
+    protected void onLoadView(Intent intent) {
 
         startIView(new NavUIView());
 
