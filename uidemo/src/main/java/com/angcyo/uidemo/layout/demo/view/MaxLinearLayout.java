@@ -61,7 +61,14 @@ public class MaxLinearLayout extends LinearLayout {
                     MeasureSpec.makeMeasureSpec(MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.AT_MOST));
         }
 
-        setMeasuredDimension(getMeasuredWidth(), Math.max(firstView.getMeasuredHeight(), secondHeight));
+        setMeasuredDimension(getMeasuredWidth(), Math.max(firstView.getMeasuredHeight(), secondHeight)
+                + getPaddingTop() + getPaddingBottom());
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        e("call: onLayout([changed, l, t, r, b])-> ");
     }
 
     @Override

@@ -95,6 +95,23 @@ public class CenterRadioButtonUIView extends UIContentView {
                 }
             }
         });
+
+        final View maxLayout = mViewHolder.v(R.id.max_layout);
+        mViewHolder.v(R.id.max_test_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < 10; i++) {
+                    final int finalI = i;
+                    maxLayout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            maxLayout.requestLayout();
+                            L.w("call: run([])-> " + finalI);
+                        }
+                    }, 1 * i);
+                }
+            }
+        });
     }
 
     @OnClick(R.id.setChecked)

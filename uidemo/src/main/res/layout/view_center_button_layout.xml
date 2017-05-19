@@ -19,6 +19,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
         android:orientation="horizontal">
 
         <Button
@@ -37,6 +38,31 @@
             android:text="setEnabled"
             android:textAllCaps="false"/>
     </LinearLayout>
+
+    <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
+        android:id="@+id/max_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_xhdpi">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左边测试文本"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/default_image"/>
+
+    </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
+
+    <Button
+        android:id="@+id/max_test_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test"/>
 
 
 </LinearLayout>
