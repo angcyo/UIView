@@ -17,4 +17,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/theme_color_accent"/>
 
+    <include layout="@layout/layout_launcher_mode"/>
+
 </LinearLayout>

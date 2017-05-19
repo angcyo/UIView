@@ -6,8 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
-    <!--读取 联系人-->
+    <!-- 读取 联系人 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
         android:name=".RApp"
@@ -32,7 +34,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             </intent-filter>
         </activity>
         <activity
@@ -47,7 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".NavActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -61,16 +62,29 @@
                     android:scheme="open"/>
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.angcyo.uidemo"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
-        </provider>
+        <activity
+            android:name=".activity.SingleTopActivity"
+            android:label="@string/title_activity_single_top"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".activity.SingleTaskActivity"
+            android:label="@string/title_activity_single_task"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".activity.StandardActivity"
+            android:label="@string/title_activity_standard"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".activity.SingleInstanceActivity"
+            android:label="@string/title_activity_single_instance"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

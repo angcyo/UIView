@@ -76,4 +76,8 @@
         大师兄老泪纵横，拍着沙僧肩膀语重心长地说，不是我不想去，
         你看看现在到处都在杀鸡，这不就是给我看的吗。
     </string>
+    <string name="title_activity_single_top">SingleTopActivity</string>
+    <string name="title_activity_single_task">SingleTaskActivity</string>
+    <string name="title_activity_standard">StandardActivity</string>
+    <string name="title_activity_single_instance">SingleInstanceActivity</string>
 </resources>
