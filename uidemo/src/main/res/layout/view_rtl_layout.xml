@@ -202,6 +202,37 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.angcyo.uiview.widget.RTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLength="8"
+                android:maxLines="1"
+                android:text="1消息消息🍊🍎🍓消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息"/>
+
+            <com.angcyo.uiview.widget.RTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLength="9"
+                android:maxLines="1"
+                android:text="2消息消息🍊🍎🍓消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息"/>
+
+            <com.angcyo.uiview.widget.RTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:text="3消息消息🍊🍎🍓消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息"/>
+
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1000dp"/>

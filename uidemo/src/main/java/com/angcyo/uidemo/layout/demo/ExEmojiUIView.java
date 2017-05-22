@@ -3,6 +3,7 @@ package com.angcyo.uidemo.layout.demo;
 import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -112,8 +113,11 @@ public class ExEmojiUIView extends UIContentView {
         String format = simpleDateFormat.format(new Date(timeMillis / 10000));
         L.e(format);
         EditText editText = mViewHolder.v(R.id.edit_text);
-        for (int i = 0; i < editText.length(); i++) {
-            L.e(editText.toString().charAt(i) + "");
+        Editable text = editText.getText();
+        for (int i = 0; i < text.length() / 2; i++) {
+            L.e(Integer.toHexString((int) (text.charAt(i * 2))) +
+                    " " +
+                    Integer.toHexString((int) text.charAt(1 + i * 2)));
         }
         L.e("on test ----- end");
     }
