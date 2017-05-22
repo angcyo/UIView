@@ -8,14 +8,18 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.widget.RSoftInputLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by angcyo on 2016-12-22.
@@ -103,7 +107,15 @@ public class ExEmojiUIView extends UIContentView {
     }
 
     public void onTest(View view) {
-
+        long timeMillis = System.currentTimeMillis();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss:SSS");
+        String format = simpleDateFormat.format(new Date(timeMillis / 10000));
+        L.e(format);
+        EditText editText = mViewHolder.v(R.id.edit_text);
+        for (int i = 0; i < editText.length(); i++) {
+            L.e(editText.toString().charAt(i) + "");
+        }
+        L.e("on test ----- end");
     }
 
     public void onLayoutFullScreen(View view) {
