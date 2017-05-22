@@ -81,7 +81,7 @@
 
     </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
 
-    <LinearLayout
+    <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/base_xxhdpi"/>
-    </LinearLayout>
+    </com.angcyo.uidemo.layout.demo.view.MaxLinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

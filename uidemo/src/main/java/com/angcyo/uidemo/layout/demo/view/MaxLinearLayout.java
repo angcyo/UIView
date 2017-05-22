@@ -6,13 +6,12 @@ import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.angcyo.library.utils.L;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -141,13 +140,31 @@ public class MaxLinearLayout extends LinearLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             setDrawMask(true);
+            setVisibility(GONE);
         }
         return super.onInterceptTouchEvent(ev);
     }
 
+    @Override
+    protected void dispatchVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.dispatchVisibilityChanged(changedView, visibility);
+//        for (int i = 0; i < getChildCount(); i++) {
+//            View childAt = getChildAt(i);
+//            if (childAt.getVisibility() == visibility) {
+//                continue;
+//            }
+//            childAt.setVisibility(visibility);
+//        }
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+    }
+
     private void e(String log) {
         if (!isInEditMode()) {
-            L.e(log);
+            //L.e(log);
         }
     }
 }
