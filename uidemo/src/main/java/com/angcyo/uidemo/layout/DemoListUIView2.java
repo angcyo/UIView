@@ -6,6 +6,8 @@ import android.view.View;
 
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.kotlin.KtinterfaceKt;
+import com.angcyo.uidemo.kotlin.cls.ktclass;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
@@ -371,6 +373,19 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".RSwipeRecycler View Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RSwipeRecyclerUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
             public void setItemOffsets(Rect rect) {
                 super.setItemOffsets(rect);
                 rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
@@ -378,11 +393,16 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".RSwipeRecycler View Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Kotlin 1.1 Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new RSwipeRecyclerUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                        new ktclass().test();
+                        //KtinterfaceKt.ktinterface_fun();
+                        //KtfileKt.getN();
+                        KtinterfaceKt.fun_test(DemoListUIView2.this);
+
+//                        new ktclass.ktsubclass();
                     }
                 });
             }
@@ -394,5 +414,9 @@ public class DemoListUIView2 extends BaseItemUIView {
         infoLayout.setItemText(itemText);
         infoLayout.setOnClickListener(onClickListener);
     }
+
+    public static class TestClass {
+    }
+
 
 }

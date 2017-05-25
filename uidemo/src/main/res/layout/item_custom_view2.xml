@@ -11,4 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/base_add"
+        android:drawableEnd="@mipmap/ic_launcher2"
+        android:gravity="top"
+        android:text="@string/test_text"/>
+
 </LinearLayout>
