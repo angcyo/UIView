@@ -155,7 +155,7 @@ public class MentionDemoUIView extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.TOP) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                //UI.setViewHeight(holder.v(R.id.edit_text), (int) (300 * density()));
+                //UI.setViewHeight(Holder.v(R.id.edit_text), (int) (300 * density()));
             }
         });
 

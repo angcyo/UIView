@@ -4,10 +4,10 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
-import com.angcyo.uidemo.kotlin.KtinterfaceKt;
-import com.angcyo.uidemo.kotlin.cls.ktclass;
+import com.angcyo.uidemo.kotlin.cls.SingleClass2;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
@@ -397,12 +397,35 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        new ktclass().test();
+                        //new ktclass().test();
                         //KtinterfaceKt.ktinterface_fun();
                         //KtfileKt.getN();
-                        KtinterfaceKt.fun_test(DemoListUIView2.this);
+                        //KtinterfaceKt.fun_test(DemoListUIView2.this);
 
 //                        new ktclass.ktsubclass();
+
+//                        int num = SingleClass.Holder.getInstance().getNum();
+//                        SingleClass.Holder.getInstance().setNum(2);
+//                        num = SingleClass.Holder.getInstance().getNum();
+//                        num = SingleClass.Holder.getInstance().getNum();
+//
+//                        SingleClass.Holder.getIns().getNum();
+
+                        //int num = SingleClass.Companion.getInstance().getNum();
+                        //SingleClass2.INSTANCE.getInstance()
+
+//                        String num = SingleClass2.INSTANCE.getInstance().getNum();
+//                        SingleClass2.INSTANCE.getInstance().setNum("1");
+//                        num = SingleClass2.INSTANCE.getInstance().getNum();
+//
+//                        SingleClass2.INSTANCE.getInstance().setNum("122222");
+//                        num = SingleClass2.INSTANCE.getInstance().getNum();
+
+                        int num = SingleClass2.INSTANCE.getNum();
+                        L.e("call: onClick([v])-> " + num);
+                        SingleClass2.INSTANCE.setNum(2);
+                        num = SingleClass2.INSTANCE.getNum();
+                        L.e("call: onClick([v])-> " + num);
                     }
                 });
             }

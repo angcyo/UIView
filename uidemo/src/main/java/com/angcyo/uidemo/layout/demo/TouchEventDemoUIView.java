@@ -30,7 +30,7 @@ import com.angcyo.uiview.base.UIContentView;
 //    protected void createItems(List<SingleItem> items) {
 //        items.add(new SingleItem() {
 //            @Override
-//            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+//            public void onBindView(RBaseViewHolder Holder, int posInData, Item dataBean) {
 //
 //            }
 //        });

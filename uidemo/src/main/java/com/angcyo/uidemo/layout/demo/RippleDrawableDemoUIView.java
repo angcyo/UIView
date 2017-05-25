@@ -63,7 +63,7 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
 //                        final TransitionDrawable td = new TransitionDrawable(new Drawable[]{new ColorDrawable(0xfffcfcfc), getDrawable(R.drawable.image_demo)});
 //                        final TransitionDrawable td = new TransitionDrawable(
 //                                new Drawable[]{getDrawable(R.drawable.test_image), getDrawable(R.drawable.image_demo)});
-//                        holder.imgV(R.id.view6).setImageBitmap(td);
+//                        Holder.imgV(R.id.view6).setImageBitmap(td);
 //                        td.startTransition(3000);
 
                         RImageView imageView = holder.v(R.id.view6);

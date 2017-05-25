@@ -84,7 +84,7 @@ public class StickLayoutManagerUIView extends UIRecyclerUIView<String, String, S
 
             @Override
             public void onBindViewHolder(RBaseViewHolder holder, int position) {
-                L.w("call: onBindViewHolder([holder, position])-> " + position);
+                L.w("call: onBindViewHolder([Holder, position])-> " + position);
                 super.onBindViewHolder(holder, position);
                 holder.tv(R.id.text_view).setText("测试文本: " + position);
 
