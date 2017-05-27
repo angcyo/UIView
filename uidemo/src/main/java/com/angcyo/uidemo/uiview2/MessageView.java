@@ -21,15 +21,12 @@ import com.angcyo.uiview.widget.viewpager.UIViewPager;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created by angcyo on 2016-11-26.
  */
 
 public class MessageView extends UIBaseView {
 
-    @BindView(R.id.recycler_view)
     RRecyclerView mRecyclerView;
 
     int count = 0;
@@ -48,6 +45,7 @@ public class MessageView extends UIBaseView {
 
     @Override
     protected void initOnShowContentLayout() {
+        mRecyclerView = v(R.id.recycler_view);
         mBaseAdapter = new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {

@@ -22,22 +22,16 @@ import com.angcyo.uiview.view.UIIViewImpl;
 import java.util.ArrayList;
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.OnCheckedChanged;
-
 /**
  * Created by angcyo on 2016-11-13.
  */
 
 public class ViewPagerIView extends UIIViewImpl {
 
-    @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
-    @BindView(R.id.radio_group)
     RadioGroup mRadioGroup;
 
-    @BindView(R.id.home_radio)
     RadioButton mHomeRadio;
 
 
@@ -49,6 +43,18 @@ public class ViewPagerIView extends UIIViewImpl {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
+
+        mViewPager = v(R.id.view_pager);
+        mRadioGroup = v(R.id.radio_group);
+        mHomeRadio = v(R.id.home_radio);
+
+        CompoundButton compoundButton = v(R.id.home_radio);
+        compoundButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                onChecked(buttonView, isChecked);
+            }
+        });
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -100,7 +106,6 @@ public class ViewPagerIView extends UIIViewImpl {
         });
     }
 
-    @OnCheckedChanged(R.id.home_radio)
     public void onChecked(CompoundButton view, boolean checked) {
         L.w("onChecked:" + view.getId() + " " + view.getText() + " " + checked);
     }

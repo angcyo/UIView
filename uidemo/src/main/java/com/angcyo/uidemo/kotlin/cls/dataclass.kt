@@ -16,3 +16,10 @@ data class dataclass(var name: String, val age: Int) {
 
     }
 }
+
+val dataclass.y: Int
+    get() = age + 1
+
+fun fun_1(): StringBuilder{
+    return StringBuilder().apply {  }
+}

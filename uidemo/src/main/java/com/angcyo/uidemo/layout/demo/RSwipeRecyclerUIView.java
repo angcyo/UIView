@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout.demo;
 
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -42,6 +43,12 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
     @Override
     protected RRecyclerView createRecyclerView(RelativeLayout baseContentLayout, LayoutInflater inflater) {
         return initRecyclerView(new RSwipeRecycleView(mActivity), baseContentLayout);
+    }
+
+    @NonNull
+    @Override
+    protected LayoutState getDefaultLayoutState() {
+        return LayoutState.CONTENT;
     }
 
     @Override

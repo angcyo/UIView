@@ -11,9 +11,6 @@ import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.widget.ExSoftInputLayout;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -26,7 +23,6 @@ import butterknife.OnClick;
  * Version: 1.0.0
  */
 public class Emoji2UIView extends UIContentView {
-    @BindView(R.id.soft_input_layout)
     ExSoftInputLayout mSoftInputLayout;
 
     @Override
@@ -43,6 +39,7 @@ public class Emoji2UIView extends UIContentView {
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+        mSoftInputLayout = mViewHolder.v(R.id.soft_input_layout);
         mSoftInputLayout.addOnEmojiLayoutChangeListener(new ExSoftInputLayout.OnEmojiLayoutChangeListener() {
             @Override
             public void onEmojiLayoutChange(boolean isEmojiShow, boolean isKeyboardShow, int oldHeight, int height) {
@@ -51,19 +48,41 @@ public class Emoji2UIView extends UIContentView {
                 L.e("表情显示:" + isEmojiShow + " 键盘显示:" + isKeyboardShow + " 高度:" + height + " 旧高度:" + oldHeight);
             }
         });
+
+        mViewHolder.click(R.id.set_padding200_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSetPadding200Click();
+            }
+        });
+        mViewHolder.click(R.id.set_padding400_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSetPadding400Click();
+            }
+        });
+        mViewHolder.click(R.id.show_layout, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Emoji2UIView.this.onClick(v);
+            }
+        });
+        mViewHolder.click(R.id.hide_layout, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Emoji2UIView.this.onClick(v);
+            }
+        });
     }
 
-    @OnClick(R.id.set_padding200_view)
     public void onSetPadding200Click() {
         mSoftInputLayout.showEmojiLayout((int) ResUtil.dpToPx(mActivity, 200));
     }
 
-    @OnClick(R.id.set_padding400_view)
     public void onSetPadding400Click() {
         mSoftInputLayout.showEmojiLayout((int) ResUtil.dpToPx(mActivity, 400));
     }
 
-    @OnClick({R.id.show_layout, R.id.hide_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.show_layout:

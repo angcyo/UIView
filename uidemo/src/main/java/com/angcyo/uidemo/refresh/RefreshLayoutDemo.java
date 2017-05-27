@@ -12,9 +12,6 @@ import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.rsen.RefreshLayout;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -29,7 +26,6 @@ import butterknife.OnClick;
 public class RefreshLayoutDemo extends UIContentView {
 
 
-    @BindView(R.id.content_layout)
     UILayoutImpl mUILayout;
     private NormalUIView mNormalUIView;
     private WebviewUIView mWebviewUIView;
@@ -45,11 +41,17 @@ public class RefreshLayoutDemo extends UIContentView {
     @Override
     public void onViewShow(Bundle bundle) {
         super.onViewShow(bundle);
-        ((UILayoutImpl) mILayout).lock();
+        mUILayout.lock();
+    }
+
+    @Override
+    public void onViewUnload() {
+        super.onViewUnload();
     }
 
     @Override
     protected void initOnShowContentLayout() {
+        mUILayout = v(R.id.content_layout);
         mNormalUIView = new NormalUIView();
         mWebviewUIView = new WebviewUIView();
         mRecyclerUIView = new RecyclerUIView();
@@ -62,6 +64,55 @@ public class RefreshLayoutDemo extends UIContentView {
         mUILayout.startIView(mGridUIView);
         mUILayout.startIView(mStaggerUIView);
         mUILayout.showIView(mNormalUIView);
+
+        click(R.id.in_normal_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.in_web_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.in_recycler_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.in_grid_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.in_stagger_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.refresh_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.pull_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
+        click(R.id.finish_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RefreshLayoutDemo.this.onClick(v);
+            }
+        });
     }
 
     @Override
@@ -69,8 +120,6 @@ public class RefreshLayoutDemo extends UIContentView {
         return super.getTitleBar().setTitleString("刷新控件测试");
     }
 
-    @OnClick({R.id.in_normal_view, R.id.in_web_view, R.id.in_recycler_view, R.id.in_grid_view, R.id.in_stagger_view,
-            R.id.refresh_view, R.id.pull_view, R.id.finish_view})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.in_normal_view:

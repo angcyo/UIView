@@ -17,8 +17,6 @@ import com.angcyo.uiview.utils.T2;
 
 import java.lang.reflect.Field;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func2;
@@ -36,7 +34,6 @@ import rx.schedulers.Schedulers;
  * Version: 1.0.0
  */
 public class CenterRadioButtonUIView extends UIContentView {
-    @BindView(R.id.center_button)
     CenterButton mCenterButton;
     int type = 0;
 
@@ -67,6 +64,7 @@ public class CenterRadioButtonUIView extends UIContentView {
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+        mCenterButton = mViewHolder.v(R.id.center_button);
         mCenterButton.setOnCheckedChangeListener(new CenterButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CenterButton buttonView, boolean isChecked) {
@@ -112,14 +110,25 @@ public class CenterRadioButtonUIView extends UIContentView {
                 }
             }
         });
+
+        mViewHolder.click(R.id.setChecked, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSetChecked();
+            }
+        });
+        mViewHolder.click(R.id.setEnabled, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSetEnabled();
+            }
+        });
     }
 
-    @OnClick(R.id.setChecked)
     public void onSetChecked() {
         mCenterButton.setChecked(!mCenterButton.isChecked());
     }
 
-    @OnClick(R.id.setEnabled)
     public void onSetEnabled() {
         mCenterButton.setEnabled(!mCenterButton.isEnabled());
     }

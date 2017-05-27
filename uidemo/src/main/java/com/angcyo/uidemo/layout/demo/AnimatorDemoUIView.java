@@ -10,16 +10,12 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.utils.T_;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by angcyo on 2017-02-26 11:02.
  */
 public class AnimatorDemoUIView extends UIContentView {
-    @BindView(R.id.red_view)
     View mRedView;
-    @BindView(R.id.blue_view)
     View mBlueView;
 
     /**
@@ -59,7 +55,47 @@ public class AnimatorDemoUIView extends UIContentView {
         return "图片查看动画";
     }
 
-    @OnClick({R.id.reset_button, R.id.move_button})
+    @Override
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
+        mRedView = mViewHolder.v(R.id.red_view);
+        mBlueView = mViewHolder.v(R.id.blue_view);
+
+        mBlueView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimatorDemoUIView.this.onClick(mBlueView);
+            }
+        });
+
+        mRedView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimatorDemoUIView.this.onClick(mRedView);
+            }
+        });
+
+        mViewHolder.v(R.id.blue_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimatorDemoUIView.this.onClick(mBlueView);
+            }
+        });
+
+        mViewHolder.v(R.id.reset_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimatorDemoUIView.this.onClick(mViewHolder.v(R.id.reset_button));
+            }
+        });
+        mViewHolder.v(R.id.move_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimatorDemoUIView.this.onClick(mViewHolder.v(R.id.move_button));
+            }
+        });
+    }
+
     public void onClick(View view) {
         final int measuredWidth = mRedView.getMeasuredWidth();
         final int measuredHeight = mRedView.getMeasuredHeight();
@@ -83,7 +119,6 @@ public class AnimatorDemoUIView extends UIContentView {
         }
     }
 
-    @OnClick(R.id.blue_view)
     public void onClick() {
         T_.error(System.currentTimeMillis() + "");
     }

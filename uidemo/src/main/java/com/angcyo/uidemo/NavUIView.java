@@ -15,9 +15,6 @@ import com.angcyo.uiview.base.UIContentView;
 
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -30,7 +27,6 @@ import butterknife.OnClick;
  * Version: 1.0.0
  */
 public class NavUIView extends UIContentView {
-    @BindView(R.id.text_view)
     TextView mTextView;
 
     @Override
@@ -41,6 +37,14 @@ public class NavUIView extends UIContentView {
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+
+        mTextView = v(R.id.text_view);
+        click(R.id.open_url, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOpenUrlClick();
+            }
+        });
 
         final Uri data = mActivity.getIntent().getData();
         if (data != null) {
@@ -98,7 +102,6 @@ public class NavUIView extends UIContentView {
         mActivity.startActivity(webIntent);
     }
 
-    @OnClick(R.id.open_url)
     public void onOpenUrlClick() {
         if (new Random().nextInt(10) > 4) {
 //            openUrl("open://angcyo.com/");

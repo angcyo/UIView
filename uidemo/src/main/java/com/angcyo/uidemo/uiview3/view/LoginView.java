@@ -8,18 +8,15 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.RApp;
 import com.angcyo.uidemo.uiview3.login.Login;
 import com.angcyo.uidemo.uiview3.login.LoginPresenterImpl;
-import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.IWindowInsetsListener;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.utils.T;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -34,9 +31,7 @@ import butterknife.OnClick;
  */
 public class LoginView extends UIContentView implements Login.ILoginView {
 
-    @BindView(R.id.phone_view)
     TextView mPhoneView;
-    @BindView(R.id.password_view)
     TextView mPasswordView;
     private IWindowInsetsListener mWindowInsetsListener = new IWindowInsetsListener() {
         @Override
@@ -73,17 +68,31 @@ public class LoginView extends UIContentView implements Login.ILoginView {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
+        mPhoneView = v(R.id.phone_view);
+        mPasswordView = v(R.id.password_view);
+
         showContentLayout();
         mLoginPresenter.bindView(this);
+
+        click(R.id.login_button, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLoginButton();
+            }
+        });
+        click(R.id.dialog_login_button, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDialogLoginButton();
+            }
+        });
     }
 
-    @OnClick(R.id.login_button)
     public void onLoginButton() {
         T.show(mActivity, "登录");
         mLoginPresenter.startLogin(mPhoneView.getText().toString(), mPasswordView.getText().toString(), "phone", RApp.getIMEI());
     }
 
-    @OnClick(R.id.dialog_login_button)
     public void onDialogLoginButton() {
         getILayout().startIView(new DialogLoginView());
     }

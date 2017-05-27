@@ -12,17 +12,12 @@ import com.angcyo.uiview.view.UIIViewImpl;
 import com.angcyo.uiview.widget.viewpager.UIPagerAdapter;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Created by angcyo on 2016-11-26.
  */
 
 public class UIViewPagerIView extends UIIViewImpl {
-    @BindView(R.id.view_pager)
     UIViewPager mViewPager;
-    @BindView(R.id.radio_group)
     RadioGroup mRadioGroup;
 
     @Override
@@ -33,6 +28,8 @@ public class UIViewPagerIView extends UIIViewImpl {
     @Override
     public void loadContentView(View rootView) {
         super.loadContentView(rootView);
+        mViewPager = v(R.id.view_pager);
+        mRadioGroup = v(R.id.radio_group);
 //        mViewPager.setOffscreenPageLimit(5);
         mViewPager.setAdapter(new UIPagerAdapter() {
             @Override
@@ -80,9 +77,39 @@ public class UIViewPagerIView extends UIIViewImpl {
         });
 
         mViewPager.setCurrentItem(0);
+
+        click(R.id.home_radio, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIViewPagerIView.this.onClick(v);
+            }
+        });
+        click(R.id.shop_radio, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIViewPagerIView.this.onClick(v);
+            }
+        });
+        click(R.id.live_radio, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIViewPagerIView.this.onClick(v);
+            }
+        });
+        click(R.id.message_radio, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIViewPagerIView.this.onClick(v);
+            }
+        });
+        click(R.id.me_radio, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIViewPagerIView.this.onClick(v);
+            }
+        });
     }
 
-    @OnClick({R.id.home_radio, R.id.shop_radio, R.id.live_radio, R.id.message_radio, R.id.me_radio})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_radio:

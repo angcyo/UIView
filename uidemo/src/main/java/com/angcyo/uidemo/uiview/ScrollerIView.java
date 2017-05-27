@@ -20,25 +20,16 @@ import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.widget.ExEditText;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 /**
  * Created by angcyo on 2016-11-12.
  */
 
 public class ScrollerIView extends UIContentView {
 
-    @BindView(R.id.jump_to_view_pager)
     TextView mTextView;
-
-    @BindView(R.id.edit_text_view2)
     ExEditText mExEditText2;
-    @BindView(R.id.edit_text_view3)
     ExEditText mExEditText3;
-    @BindView(R.id.first_layout)
     LinearLayout mFirstLayout;
-    @BindView(R.id.scroller_layout_root)
     NestedScrollView mScrollerLayoutRoot;
 
     @Override
@@ -51,12 +42,10 @@ public class ScrollerIView extends UIContentView {
         return null;
     }
 
-    @OnClick(R.id.edit_text_view1)
     public void onEditText1Click() {
         mFirstLayout.removeView(mExEditText2);
     }
 
-    @OnClick(R.id.test_button)
     public void onTestButtonClick() {
         if (mExEditText3.getParent() == null) {
             mFirstLayout.addView(mExEditText3, 2);
@@ -65,20 +54,17 @@ public class ScrollerIView extends UIContentView {
         }
     }
 
-    @OnClick(R.id.jump_to_view_pager)
     public void onJumpToViewPager() {
 
         //T.show(mActivity, "onJumpToViewPager");
         mILayout.startIView(new ViewPagerIView());
     }
 
-    @OnClick(R.id.jump_to_ui_view_pager)
     public void onJumpToUIViewPager() {
         //T.show(mActivity, "onJumpToViewPager");
         mILayout.startIView(new UIViewPagerIView());
     }
 
-    @OnClick(R.id.view)
     public void onViewClick(View view) {
         T.show(mActivity, "你看到我了吗?");
         mILayout.startIView(UIDialog.build());
@@ -87,7 +73,6 @@ public class ScrollerIView extends UIContentView {
         mILayout.startIView(UIDialog.build().setDialogTitle("标题测试").setDialogContent("标题测试"));
     }
 
-    @OnClick(R.id.view2)
     public void onViewC2lick(View view) {
         mILayout.startIView(UIDialog.build()
                 .setDialogTitle("很帅的标题很帅的标题很帅的标题很帅的标题很帅的标题很帅的标题")
@@ -106,12 +91,10 @@ public class ScrollerIView extends UIContentView {
         rootView.addView(textView, new ViewGroup.LayoutParams(-1, 500));
     }
 
-    @OnClick(R.id.login_button)
     public void onLoginClick(View view) {
         startIView(new LoginView());
     }
 
-    @OnClick(R.id.dialog_login_button)
     public void onDialogLoginClick(View view) {
         startIView(new DialogLoginView());
     }

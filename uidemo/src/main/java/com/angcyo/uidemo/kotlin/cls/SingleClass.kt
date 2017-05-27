@@ -15,6 +15,11 @@ import kotlin.reflect.KProperty
  */
 class SingleClass {
     var num: String? by PDelegate()
+
+    val lay: String by lazy { "" }
+
+    lateinit var cls: ktclass
+
 //        get() {
 //            println("num is : $field")
 //

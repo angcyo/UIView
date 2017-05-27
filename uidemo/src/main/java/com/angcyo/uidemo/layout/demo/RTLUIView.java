@@ -10,8 +10,6 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
 
-import butterknife.BindView;
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -24,7 +22,6 @@ import butterknife.BindView;
  * Version: 1.0.0
  */
 public class RTLUIView extends UIContentView {
-    @BindView(R.id.scroll_view)
     NestedScrollView mScrollView;
 
     @Override
@@ -40,6 +37,7 @@ public class RTLUIView extends UIContentView {
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+        mScrollView = mViewHolder.v(R.id.scroll_view);
         mUITitleBarContainer.getTitleView().setVisibility(View.GONE);
         mScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
