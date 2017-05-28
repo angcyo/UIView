@@ -21,6 +21,7 @@ import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
+import com.angcyo.uidemo.layout.demo.NotifyDemoUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
@@ -386,12 +387,6 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
-            public void setItemOffsets(Rect rect) {
-                super.setItemOffsets(rect);
-                rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
-            }
-
-            @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, posInData + 1 + ".Kotlin 1.1 Demo", new View.OnClickListener() {
 
@@ -426,6 +421,25 @@ public class DemoListUIView2 extends BaseItemUIView {
                         SingleClass2.INSTANCE.setNum(2);
                         num = SingleClass2.INSTANCE.getNum();
                         L.e("call: onClick([v])-> " + num);
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void setItemOffsets(Rect rect) {
+                super.setItemOffsets(rect);
+                rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
+            }
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Notify Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new NotifyDemoUIView());
                     }
                 });
             }

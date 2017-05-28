@@ -41,6 +41,7 @@
             android:name=".layout.LayoutDemoActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize"
             android:label="@string/title_activity_layout_demo"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
