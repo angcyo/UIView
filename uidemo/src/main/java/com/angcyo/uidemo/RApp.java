@@ -6,6 +6,9 @@ import android.telephony.TelephonyManager;
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.Root;
 
+import jp.wasabeef.takt.Seat;
+import jp.wasabeef.takt.Takt;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -38,5 +41,23 @@ public class RApp extends RApplication {
         app = this;
 
         Root.APP_FOLDER = "UIDemo";
+    }
+
+    @Override
+    protected void onInit() {
+        super.onInit();
+        if (BuildConfig.SHOW_DEBUG) {
+            Takt.stock(this)
+                    .seat(Seat.TOP_LEFT)
+                    .play();
+        }
+    }
+
+    @Override
+    public void onTerminate() {
+        if (BuildConfig.SHOW_DEBUG) {
+            Takt.finish();
+        }
+        super.onTerminate();
     }
 }
