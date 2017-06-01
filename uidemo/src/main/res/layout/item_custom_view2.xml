@@ -14,9 +14,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/base_add"
+        android:layout_marginBottom="@dimen/base_xhdpi"
+        android:layout_marginTop="@dimen/base_xhdpi"
         android:drawableEnd="@mipmap/ic_launcher2"
+        android:drawableStart="@drawable/base_add"
         android:gravity="top"
         android:text="@string/test_text"/>
 
+
+    <com.angcyo.uidemo.layout.demo.view.MyLrcView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我就是歌词TgG"/>
 </LinearLayout>
