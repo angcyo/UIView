@@ -48,7 +48,7 @@ public class RApp extends RApplication {
         super.onInit();
         if (BuildConfig.SHOW_DEBUG) {
             Takt.stock(this)
-                    .seat(Seat.TOP_LEFT)
+                    .seat(Seat.TOP_RIGHT)
                     .play();
         }
     }

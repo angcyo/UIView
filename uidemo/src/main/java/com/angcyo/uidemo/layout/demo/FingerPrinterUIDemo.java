@@ -58,7 +58,9 @@ public class FingerPrinterUIDemo extends BaseItemUIView {
 
                             @Override
                             public void onError(Throwable e) {
-                                L.e("onError() -> " + e);
+                                L.e("onError() -> " + e.getMessage());
+                                e.printStackTrace();
+                                T_.error(e.getMessage());
                             }
 
                             @Override
