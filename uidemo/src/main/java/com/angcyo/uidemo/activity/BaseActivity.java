@@ -25,7 +25,9 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         L.e("call: onCreate([savedInstanceState])-> " + getClass().getSimpleName() + " :" + getTaskId());
 
-        logActivity();
+        if (com.angcyo.uidemo.BuildConfig.SHOW_DEBUG) {
+            logActivity();
+        }
     }
 
     @Override
@@ -43,7 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     private void logActivity() {
         ActivityManager mActivityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 //获得当前正在运行的activity
-        List<ActivityManager.RunningTaskInfo> appList3 = mActivityManager.getRunningTasks(1000);
+        List<ActivityManager.RunningTaskInfo> appList3 = mActivityManager.getRunningTasks(10);
         for (ActivityManager.RunningTaskInfo running : appList3) {
             if (!running.baseActivity.getClassName().contains("angcyo")) {
                 continue;
