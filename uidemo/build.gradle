@@ -96,8 +96,12 @@ dependencies {
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    //FPS显示库
+    //FPS显示库 https://github.com/wasabeef/Takt
     compile 'jp.wasabeef:takt:1.0.4'
+
+    //性能检测库 https://github.com/markzhai/AndroidPerformanceMonitor
+    _devCompile 'com.github.markzhai:blockcanary-android:1.5.0'
+    preCompile 'com.github.markzhai:blockcanary-android:1.5.0'
 }
 repositories {
     mavenCentral()
