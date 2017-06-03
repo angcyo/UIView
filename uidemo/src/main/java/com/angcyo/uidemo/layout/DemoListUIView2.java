@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout;
 
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -60,6 +61,11 @@ public class DemoListUIView2 extends BaseItemUIView {
         //mRootView.setEnabled(false);
         //showLoadView();
     }
+
+//    @Override
+//    public int getDefaultBackgroundColor() {
+//        return Color.GREEN;
+//    }
 
     @Override
     protected int getItemLayoutId(int viewType) {
@@ -155,7 +161,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Link Url Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Link Url And LaunchMode Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {

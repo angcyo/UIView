@@ -42,5 +42,11 @@ public class LauncherMode {
                 StandardActivity.launcher(activity, StandardActivity.class);
             }
         });
+        activity.findViewById(R.id.new_affinity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewAffinityActivity.launcher(activity, NewAffinityActivity.class);
+            }
+        });
     }
 }

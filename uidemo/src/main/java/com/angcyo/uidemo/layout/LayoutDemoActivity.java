@@ -13,6 +13,8 @@ import com.angcyo.uiview.base.UILayoutActivity;
 public class LayoutDemoActivity extends UILayoutActivity {
     @Override
     protected void onLoadView(Intent intent) {
+//        mLayout.getLayout().setBackgroundColor(Color.RED);
+
         mLayout.getLayout().post(new Runnable() {
             @Override
             public void run() {

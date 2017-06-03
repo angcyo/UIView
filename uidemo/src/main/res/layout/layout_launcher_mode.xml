@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.angcyo.uiview.widget.RFlowLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
@@ -8,34 +8,37 @@
 
     <Button
         android:id="@+id/standard"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Standard"
         android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/single_task"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="SingleTask"
         android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/single_top"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="SingleTop"
         android:textAllCaps="false"/>
 
     <Button
         android:id="@+id/single_instance"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="SingleInstance"
         android:textAllCaps="false"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/new_affinity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NewAffinitySingleTask"
+        android:textAllCaps="false"/>
+
+</com.angcyo.uiview.widget.RFlowLayout>

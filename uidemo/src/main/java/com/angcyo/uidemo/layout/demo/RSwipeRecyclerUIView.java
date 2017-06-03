@@ -10,7 +10,6 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIRecyclerUIView;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
-import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.RSwipeRecycleView;
 import com.angcyo.uiview.recycler.adapter.RBaseSwipeAdapter;
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter;
@@ -40,9 +39,18 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
         return super.getTitleBar().setTitleString("侧滑删除").setShowBackImageView(true);
     }
 
+//    @Override
+//    protected RRecyclerView createRecyclerView(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+//        return initRecyclerView(new RSwipeRecycleView(mActivity), baseContentLayout);
+//    }
+
+
     @Override
-    protected RRecyclerView createRecyclerView(RelativeLayout baseContentLayout, LayoutInflater inflater) {
-        return initRecyclerView(new RSwipeRecycleView(mActivity), baseContentLayout);
+    protected void createRecyclerRootView(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        mRefreshLayout = new RefreshLayout(mActivity);
+        initRefreshLayout(mRefreshLayout, baseContentLayout);
+        mRecyclerView = new RSwipeRecycleView(mActivity);
+        initRecyclerView(mRecyclerView, baseContentLayout);
     }
 
     @NonNull

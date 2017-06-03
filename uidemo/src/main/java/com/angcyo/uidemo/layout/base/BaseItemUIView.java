@@ -15,4 +15,8 @@ import com.angcyo.uiview.base.UIItemUIView;
  * Version: 1.0.0
  */
 public abstract class BaseItemUIView extends UIItemUIView<SingleItem> {
+    @Override
+    public int getDefaultBackgroundColor() {
+        return super.getDefaultBackgroundColor();
+    }
 }

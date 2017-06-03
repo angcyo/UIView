@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.angcyo.uidemo.activity.NewAffinityActivity;
 import com.angcyo.uidemo.activity.SingleInstanceActivity;
 import com.angcyo.uidemo.activity.SingleTaskActivity;
 import com.angcyo.uidemo.activity.SingleTopActivity;
@@ -92,6 +93,12 @@ public class NavUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 StandardActivity.launcher(mActivity, StandardActivity.class);
+            }
+        });
+        mViewHolder.v(R.id.new_affinity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewAffinityActivity.launcher(mActivity, NewAffinityActivity.class);
             }
         });
     }

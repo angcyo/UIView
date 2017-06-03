@@ -80,6 +80,7 @@
     <string name="title_activity_single_task">SingleTaskActivity</string>
     <string name="title_activity_standard">StandardActivity</string>
     <string name="title_activity_single_instance">SingleInstanceActivity</string>
+    <string name="title_activity_new_affinity">NewAffinitySingleTask</string>
     <string name="test_text">
         有一次上课期间，教数学的李老师突然发问，下面的全体学生哑然。
         教室由之前的喧闹变得十分沉寂。突然间。
