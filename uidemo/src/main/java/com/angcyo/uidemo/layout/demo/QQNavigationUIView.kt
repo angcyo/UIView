@@ -2,10 +2,12 @@ package com.angcyo.uidemo.layout.demo
 
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.model.TitleBarPattern
+import com.angcyo.uiview.widget.TouchMoveGroupLayout
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -26,5 +28,16 @@ class QQNavigationUIView : BaseContentUIView() {
 
     override fun inflateContentLayout(baseContentLayout: RelativeLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_qq_navigation)
+    }
+
+    override fun initOnShowContentLayout() {
+        super.initOnShowContentLayout()
+        val groupLayout: TouchMoveGroupLayout = mViewHolder.v(R.id.touch_move_group_layout)
+        groupLayout.listener = object : TouchMoveGroupLayout.OnSelectorPositionListener {
+            override fun onSelectorPosition(position: Int) {
+                mViewHolder.tv(R.id.text_view).text = "Position:$position"
+                L.e("onSelectorPosition:$position")
+            }
+        }
     }
 }

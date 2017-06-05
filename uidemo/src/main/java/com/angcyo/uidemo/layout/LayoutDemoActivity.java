@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
@@ -40,5 +41,16 @@ public class LayoutDemoActivity extends UILayoutActivity {
                 .setEnableClipMode(UIBaseView.ClipMode.CLIP_START));
 
         RCrashHandler.checkCrash(mLayout);
+
+        checkPermissions();
+    }
+
+    @Override
+    protected String[] needPermissions() {
+        return new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_WIFI_STATE,
+        };
     }
 }
