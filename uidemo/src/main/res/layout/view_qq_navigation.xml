@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="@color/base_chat_bg_color"/>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.TouchMoveGroupLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.angcyo.uiview.widget.TouchMoveView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:r_image_normal="@drawable/skin_tab_icon_conversation_normal"
+                app:r_max_draw_offset="3dp"/>
+
+            <com.angcyo.uiview.widget.TouchMoveView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:r_image_normal="@drawable/skin_tab_icon_conversation_sub_normal"
+                app:r_max_draw_offset="6dp"/>
+        </com.angcyo.uiview.widget.TouchMoveGroupLayout>
+
+
+        <com.angcyo.uiview.widget.TouchMoveGroupLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.angcyo.uiview.widget.TouchMoveView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:r_image_normal="@drawable/skin_tab_icon_contact_normal"
+                app:r_max_draw_offset="3dp"
+                app:r_show_text="联系人"/>
+
+            <com.angcyo.uiview.widget.TouchMoveView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:r_image_normal="@drawable/skin_tab_icon_contact_sub_normal"
+                app:r_max_draw_offset="6dp"
+                app:r_show_text="联系人"/>
+
+        </com.angcyo.uiview.widget.TouchMoveGroupLayout>
+
+        <com.angcyo.uiview.widget.TouchMoveGroupLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <com.angcyo.uiview.widget.TouchMoveView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:r_image_normal="@drawable/skin_tab_icon_plugin_normal"
+                app:r_max_draw_offset="3dp"
+                app:r_show_text="动态"/>
+
+            <com.angcyo.uiview.widget.TouchMoveView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:r_image_normal="@drawable/skin_tab_icon_plugin_normal"
+                app:r_max_draw_offset="6dp"
+                app:r_show_text="动态"/>
+        </com.angcyo.uiview.widget.TouchMoveGroupLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

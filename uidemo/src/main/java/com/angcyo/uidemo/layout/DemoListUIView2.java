@@ -1,6 +1,5 @@
 package com.angcyo.uidemo.layout;
 
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +23,7 @@ import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.NotifyDemoUIView;
+import com.angcyo.uidemo.layout.demo.QQNavigationUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
@@ -448,6 +448,19 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Finger Printer Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new FingerPrinterUIDemo());
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
             public void setItemOffsets(Rect rect) {
                 super.setItemOffsets(rect);
                 rect.bottom = getDimensionPixelOffset(R.dimen.base_xhdpi);
@@ -455,11 +468,11 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Finger Printer Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".QQ  Navigation Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new FingerPrinterUIDemo());
+                        startIView(new QQNavigationUIView());
                     }
                 });
             }
