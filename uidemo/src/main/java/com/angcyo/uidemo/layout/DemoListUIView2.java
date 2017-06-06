@@ -39,6 +39,7 @@ import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
+import com.angcyo.uiview.github.utilcode.utils.AppUtils;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.widget.ItemInfoLayout;
@@ -69,6 +70,9 @@ public class DemoListUIView2 extends BaseItemUIView {
 
     @Override
     protected int getItemLayoutId(int viewType) {
+        if (isLast(viewType)) {
+            return R.layout.item_version_layout;
+        }
         return R.layout.item_demo_list_layout;
     }
 
@@ -440,7 +444,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new NotifyDemoUIView());
+                        startIView(new NotifyDemoUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
@@ -453,11 +457,27 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new FingerPrinterUIDemo());
+                        startIView(new FingerPrinterUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
         });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".QQ  Navigation Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new QQNavigationUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+
+
+        //版本 编译时间
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
@@ -468,13 +488,9 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".QQ  Navigation Demo", new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        startIView(new QQNavigationUIView());
-                    }
-                });
+                holder.tv(R.id.text_view).setText(AppUtils.getAppVersionName(mActivity) +
+                        " by " + getString(R.string.build_time) +
+                        " on " + getString(R.string.os_name));
             }
         });
     }

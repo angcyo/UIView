@@ -25,6 +25,7 @@ android {
         multiDexEnabled true
 
         resValue "string", "build_time", build_time
+        resValue "string", "os_name", osName()
         resValue "bool", "SHOW_DEBUG", "true"
     }
 //    sourceSets {
