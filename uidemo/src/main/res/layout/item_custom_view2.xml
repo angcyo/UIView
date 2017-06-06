@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/base_xhdpi"
         android:layout_marginTop="@dimen/base_xhdpi"
-        android:drawableEnd="@mipmap/ic_launcher2"
+        android:drawableEnd="@mipmap/ic_launcher"
         android:drawableStart="@drawable/base_add"
         android:gravity="top"
         android:text="@string/test_text"/>
@@ -26,4 +26,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我就是歌词TgG"/>
+
+    <com.angcyo.uidemo.layout.demo.view.SegmentStepView2
+        android:id="@+id/segment_step_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/base_xhdpi"/>
 </LinearLayout>
