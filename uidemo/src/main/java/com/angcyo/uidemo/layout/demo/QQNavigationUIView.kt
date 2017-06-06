@@ -8,6 +8,7 @@ import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.widget.TouchMoveGroupLayout
+import com.angcyo.uiview.widget.TouchMoveView
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -34,9 +35,14 @@ class QQNavigationUIView : BaseContentUIView() {
         super.initOnShowContentLayout()
         val groupLayout: TouchMoveGroupLayout = mViewHolder.v(R.id.touch_move_group_layout)
         groupLayout.listener = object : TouchMoveGroupLayout.OnSelectorPositionListener {
-            override fun onSelectorPosition(position: Int) {
+            override fun onSelectorPosition(targetView: TouchMoveView, position: Int) {
                 mViewHolder.tv(R.id.text_view).text = "Position:$position"
                 L.e("onSelectorPosition:$position")
+            }
+
+            override fun onRepeatSelectorPosition(targetView: TouchMoveView, position: Int) {
+                mViewHolder.tv(R.id.text_view).text = "RepeatPosition:$position"
+                L.e("onRepeatSelectorPosition:$position")
             }
         }
     }
