@@ -8,6 +8,7 @@ import com.angcyo.uidemo.layout.demo.view.SegmentStepView2;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.widget.ExEditText;
 import com.angcyo.uiview.widget.RSeekBar;
 
 import java.util.ArrayList;
@@ -45,6 +46,14 @@ public class CustomViewUIView extends BaseItemUIView {
                         holder.tv(R.id.progress_view).setText(progress + "");
                     }
                 });
+
+                ExEditText editText = holder.v(R.id.input_tip_view);
+                List<String> list = new ArrayList<>();
+                list.add("1885555555555");
+                list.add("1888866666666");
+                list.add("1888888888888");
+                list.add("1888877777777");
+                editText.setInputTipTextList(list);
             }
         });
         items.add(new SingleItem() {

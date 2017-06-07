@@ -20,9 +20,10 @@
     </android.support.design.widget.TextInputLayout>
 
     <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/input_tip_view"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="文本测试"
+        android:hint="请输入手机号码"
         android:singleLine="true"
         app:r_left_text="agG测试文本"
         app:r_left_text_color="@color/colorAccent"/>
