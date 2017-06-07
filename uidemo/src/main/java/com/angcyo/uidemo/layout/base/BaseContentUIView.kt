@@ -1,6 +1,8 @@
 package com.angcyo.uidemo.layout.base
 
 import com.angcyo.uiview.base.UIContentView
+import com.angcyo.uiview.container.UILayoutImpl
+import com.angcyo.uiview.model.TitleBarPattern
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -13,4 +15,8 @@ import com.angcyo.uiview.base.UIContentView
  * 修改备注：
  * Version: 1.0.0
  */
-abstract class BaseContentUIView : UIContentView()
+abstract class BaseContentUIView : UIContentView() {
+    override fun getTitleBar(): TitleBarPattern {
+        return super.getTitleBar().setShowBackImageView((iLayout as UILayoutImpl).attachViewSize >= 1)
+    }
+}
