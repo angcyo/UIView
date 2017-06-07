@@ -38,11 +38,22 @@ class QQNavigationUIView : BaseContentUIView() {
             override fun onSelectorPosition(targetView: TouchMoveView, position: Int) {
                 mViewHolder.tv(R.id.text_view).text = "Position:$position"
                 L.e("onSelectorPosition:$position")
+
             }
 
             override fun onRepeatSelectorPosition(targetView: TouchMoveView, position: Int) {
                 mViewHolder.tv(R.id.text_view).text = "RepeatPosition:$position"
                 L.e("onRepeatSelectorPosition:$position")
+
+                if (targetView.noReadNum > 0) {
+                    targetView.noReadNum = -1
+                } else {
+                    when (position) {
+                        0 -> targetView.noReadNum = 100
+                        1 -> targetView.noReadNum = 11
+                        2 -> targetView.noReadNum = 0
+                    }
+                }
             }
         }
     }
