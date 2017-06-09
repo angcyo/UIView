@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -40,12 +41,44 @@
         android:layout_height="150dp"
         android:layout_marginTop="@dimen/base_xhdpi"/>
 
-    <com.angcyo.uiview.widget.CircleImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:paddingStart="@dimen/base_xhdpi"
-        android:paddingTop="@dimen/base_xxhdpi"
-        android:scaleType="centerCrop"
-        android:src="@drawable/image_demo"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/base_xxhdpi">
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_show_type="NORMAL"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingStart="@dimen/base_xhdpi"
+            android:paddingTop="@dimen/base_xxhdpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_show_type="ROUND"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_round_radius="@dimen/base_xxhdpi"
+            app:r_show_type="ROUND"/>
+
+    </LinearLayout>
 
 </LinearLayout>

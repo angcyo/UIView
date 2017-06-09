@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="按钮1"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/base_gray"
+            android:gravity="center"
+            android:text="测试老大的wenben"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="按钮2"/>
+    </LinearLayout>
+
+    <com.angcyo.uiview.viewgroup.ExpandRecordLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/base_red_color_bg_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="可以滑动的View"
+            android:textColor="@color/base_white"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/base_orange"
+            android:gravity="center"
+            android:padding="@dimen/base_xhdpi"
+            android:text="用来提示的View"/>
+
+    </com.angcyo.uiview.viewgroup.ExpandRecordLayout>
+
+</FrameLayout>
