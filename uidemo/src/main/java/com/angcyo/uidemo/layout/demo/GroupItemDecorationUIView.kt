@@ -85,6 +85,9 @@ class GroupItemDecorationUIView : BaseContentUIView() {
 
             override fun getGroupText(position: Int): String {
                 return when {
+                    position < 3 -> {
+                        ""
+                    }
                     position < 6 -> {
                         "测试1 >"
                     }
@@ -106,7 +109,21 @@ class GroupItemDecorationUIView : BaseContentUIView() {
                 }
             }
 
+            override fun onGroupDraw(canvas: Canvas, view: View, groupInfo: GroupInfo) {
+                paint.color = Color.BLUE
+
+                if (groupInfo.isHorizontal) {
+                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
+                            view.left.toFloat(), view.top - paint.descent(), paint)
+                } else {
+                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
+                            0F, view.top - paint.descent(), paint)
+                }
+            }
+
             override fun onGroupOverDraw(canvas: Canvas, view: View, groupInfo: GroupInfo) {
+                paint.color = Color.RED
+
                 if (groupInfo.isHorizontal) {
                     canvas.drawText(getGroupText(groupInfo.adapterPosition),
                             groupInfo.groupStartOffset.toFloat(), view.top - paint.descent(), paint)
