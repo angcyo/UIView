@@ -82,7 +82,7 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
                 imageView.setImageDrawable(insetDrawable);
 
                 Drawable drawable1 = getDrawable(R.drawable.test_drawable);
-                Drawable drawable2 = getDrawable(R.drawable.base_white_color_text_selector);
+                ColorStateList colorStateList = getColorList(R.color.base_white_color_text_selector);
 
                 //Drawable 测试 2017-06-10
                 holder.v(R.id.button_1).setBackground(ResUtil.createStrokeDrawable(Color.RED, roundRadius, getDimensionPixelOffset(R.dimen.base_ldpi)));
