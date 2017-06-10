@@ -43,6 +43,9 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
         items.add(new SingleItem() {
             @Override
             public void onBindView(final RBaseViewHolder holder, int posInData, Item dataBean) {
+                int mdpi = getDimensionPixelOffset(R.dimen.base_mdpi);
+                int roundRadius = getDimensionPixelOffset(R.dimen.base_round_radius);
+
                 ResUtil.setBgDrawable(holder.v(R.id.edit_text), SkinHelper.getThemeRoundBorderSelector());
 
                 ResUtil.setBgDrawable(holder.v(R.id.view1), ResUtil.generateRippleDrawable(Color.RED));
@@ -77,6 +80,33 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
                 Drawable drawable = ContextCompat.getDrawable(mActivity, R.drawable.icon_picture_green);
                 InsetDrawable insetDrawable = new InsetDrawable(drawable, 0, 10, 0, 0);
                 imageView.setImageDrawable(insetDrawable);
+
+                Drawable drawable1 = getDrawable(R.drawable.test_drawable);
+                Drawable drawable2 = getDrawable(R.drawable.base_white_color_text_selector);
+                
+                //Drawable 测试 2017-06-10
+                holder.v(R.id.button_1).setBackground(ResUtil.createStrokeDrawable(Color.RED, roundRadius, getDimensionPixelOffset(R.dimen.base_ldpi)));
+                holder.v(R.id.button_2).setBackground(ResUtil.createSolidDrawable(Color.RED, 0));
+                holder.v(R.id.button_3).setBackground(ResUtil.createStrokeDrawable(Color.RED, 0, getDimensionPixelOffset(R.dimen.base_ldpi)));
+                holder.v(R.id.button_4).setBackground(ResUtil.createSolidDrawable(Color.RED, roundRadius));
+
+                //Selector 测试 2017-06-10
+                holder.v(R.id.button_1_1).setBackground(
+                        ResUtil.selector(
+                                ResUtil.createDrawable(Color.BLUE, Color.YELLOW, mdpi, roundRadius),
+                                ResUtil.createDrawable(Color.RED, mdpi, roundRadius)));
+                holder.v(R.id.button_2_1).setBackground(
+                        ResUtil.selector(
+                                ResUtil.createDrawable(Color.BLUE, Color.BLUE, 0, mdpi),
+                                ResUtil.createDrawable(Color.RED, 0)));
+                holder.v(R.id.button_3_1).setBackground(
+                        ResUtil.selector(
+                                ResUtil.createDrawable(Color.BLUE, Color.MAGENTA, 0, mdpi),
+                                ResUtil.createDrawable(Color.RED, mdpi, getDimensionPixelOffset(R.dimen.base_ldpi))));
+                holder.v(R.id.button_4_1).setBackground(
+                        ResUtil.selector(
+                                ResUtil.createDrawable(Color.BLUE, Color.YELLOW, mdpi, roundRadius),
+                                ResUtil.createDrawable(Color.RED, roundRadius)));
             }
         });
     }
