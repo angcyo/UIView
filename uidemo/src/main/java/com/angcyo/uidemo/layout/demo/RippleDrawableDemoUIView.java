@@ -107,6 +107,8 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
                         ResUtil.selector(
                                 ResUtil.createDrawable(Color.BLUE, Color.YELLOW, mdpi, roundRadius),
                                 ResUtil.createDrawable(Color.RED, roundRadius)));
+
+
             }
         });
     }
