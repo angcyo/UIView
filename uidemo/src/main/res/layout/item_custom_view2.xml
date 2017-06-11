@@ -81,4 +81,10 @@
 
     </LinearLayout>
 
+    <com.angcyo.uiview.widget.SimpleProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_xhdpi"
+        android:layout_marginTop="@dimen/base_xhdpi"/>
+
 </LinearLayout>

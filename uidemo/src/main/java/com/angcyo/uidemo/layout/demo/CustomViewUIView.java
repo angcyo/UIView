@@ -10,6 +10,7 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.widget.ExEditText;
 import com.angcyo.uiview.widget.RSeekBar;
+import com.angcyo.uiview.widget.SimpleProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,9 @@ public class CustomViewUIView extends BaseItemUIView {
                 segmentStepView2.setStepColors(colors);
 
                 segmentStepView2.setCurProgress(70);
+
+                SimpleProgressBar progressBar = holder.v(R.id.progress_bar);
+                progressBar.setIncertitudeProgress(true);
             }
         });
     }
