@@ -11,6 +11,8 @@ import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.widget.ExEditText;
 import com.angcyo.uiview.widget.RSeekBar;
 import com.angcyo.uiview.widget.SimpleProgressBar;
+import com.lzy.imagepicker.view.MaterialProgressView;
+import com.lzy.imagepicker.view.SimpleCircleProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +84,12 @@ public class CustomViewUIView extends BaseItemUIView {
 
                 SimpleProgressBar progressBar = holder.v(R.id.progress_bar);
                 progressBar.setIncertitudeProgress(true);
+
+                MaterialProgressView materialProgressView = holder.v(R.id.material_progress_view);
+                materialProgressView.start();
+
+                SimpleCircleProgressBar simpleCircleProgressBar = holder.v(R.id.simple_progress_view);
+                simpleCircleProgressBar.start();
             }
         });
     }

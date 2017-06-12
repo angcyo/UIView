@@ -68,10 +68,10 @@ public class BatteryView extends View {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
-        if (widthMode == MeasureSpec.AT_MOST) {
+        if (widthMode == MeasureSpec.AT_MOST || widthMode == MeasureSpec.UNSPECIFIED) {
             widthSize = (int) (60 * mDensity);
         }
-        if (heightMode == MeasureSpec.AT_MOST) {
+        if (heightMode == MeasureSpec.AT_MOST || heightMode == MeasureSpec.UNSPECIFIED) {
             heightSize = (int) (100 * mDensity);
         }
 

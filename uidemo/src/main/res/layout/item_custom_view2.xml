@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="@dimen/base_xxhdpi">
@@ -81,10 +81,36 @@
 
     </LinearLayout>
 
-    <com.angcyo.uiview.widget.SimpleProgressBar
-        android:id="@+id/progress_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/base_xhdpi"
-        android:layout_marginTop="@dimen/base_xhdpi"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.SimpleProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/base_xhdpi"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.lzy.imagepicker.view.MaterialProgressView
+            android:id="@+id/material_progress_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"/>
+
+        <com.lzy.imagepicker.view.SimpleCircleProgressBar
+            android:id="@+id/simple_progress_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>
