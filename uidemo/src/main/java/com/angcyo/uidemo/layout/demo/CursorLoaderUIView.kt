@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout.demo
 
 import android.content.ContentResolver
+import android.content.Intent
 import android.database.Cursor
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,6 +14,8 @@ import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.lzy.imagepicker.ImageDataSource
+import com.lzy.imagepicker.ImageDataSource.VIDEO
 import com.lzy.imagepicker.ImagePickerHelper
 import com.lzy.imagepicker.bean.ImageItem
 import java.util.*
@@ -78,10 +81,10 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
                 val thumbPath = getVideoThumb(mActivity.contentResolver, videoId)
 
 
-                L.e(" -> ${index++}\n $imageName\n$imagePath\n" +
-                        "$videoDuration\n$thumbId\n$resolution\n" +
-                        "$imageSize\n$imageWidth\n$imageHeight\n$imageMimeType\n$imageAddTime\n" +
-                        "$videoId\n$thumbPath")
+//                L.e(" -> ${index++}\n $imageName\n$imagePath\n" +
+//                        "$videoDuration\n$thumbId\n$resolution\n" +
+//                        "$imageSize\n$imageWidth\n$imageHeight\n$imageMimeType\n$imageAddTime\n" +
+//                        "$videoId\n$thumbPath")
 
 //                val imageFile = File(imagePath)
 //                if (!imageFile.exists() || !imageFile.isFile()) {
@@ -141,7 +144,7 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
 
     /**获取视频缩略图*/
     private fun getVideoThumb(contentResolver: ContentResolver, videoId: String): String {
-        L.e("call: getVideoThumb -> ")
+        //L.e("call: getVideoThumb -> ")
         var path = ""
         val dataCursor = contentResolver.query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI,
                 VIDEO_THUMB_PROJECTION, MediaStore.Video.Thumbnails.VIDEO_ID + "=?",
@@ -164,12 +167,46 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
         return path
     }
 
+    override fun getItemLayoutId(viewType: Int): Int {
+        if (isLast(viewType)) {
+            return R.layout.adapter_image_list_item
+        }
+        return super.getItemLayoutId(viewType)
+    }
+
     override fun createItems(items: MutableList<SingleItem>) {
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)
-                itemInfo.setItemText("打开图片选择器")
-                itemInfo.setOnClickListener { ImagePickerHelper.startImagePicker(mActivity, false, true, Int.MAX_VALUE) }
+                itemInfo.setItemText("打开图片选择器(多选)")
+                itemInfo.setOnClickListener { ImagePickerHelper.startImagePicker(mActivity, false, true, 3) }
+            }
+        })
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                val itemInfo = holder.item(R.id.base_item_info_layout)
+                itemInfo.setItemText("打开图片选择器(单选)")
+                itemInfo.setOnClickListener { ImagePickerHelper.startImagePicker(mActivity, false, false, 3) }
+            }
+        })
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                val itemInfo = holder.item(R.id.base_item_info_layout)
+                itemInfo.setItemText("打开视频选择器(多选)")
+                itemInfo.setOnClickListener { ImagePickerHelper.startImagePicker(mActivity, false, true, 3, VIDEO) }
+            }
+        })
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                val itemInfo = holder.item(R.id.base_item_info_layout)
+                itemInfo.setItemText("打开视频选择器(单选)")
+                itemInfo.setOnClickListener { ImagePickerHelper.startImagePicker(mActivity, false, 3, VIDEO) }
+            }
+        })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+
             }
         })
     }
@@ -180,5 +217,18 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
         loaderManager.initLoader(1, null, this)
 
         //loaderManager.destroyLoader(1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val items = ImagePickerHelper.getItems(mActivity, requestCode, resultCode, data)
+
+        val build = StringBuilder()
+        items.mapIndexed { index, imageItem ->
+            build.append("\n -> $index 类型:${ImageDataSource.getLoaderTypeString(imageItem.loadType)} Path:${imageItem.path} " +
+                    "\nThumbPath:${imageItem.videoThumbPath} Duration:${imageItem.videoDuration}")
+        }
+
+        L.e(build.toString())
     }
 }
