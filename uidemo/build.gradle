@@ -66,8 +66,12 @@ android {
     }
     getApplicationVariants().all { variant ->
         variant.outputs.each { output ->
-            def appName = "UIViewDemo-${variant.buildType.name}-${variant.versionName}.apk"
-            output.outputFile = new File(output.outputFile.parent, appName)
+            def appName = "UIViewDemo-${variant.buildType.name}-${variant.versionName}"
+            def time = ""
+            if (variant.buildType.name.equalsIgnoreCase("release")) {
+                time = "_${new Date().format("yyyy-MM-dd_HH-mm")}"
+            }
+            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
         }
     }
     packagingOptions {
