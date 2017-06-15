@@ -14,10 +14,13 @@ import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.utils.T_
+import com.lzy.imagepicker.GlideImageLoader
 import com.lzy.imagepicker.ImageDataSource
 import com.lzy.imagepicker.ImageDataSource.VIDEO
 import com.lzy.imagepicker.ImagePickerHelper
 import com.lzy.imagepicker.bean.ImageItem
+import com.lzy.imagepicker.view.ImagePickerImageView
 import java.util.*
 
 /**
@@ -206,7 +209,7 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
 
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
-
+                iv_thumb = holder.v(R.id.iv_thumb)
             }
         })
     }
@@ -219,6 +222,8 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
         //loaderManager.destroyLoader(1)
     }
 
+    var iv_thumb: ImagePickerImageView? = null
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val items = ImagePickerHelper.getItems(mActivity, requestCode, resultCode, data)
@@ -227,6 +232,21 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
         items.mapIndexed { index, imageItem ->
             build.append("\n -> $index 类型:${ImageDataSource.getLoaderTypeString(imageItem.loadType)} Path:${imageItem.path} " +
                     "\nThumbPath:${imageItem.videoThumbPath} Duration:${imageItem.videoDuration}")
+        }
+
+        if (items.isEmpty()) {
+            T_.error("未选择.")
+        } else {
+            T_.info("选择${items.size}个")
+            items.first().apply {
+                if (this.loadType == ImageDataSource.VIDEO) {
+                    iv_thumb?.setPlayDrawable(R.drawable.image_picker_play)
+                    GlideImageLoader.displayImage(iv_thumb, this.videoThumbPath, R.mipmap.base_zhanweitu_klg)
+                } else {
+                    iv_thumb?.setPlayDrawable(null)
+                    GlideImageLoader.displayImage(iv_thumb, this.path, R.mipmap.base_zhanweitu_klg)
+                }
+            }
         }
 
         L.e(build.toString())
