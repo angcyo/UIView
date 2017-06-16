@@ -1,2 +1,3 @@
 include ':uidemo'
 include ':RLibrary:uiview', ':RLibrary:library', ':RLibrary:imagepicker'
+include ':RLibrary:rcode'
