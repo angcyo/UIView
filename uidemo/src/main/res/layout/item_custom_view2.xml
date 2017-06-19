@@ -96,6 +96,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:background="@color/base_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -110,6 +111,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"/>
+
+        <com.angcyo.uiview.widget.JumpAdProgressBar
+            android:layout_width="wrap_content"
+            app:r_show_text="跳过"
+
+            android:layout_height="wrap_content"/>
 
     </RelativeLayout>
 
