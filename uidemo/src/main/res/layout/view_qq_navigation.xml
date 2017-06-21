@@ -41,7 +41,8 @@
             app:r_image_normal="@drawable/skin_tab_icon_contact_normal"
             app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
             app:r_max_draw_offset="3dp"
-            app:r_show_text="联系人"
+            app:r_text_normal="联系人"
+            app:r_text_selected="联系人"
             app:r_sub_image_normal="@drawable/skin_tab_icon_contact_sub_normal"
             app:r_sub_image_selected="@drawable/skin_tab_icon_contact_sub_selected"/>
 
@@ -52,7 +53,7 @@
             app:r_image_normal="@drawable/skin_tab_icon_plugin_normal"
             app:r_image_selected="@drawable/skin_tab_icon_plugin_selected"
             app:r_max_draw_offset="3dp"
-            app:r_show_text="动态"
+            app:r_text_normal="动态"
             app:r_sub_image_selected="@drawable/skin_tab_icon_plugin_sub_selected"/>
 
     </com.angcyo.uiview.widget.TouchMoveGroupLayout>
