@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout.demo;
 
 import android.graphics.Color;
+import android.view.View;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
@@ -88,6 +89,13 @@ public class GithubDemoUIView extends BaseItemUIView {
                 shimmerButton.setText("用来测试的文本");
                 mShimmer1 = new Shimmer();
                 mShimmer1.start(shimmerButton);
+
+                holder.click(R.id.shimmer_button_view, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shakeView();
+                    }
+                });
             }
         });
     }
