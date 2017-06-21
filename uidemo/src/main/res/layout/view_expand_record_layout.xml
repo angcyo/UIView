@@ -10,9 +10,10 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="按钮1"/>
+            android:text="展开/关闭"/>
 
         <com.angcyo.uiview.widget.RTextView
             android:layout_width="match_parent"
@@ -23,12 +24,14 @@
             android:text="测试老大的wenben"/>
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="按钮2"/>
     </LinearLayout>
 
     <com.angcyo.uiview.viewgroup.ExpandRecordLayout
+        android:id="@+id/expand_record_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

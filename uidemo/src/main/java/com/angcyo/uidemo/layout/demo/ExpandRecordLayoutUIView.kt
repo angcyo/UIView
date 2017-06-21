@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
+import com.angcyo.uiview.viewgroup.ExpandRecordLayout
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -19,5 +20,14 @@ import com.angcyo.uidemo.layout.base.BaseContentUIView
 class ExpandRecordLayoutUIView : BaseContentUIView() {
     override fun inflateContentLayout(baseContentLayout: RelativeLayout?, inflater: LayoutInflater?) {
         inflate(R.layout.view_expand_record_layout)
+    }
+
+    override fun initOnShowContentLayout() {
+        super.initOnShowContentLayout()
+
+        val expandLayout: ExpandRecordLayout = v(R.id.expand_record_layout)
+        click(R.id.button1) {
+            expandLayout.expandLayout()
+        }
     }
 }
