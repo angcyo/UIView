@@ -439,6 +439,16 @@ public class DemoListUIView2 extends BaseItemUIView {
                         SingleClass2.INSTANCE.setNum(2);
                         num = SingleClass2.INSTANCE.getNum();
                         L.e("call: onClick([v])-> " + num);
+
+                        String test = "http://www.baidu.com/1.jpg?param=a?http://www.jd.com/ui.mp4";
+                        try {
+                            String substring = test.substring(test.lastIndexOf('?'), test.length());
+                            String substring1 = test.substring(0, test.lastIndexOf('?'));
+
+                            L.e("call: onClick([v])-> " + num);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
