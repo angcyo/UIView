@@ -445,7 +445,7 @@ public class DemoListUIView2 extends BaseItemUIView {
                             String substring = test.substring(test.lastIndexOf('?'), test.length());
                             String substring1 = test.substring(0, test.lastIndexOf('?'));
 
-                            L.e("call: onClick([v])-> " + num);
+                            L.e("call: onClick([v])-> " + substring + " " + substring1);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
