@@ -37,9 +37,62 @@
         android:layout_marginTop="@dimen/base_xhdpi"/>
 
     <com.angcyo.uiview.widget.RadarScanView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="@dimen/base_xhdpi"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingStart="@dimen/base_xhdpi"
+            android:paddingTop="@dimen/base_xxhdpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_show_type="CIRCLE"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/base_orange"
+            android:paddingEnd="@dimen/base_xhdpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_show_text="测试的文本"
+            app:r_show_type="CIRCLE"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:background="@color/base_orange"
+            android:paddingEnd="@dimen/base_xhdpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_show_text="测试的文本"
+            app:r_text_offset="@dimen/base_xhdpi"/>
+
+        <com.angcyo.uiview.widget.ImageTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:background="@color/base_orange"
+            app:r_image_size="@dimen/base_xxxhdpi"
+            app:r_show_text="测试文本"
+            app:r_show_text_color="@color/base_red"/>
+
+        <com.angcyo.uiview.widget.ImageTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:background="@color/base_orange"
+            app:r_image_size="@dimen/base_xxxhdpi"
+            app:r_show_text_color="@color/base_red"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,14 +106,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/image_demo"
             app:r_show_type="NORMAL"/>
-
-        <com.angcyo.uiview.widget.CircleImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:paddingStart="@dimen/base_xhdpi"
-            android:paddingTop="@dimen/base_xxhdpi"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_demo"/>
 
         <com.angcyo.uiview.widget.CircleImageView
             android:layout_width="60dp"
@@ -96,9 +141,9 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:background="@color/base_gray"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/base_gray">
 
         <com.lzy.imagepicker.view.MaterialProgressView
             android:id="@+id/material_progress_view"
@@ -114,9 +159,9 @@
 
         <com.angcyo.uiview.widget.JumpAdProgressBar
             android:layout_width="wrap_content"
-            app:r_show_text="跳过"
+            android:layout_height="wrap_content"
 
-            android:layout_height="wrap_content"/>
+            app:r_show_text="跳过"/>
 
     </RelativeLayout>
 
