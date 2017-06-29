@@ -26,6 +26,7 @@ import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.NotifyDemoUIView;
+import com.angcyo.uidemo.layout.demo.PopupWindowUIView;
 import com.angcyo.uidemo.layout.demo.QQNavigationUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
@@ -518,7 +519,6 @@ public class DemoListUIView2 extends BaseItemUIView {
                 });
             }
         });
-
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
@@ -528,6 +528,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new CursorLoaderUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".PopupWindow Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new PopupWindowUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
