@@ -13,6 +13,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.view.CenterButton;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.utils.T2;
 
 import java.lang.reflect.Field;
@@ -98,16 +99,26 @@ public class CenterRadioButtonUIView extends UIContentView {
         mViewHolder.v(R.id.max_test_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < 10; i++) {
-                    final int finalI = i;
-                    maxLayout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            maxLayout.requestLayout();
-                            L.w("call: run([])-> " + finalI);
-                        }
-                    }, 1 * i);
-                }
+//                for (int i = 0; i < 10; i++) {
+//                    final int finalI = i;
+//                    maxLayout.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            maxLayout.requestLayout();
+//                            L.w("call: run([])-> " + finalI);
+//                        }
+//                    }, 1 * i);
+//                }
+
+                final UIDialog dialog = UIDialog.build().setDialogTitle("测试对话框");
+                dialog.showDialog(mParentILayout);
+
+                postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.finishIView();
+                    }
+                }, 500);
             }
         });
 

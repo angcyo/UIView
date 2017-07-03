@@ -5,10 +5,7 @@ import android.telephony.TelephonyManager;
 
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.Root;
-import com.github.moduth.blockcanary.BlockCanary;
-import com.hn.d.valley.AppBlockCanaryContext;
 
-import jp.wasabeef.takt.Seat;
 import jp.wasabeef.takt.Takt;
 
 /**
@@ -48,13 +45,13 @@ public class RApp extends RApplication {
     @Override
     protected void onInit() {
         super.onInit();
-        if (BuildConfig.SHOW_DEBUG) {
-            Takt.stock(this)
-                    .seat(Seat.TOP_RIGHT)
-                    .play();
-
-            BlockCanary.install(this, new AppBlockCanaryContext()).start();
-        }
+//        if (BuildConfig.SHOW_DEBUG) {
+//            Takt.stock(this)
+//                    .seat(Seat.TOP_RIGHT)
+//                    .play();
+//
+//            BlockCanary.install(this, new AppBlockCanaryContext()).start();
+//        }
     }
 
     @Override
