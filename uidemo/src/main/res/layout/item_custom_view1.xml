@@ -34,7 +34,39 @@
         android:drawableEnd="@drawable/base_load"
         android:hint="小数点测试"
         android:inputType="numberDecimal"
-        app:r_left_text="0.00"/>
+        app:r_decimal_count="4"
+        app:r_left_text="最大 888 小数4位"
+        app:r_max_number="888"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:hint="小数点测试"
+        android:inputType="numberDecimal"
+        app:r_decimal_count="2"
+        app:r_left_text="最大 999.99"
+        app:r_max_number="999.99"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:hint="小数点测试"
+        android:inputType="number"
+        android:text="0"
+        app:r_left_text="最大 99999 无小数"
+        app:r_max_number="99999"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:hint="小数点测试"
+        android:inputType="number"
+        android:text="0"
+        app:r_left_text="最大 10000 无小数"
+        app:r_max_number="10000"/>
 
     <EditText
         android:layout_width="match_parent"
