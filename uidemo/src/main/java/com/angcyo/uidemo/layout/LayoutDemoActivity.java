@@ -10,6 +10,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uiview.RCrashHandler;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.base.UILayoutActivity;
+import com.angcyo.uiview.container.RSwipeLayout;
 
 public class LayoutDemoActivity extends UILayoutActivity {
     @Override
@@ -52,5 +53,18 @@ public class LayoutDemoActivity extends UILayoutActivity {
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
         };
+    }
+
+    @Override
+    public boolean isEnableSwipeMenu() {
+        return false;
+    }
+
+    @Override
+    public int getSwipeDirection() {
+//        return RSwipeLayout.DRAG_BOTTOM | RSwipeLayout.DRAG_LEFT |
+//                RSwipeLayout.DRAG_RIGHT | RSwipeLayout.DRAG_TOP;
+        return RSwipeLayout.DRAG_BOTTOM |
+                RSwipeLayout.DRAG_RIGHT;
     }
 }
