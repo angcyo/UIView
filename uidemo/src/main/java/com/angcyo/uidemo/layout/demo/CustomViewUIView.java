@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout.demo;
 
 import android.graphics.Color;
+import android.view.View;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
@@ -8,6 +9,7 @@ import com.angcyo.uidemo.layout.demo.view.SegmentStepView2;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.widget.ExEditText;
 import com.angcyo.uiview.widget.RSeekBar;
 import com.angcyo.uiview.widget.SimpleProgressBar;
@@ -33,6 +35,12 @@ public class CustomViewUIView extends BaseItemUIView {
     protected int getItemLayoutId(int viewType) {
         if (viewType == 0) {
             return R.layout.item_custom_view1;
+        }
+        if (viewType == 1) {
+            return R.layout.item_custom_view2;
+        }
+        if (viewType == 2) {
+            return R.layout.item_custom_view3;
         }
         return R.layout.item_custom_view2;
     }
@@ -90,6 +98,23 @@ public class CustomViewUIView extends BaseItemUIView {
 
                 SimpleCircleProgressBar simpleCircleProgressBar = holder.v(R.id.simple_progress_view);
                 simpleCircleProgressBar.start();
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(final RBaseViewHolder holder, final int posInData, Item dataBean) {
+                holder.click(R.id.button1, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T_.show(System.currentTimeMillis() + "  button1");
+                    }
+                });
+                holder.click(R.id.button2, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T_.show(System.currentTimeMillis() + " button2");
+                    }
+                });
             }
         });
     }
