@@ -12,6 +12,12 @@
         android:layout_height="200dp"
         android:background="@color/base_red_d85940">
 
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"/>
+
         <Button
             android:id="@+id/button1"
             android:layout_width="180dp"
@@ -23,5 +29,12 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/base_gray"/>
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/base_red"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"/>
     </com.angcyo.uidemo.layout.demo.view.DemoViewGroup>
 </LinearLayout>
