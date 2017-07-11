@@ -6,7 +6,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +14,7 @@ import com.angcyo.uidemo.uiview2.UIViewPagerIView;
 import com.angcyo.uidemo.uiview3.view.DialogLoginView;
 import com.angcyo.uidemo.uiview3.view.LoginView;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
@@ -33,7 +33,7 @@ public class ScrollerIView extends UIContentView {
     NestedScrollView mScrollerLayoutRoot;
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.scroller_layout);
     }
 

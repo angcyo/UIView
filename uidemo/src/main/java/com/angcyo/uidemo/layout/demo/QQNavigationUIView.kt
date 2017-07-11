@@ -1,10 +1,10 @@
 package com.angcyo.uidemo.layout.demo
 
 import android.view.LayoutInflater
-import android.widget.FrameLayout
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
+import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.widget.TouchMoveGroupLayout
 import com.angcyo.uiview.widget.TouchMoveView
@@ -26,7 +26,7 @@ class QQNavigationUIView : BaseContentUIView() {
         return super.getTitleBar().setShowBackImageView(true)
     }
 
-    override fun inflateContentLayout(baseContentLayout: FrameLayout?, inflater: LayoutInflater) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater) {
         inflate(R.layout.view_qq_navigation)
     }
 

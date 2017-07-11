@@ -7,12 +7,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.github.swipe.RBaseMenuAdapter;
 import com.angcyo.uiview.github.swipe.recyclerview.Closeable;
 import com.angcyo.uiview.github.swipe.recyclerview.OnSwipeMenuItemClickListener;
@@ -37,7 +37,7 @@ import com.angcyo.uiview.utils.T_;
  */
 public class SwipeRecyclerViewUIView extends UIContentView {
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         SwipeMenuRecyclerView swipeMenuRecyclerView = new SwipeMenuRecyclerView(mActivity);
         swipeMenuRecyclerView.setSwipeMenuCreator(new MenuCreator());
         swipeMenuRecyclerView.setSwipeMenuItemClickListener(new OnSwipeMenuItemClickListener() {

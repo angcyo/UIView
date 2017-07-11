@@ -10,12 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.widget.RSoftInputLayout;
 
 import java.text.SimpleDateFormat;
@@ -31,7 +31,7 @@ public class ExEmojiUIView extends UIContentView {
     Control mControl;
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_ex_emoji_layout);
     }
 

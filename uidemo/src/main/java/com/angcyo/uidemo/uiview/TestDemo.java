@@ -1,10 +1,10 @@
 package com.angcyo.uidemo.uiview;
 
 import android.view.LayoutInflater;
-import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 
 /**
@@ -21,7 +21,7 @@ import com.angcyo.uiview.model.TitleBarPattern;
 public class TestDemo extends UIContentView {
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.test_layout);
     }
 

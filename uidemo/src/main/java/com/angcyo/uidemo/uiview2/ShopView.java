@@ -4,12 +4,12 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
@@ -21,7 +21,7 @@ public class ShopView extends UIBaseView {
 
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         LinearLayout linearLayout = new LinearLayout(mActivity);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 

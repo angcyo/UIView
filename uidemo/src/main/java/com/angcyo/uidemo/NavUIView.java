@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.uidemo.activity.NewAffinityActivity;
@@ -13,6 +12,7 @@ import com.angcyo.uidemo.activity.SingleTaskActivity;
 import com.angcyo.uidemo.activity.SingleTopActivity;
 import com.angcyo.uidemo.activity.StandardActivity;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 
 import java.util.Random;
 
@@ -31,7 +31,7 @@ public class NavUIView extends UIContentView {
     TextView mTextView;
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_nav_layout);
     }
 

@@ -4,10 +4,10 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIRecyclerUIView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RSwipeRecycleView;
@@ -46,7 +46,7 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
 
 
     @Override
-    protected void createRecyclerRootView(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void createRecyclerRootView(ContentLayout baseContentLayout, LayoutInflater inflater) {
         mRefreshLayout = new RefreshLayout(mActivity);
         initRefreshLayout(mRefreshLayout, baseContentLayout);
         mRecyclerView = new RSwipeRecycleView(mActivity);
@@ -60,7 +60,7 @@ public class RSwipeRecyclerUIView extends UIRecyclerUIView<String, String, Strin
     }
 
     @Override
-    protected void afterInflateView(FrameLayout baseContentLayout) {
+    protected void afterInflateView(ContentLayout baseContentLayout) {
         super.afterInflateView(baseContentLayout);
         mRefreshLayout.setRefreshDirection(RefreshLayout.BOTH);
         mRefreshLayout.addOnRefreshListener(new RefreshLayout.OnRefreshListener() {

@@ -3,11 +3,11 @@ package com.angcyo.uidemo.uiview2;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.utils.Reflect;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
@@ -18,7 +18,7 @@ import com.angcyo.uiview.widget.viewpager.UIViewPager;
 public class HomeView extends UIBaseView {
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         TextView textView = new TextView(mActivity);
         textView.setText(this.getClass().getSimpleName());
         textView.setGravity(Gravity.CENTER);

@@ -5,7 +5,6 @@ import android.support.v4.widget.NestedScrollView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.angcyo.uidemo.NavUIView;
@@ -21,6 +20,7 @@ import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.widget.ItemInfoLayout;
@@ -37,7 +37,7 @@ public class DemoListUIView extends UIContentView {
     LinearLayout rootLayout;
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         NestedScrollView scrollView = new NestedScrollView(mActivity);
 
         rootLayout = new LinearLayout(mActivity);

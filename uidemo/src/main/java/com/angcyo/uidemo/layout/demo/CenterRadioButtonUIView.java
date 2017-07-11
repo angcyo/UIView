@@ -5,7 +5,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +12,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.view.CenterButton;
 import com.angcyo.uiview.base.UIContentView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.dialog.UIDialog;
 import com.angcyo.uiview.utils.T2;
 
@@ -58,7 +58,7 @@ public class CenterRadioButtonUIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_center_button_layout);
     }
 

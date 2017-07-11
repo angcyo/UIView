@@ -2,11 +2,11 @@ package com.angcyo.uidemo.uiview2;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIBaseView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.base.Network;
 import com.angcyo.uiview.utils.Reflect;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MineView extends UIBaseView {
 
     @Override
-    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
         inflater.inflate(R.layout.view_mine_layout, baseContentLayout);
     }
 

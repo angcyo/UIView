@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIRecyclerUIView;
+import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.design.StickLayoutManager;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
@@ -43,7 +43,7 @@ public class StickLayoutManagerUIView extends UIRecyclerUIView<String, String, S
     }
 
     @Override
-    protected void afterInflateView(FrameLayout baseContentLayout) {
+    protected void afterInflateView(ContentLayout baseContentLayout) {
         super.afterInflateView(baseContentLayout);
 //        mRecyclerView.setLayoutManager(new FloatLayoutManager(mActivity).setFloatPosition(4));
         mRecyclerView.setLayoutManager(new StickLayoutManager(mActivity).setStickPosition(8).setStickTop(200));
