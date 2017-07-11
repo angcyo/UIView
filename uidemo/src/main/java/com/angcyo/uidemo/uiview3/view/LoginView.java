@@ -5,7 +5,7 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
@@ -56,7 +56,7 @@ public class LoginView extends UIContentView implements Login.ILoginView {
     private Login.ILoginPresenter mLoginPresenter = new LoginPresenterImpl();
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_login_layout);
     }
 

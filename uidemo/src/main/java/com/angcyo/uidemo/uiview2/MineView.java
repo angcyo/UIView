@@ -2,7 +2,7 @@ package com.angcyo.uidemo.uiview2;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MineView extends UIBaseView {
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflater.inflate(R.layout.view_mine_layout, baseContentLayout);
     }
 

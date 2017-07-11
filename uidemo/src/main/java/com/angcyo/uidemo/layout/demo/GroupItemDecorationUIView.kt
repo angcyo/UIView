@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextPaint
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.RelativeLayout
+import android.widget.FrameLayout
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
@@ -30,7 +30,7 @@ import com.angcyo.uiview.recycler.adapter.RBaseAdapter
  * Version: 1.0.0
  */
 class GroupItemDecorationUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: RelativeLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: FrameLayout?, inflater: LayoutInflater?) {
         inflate(R.layout.view_group_item_decoration_layout)
     }
 

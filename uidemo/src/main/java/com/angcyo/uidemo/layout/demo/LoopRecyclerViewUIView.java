@@ -2,7 +2,7 @@ package com.angcyo.uidemo.layout.demo;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
@@ -34,7 +34,7 @@ public class LoopRecyclerViewUIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         RLoopRecyclerView loopRecyclerView = new RLoopRecyclerView(mActivity);
         baseContentLayout.addView(loopRecyclerView, new ViewGroup.LayoutParams(-1, -1));
 

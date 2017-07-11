@@ -3,7 +3,7 @@ package com.angcyo.uidemo.refresh;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.model.TitleBarPattern;
@@ -26,7 +26,7 @@ public class WebviewUIView extends UIContentView {
     private RefreshLayout mRefreshLayout;
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
         WebView webView = new WebView(mActivity);

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.uidemo.activity.NewAffinityActivity;
@@ -31,7 +31,7 @@ public class NavUIView extends UIContentView {
     TextView mTextView;
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_nav_layout);
     }
 

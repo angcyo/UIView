@@ -2,7 +2,7 @@ package com.angcyo.uidemo.layout.demo;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.layout.demo.view.GameCircleLayout;
 import com.angcyo.uiview.base.UIContentView;
@@ -32,7 +32,7 @@ public class GameCircleLayoutUIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         baseContentLayout.addView(new GameCircleLayout(mActivity), new ViewGroup.LayoutParams(-1, -1));
     }
 }

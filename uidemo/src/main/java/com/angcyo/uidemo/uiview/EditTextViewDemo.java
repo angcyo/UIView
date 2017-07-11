@@ -2,6 +2,7 @@ package com.angcyo.uidemo.uiview;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.angcyo.uiview.base.UIBaseView;
@@ -23,7 +24,7 @@ public class EditTextViewDemo extends UIBaseView {
     ExEditText mExEditText;
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         mExEditText = new ExEditText(mActivity);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -2);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);

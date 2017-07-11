@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
@@ -34,7 +34,7 @@ public class DialogLoginView extends UIIDialogImpl implements Login.ILoginView {
     private Login.ILoginPresenter mLoginPresenter;
 
     @Override
-    protected View inflateDialogView(RelativeLayout dialogRootLayout, LayoutInflater inflater) {
+    protected View inflateDialogView(FrameLayout dialogRootLayout, LayoutInflater inflater) {
         return inflate(R.layout.view_dialog_login_layout);
     }
 

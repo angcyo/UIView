@@ -4,7 +4,7 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
@@ -46,7 +46,7 @@ public class AnimatorDemoUIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_animator_layout);
     }
 

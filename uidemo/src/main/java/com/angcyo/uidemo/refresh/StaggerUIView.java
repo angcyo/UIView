@@ -4,7 +4,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.uiview.base.UIContentView;
@@ -32,7 +32,7 @@ public class StaggerUIView extends UIContentView {
     private RRecyclerView mRecyclerView;
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         mRefreshLayout = new RefreshLayout(mActivity);
         mRefreshLayout.setTag("refresh");
         mRecyclerView = new RRecyclerView(mActivity);

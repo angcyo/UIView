@@ -4,7 +4,7 @@ import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
@@ -49,7 +49,7 @@ public class BehaviorStickDemoUIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_behavior_layout);
     }
 
@@ -74,7 +74,7 @@ public class BehaviorStickDemoUIView extends UIContentView {
         }
 
         @Override
-        protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+        protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
             mRecyclerView = new RRecyclerView(mActivity);
             baseContentLayout.addView(mRecyclerView, new ViewGroup.LayoutParams(-1, -1));
         }

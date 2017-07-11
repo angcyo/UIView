@@ -3,7 +3,7 @@ package com.angcyo.uidemo.layout.demo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
@@ -31,7 +31,7 @@ public class Emoji2UIView extends UIContentView {
     }
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_emoji_layout);
         mBaseRootLayout.setFitsSystemWindows(false);
     }

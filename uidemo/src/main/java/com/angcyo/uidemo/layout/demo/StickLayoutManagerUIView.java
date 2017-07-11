@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
@@ -43,7 +43,7 @@ public class StickLayoutManagerUIView extends UIRecyclerUIView<String, String, S
     }
 
     @Override
-    protected void afterInflateView(RelativeLayout baseContentLayout) {
+    protected void afterInflateView(FrameLayout baseContentLayout) {
         super.afterInflateView(baseContentLayout);
 //        mRecyclerView.setLayoutManager(new FloatLayoutManager(mActivity).setFloatPosition(4));
         mRecyclerView.setLayoutManager(new StickLayoutManager(mActivity).setStickPosition(8).setStickTop(200));

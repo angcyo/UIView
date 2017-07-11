@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextPaint;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
@@ -35,7 +35,7 @@ public class RRecyclerViewDemoUIView extends BaseItemUIView {
     private boolean mVertical;
 
     @Override
-    protected void afterInflateView(RelativeLayout baseContentLayout) {
+    protected void afterInflateView(FrameLayout baseContentLayout) {
         super.afterInflateView(baseContentLayout);
         int vertical = LinearLayoutManager.VERTICAL;
         mVertical = (vertical == LinearLayoutManager.VERTICAL);

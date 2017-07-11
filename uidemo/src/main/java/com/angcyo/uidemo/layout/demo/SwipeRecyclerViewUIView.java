@@ -7,8 +7,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.angcyo.uidemo.R;
@@ -37,7 +37,7 @@ import com.angcyo.uiview.utils.T_;
  */
 public class SwipeRecyclerViewUIView extends UIContentView {
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         SwipeMenuRecyclerView swipeMenuRecyclerView = new SwipeMenuRecyclerView(mActivity);
         swipeMenuRecyclerView.setSwipeMenuCreator(new MenuCreator());
         swipeMenuRecyclerView.setSwipeMenuItemClickListener(new OnSwipeMenuItemClickListener() {

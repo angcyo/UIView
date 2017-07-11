@@ -3,7 +3,7 @@ package com.angcyo.uidemo.layout.demo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
@@ -22,7 +22,7 @@ public class StickLayoutDemoUIView extends UIContentView {
     StickLayout mRootLayout;
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
         inflate(R.layout.view_stick_layout);
     }
 

@@ -1,7 +1,7 @@
 package com.angcyo.uidemo.layout.demo
 
 import android.view.LayoutInflater
-import android.widget.RelativeLayout
+import android.widget.FrameLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.viewgroup.ExpandRecordLayout
@@ -18,7 +18,7 @@ import com.angcyo.uiview.viewgroup.ExpandRecordLayout
  * Version: 1.0.0
  */
 class ExpandRecordLayoutUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: RelativeLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: FrameLayout?, inflater: LayoutInflater?) {
         inflate(R.layout.view_expand_record_layout)
     }
 

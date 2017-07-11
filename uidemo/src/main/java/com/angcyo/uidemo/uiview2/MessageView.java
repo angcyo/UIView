@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.angcyo.library.utils.L;
@@ -34,7 +34,7 @@ public class MessageView extends UIBaseView {
     private RBaseAdapter<String> mBaseAdapter;
 
     @Override
-    protected void inflateContentLayout(RelativeLayout baseContentLayout, LayoutInflater inflater) {
+    protected void inflateContentLayout(FrameLayout baseContentLayout, LayoutInflater inflater) {
 
 //        TextView textView = new TextView(mActivity);
 //        textView.setText(this.getClass().getSimpleName());
