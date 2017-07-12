@@ -115,6 +115,11 @@ public class CustomViewUIView extends BaseItemUIView {
                         T_.show(System.currentTimeMillis() + " button2");
                     }
                 });
+
+                SimpleProgressBar simpleProgressBar1 = holder.v(R.id.progress_view1);
+                simpleProgressBar1.setProgress(50);
+                SimpleProgressBar simpleProgressBar2 = holder.v(R.id.progress_view2);
+                simpleProgressBar2.setIncertitudeProgress(true);
             }
         });
     }
