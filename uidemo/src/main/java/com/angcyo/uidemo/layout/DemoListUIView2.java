@@ -356,7 +356,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Math Path Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Math Path And Paint Demo", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
