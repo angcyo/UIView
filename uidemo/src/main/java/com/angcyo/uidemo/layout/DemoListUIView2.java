@@ -44,15 +44,21 @@ import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
+import com.angcyo.uiview.base.UIIDialogImpl;
 import com.angcyo.uiview.base.UIScanView;
+import com.angcyo.uiview.dialog.UIProgressDialog;
 import com.angcyo.uiview.github.utilcode.utils.AppUtils;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 /**
@@ -60,10 +66,18 @@ import rx.functions.Action1;
  */
 public class DemoListUIView2 extends BaseItemUIView {
 
+    int progress = 0;
+    private Subscription mSubscribe;
+
     @Override
     protected TitleBarPattern getTitleBar() {
         return super.getTitleBar().setShowBackImageView(false);
     }
+
+//    @Override
+//    public int getDefaultBackgroundColor() {
+//        return Color.GREEN;
+//    }
 
     @Override
     public void onViewShowFirst(Bundle bundle) {
@@ -71,11 +85,6 @@ public class DemoListUIView2 extends BaseItemUIView {
         //mRootView.setEnabled(false);
         //showLoadView();
     }
-
-//    @Override
-//    public int getDefaultBackgroundColor() {
-//        return Color.GREEN;
-//    }
 
     @Override
     protected int getItemLayoutId(int viewType) {
@@ -555,6 +564,43 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new PasswordInputUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".ProgressDialog Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        final UIProgressDialog progressDialog = UIProgressDialog.build();
+                        progressDialog.setDimBehind(false).addDismissListener(new UIIDialogImpl.OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                mSubscribe.unsubscribe();
+                            }
+                        }).showDialog(mParentILayout);
+
+                        mSubscribe = Rx.interval(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                                .subscribe(new Action1<Long>() {
+                                    @Override
+                                    public void call(Long aLong) {
+                                        L.e("call: call([aLong])-> " + aLong);
+                                        progressDialog.setProgress(progress);
+
+                                        progress++;
+                                        if (progress > 100) {
+                                            mSubscribe.unsubscribe();
+                                        } else if (progress > 80) {
+                                            progressDialog.setTipText("");
+                                        } else if (progress > 50) {
+                                            progressDialog.setTipText("视频处理中");
+                                        }
+                                    }
+                                });
                     }
                 });
             }
