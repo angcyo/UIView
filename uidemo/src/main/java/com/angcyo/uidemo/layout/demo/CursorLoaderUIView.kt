@@ -13,6 +13,7 @@ import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
+import com.angcyo.uiview.base.UIVideoView
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.T_
 import com.lzy.imagepicker.GlideImageLoader
@@ -242,6 +243,10 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
                 if (this.loadType == ImageDataSource.VIDEO) {
                     iv_thumb?.setPlayDrawable(R.drawable.image_picker_play)
                     GlideImageLoader.displayImage(iv_thumb, this.videoThumbPath, R.mipmap.base_zhanweitu_klg)
+
+                    startIView(UIVideoView().also {
+                        it.videoPath = this.path
+                    })
                 } else {
                     iv_thumb?.setPlayDrawable(null)
                     GlideImageLoader.displayImage(iv_thumb, this.path, R.mipmap.base_zhanweitu_klg)
