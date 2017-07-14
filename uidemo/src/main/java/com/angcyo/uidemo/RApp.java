@@ -48,7 +48,7 @@ public class RApp extends RApplication {
 //        if (BuildConfig.SHOW_DEBUG) {
 //            Takt.stock(this)
 //                    .seat(Seat.TOP_RIGHT)
-//                    .playVideo();
+//                    .play();
 //
 //            BlockCanary.install(this, new AppBlockCanaryContext()).start();
 //        }
