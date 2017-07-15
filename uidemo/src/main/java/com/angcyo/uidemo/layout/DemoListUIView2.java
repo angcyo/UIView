@@ -580,6 +580,7 @@ public class DemoListUIView2 extends BaseItemUIView {
                         progressDialog.setDimBehind(false).addDismissListener(new UIIDialogImpl.OnDismissListener() {
                             @Override
                             public void onDismiss() {
+                                progress = 0;
                                 mSubscribe.unsubscribe();
                             }
                         }).showDialog(mParentILayout);
