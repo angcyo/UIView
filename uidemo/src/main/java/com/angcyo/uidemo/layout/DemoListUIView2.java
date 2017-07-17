@@ -51,6 +51,7 @@ import com.angcyo.uiview.github.utilcode.utils.AppUtils;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 
@@ -460,6 +461,15 @@ public class DemoListUIView2 extends BaseItemUIView {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        long numTest = 12347980981235L;
+                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        numTest = 78983L;
+                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        numTest = 87654321L;
+                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        numTest = 4300L;
+                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
                     }
                 });
             }
