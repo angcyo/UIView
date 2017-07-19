@@ -12,7 +12,7 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <com.angcyo.uiview.github.textview.shimmer.ShimmerTextView
+        <com.angcyo.github.textview.shimmer.ShimmerTextView
             android:id="@+id/shimmer_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             android:textStyle="bold"
             app:reflectionColor="#999"/>
 
-        <com.angcyo.uiview.github.textview.shimmer.ShimmerButton
+        <com.angcyo.github.textview.shimmer.ShimmerButton
             android:id="@+id/shimmer_button_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 
+import com.angcyo.github.utilcode.utils.AppUtils;
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
@@ -47,7 +48,6 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
 import com.angcyo.uiview.base.UIScanView;
 import com.angcyo.uiview.dialog.UIProgressDialog;
-import com.angcyo.uiview.github.utilcode.utils.AppUtils;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;

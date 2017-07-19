@@ -2,13 +2,13 @@ package com.angcyo.uidemo.layout.demo;
 
 import android.widget.CompoundButton;
 
+import com.angcyo.github.finger.FingerPrinterView;
+import com.angcyo.github.finger.RxFingerPrinter;
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
-import com.angcyo.uiview.github.finger.FingerPrinterView;
-import com.angcyo.uiview.github.finger.RxFingerPrinter;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.T_;
 
