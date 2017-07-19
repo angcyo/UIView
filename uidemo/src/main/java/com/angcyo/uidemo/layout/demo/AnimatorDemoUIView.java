@@ -9,6 +9,7 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.utils.T_;
+import com.github.florent37.viewanimator.ViewAnimator;
 
 
 /**
@@ -92,6 +93,18 @@ public class AnimatorDemoUIView extends UIContentView {
             @Override
             public void onClick(View v) {
                 AnimatorDemoUIView.this.onClick(mViewHolder.v(R.id.move_button));
+            }
+        });
+
+        mViewHolder.click(R.id.button1, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewAnimator.animate(v)
+                        .translationX(0, ((View) v.getParent()).getMeasuredWidth() / 2 - v.getLeft() - v.getMeasuredWidth() / 2)
+                        .translationY(0, ((View) v.getParent()).getMeasuredHeight() / 2 - v.getTop() - v.getMeasuredHeight() / 2)
+//                        .width(v.getMeasuredWidth(), ScreenUtil.screenWidth)
+//                        .height(v.getMeasuredHeight(), ScreenUtil.screenHeight)
+                        .start();
             }
         });
     }

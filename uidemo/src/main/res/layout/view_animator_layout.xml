@@ -24,9 +24,9 @@
         android:orientation="horizontal">
 
         <View
-            android:background="@android:color/darker_gray"
             android:layout_width="@dimen/base_xhdpi"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp"
+            android:background="@android:color/darker_gray"/>
 
         <View
             android:id="@+id/red_view"
@@ -62,5 +62,12 @@
         android:layout_alignParentEnd="true"
         android:text="Move"
         android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_50dpi"
+        android:text="动画"/>
 
 </RelativeLayout>
