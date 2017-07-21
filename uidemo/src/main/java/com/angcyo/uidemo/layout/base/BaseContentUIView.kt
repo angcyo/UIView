@@ -1,7 +1,6 @@
 package com.angcyo.uidemo.layout.base
 
 import com.angcyo.uiview.base.UIContentView
-import com.angcyo.uiview.container.UILayoutImpl
 import com.angcyo.uiview.model.TitleBarPattern
 
 /**
@@ -17,6 +16,6 @@ import com.angcyo.uiview.model.TitleBarPattern
  */
 abstract class BaseContentUIView : UIContentView() {
     override fun getTitleBar(): TitleBarPattern {
-        return super.getTitleBar().setShowBackImageView((iLayout as UILayoutImpl).attachViewSize >= 1)
+        return super.getTitleBar()
     }
 }
