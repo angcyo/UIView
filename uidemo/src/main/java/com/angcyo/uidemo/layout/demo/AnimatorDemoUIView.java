@@ -293,8 +293,7 @@ public class AnimatorDemoUIView extends UIContentView {
                 AnimUtil.startToMaxAnim(mRect, mViewHolder.v(R.id.preview_image_view),
                         new Point(mRect.centerX(), mRect.centerY() - mTitleHeight),
                         new Point(ScreenUtil.screenWidth / 2, (ScreenUtil.screenHeight - mTitleHeight) / 2),
-                        drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight())
-                        .addListener(new RAnimListener() {
+                        drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), 0, new RAnimListener() {
                             @Override
                             public void onAnimationStart(Animator animation) {
                                 mViewHolder.v(R.id.preview_layout).setVisibility(View.VISIBLE);
@@ -317,8 +316,7 @@ public class AnimatorDemoUIView extends UIContentView {
             AnimUtil.startToMinAnim(mRect, preview,
                     new Point(ScreenUtil.screenWidth / 2, (ScreenUtil.screenHeight - mTitleHeight) / 2),
                     new Point(mRect.centerX(), mRect.centerY() - mTitleHeight),
-                    preview.getMeasuredWidth(), preview.getMeasuredHeight())
-                    .addListener(new RAnimListener() {
+                    preview.getMeasuredWidth(), preview.getMeasuredHeight(), new RAnimListener() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             mViewHolder.v(R.id.preview_layout).setVisibility(View.INVISIBLE);
