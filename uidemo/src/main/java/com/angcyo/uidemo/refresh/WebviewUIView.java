@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.rsen.BasePointRefreshView;
 import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.uiview.utils.Web;
 
@@ -33,6 +34,9 @@ public class WebviewUIView extends UIContentView {
         Web.initWebView(webView, null);
         webView.loadUrl("https://www.baidu.com/s?word=angcyo");
         mRefreshLayout.addView(webView);
+
+        mRefreshLayout.setTopView(new BasePointRefreshView(mActivity));
+        mRefreshLayout.setBottomView(new BasePointRefreshView(mActivity));
         baseContentLayout.addView(mRefreshLayout);
     }
 

@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.rsen.BasePointRefreshView;
 import com.angcyo.uiview.rsen.RefreshLayout;
 
 /**
@@ -31,6 +32,9 @@ public class NormalUIView extends UIContentView {
         TextView textView = new TextView(mActivity);
         textView.setText("我就是内容.....");
         mRefreshLayout.addView(textView);
+
+        mRefreshLayout.setTopView(new BasePointRefreshView(mActivity));
+        mRefreshLayout.setBottomView(new BasePointRefreshView(mActivity));
         baseContentLayout.addView(mRefreshLayout);
     }
 

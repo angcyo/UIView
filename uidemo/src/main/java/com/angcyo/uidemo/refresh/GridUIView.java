@@ -13,6 +13,7 @@ import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.rsen.BasePointRefreshView;
 import com.angcyo.uiview.rsen.RefreshLayout;
 
 /**
@@ -38,6 +39,9 @@ public class GridUIView extends UIContentView {
         mRecyclerView = new RRecyclerView(mActivity);
         mRecyclerView.setTag("gv4");
         mRefreshLayout.addView(mRecyclerView);
+
+        mRefreshLayout.setTopView(new BasePointRefreshView(mActivity));
+        mRefreshLayout.setBottomView(new BasePointRefreshView(mActivity));
         baseContentLayout.addView(mRefreshLayout);
     }
 

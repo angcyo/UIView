@@ -18,10 +18,9 @@ import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.adapter.RModelAdapter;
 import com.angcyo.uiview.resources.ResUtil;
+import com.angcyo.uiview.rsen.BasePointRefreshView;
 import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.uiview.utils.T_;
-
-import static android.R.id.list;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -50,6 +49,9 @@ public class RecyclerUIView extends UIContentView {
 //        TextView textView = new TextView(mActivity);
 //        textView.setText("我就是内容.....");
 //        mRefreshLayout.addView(textView);
+
+        mRefreshLayout.setTopView(new BasePointRefreshView(mActivity));
+        mRefreshLayout.setBottomView(new BasePointRefreshView(mActivity));
         baseContentLayout.addView(mRefreshLayout);
     }
 
@@ -100,7 +102,7 @@ public class RecyclerUIView extends UIContentView {
 
             @Override
             protected boolean onUnSelectorPosition(RBaseViewHolder viewHolder, int position, boolean isSelector) {
-                unSelector(list, mRecyclerView, "check_box");
+                unSelector(position, mRecyclerView, "check_box");
                 return true;
             }
 
