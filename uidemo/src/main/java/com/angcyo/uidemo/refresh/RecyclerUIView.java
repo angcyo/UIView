@@ -75,7 +75,7 @@ public class RecyclerUIView extends UIContentView {
             }
 
             @Override
-            protected View createContentView(ViewGroup parent, int viewType) {
+            protected View createItemView(ViewGroup parent, int viewType) {
                 LinearLayout root = new LinearLayout(mActivity);
                 root.setOrientation(LinearLayout.HORIZONTAL);
                 root.setVerticalGravity(Gravity.CENTER_VERTICAL);

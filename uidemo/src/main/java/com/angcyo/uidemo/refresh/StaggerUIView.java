@@ -73,7 +73,7 @@ public class StaggerUIView extends UIContentView {
             }
 
             @Override
-            protected View createContentView(ViewGroup parent, int viewType) {
+            protected View createItemView(ViewGroup parent, int viewType) {
                 TextView textView = new TextView(mActivity);
                 textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 50)));
                 textView.setTextColor(Color.BLUE);

@@ -53,7 +53,7 @@ public class MessageView extends UIBaseView {
             }
 
             @Override
-            protected View createContentView(ViewGroup parent, int viewType) {
+            protected View createItemView(ViewGroup parent, int viewType) {
                 TextView textView = new TextView(mActivity);
                 textView.setText(this.getClass().getSuperclass().getSimpleName() + " " + count++);
                 textView.setLayoutParams(new ViewGroup.LayoutParams(-1, (int) ResUtil.dpToPx(mActivity.getResources(), 50)));

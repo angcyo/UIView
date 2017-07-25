@@ -48,6 +48,7 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
 import com.angcyo.uiview.base.UIScanView;
 import com.angcyo.uiview.dialog.UIProgressDialog;
+import com.angcyo.uiview.kotlin.ViewExKt;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
@@ -470,6 +471,11 @@ public class DemoListUIView2 extends BaseItemUIView {
                         L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
                         numTest = 4300L;
                         L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+
+                        View view = new View(mActivity);
+                        View v1 = ViewExKt.v(view, R.id.text_view);
+
+                        L.e("call: onClick([v])-> " + v1);
                     }
                 });
             }
