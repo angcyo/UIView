@@ -9,6 +9,7 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.widget.RExTextView;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -49,5 +50,15 @@ public class RTLUIView extends UIContentView {
                                 View.VISIBLE : View.GONE);
             }
         });
+
+        RExTextView exTextView1 = mViewHolder.v(R.id.ex_text_1);
+        RExTextView exTextView2 = mViewHolder.v(R.id.ex_text_2);
+        RExTextView exTextView3 = mViewHolder.v(R.id.ex_text_3);
+        RExTextView exTextView4 = mViewHolder.v(R.id.ex_text_4);
+
+        exTextView1.setMaxShowLine(1);
+        exTextView2.setMaxShowLine(2);
+        exTextView3.setMaxShowLine(3);
+        exTextView4.setMaxShowLine(3);
     }
 }
