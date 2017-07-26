@@ -59,11 +59,6 @@ class HotPackageView(context: Context, attributeSet: AttributeSet? = null) : Vie
             override fun onAnimationRepeat(animation: Animator?) {
                 super.onAnimationRepeat(animation)
                 hotAnim = !hotAnim
-                if (hotAnim) {
-                    anim.duration = 400
-                } else {
-                    anim.duration = 500
-                }
             }
         })
         anim.repeatCount = ObjectAnimator.INFINITE
@@ -122,7 +117,10 @@ class HotPackageView(context: Context, attributeSet: AttributeSet? = null) : Vie
     override fun onVisibilityChanged(changedView: View?, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
         if (isAttached && visibility == VISIBLE) {
-            animator.start()
+            if (!animator.isStarted) {
+                //L.e("call: onVisibilityChanged -> animator.start")
+                animator.start()
+            }
         } else {
             animator.cancel()
         }
