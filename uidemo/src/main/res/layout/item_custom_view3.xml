@@ -60,4 +60,28 @@
             app:r_progress_style="CIRCLE"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.angcyo.uidemo.layout.demo.view.HotPackageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <com.angcyo.uidemo.layout.demo.view.HotPackageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"/>
+
+        <com.angcyo.uidemo.layout.demo.view.HotPackageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+
+        <com.angcyo.uidemo.layout.demo.view.HotPackageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>
