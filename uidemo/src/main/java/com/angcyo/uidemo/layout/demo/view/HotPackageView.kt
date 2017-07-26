@@ -106,13 +106,25 @@ class HotPackageView(context: Context, attributeSet: AttributeSet? = null) : Vie
         canvas.restore()
     }
 
+    private var isAttached = false
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        animator.start()
+        isAttached = true
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        isAttached = false
         animator.cancel()
+    }
+
+    override fun onVisibilityChanged(changedView: View?, visibility: Int) {
+        super.onVisibilityChanged(changedView, visibility)
+        if (isAttached && visibility == VISIBLE) {
+            animator.start()
+        } else {
+            animator.cancel()
+        }
     }
 }
