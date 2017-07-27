@@ -74,6 +74,38 @@
         android:drawableEnd="@drawable/base_load"
         android:hint="文本测试"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_red_d85940"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_xhdpi">
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红包个数"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/hot_num_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:inputType="number"
+            app:r_hint_text="填写个数"
+            app:r_max_number="100"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_ldpi"
+            android:text="个"/>
+    </LinearLayout>
+
     <com.angcyo.uiview.widget.ExEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -86,6 +118,34 @@
         android:drawableEnd="@drawable/base_load"
         android:gravity="end"
         app:r_hint_text="RHint文本测试"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红包个数"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableEnd="@drawable/base_load"
+            android:gravity="end"
+            android:inputType="numberSigned"
+            app:r_hint_text="RHint文本测试"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="个"/>
+    </LinearLayout>
+
 
     <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
         android:layout_width="match_parent"
