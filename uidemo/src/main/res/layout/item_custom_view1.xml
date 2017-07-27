@@ -74,6 +74,19 @@
         android:drawableEnd="@drawable/base_load"
         android:hint="文本测试"/>
 
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        app:r_hint_text="RHint文本测试"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:gravity="end"
+        app:r_hint_text="RHint文本测试"/>
+
     <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
