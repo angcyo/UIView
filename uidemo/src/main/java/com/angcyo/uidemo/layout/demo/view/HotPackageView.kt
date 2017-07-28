@@ -6,6 +6,7 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
@@ -106,6 +107,12 @@ class HotPackageView(context: Context, attributeSet: AttributeSet? = null) : Vie
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         isAttached = true
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            if (!animator.isStarted) {
+                animator.start()
+            }
+        }
     }
 
     override fun onDetachedFromWindow() {

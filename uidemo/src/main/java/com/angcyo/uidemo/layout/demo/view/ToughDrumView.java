@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,10 +23,10 @@ import android.view.View;
 public class ToughDrumView extends View {
 
     float toughHeight;//椭圆的高度
+    RectF mRectF = new RectF();
     private float mDensity;
     private Paint mPaint;
     private float mBorderWidth;
-
     private int curProgress = 0;
 
     public ToughDrumView(Context context) {
@@ -81,8 +82,9 @@ public class ToughDrumView extends View {
         canvas.save();
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.GREEN);
-        canvas.drawOval(0 + mBorderWidth / 2, getMeasuredHeight() - toughHeight + mBorderWidth / 2,
-                getMeasuredWidth() - mBorderWidth / 2, getMeasuredHeight() - mBorderWidth / 2, mPaint);
+        mRectF.set(0 + mBorderWidth / 2, getMeasuredHeight() - toughHeight + mBorderWidth / 2,
+                getMeasuredWidth() - mBorderWidth / 2, getMeasuredHeight() - mBorderWidth / 2);
+        canvas.drawOval(mRectF, mPaint);
         canvas.restore();
 
         //绘制左右边框
@@ -100,8 +102,9 @@ public class ToughDrumView extends View {
         canvas.save();
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.GREEN);
-        canvas.drawOval(0 + mBorderWidth / 2, 0 + mBorderWidth / 2,
-                getMeasuredWidth() - mBorderWidth / 2, toughHeight - mBorderWidth / 2, mPaint);
+        mRectF.set(0 + mBorderWidth / 2, 0 + mBorderWidth / 2,
+                getMeasuredWidth() - mBorderWidth / 2, toughHeight - mBorderWidth / 2);
+        canvas.drawOval(mRectF, mPaint);
         canvas.restore();
 
         //60帧重绘
@@ -126,8 +129,9 @@ public class ToughDrumView extends View {
             canvas.save();
             mPaint.setStyle(Paint.Style.STROKE);
             mPaint.setColor(Color.BLUE);
-            canvas.drawOval(0 + mBorderWidth / 2, startY - toughHeight + mBorderWidth,
-                    getMeasuredWidth() - mBorderWidth / 2, startY, mPaint);
+            mRectF.set(0 + mBorderWidth / 2, startY - toughHeight + mBorderWidth,
+                    getMeasuredWidth() - mBorderWidth / 2, startY);
+            canvas.drawOval(mRectF, mPaint);
             canvas.restore();
 
             startY = (int) (bottom - i / 100f * maxProgressHeight);
@@ -136,8 +140,9 @@ public class ToughDrumView extends View {
         canvas.save();
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.GREEN);
-        canvas.drawOval(0 + mBorderWidth / 2, startY - toughHeight + mBorderWidth,
-                getMeasuredWidth() - mBorderWidth / 2, startY, mPaint);
+        mRectF.set(0 + mBorderWidth / 2, startY - toughHeight + mBorderWidth,
+                getMeasuredWidth() - mBorderWidth / 2, startY);
+        canvas.drawOval(mRectF, mPaint);
         canvas.restore();
     }
 }

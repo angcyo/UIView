@@ -1,10 +1,7 @@
 package com.angcyo.uidemo.layout.demo.view
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
@@ -140,7 +137,7 @@ class SegmentStepView2(context: Context, attributeSet: AttributeSet? = null) : V
     val drawClipPath = Path()
         get() {
             val radius = floatArrayOf(radiusSize, radiusSize, radiusSize, radiusSize, radiusSize, radiusSize, radiusSize, radiusSize)
-            field.addRoundRect(0f, textHeight + textSpace, measuredWidth.toFloat(), textHeight + textSpace + stepHeight, radius, Path.Direction.CW)
+            field.addRoundRect(RectF(0f, textHeight + textSpace, measuredWidth.toFloat(), textHeight + textSpace + stepHeight), radius, Path.Direction.CW)
             return field
         }
 
