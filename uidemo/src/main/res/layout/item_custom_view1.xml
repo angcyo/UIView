@@ -146,6 +146,19 @@
             android:text="个"/>
     </LinearLayout>
 
+    <com.angcyo.uiview.widget.ExEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/base_load"
+        android:gravity="end"
+        android:hint="Gravity End Hint文本测试"
+        android:inputType="numberSigned"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:hint="Gravity Right Hint文本测试"/>
 
     <com.angcyo.uidemo.layout.demo.view.MaxLinearLayout
         android:layout_width="match_parent"
