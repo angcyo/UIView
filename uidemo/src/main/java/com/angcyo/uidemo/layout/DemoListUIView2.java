@@ -14,6 +14,7 @@ import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView2;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
+import com.angcyo.uidemo.layout.demo.ContentStateUIView;
 import com.angcyo.uidemo.layout.demo.CursorLoaderUIView;
 import com.angcyo.uidemo.layout.demo.CustomViewUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
@@ -618,6 +619,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                                         }
                                     }
                                 });
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".ContentState Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new ContentStateUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
