@@ -71,7 +71,7 @@ public class CustomViewUIView extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         ExEditText editText1 = holder.v(R.id.edit_anim_text);
-                        editText1.rollTo(0.88f, 0.0f, 12.88f);
+                        editText1.rollTo(0.88f, 0.0f, 12.88f, 30);
                     }
                 });
             }
