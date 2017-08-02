@@ -65,6 +65,15 @@ public class CustomViewUIView extends BaseItemUIView {
                 list.add("1888888888888");
                 list.add("1888877777777");
                 editText.setInputTipTextList(list);
+
+
+                holder.click(R.id.roll_view, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ExEditText editText1 = holder.v(R.id.edit_anim_text);
+                        editText1.rollTo(0.88f, 0.0f, 12.88f);
+                    }
+                });
             }
         });
         items.add(new SingleItem() {
