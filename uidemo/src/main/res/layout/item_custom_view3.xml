@@ -70,22 +70,84 @@
 
         <com.angcyo.uidemo.layout.demo.view.HotPackageView
             android:layout_width="40dp"
-            android:visibility="visible"
-            android:layout_height="40dp"/>
+            android:layout_height="40dp"
+            android:visibility="visible"/>
 
         <com.angcyo.uidemo.layout.demo.view.HotPackageView
             android:layout_width="60dp"
-            android:visibility="visible"
-            android:layout_height="60dp"/>
+            android:layout_height="60dp"
+            android:visibility="visible"/>
 
         <com.angcyo.uidemo.layout.demo.view.HotPackageView
             android:layout_width="70dp"
-            android:visibility="visible"
-            android:layout_height="70dp"/>
+            android:layout_height="70dp"
+            android:visibility="visible"/>
 
         <com.angcyo.uidemo.layout.demo.view.HotPackageView
             android:layout_width="wrap_content"
-            android:visibility="visible"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/base_gray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_sex="MALE"/>
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_sex="FEMALE"/>
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_age="20"
+            app:r_sex="FEMALE"/>
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_age="11120"
+            app:r_sex="MALE"/>
+
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="13dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_sex="MALE"/>
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_sex="FEMALE"/>
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_age="20"
+            app:r_sex="FEMALE"/>
+
+        <com.angcyo.uiview.widget.SexView
+            android:layout_width="wrap_content"
+            android:layout_height="14dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            app:r_age="11120"
+            app:r_sex="MALE"/>
+
     </LinearLayout>
 </LinearLayout>
