@@ -214,5 +214,41 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button2_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_mdpi"
+            android:text="B2_1"/>
+
+        <Button
+            android:id="@+id/button2_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_mdpi"
+            android:text="B2_2"/>
+
+        <Button
+            android:id="@+id/button2_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_mdpi"
+            android:text="B2_3"/>
+
+        <Button
+            android:id="@+id/button2_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_mdpi"
+            android:text="B2_4"/>
+
+    </LinearLayout>
+
 
 </LinearLayout>

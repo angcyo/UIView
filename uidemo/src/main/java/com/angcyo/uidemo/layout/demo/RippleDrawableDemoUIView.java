@@ -108,6 +108,29 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
                                 ResUtil.createDrawable(Color.BLUE, Color.YELLOW, mdpi, roundRadius),
                                 ResUtil.createDrawable(Color.RED, roundRadius)));
 
+                //ripple 测试 星期四 2017-8-3
+                holder.v(R.id.button2_1).setBackground(
+                        ResUtil.ripple(Color.WHITE,
+                                ResUtil.selector(
+                                        ResUtil.createDrawable(Color.BLUE, 100),
+                                        ResUtil.createDrawable(Color.RED, 100)))
+                );
+                holder.v(R.id.button2_2).setBackground(
+                        ResUtil.ripple(Color.RED,
+                                ResUtil.selector(
+                                        ResUtil.createDrawable(Color.BLUE, Color.WHITE, 2, 1000),
+                                        ResUtil.createDrawable(Color.GREEN, Color.WHITE, 4, 1000)))
+                );
+                holder.v(R.id.button2_3).setBackground(
+                        ResUtil.ripple(Color.YELLOW,
+                                null)
+                );
+                holder.v(R.id.button2_4).setBackground(
+                        ResUtil.ripple(Color.GREEN,
+                                ResUtil.selector(
+                                        ResUtil.createDrawable(Color.TRANSPARENT, 0),
+                                        ResUtil.createDrawable(Color.RED, roundRadius * 2)))
+                );
 
             }
         });
