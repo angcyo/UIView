@@ -91,7 +91,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="30dp"
         android:background="@color/base_gray"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -148,6 +148,34 @@
             android:layout_marginStart="@dimen/base_xhdpi"
             app:r_age="11120"
             app:r_sex="MALE"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.widget.RRangeBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.widget.RRangeBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base_xhdpi"
+            app:r_max_value="80"
+            app:r_min_value="30"/>
+
+        <com.angcyo.uiview.widget.RRangeBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_xxhdpi"
+            android:paddingStart="@dimen/base_xhdpi"
+            app:r_max_value="80"
+            app:r_min_range="10"
+            app:r_min_value="30"/>
 
     </LinearLayout>
 </LinearLayout>
