@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
+import com.angcyo.uidemo.layout.demo.view.RProgressBar;
 import com.angcyo.uidemo.layout.demo.view.SegmentStepView2;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
@@ -129,6 +130,13 @@ public class CustomViewUIView extends BaseItemUIView {
                 simpleProgressBar1.setProgress(50);
                 SimpleProgressBar simpleProgressBar2 = holder.v(R.id.progress_view2);
                 simpleProgressBar2.setIncertitudeProgress(true);
+
+                holder.click(R.id.progress_bar, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((RProgressBar) v).animToProgress(100);
+                    }
+                });
             }
         });
     }
