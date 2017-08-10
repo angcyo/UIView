@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.widget.RSoftInputLayout
+    android:id="@+id/soft_input_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.rsen.RefreshLayout
+            android:id="@+id/refresh_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.angcyo.uiview.recycler.RRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.angcyo.uiview.rsen.RefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/base_ldpi">
+
+            <com.angcyo.uiview.widget.ExEditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/show_emoji"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/base_xxxhdpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="显示表情"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/send_dice"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/base_xxxhdpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="发送骰子"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/send_card"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/base_xxxhdpi"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="发送纸牌"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/default_base_tran_dark2">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="表情顶部"
+            android:textColor="@color/base_white"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="表情底部"
+            android:textColor="@color/base_white"/>
+
+    </RelativeLayout>
+
+</com.angcyo.uiview.widget.RSoftInputLayout>

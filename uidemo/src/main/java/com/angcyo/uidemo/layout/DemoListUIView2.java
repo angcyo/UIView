@@ -17,6 +17,7 @@ import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
 import com.angcyo.uidemo.layout.demo.ContentStateUIView;
 import com.angcyo.uidemo.layout.demo.CursorLoaderUIView;
 import com.angcyo.uidemo.layout.demo.CustomViewUIView;
+import com.angcyo.uidemo.layout.demo.DiceCardUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExpandRecordLayoutUIView;
@@ -632,6 +633,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new ContentStateUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Dice Card Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new DiceCardUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
