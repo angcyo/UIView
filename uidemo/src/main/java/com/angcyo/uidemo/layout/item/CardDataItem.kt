@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.item
 
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.bean.DiceCardBean
+import com.angcyo.uidemo.layout.demo.view.CardView
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.adapter.RBaseDataItem
 import com.angcyo.uiview.recycler.adapter.RDataAdapter
@@ -26,8 +27,13 @@ class CardDataItem(bean: DiceCardBean) : RBaseDataItem<DiceCardBean>(bean) {
         return super.getDataItemType() + 2
     }
 
-    override fun onBindDataView(dataAdapter: RDataAdapter?, holder: RBaseViewHolder?, posInData: Int) {
+    override fun onBindDataView(dataAdapter: RDataAdapter?, holder: RBaseViewHolder, posInData: Int) {
         super.onBindDataView(dataAdapter, holder, posInData)
+        val cardView: CardView = holder.v(R.id.card_view)
+
+        holder.tv(R.id.text_view).text = "纸牌数量:${mBaseData.targets.size}"
+
+        cardView.setTargetCards(mBaseData.targets)
     }
 
 }

@@ -11,7 +11,6 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
-import com.angcyo.library.utils.L
 import com.angcyo.uiview.kotlin.density
 import com.angcyo.uiview.resources.RAnimListener
 import com.angcyo.uiview.resources.ResUtil
@@ -30,11 +29,11 @@ import java.util.*
  */
 class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
 
-    /**所有骰子的资源id集合*/
+    /**所有骰子动画需要的的资源id集合*/
     private val diceResArray = IntArray(15)
 
-    /**缓存的骰子Drawable, 用到的时候才会加载进来*/
-    private val drawablesMap = mutableMapOf<Int, Drawable>()
+    /**筛子最终的资源集合*/
+    private val diceTargetResArray = IntArray(6)
 
     /**执行动画时, 需要绘制的骰子*/
     private var drawDrawables = arrayListOf<Drawable>()
@@ -50,19 +49,33 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
         for (i in 0..14) {
             diceResArray[i] = ResUtil.getThemeIdentifier(context, "shaizi1_00${if (i >= 10) i else ("0" + i)}", "drawable")
         }
+        for (i in 1..6) {
+            diceTargetResArray[i - 1] = ResUtil.getThemeIdentifier(context, "dice_$i", "drawable")
+        }
     }
 
-    private fun getDiceDrawable(dice: Int): Drawable {
-        L.e("call: getDiceDrawable -> $dice")
-        val drawable = drawablesMap[dice]
-        if (drawable == null) {
-            L.e("call: getDiceDrawable 创建-> $dice")
-            drawablesMap[dice] = ContextCompat.getDrawable(context, dice)
-            return drawablesMap[dice]!!
-        } else {
-            L.e("call: getDiceDrawable 缓存-> $dice")
+
+    companion object {
+        /**缓存的骰子Drawable, 用到的时候才会加载进来*/
+        private val drawablesMap = mutableMapOf<Int, Drawable>()
+
+        /**释放缓存*/
+        fun clear() {
+            drawablesMap.clear()
         }
-        return drawable
+
+        fun getDiceDrawable(context: Context, dice: Int): Drawable {
+//            L.e("call: getDiceDrawable -> $dice")
+            val drawable = drawablesMap[dice]
+            if (drawable == null) {
+//                L.e("call: getDiceDrawable 创建-> $dice")
+                drawablesMap[dice] = ContextCompat.getDrawable(context, dice)
+                return drawablesMap[dice]!!
+            } else {
+//                L.e("call: getDiceDrawable 缓存-> $dice")
+            }
+            return drawable
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -98,7 +111,7 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        L.e("call: onDetachedFromWindow -> ")
+//        L.e("call: onDetachedFromWindow -> ")
         if (tag != null && !TextUtils.isEmpty(uuid) &&
                 TextUtils.isEmpty(tag.toString()) &&
                 TextUtils.equals(uuid, tag.toString())) {
@@ -132,7 +145,7 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
                     }
                     lastRandomMap[index] = nextInt
 
-                    val drawable = getDiceDrawable(diceResArray[nextInt])
+                    val drawable = getDiceDrawable(context, diceResArray[ensureDice(nextInt)])
                     if (drawDrawables.size < targetDrawables.size) {
                         drawDrawables.add(drawable)
                     } else {
@@ -167,8 +180,8 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
         drawDrawables.clear()
 
         targetDices.mapIndexed { index, _ ->
-            L.e("call: startRoll -> size:${targetDices.size} index:$index")
-            targetDrawables.add(getDiceDrawable(diceResArray[ensureDice(targetDices[index])]))
+//            L.e("call: startRoll -> size:${targetDices.size} index:$index")
+            targetDrawables.add(getDiceDrawable(context, diceTargetResArray[ensureTargetDice(targetDices[index])]))
         }
 
         if (oldSize != targetDrawables.size) {
@@ -186,7 +199,7 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
 
         targetDrawables.clear()
         targetDices.mapIndexed { index, _ ->
-            targetDrawables.add(getDiceDrawable(diceResArray[ensureDice(targetDices[index])]))
+            targetDrawables.add(getDiceDrawable(context, diceTargetResArray[ensureTargetDice(targetDices[index])]))
         }
 
         if (oldSize != targetDrawables.size) {
@@ -198,6 +211,10 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
 
     private fun ensureDice(dice: Int): Int {
         return Math.max(Math.min(14, dice), 0)
+    }
+
+    private fun ensureTargetDice(dice: Int): Int {
+        return Math.max(Math.min(5, dice), 0)
     }
 
 }

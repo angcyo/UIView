@@ -81,7 +81,7 @@ class DiceCardUIView : BaseRecyclerUIView<RBaseDataItem<*>>() {
             val intList = mutableListOf<Int>()
             val nextInt = random.nextInt(6)
             for (i in 0..nextInt) {
-                intList.add(random.nextInt(14))
+                intList.add(random.nextInt(6))
             }
             mExBaseAdapter.addLastItem(DiceDataItem(DiceCardBean(intList.toIntArray())))
             mRecyclerView.scrollToLastBottom(true)
@@ -92,7 +92,7 @@ class DiceCardUIView : BaseRecyclerUIView<RBaseDataItem<*>>() {
             val intList = mutableListOf<Int>()
             val nextInt = random.nextInt(10)
             for (i in 0..nextInt) {
-                intList.add(random.nextInt(53))
+                intList.add(random.nextInt(54))
             }
             mExBaseAdapter.addLastItem(CardDataItem(DiceCardBean(intList.toIntArray())))
             mRecyclerView.scrollToLastBottom(true)
