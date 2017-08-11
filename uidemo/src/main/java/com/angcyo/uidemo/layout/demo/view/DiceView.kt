@@ -173,6 +173,7 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
 
     /**开始随机滚动*/
     fun startRoll(uuid: String, targetDices: IntArray) {
+        tag = uuid
         this.uuid = uuid
         val oldSize = targetDrawables.size
 
@@ -180,7 +181,7 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
         drawDrawables.clear()
 
         targetDices.mapIndexed { index, _ ->
-//            L.e("call: startRoll -> size:${targetDices.size} index:$index")
+            //            L.e("call: startRoll -> size:${targetDices.size} index:$index")
             targetDrawables.add(getDiceDrawable(context, diceTargetResArray[ensureTargetDice(targetDices[index])]))
         }
 

@@ -30,8 +30,6 @@ class DiceDataItem(bean: DiceCardBean) : RBaseDataItem<DiceCardBean>(bean) {
     override fun onBindDataView(dataAdapter: RDataAdapter?, holder: RBaseViewHolder, posInData: Int) {
         super.onBindDataView(dataAdapter, holder, posInData)
         val diceView: DiceView = holder.v(R.id.dice_view)
-        diceView.tag = mBaseData.uuid
-
         holder.tv(R.id.text_view).text = "骰子数量:${mBaseData.targets.size}"
 
         if (mBaseData.needPlay) {
