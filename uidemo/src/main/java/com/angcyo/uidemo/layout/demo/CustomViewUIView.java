@@ -43,6 +43,9 @@ public class CustomViewUIView extends BaseItemUIView {
         if (viewType == 2) {
             return R.layout.item_custom_view3;
         }
+        if (viewType == 3) {
+            return R.layout.item_custom_view4;
+        }
         return R.layout.item_custom_view2;
     }
 
@@ -137,6 +140,12 @@ public class CustomViewUIView extends BaseItemUIView {
                         ((RProgressBar) v).animToProgress(100);
                     }
                 });
+            }
+        });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(final RBaseViewHolder holder, final int posInData, Item dataBean) {
+
             }
         });
     }
