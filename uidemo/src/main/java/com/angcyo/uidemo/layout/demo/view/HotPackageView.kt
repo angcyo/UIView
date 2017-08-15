@@ -6,7 +6,6 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
@@ -84,7 +83,10 @@ class HotPackageView(context: Context, attributeSet: AttributeSet? = null) : Vie
         super.onAttachedToWindow()
         isAttached = true
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            startAnim()
+//        }
+        if (visibility == VISIBLE) {
             startAnim()
         }
     }
