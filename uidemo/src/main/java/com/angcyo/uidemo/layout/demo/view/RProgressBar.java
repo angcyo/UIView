@@ -12,6 +12,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import com.angcyo.uiview.kotlin.ViewExKt;
+
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -56,10 +58,10 @@ public class RProgressBar extends View {
     }
 
     /**
-     * 进度圆角半径, 当超过一定值时, 就是一个圆
+     * 进度圆角半径, 当超过一定值时, 就是一个圆.....
      */
     private float getRoundRadius() {
-        return Math.max(getMeasuredWidth(), getMeasuredHeight()) / 2;
+        return 25 * ViewExKt.getDensity(this);
     }
 
     @Override
