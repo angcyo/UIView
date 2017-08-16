@@ -62,7 +62,7 @@ public class CustomViewUIView extends BaseItemUIView {
                     }
                 });
 
-                ExEditText editText = holder.v(R.id.input_tip_view);
+                final ExEditText editText = holder.v(R.id.input_tip_view);
                 List<String> list = new ArrayList<>();
                 list.add("1885555555555");
                 list.add("1888866666666");
@@ -75,6 +75,7 @@ public class CustomViewUIView extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         ExEditText editText1 = holder.v(R.id.edit_anim_text);
+                        T_.show(editText1.getInputNumber() + "");
                         editText1.rollTo(0.88f, 0.0f, 12.88f, 30);
                     }
                 });

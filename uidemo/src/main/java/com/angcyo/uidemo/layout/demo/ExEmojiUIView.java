@@ -9,6 +9,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,8 +39,10 @@ public class ExEmojiUIView extends UIContentView {
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+        final RSoftInputLayout softInputLayout = mViewHolder.v(R.id.soft_input_layout);
+
         mControl = new Control((RecyclerView) mViewHolder.v(R.id.recycler_view),
-                (RSoftInputLayout) mViewHolder.v(R.id.soft_input_layout),
+                softInputLayout,
                 mActivity);
         mViewHolder.v(R.id.padd100).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +87,13 @@ public class ExEmojiUIView extends UIContentView {
             }
         });
         mControl.initContentLayout();
+
+        mViewHolder.cV(R.id.anim).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                softInputLayout.setAnimToShow(isChecked);
+            }
+        });
     }
 
     @Override
