@@ -33,4 +33,17 @@
 
     </FrameLayout>
 
+    <com.angcyo.uiview.widget.RSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#20000000"
+        app:r_cur_progress="50"
+        app:r_second_progress="80"
+        app:r_second_progress_color="@color/base_red_d85940"
+        app:r_thumb_height="20dp"
+        app:r_thumb_type="CIRCLE"
+        app:r_track_height="10dp"
+        app:r_track_round_size="10dp"/>
+
 </LinearLayout>
