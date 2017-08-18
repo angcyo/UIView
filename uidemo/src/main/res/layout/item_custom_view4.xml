@@ -46,4 +46,16 @@
         app:r_track_height="10dp"
         app:r_track_round_size="10dp"/>
 
+    <FrameLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/default_image"/>
+    </FrameLayout>
+
 </LinearLayout>

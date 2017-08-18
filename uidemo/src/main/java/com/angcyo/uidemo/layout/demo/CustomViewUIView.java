@@ -7,6 +7,7 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uidemo.layout.demo.view.RProgressBar;
 import com.angcyo.uidemo.layout.demo.view.SegmentStepView2;
+import com.angcyo.uiview.anim.RotateAnimation;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
@@ -157,7 +158,13 @@ public class CustomViewUIView extends BaseItemUIView {
         items.add(new SingleItem() {
             @Override
             public void onBindView(final RBaseViewHolder holder, final int posInData, Item dataBean) {
-
+                final View view = holder.v(R.id.image_view);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view.startAnimation(new RotateAnimation(view.getMeasuredWidth() / 2, view.getMeasuredHeight() / 2));
+                    }
+                });
             }
         });
     }
