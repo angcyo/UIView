@@ -57,9 +57,20 @@ public class CustomViewUIView extends BaseItemUIView {
                 RSeekBar seekBar = holder.v(R.id.seek_bar);
                 seekBar.addOnProgressChangeListener(new RSeekBar.OnProgressChangeListener() {
                     @Override
-                    public void onProgress(int progress) {
+                    public void onProgress(int progress, boolean fromTouch) {
                         holder.tv(R.id.progress_view).setText(progress + "");
                     }
+
+                    @Override
+                    public void onStartTouch() {
+
+                    }
+
+                    @Override
+                    public void onStopTouch() {
+
+                    }
+
                 });
 
                 final ExEditText editText = holder.v(R.id.input_tip_view);
