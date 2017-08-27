@@ -3,6 +3,7 @@ package com.angcyo.uidemo.layout.demo.view
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import com.angcyo.uidemo.layout.demo.ex.show
 import com.angcyo.uiview.widget.Button
 
 /**
@@ -19,6 +20,7 @@ import com.angcyo.uiview.widget.Button
 class AutoHideButton(context: Context, attributeSet: AttributeSet? = null) : Button(context, attributeSet) {
     init {
         setOnClickListener {
+            show()
             visibility = View.GONE
         }
     }

@@ -9,29 +9,46 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="25dp">
 
-    <ImageView
+    <com.angcyo.uidemo.layout.demo.view.AutoHideImageView
         android:id="@+id/imageView"
-        android:layout_width="368dp"
-        android:layout_height="543dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="@dimen/base_xhdpi"
+        android:layout_marginStart="@dimen/base_xhdpi"
+        android:layout_marginTop="@dimen/base_xhdpi"
         android:scaleType="fitXY"
         android:src="@drawable/image_demo"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="16dp"/>
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="0dp"/>
+
+    <com.angcyo.uidemo.layout.demo.view.AutoHideTextView
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:background="@color/base_orange"
+        android:text="测试专用文本"
+        app:layout_constraintDimensionRatio="W,3:4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_goneMarginTop="@dimen/base_xxxhdpi"/>
 
     <com.angcyo.uidemo.layout.demo.view.AutoHideButton
         android:id="@+id/autoHideButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="  按钮测试"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp"/>
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="测试文本"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp"/>
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp"/>
 
 </android.support.constraint.ConstraintLayout>

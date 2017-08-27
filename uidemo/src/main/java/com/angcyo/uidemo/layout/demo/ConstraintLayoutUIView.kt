@@ -19,11 +19,18 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
  */
 class ConstraintLayoutUIView : BaseItemUIView() {
 
-    override fun getItemLayoutId(position: Int): Int {
-        return R.layout.view_constraint_layout
+    override fun getItemLayoutId(position: Int) = when (position) {
+        0 -> R.layout.view_constraint_layout
+        1 -> R.layout.view_constraint_linearlayout
+        else -> R.layout.view_constraint_layout
     }
 
     override fun createItems(items: MutableList<SingleItem>?) {
+        items?.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
+
+            }
+        })
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
 
