@@ -57,6 +57,8 @@ import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.T_;
+import com.angcyo.uiview.view.IView;
+import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 
 import java.util.List;
@@ -73,6 +75,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
     int progress = 0;
     private Subscription mSubscribe;
+    private UIProgressDialog mProgressDialog;
 
     @Override
     protected TitleBarPattern getTitleBar() {
@@ -595,12 +598,13 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        final UIProgressDialog progressDialog = UIProgressDialog.build();
-                        progressDialog.setDimBehind(false).addDismissListener(new UIIDialogImpl.OnDismissListener() {
+                        mProgressDialog = UIProgressDialog.build();
+                        mProgressDialog.setDimBehind(false).addDismissListener(new UIIDialogImpl.OnDismissListener() {
                             @Override
                             public void onDismiss() {
                                 progress = 0;
                                 mSubscribe.unsubscribe();
+                                mProgressDialog = null;
                             }
                         }).showDialog(mParentILayout);
 
@@ -609,15 +613,15 @@ public class DemoListUIView2 extends BaseItemUIView {
                                     @Override
                                     public void call(Long aLong) {
                                         L.e("call: call([aLong])-> " + aLong);
-                                        progressDialog.setProgress(progress);
+                                        mProgressDialog.setProgress(progress);
 
                                         progress++;
                                         if (progress > 100) {
                                             mSubscribe.unsubscribe();
                                         } else if (progress > 80) {
-                                            progressDialog.setTipText("");
+                                            mProgressDialog.setTipText("");
                                         } else if (progress > 50) {
-                                            progressDialog.setTipText("视频处理中");
+                                            mProgressDialog.setTipText("视频处理中");
                                         }
                                     }
                                 });
@@ -659,7 +663,15 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new ConstraintLayoutUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                        startIView(new ConstraintLayoutUIView()
+                                .setEnableClipMode(ClipMode.CLIP_BOTH, v)
+                                .setOnUIViewListener(new OnUIViewListener() {
+                                    @Override
+                                    public void onViewUnload(IView uiview) {
+                                        super.onViewUnload(uiview);
+                                        L.e("call: onViewUnload([uiview])-> ConstraintLayoutUIView...");
+                                    }
+                                }));
                     }
                 });
             }

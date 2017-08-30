@@ -42,6 +42,18 @@ public class ScrollerIView extends UIContentView {
         return null;
     }
 
+    @Override
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
+        click(R.id.test_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIDialog build = UIDialog.build();
+                replaceIView(build.setDialogContent("测试对话框"));
+            }
+        });
+    }
+
     public void onEditText1Click() {
         mFirstLayout.removeView(mExEditText2);
     }
