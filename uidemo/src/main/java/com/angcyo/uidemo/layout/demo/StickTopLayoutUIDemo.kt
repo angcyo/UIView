@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.design.StickTopLayout
+import com.angcyo.uiview.kotlin.vh
+import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.widget.viewpager.UIViewPager
 
 /**
@@ -22,6 +25,15 @@ class StickTopLayoutUIDemo : BaseContentUIView() {
 
     var mTabLayout: TabLayout? = null
     var mViewPager: UIViewPager? = null
+    val stickTopLayout: StickTopLayout by vh(R.id.stick_top_layout)
+
+    override fun getTitleBar(): TitleBarPattern {
+        return super.getTitleBar()
+                .setFloating(true)
+                .addRightItem(TitleBarPattern.TitleBarItem(R.drawable.base_next) {
+                    stickTopLayout.openTop()
+                })
+    }
 
     override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
         inflate(R.layout.view_stick_top_layout)
@@ -32,6 +44,12 @@ class StickTopLayoutUIDemo : BaseContentUIView() {
         mTabLayout = v(R.id.tab_layout)
         mViewPager = v(R.id.view_pager)
         initPager()
+
+        stickTopLayout.onTopScrollListener = object : StickTopLayout.OnTopScrollListener {
+            override fun onTopScroll(isStickTop: Boolean, y: Int, max: Int) {
+                uiTitleBarContainer.alpha = (max - y) * 1f / uiTitleBarContainer.measuredHeight
+            }
+        }
     }
 
     fun initPager() {
