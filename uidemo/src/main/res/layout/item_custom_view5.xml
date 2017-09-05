@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/base_xxhdpi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_100dpi"
+        android:background="@color/base_orange_dark">
+
+        <com.angcyo.uiview.widget.ImageTipView
+            android:layout_width="@dimen/base_80dpi"
+            android:layout_height="@dimen/base_60dpi"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_selected"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_no_read_num="99"/>
+
+        <com.angcyo.uiview.widget.ImageTipView
+            android:layout_width="@dimen/base_80dpi"
+            android:layout_height="@dimen/base_60dpi"
+            android:paddingBottom="@dimen/base_ldpi"
+            android:paddingEnd="@dimen/base_hdpi"
+            android:paddingStart="@dimen/base_xxhdpi"
+            android:paddingTop="@dimen/base_xxhdpi"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_selected"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_no_read_num="9"
+            app:r_tip_text="我是"/>
+
+        <com.angcyo.uiview.widget.ImageTipView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_selected"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_tip_text="我是"/>
+
+        <com.angcyo.uiview.widget.ImageTipView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_selected"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_text_normal="文本测试"
+            app:r_text_selected="测试"
+            app:r_tip_text="我是很长的"/>
+
+        <com.angcyo.uiview.widget.ImageTipView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/base_xhdpi"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_selected"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_is_tip_mode="true"
+            app:r_text_normal="文本测试"
+            app:r_text_selected="测试"
+            app:r_tip_text="我是很长的"
+            app:r_tip_text_offset="@dimen/base_hdpi"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_100dpi"
+        android:background="@color/base_orange_dark">
+
+        <com.angcyo.uiview.widget.ImageTipView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/base_xhdpi"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_selected"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_is_tip_mode="true"
+            app:r_tip_text="我是很长的"
+            app:r_tip_text_offset="@dimen/base_hdpi"/>
+
+    </LinearLayout>
+</LinearLayout>
