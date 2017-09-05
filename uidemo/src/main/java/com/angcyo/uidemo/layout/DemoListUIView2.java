@@ -41,6 +41,7 @@ import com.angcyo.uidemo.layout.demo.SpanUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemo2UIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemoUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutManagerUIView;
+import com.angcyo.uidemo.layout.demo.StickTopLayoutUIDemo;
 import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.TouchEventDemoUIView;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
@@ -676,7 +677,27 @@ public class DemoListUIView2 extends BaseItemUIView {
                 });
             }
         });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
 
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".StickTopLayout Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new StickTopLayoutUIDemo()
+                                .setEnableClipMode(ClipMode.CLIP_BOTH, v)
+                                .setOnUIViewListener(new OnUIViewListener() {
+                                    @Override
+                                    public void onViewUnload(IView uiview) {
+                                        super.onViewUnload(uiview);
+                                        L.e("call: onViewUnload([uiview])-> ConstraintLayoutUIView...");
+                                    }
+                                }));
+                    }
+                });
+            }
+        });
 
         //版本 编译时间
         items.add(new SingleItem(SingleItem.Type.LINE) {
