@@ -58,7 +58,7 @@
             app:r_text_normal="文本测试"
             app:r_text_selected="测试"
             app:r_tip_text="我是很长的"
-            app:r_tip_text_offset="@dimen/base_hdpi"/>
+            app:r_tip_text_left_offset="@dimen/base_hdpi"/>
 
     </LinearLayout>
 
@@ -75,7 +75,7 @@
             app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
             app:r_is_tip_mode="true"
             app:r_tip_text="我是很长的"
-            app:r_tip_text_offset="@dimen/base_hdpi"/>
+            app:r_tip_text_left_offset="@dimen/base_hdpi"/>
 
     </LinearLayout>
 </LinearLayout>
