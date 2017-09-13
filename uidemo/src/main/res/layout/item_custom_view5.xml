@@ -78,4 +78,16 @@
             app:r_tip_text_left_offset="@dimen/base_hdpi"/>
 
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_100dpi">
+
+        <com.angcyo.uiview.widget.BlockSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_50dpi"/>
+
+    </LinearLayout>
+
 </LinearLayout>
