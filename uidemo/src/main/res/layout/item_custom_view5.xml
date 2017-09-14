@@ -80,7 +80,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
+    <com.angcyo.uidemo.layout.demo.view.TouchGroupLogLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/base_100dpi">
 
@@ -96,6 +96,6 @@
             app:r_block_min_width="100"
             app:r_block_progress="10"/>
 
-    </LinearLayout>
+    </com.angcyo.uidemo.layout.demo.view.TouchGroupLogLayout>
 
 </LinearLayout>

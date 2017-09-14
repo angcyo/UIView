@@ -37,6 +37,7 @@ import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
+import com.angcyo.uidemo.layout.demo.SliderLayoutUIDemo;
 import com.angcyo.uidemo.layout.demo.SpanUIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemo2UIView;
 import com.angcyo.uidemo.layout.demo.StickLayoutDemoUIView;
@@ -694,6 +695,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                                         L.e("call: onViewUnload([uiview])-> ConstraintLayoutUIView...");
                                     }
                                 }));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".SliderLayout Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new SliderLayoutUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
