@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="bottom|end"
+            android:inputType="number"
             android:hint="文本测试"
             android:tag="hide"
             app:r_left_text="Demo:"/>
