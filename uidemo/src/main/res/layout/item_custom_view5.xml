@@ -85,8 +85,16 @@
         android:layout_height="@dimen/base_100dpi">
 
         <com.angcyo.uiview.widget.BlockSeekBar
+            android:id="@+id/block_seek_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/base_50dpi"/>
+            android:layout_height="60dp"
+            android:paddingBottom="@dimen/base_xhdpi"
+            android:paddingEnd="@dimen/base_xxhdpi"
+            android:paddingLeft="@dimen/base_xxhdpi"
+            android:paddingTop="@dimen/base_ldpi"
+            app:r_block_max_progress="1000"
+            app:r_block_min_width="100"
+            app:r_block_progress="10"/>
 
     </LinearLayout>
 

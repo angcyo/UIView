@@ -12,6 +12,7 @@ import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.T_;
+import com.angcyo.uiview.widget.BlockSeekBar;
 import com.angcyo.uiview.widget.ExEditText;
 import com.angcyo.uiview.widget.RSeekBar;
 import com.angcyo.uiview.widget.SimpleProgressBar;
@@ -173,6 +174,23 @@ public class CustomViewUIView extends BaseItemUIView {
         items.add(new SingleItem() {
             @Override
             public void onBindView(final RBaseViewHolder holder, final int posInData, Item dataBean) {
+                BlockSeekBar blockSeekBar = holder.v(R.id.block_seek_bar);
+                blockSeekBar.setBlockSeekListener(new BlockSeekBar.OnBlockSeekListener() {
+                    @Override
+                    public void onTouchStart(BlockSeekBar view) {
+                        super.onTouchStart(view);
+                    }
+
+                    @Override
+                    public void onSeekChange(BlockSeekBar view, int startX, int endX) {
+                        super.onSeekChange(view, startX, endX);
+                    }
+
+                    @Override
+                    public void onTouchEnd(BlockSeekBar view) {
+                        super.onTouchEnd(view);
+                    }
+                });
             }
         });
     }
