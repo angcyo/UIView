@@ -14,6 +14,7 @@ import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.widget.BlockSeekBar;
 import com.angcyo.uiview.widget.ExEditText;
+import com.angcyo.uiview.widget.RRatingBar;
 import com.angcyo.uiview.widget.RSeekBar;
 import com.angcyo.uiview.widget.SimpleProgressBar;
 import com.lzy.imagepicker.view.MaterialProgressView;
@@ -191,6 +192,10 @@ public class CustomViewUIView extends BaseItemUIView {
                         super.onTouchEnd(view);
                     }
                 });
+
+                RRatingBar ratingBar = holder.v(R.id.rating_bar);
+                ratingBar.setRatingNormalDrawable(getDrawable(R.drawable.live_48));
+                ratingBar.setRatingSelectorDrawable(getDrawable(R.drawable.live_48_color));
             }
         });
     }
