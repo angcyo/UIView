@@ -20,4 +20,9 @@
         android:layout_height="match_parent"
         app:r_default_circle_offset_bottom="280dp"/>
 
+    <com.angcyo.uiview.widget.SearchEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:r_search_drawable="@drawable/base_search"/>
+
 </FrameLayout>
