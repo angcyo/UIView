@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_gray">
+
+    <com.angcyo.uiview.viewgroup.DYRecordView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.angcyo.uiview.viewgroup.DYRecordView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:r_default_circle_offset_bottom="150dp"/>
+
+    <com.angcyo.uiview.viewgroup.DYRecordView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:r_default_circle_offset_bottom="280dp"/>
+
+</FrameLayout>
