@@ -196,6 +196,14 @@ public class CustomViewUIView extends BaseItemUIView {
                 RRatingBar ratingBar = holder.v(R.id.rating_bar);
                 ratingBar.setRatingNormalDrawable(getDrawable(R.drawable.live_48));
                 ratingBar.setRatingSelectorDrawable(getDrawable(R.drawable.live_48_color));
+
+                com.angcyo.uiview.widget.RProgressBar rProgressBar = new com.angcyo.uiview.widget.RProgressBar(mActivity, null);
+                int progressBarType = rProgressBar.getProgressBarType();
+                rProgressBar.setProgressBarType(com.angcyo.uiview.widget.RProgressBar.Companion.getPROGRESS_TYPE_ROUND_INCERTITUDE());
+
+                rProgressBar = holder.v(R.id.r_progress_bar);
+                rProgressBar.setCurProgress(0);
+                rProgressBar.addStepPoint(0, 10, 20, 30, 40, 50, 80, 100);
             }
         });
     }

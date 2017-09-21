@@ -128,4 +128,47 @@
         app:r_rating_count="0"
         app:r_rating_space="10dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_orange"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.widget.RProgressBar
+            android:id="@+id/r_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:tag="2"
+            app:r_cur_progress="30"
+            app:r_progress_bar_type="TYPE_RECT"
+            app:r_progress_bg_color="@color/base_red"
+            app:r_second_progress="60"
+            app:r_second_progress_color="@android:color/holo_blue_bright"/>
+
+        <com.angcyo.uiview.widget.RProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:tag="1"
+            app:r_cur_progress="30"
+            app:r_progress_bar_type="TYPE_CIRCLE_INCERTITUDE"
+            app:r_progress_bg_color="@color/base_red"
+            app:r_progress_color="@color/base_white"
+            app:r_progress_width="5dp"
+            app:r_second_progress="60"
+            app:r_second_progress_color="@android:color/holo_blue_bright"/>
+
+        <com.angcyo.uiview.widget.RProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:paddingLeft="30dp"
+            android:tag="3"
+            app:r_cur_progress="30"
+            app:r_progress_bar_type="TYPE_ROUND_INCERTITUDE"
+            app:r_progress_bg_color="@color/base_red"
+            app:r_second_progress="60"
+            app:r_second_progress_color="@android:color/holo_blue_bright"/>
+
+    </LinearLayout>
+
 </LinearLayout>
