@@ -169,6 +169,24 @@
             app:r_second_progress="60"
             app:r_second_progress_color="@android:color/holo_blue_bright"/>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/base_xhdpi"
+                android:background="#80FFFFFF"/>
+
+            <com.angcyo.uiview.widget.DYProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/base_xhdpi"
+                android:layout_marginTop="@dimen/base_xhdpi"/>
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </LinearLayout>
