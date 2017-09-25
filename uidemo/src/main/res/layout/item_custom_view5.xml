@@ -187,6 +187,12 @@
 
         </FrameLayout>
 
+        <com.angcyo.uiview.widget.DYProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:layout_marginTop="@dimen/base_xhdpi"/>
+
     </LinearLayout>
 
 </LinearLayout>
