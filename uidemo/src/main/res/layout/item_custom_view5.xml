@@ -100,13 +100,20 @@
     <com.angcyo.uiview.widget.RRatingBar
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/base_gray"/>
+        android:background="@color/base_gray"
+        app:r_cur_rating="0.2"/>
+
+    <com.angcyo.uiview.widget.RRatingBar
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/base_gray"
+        app:r_cur_rating="2.2"/>
 
     <com.angcyo.uiview.widget.RRatingBar
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/base_gray"
-        app:r_cur_rating="10"
+        app:r_cur_rating="3.6"
         app:r_min_rating="2"
         app:r_rating_count="8"/>
 
