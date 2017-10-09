@@ -17,20 +17,21 @@ abstract class BaseLaunchModeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_launch_mode)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
+        val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
             onFabClick()
         }
 
         LauncherMode.test(this)
 
-        val textView = findViewById(R.id.text_view) as TextView
+        val textView: TextView = findViewById(R.id.text_view)
         textView.text = getTextString()
 
-        logView = findViewById(R.id.log_view) as TextView
+        logView = findViewById(R.id.log_view)
+
         logView?.text = log
     }
 
