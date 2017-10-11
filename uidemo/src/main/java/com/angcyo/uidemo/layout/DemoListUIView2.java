@@ -58,6 +58,7 @@ import com.angcyo.uiview.kotlin.ViewExKt;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
+import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.view.IView;
@@ -427,7 +428,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+            public void onBindView(final RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, posInData + 1 + ".Kotlin 1.1 Demo", new View.OnClickListener() {
 
                     @Override
@@ -485,6 +486,14 @@ public class DemoListUIView2 extends BaseItemUIView {
                         View v1 = ViewExKt.v(view, R.id.text_view);
 
                         L.e("call: onClick([v])-> " + v1);
+
+                        ResUtil.setGreyscale(getILayout(), true);
+                        postDelayed(2000, new Runnable() {
+                            @Override
+                            public void run() {
+                                ResUtil.setGreyscale(getILayout(), false);
+                            }
+                        });
                     }
                 });
             }
