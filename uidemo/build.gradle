@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.getkeepsafe.dexcount'
+apply from: 'build_time.gradle'
 
 def build_time = getBuildTime()
 
