@@ -2,18 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply from: 'build_time.gradle'
-
-def build_time = getBuildTime()
+apply from: 'android.gradle'
 
 android {
-    signingConfigs {
-        angcyo {
-            keyAlias 'angcyo'
-            keyPassword 'angcyo'
-            storeFile file('../angcyo.jks')
-            storePassword 'angcyo'
-        }
-    }
+
     compileSdkVersion Integer.parseInt(rootProject.C_SDK)
     buildToolsVersion rootProject.B_TOOLS
     defaultConfig {
@@ -25,9 +17,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
-        resValue "string", "build_time", build_time
-        resValue "string", "os_name", osName()
-        resValue "bool", "SHOW_DEBUG", "true"
+
     }
 //    sourceSets {
 //        main {
@@ -75,24 +65,7 @@ android {
             output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
         }
     }
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-    }
 
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }
-    dexOptions {
-        incremental true
-        preDexLibraries false
-        jumboMode true
-        javaMaxHeapSize "4g"
-    }
 }
 
 dependencies {

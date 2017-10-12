@@ -28,13 +28,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-def getBuildTime() {
-    return new Date().format("yyyy-MM-dd HH:mm:ss.sss")
-}
-
-println buildTime
-
-def osName() {
-    return System.getProperty("os.name") + "@" + System.getProperty("os.version")
-}
