@@ -46,6 +46,7 @@ import com.angcyo.uidemo.layout.demo.StickLayoutManagerUIView;
 import com.angcyo.uidemo.layout.demo.StickTopLayoutUIDemo;
 import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.TouchEventDemoUIView;
+import com.angcyo.uidemo.layout.demo.TouchLayoutUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
@@ -731,6 +732,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new SliderLayoutUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".TouchStickLayout_d Demo", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new TouchLayoutUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }

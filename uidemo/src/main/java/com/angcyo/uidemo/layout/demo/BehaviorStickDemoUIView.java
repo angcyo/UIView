@@ -41,6 +41,11 @@ public class BehaviorStickDemoUIView extends UIContentView {
         return items;
     }
 
+    public static void initLayout(TabLayout tabLayout, UIViewPager viewPager) {
+        viewPager.setAdapter(new PagerAdapter());
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
     @Override
     protected TitleBarPattern getTitleBar() {
         return super.getTitleBar()
