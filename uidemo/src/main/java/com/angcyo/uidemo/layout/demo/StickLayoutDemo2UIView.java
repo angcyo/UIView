@@ -14,7 +14,6 @@ import com.angcyo.uiview.widget.viewpager.UIViewPager;
 /**
  * Created by angcyo on 2017-03-15.
  */
-@Deprecated
 public class StickLayoutDemo2UIView extends UIContentView {
 
     TabLayout mTabLayout;

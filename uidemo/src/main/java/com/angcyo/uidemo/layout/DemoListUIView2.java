@@ -65,6 +65,7 @@ import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
+import com.angcyo.uiview.widget.RTextView;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -160,7 +161,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Emoji Layout Demo (Android5.+)", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Emoji Layout Demo (Android5.+)", true, new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -256,7 +257,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Stick Layout Demo (Beta)", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Stick Layout Demo (Beta)", true, new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -280,7 +281,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Behavior Stick Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Behavior Stick Demo", true, new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -292,7 +293,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Behavior Stick Demo2 (Deprecated)", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Behavior Stick Demo2 (Deprecated)", true, new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -740,7 +741,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".TouchStickLayout_d Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".TouchStickLayout_d Demo", true, new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -781,8 +782,15 @@ public class DemoListUIView2 extends BaseItemUIView {
     }
 
     void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
+        initItem(holder, itemText, false, onClickListener);
+    }
+
+    void initItem(RBaseViewHolder holder, String itemText, boolean isDeprecated, View.OnClickListener onClickListener) {
         ItemInfoLayout infoLayout = holder.v(R.id.item_info_layout);
         infoLayout.setItemText(itemText);
+
+        RTextView textView = infoLayout.getTextView();
+        textView.setDeleteLine(isDeprecated);
         infoLayout.setOnClickListener(onClickListener);
     }
 
