@@ -60,6 +60,8 @@ class TouchBackUIDemo : BaseContentUIView() {
         val random = Random(System.nanoTime())
         mViewHolder.v<TouchBackLayout>(R.id.touch_back_layout).apply {
 
+            enableTouchBack = true
+
             offsetScrollTop = if (random.nextInt(10) > 5) {
                 (300 * density()).toInt()
             } else {

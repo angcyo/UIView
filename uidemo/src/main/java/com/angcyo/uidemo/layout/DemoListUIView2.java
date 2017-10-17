@@ -94,6 +94,12 @@ public class DemoListUIView2 extends BaseItemUIView {
 //        return Color.GREEN;
 //    }
 
+
+    @Override
+    public boolean enableTouchBack() {
+        return false;
+    }
+
     @Override
     public void onViewShowFirst(Bundle bundle) {
         super.onViewShowFirst(bundle);

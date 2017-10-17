@@ -35,7 +35,7 @@ public class BehaviorStickDemoUIView extends UIContentView {
 
     public static List<String> createItems() {
         List<String> items = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
             items.add("");
         }
         return items;
