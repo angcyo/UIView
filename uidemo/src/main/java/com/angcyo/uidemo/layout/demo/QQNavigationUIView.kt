@@ -22,8 +22,8 @@ import com.angcyo.uiview.widget.TouchMoveView
  */
 class QQNavigationUIView : BaseContentUIView() {
 
-    override fun getTitleBar(): TitleBarPattern {
-        return super.getTitleBar().setShowBackImageView(true)
+    override fun getTitleBar(): TitleBarPattern? {
+        return super.getTitleBar()?.setShowBackImageView(true)
     }
 
     override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater) {

@@ -15,7 +15,7 @@ import com.angcyo.uiview.model.TitleBarPattern
  * Version: 1.0.0
  */
 abstract class BaseContentUIView : UIContentView() {
-    override fun getTitleBar(): TitleBarPattern {
+    override fun getTitleBar(): TitleBarPattern? {
         return super.getTitleBar()
     }
 }

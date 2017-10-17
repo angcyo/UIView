@@ -27,10 +27,10 @@ class StickTopLayoutUIDemo : BaseContentUIView() {
     var mViewPager: UIViewPager? = null
     val stickTopLayout: StickTopLayout by vh(R.id.stick_top_layout)
 
-    override fun getTitleBar(): TitleBarPattern {
+    override fun getTitleBar(): TitleBarPattern? {
         return super.getTitleBar()
-                .setFloating(true)
-                .addRightItem(TitleBarPattern.TitleBarItem(R.drawable.base_next) {
+                ?.setFloating(true)
+                ?.addRightItem(TitleBarPattern.TitleBarItem(R.drawable.base_next) {
                     stickTopLayout.openTop()
                 })
     }
