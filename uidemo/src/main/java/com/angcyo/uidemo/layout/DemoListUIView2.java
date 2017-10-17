@@ -757,7 +757,6 @@ public class DemoListUIView2 extends BaseItemUIView {
                 });
             }
         });
-
         items.add(new SingleItem(SingleItem.Type.LINE) {
 
             @Override

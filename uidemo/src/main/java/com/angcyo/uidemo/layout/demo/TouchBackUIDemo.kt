@@ -13,7 +13,6 @@ import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.viewgroup.TouchBackLayout
-import java.util.*
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -27,6 +26,10 @@ import java.util.*
  * Version: 1.0.0
  */
 class TouchBackUIDemo : BaseContentUIView() {
+
+    companion object {
+        var number = 0
+    }
 
     override fun getTitleBar(): TitleBarPattern? = null
 
@@ -57,12 +60,11 @@ class TouchBackUIDemo : BaseContentUIView() {
             }
         }
 
-        val random = Random(System.nanoTime())
         mViewHolder.v<TouchBackLayout>(R.id.touch_back_layout).apply {
 
             enableTouchBack = true
 
-            offsetScrollTop = if (random.nextInt(10) > 5) {
+            offsetScrollTop = if (number++ % 2 == 0) {
                 (300 * density()).toInt()
             } else {
                 0
