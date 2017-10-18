@@ -2,8 +2,6 @@ def getBuildTime() {
     return new Date().format("yyyy-MM-dd HH:mm:ss.sss")
 }
 
-println buildTime
-
 def osName() {
     return System.getProperty("os.name") + "@" + System.getProperty("os.version")
 }
@@ -13,6 +11,8 @@ def releaseTime() {
 }
 
 def build_time = getBuildTime()
+
+println build_time
 
 android {
     signingConfigs {
