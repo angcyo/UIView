@@ -156,8 +156,8 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
             }
         }
         valueAnimator.addListener(object : RAnimListener() {
-            override fun onAnimationEnd(animation: Animator?) {
-                super.onAnimationEnd(animation)
+            override fun onAnimationFinish(animation: Animator?, cancel: Boolean) {
+                super.onAnimationFinish(animation, cancel)
                 lastRollAnimValue = 0
                 drawDrawables.clear()
                 lastRandomMap.clear()

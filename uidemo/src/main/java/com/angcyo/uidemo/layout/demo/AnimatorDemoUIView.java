@@ -317,8 +317,10 @@ public class AnimatorDemoUIView extends UIContentView {
                     new Point(ScreenUtil.screenWidth / 2, (ScreenUtil.screenHeight - mTitleHeight) / 2),
                     new Point(mRect.centerX(), mRect.centerY() - mTitleHeight),
                     preview.getMeasuredWidth(), preview.getMeasuredHeight(), new RAnimListener() {
+
                         @Override
-                        public void onAnimationEnd(Animator animation) {
+                        public void onAnimationFinish(Animator animation, boolean cancel) {
+                            super.onAnimationFinish(animation, cancel);
                             mViewHolder.v(R.id.preview_layout).setVisibility(View.INVISIBLE);
                         }
 
