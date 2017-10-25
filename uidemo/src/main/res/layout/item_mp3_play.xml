@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/base_xhdpi">
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/base_xhdpi"
+        android:text="请选择音频文件"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/selector_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择文件"/>
+
+</LinearLayout>

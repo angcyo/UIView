@@ -71,7 +71,7 @@ class TouchBackUIDemo : BaseContentUIView() {
             }
 
             onTouchBackListener = object : TouchBackLayout.OnTouchBackListener {
-                override fun onTouchBackListener(layout: TouchBackLayout, scrollY: Int, maxScrollY: Int) {
+                override fun onTouchBackListener(layout: TouchBackLayout, oldScrollY: Int, scrollY: Int, maxScrollY: Int) {
                     L.e("call: onTouchBackListener -> $scrollY $maxScrollY")
                     if (scrollY >= maxScrollY) {
                         (mILayout as UILayoutImpl).swipeBackIView(this@TouchBackUIDemo)
