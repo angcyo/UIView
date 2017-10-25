@@ -8,15 +8,214 @@
 
     <com.angcyo.uiview.widget.RTextView
         android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/base_xhdpi"
+        android:layout_marginBottom="@dimen/base_xhdpi"
         android:text="请选择音频文件"/>
 
     <com.angcyo.uiview.widget.Button
         android:id="@+id/selector_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_xhdpi"
         android:text="选择文件"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="网络地址"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/play_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:layout_weight="1"
+            android:text="开始播放"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/stop_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:layout_weight="1"
+            android:text="停止播放"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_ldpi">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/progress_view"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:text="00:00"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/duration_view"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:text="00:00"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.widget.RTextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_ldpi"
+            android:text="播放地址来源:"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/url_radio"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/file_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="播放文件"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/url_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="播放Url"
+                android:textSize="9dp"/>
+
+        </RadioGroup>
+
+        <com.angcyo.uiview.widget.RTextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:text="播放流:"/>
+
+        <RadioGroup
+            android:id="@+id/stream_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/music_radio"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/alarm_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ALARM"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/music_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="MUSIC"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/ring_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="RING"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/system_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="SYSTEM"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/voice_call_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="VOICE_CALL"
+                android:textSize="9dp"/>
+
+        </RadioGroup>
+
+        <com.angcyo.uiview.widget.RTextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:text="播放Mode:"/>
+
+        <RadioGroup
+            android:id="@+id/mode_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/normal_radio"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/normal_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NORMAL"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/ringtone_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="RINGTONE"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/in_call_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="IN_CALL"
+                android:textSize="9dp"/>
+
+            <RadioButton
+                android:id="@+id/in_communication_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_ldpi"
+                android:text="IN_COMMUNICATION"
+                android:textSize="9dp"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
 
 </LinearLayout>
