@@ -14,6 +14,7 @@ import com.angcyo.uiview.dialog.UIFileSelectorDialog
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.RPlayer
 import com.angcyo.uiview.utils.RUtils
+import com.angcyo.uiview.widget.RSeekBar
 import com.angcyo.uiview.widget.RTextView
 import java.io.File
 
@@ -100,6 +101,21 @@ class Mp3PlayUIDemo : BaseItemUIView() {
                         holder.tv(R.id.duration_view).text = RUtils.formatTime(duration.toLong())
                     }
                 }
+
+                val seekBar: RSeekBar = holder.v(R.id.seek_bar)
+                val volume: TextView = holder.v(R.id.volume_view)
+                seekBar.addOnProgressChangeListener(object : RSeekBar.OnProgressChangeListener {
+                    override fun onStartTouch() {
+                    }
+
+                    override fun onStopTouch() {
+                    }
+
+                    override fun onProgress(progress: Int, fromTouch: Boolean) {
+                        volume.text = "$progress"
+                        player.setVolume(progress * 1f / 100f)
+                    }
+                })
 
                 initMode(holder)
                 initStream(holder)

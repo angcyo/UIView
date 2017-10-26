@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -216,6 +217,23 @@
 
         </RadioGroup>
 
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/volume_view"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:tag="音量:%1$s"
+            android:text="50"/>
+
+        <com.angcyo.uiview.widget.RSeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_hdpi"
+            app:r_cur_progress="50"/>
     </LinearLayout>
+
 
 </LinearLayout>
