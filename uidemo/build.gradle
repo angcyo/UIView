@@ -4,6 +4,12 @@ apply plugin: 'com.getkeepsafe.dexcount'
 apply from: 'build_time.gradle'
 apply from: 'android.gradle'
 
+def apkTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def apk_time = apkTime()
+
 android {
 
     compileSdkVersion Integer.parseInt(rootProject.C_SDK)
@@ -14,7 +20,6 @@ android {
         targetSdkVersion Integer.parseInt(rootProject.T_SDK)
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
 //    sourceSets {
@@ -24,19 +29,23 @@ android {
 //            ]
 //        }
 //    }
+    flavorDimensions "type"
     productFlavors {
         //develop
         _dev {
+            dimension "type"
             minSdkVersion 21
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //preview
         pre {
+            dimension "type"
             minSdkVersion Integer.parseInt(rootProject.M_SDK)
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //apk
         apk {
+            dimension "type"
             minSdkVersion Integer.parseInt(rootProject.M_SDK)
             buildConfigField "boolean", "SHOW_DEBUG", "false"
         }
@@ -53,17 +62,32 @@ android {
             signingConfig signingConfigs.angcyo
         }
     }
-    getApplicationVariants().all { variant ->
-        variant.outputs.each { output ->
-            def appName = "UIViewDemo-${variant.buildType.name}-${variant.versionName}"
-            def time = ""
-            if (variant.buildType.name.equalsIgnoreCase("release")) {
-                time = "_${new Date().format("yyyy-MM-dd_HH-mm")}"
-            }
-            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
+
+    /*Gradle3.0 以下的方法*/
+//    getApplicationVariants().all { variant ->
+//        variant.outputs.each { output ->
+//            def appName = "UIViewDemo-${variant.buildType.name}-${variant.versionName}"
+//            def time = ""
+//            if (variant.buildType.name.equalsIgnoreCase("release")) {
+//                time = "_${new Date().format("yyyy-MM-dd_HH-mm")}"
+//            }
+//            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
+//        }
+//    }
+
+    /*Gradle3.0 以上的方法*/
+    applicationVariants.all { variant ->
+        variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            apkData.outputFileName = "UIViewDemo-" +
+                    variant.versionName + "_" +
+                    apk_time + "_" +
+                    variant.flavorName + "_" +
+                    variant.buildType.name + "_" +
+                    variant.signingConfig.name +
+                    ".apk"
         }
     }
-
 }
 
 dependencies {

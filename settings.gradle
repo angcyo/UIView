@@ -1,3 +1,3 @@
-include ':uidemo', ':RLibrary:github'
-include ':RLibrary:uiview', ':RLibrary:library', ':RLibrary:imagepicker'
-include ':RLibrary:rcode'
+include ':uidemo'
+include ':RLibrary:imagepicker'
+include ':RLibrary:uiview', ':RLibrary:rcode', ':RLibrary:github', ':RLibrary:library'

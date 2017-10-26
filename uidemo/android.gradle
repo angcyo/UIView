@@ -10,9 +10,15 @@ def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
-def build_time = getBuildTime()
+def apkTime() {
+    return new Date().format("yyyy-MM-dd_HH-mm", TimeZone.getTimeZone("UTC"))
+}
+def apk_time = apkTime()
 
-println build_time
+def build_time = getBuildTime()
+def release_time = releaseTime()
+
+println "开始编译:" + build_time
 
 android {
     signingConfigs {
@@ -36,6 +42,7 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/uiview_release.kotlin_module'
     }
 
     lintOptions {
