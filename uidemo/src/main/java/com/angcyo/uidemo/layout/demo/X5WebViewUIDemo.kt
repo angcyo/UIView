@@ -56,9 +56,10 @@ class X5WebViewUIDemo : BaseContentUIView() {
 
         X5Utils.initWebSetting(webView)
         X5Utils.initWebViewClient(webView, object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(p0: WebView?, url: String?): Boolean {
+            override fun shouldOverrideUrlLoading(webView: WebView, url: String?): Boolean {
                 L.e("call: shouldOverrideUrlLoading -> $url")
-                return super.shouldOverrideUrlLoading(p0, url)
+                webView.loadUrl(url)
+                return true
             }
         })
         X5Utils.initWebChromeClient(webView)
