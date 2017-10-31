@@ -50,6 +50,7 @@ import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.TouchBackUIDemo;
 import com.angcyo.uidemo.layout.demo.TouchEventDemoUIView;
 import com.angcyo.uidemo.layout.demo.TouchLayoutUIDemo;
+import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
@@ -793,6 +794,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new Mp3PlayUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".X5WebView Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new X5WebViewUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }

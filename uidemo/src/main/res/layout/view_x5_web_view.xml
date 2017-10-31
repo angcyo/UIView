@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_hdpi">
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/edit_text"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12dp"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/go_button"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:text="Go"/>
+
+    </LinearLayout>
+
+    <com.angcyo.uidemo.x5.X5WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

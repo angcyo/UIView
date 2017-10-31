@@ -1,10 +1,12 @@
 package com.angcyo.uidemo;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.Root;
+import com.tencent.smtt.sdk.QbSdk;
 
 import jp.wasabeef.takt.Takt;
 
@@ -30,6 +32,7 @@ public class RApp extends RApplication {
         return app;
     }
 
+    @SuppressLint("MissingPermission")
     public static String getIMEI() {
         return ((TelephonyManager) getApp().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
@@ -52,6 +55,14 @@ public class RApp extends RApplication {
 //
 //            BlockCanary.install(this, new AppBlockCanaryContext()).start();
 //        }
+
+        //x5内核初始化接口
+        QbSdk.initX5Environment(this, null);
+    }
+
+    @Override
+    protected void onAsyncInit() {
+        super.onAsyncInit();
     }
 
     @Override
