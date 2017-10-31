@@ -64,7 +64,6 @@ import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.RUtils;
-import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
@@ -820,7 +819,8 @@ public class DemoListUIView2 extends BaseItemUIView {
                         startIView(new UIScanView(new Action1<String>() {
                             @Override
                             public void call(String s) {
-                                T_.info("扫码结果:" + s);
+                                //T_.info("扫码结果:" + s);
+                                startIView(new ScanResultUIView(s));
                             }
                         }));
                     }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xxhdpi"
+        android:gravity="center"
+        android:textIsSelectable="true"
+        android:textSize="20dp"
+        tools:text="http://blog.csdn.net/angcyo"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/copy_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xxhdpi"
+        android:text="复制内容"
+        android:textSize="@dimen/default_text_size"
+        app:r_button_style="ROUND"/>
+
+</LinearLayout>
