@@ -1,12 +1,6 @@
 package com.angcyo.uidemo.layout;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -71,7 +65,6 @@ import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.RUtils;
-import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
@@ -515,26 +508,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                         //xingqiuqp://null/null?GameID=null&RoomID=860101
                         String url = "xingqiuqp://null/null?GameID=null&RoomID=860101";
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        intent.setData(Uri.parse(url));
-
-                        PackageManager packageManager = mActivity.getPackageManager();
-                        List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(intent, PackageManager.GET_RESOLVED_FILTER);
-                        if (resolveInfos.size() > 0) {
-                            ActivityInfo activityInfo = resolveInfos.get(0).activityInfo;
-                            T_.show("正在打开:" + activityInfo.applicationInfo.loadLabel(packageManager));
-
-                            intent.setComponent(new ComponentName(activityInfo.packageName, activityInfo.name));
-                            mActivity.startActivity(intent);
-                        }
-
-//                        try {
-//
-//                            mActivity.startActivity(intent);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
+                        RUtils.openAppFromUrl(mActivity, url);
                     }
                 });
             }

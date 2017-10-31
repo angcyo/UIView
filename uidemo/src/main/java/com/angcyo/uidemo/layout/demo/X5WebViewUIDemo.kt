@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.demo
 
 import android.graphics.PixelFormat
 import android.text.SpannableStringBuilder
+import android.text.TextUtils
 import android.view.LayoutInflater
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
@@ -9,6 +10,7 @@ import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uidemo.x5.X5Utils
 import com.angcyo.uidemo.x5.X5WebView
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.utils.RUtils
 import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.widget.ExEditText
 import com.tencent.smtt.sdk.DownloadListener
@@ -58,7 +60,13 @@ class X5WebViewUIDemo : BaseContentUIView() {
         X5Utils.initWebViewClient(webView, object : WebViewClient() {
             override fun shouldOverrideUrlLoading(webView: WebView, url: String?): Boolean {
                 L.e("call: shouldOverrideUrlLoading -> $url")
-                webView.loadUrl(url)
+                if (!TextUtils.isEmpty(url)) {
+                    if (url!!.startsWith("http")) {
+                        webView.loadUrl(url)
+                    } else {
+                        RUtils.openAppFromUrl(mActivity, url)
+                    }
+                }
                 return true
             }
         })
