@@ -27,6 +27,7 @@ import com.angcyo.uidemo.layout.demo.FingerPrinterUIDemo;
 import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.GroupItemDecorationUIView;
+import com.angcyo.uidemo.layout.demo.InputTextUIDemo;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
@@ -811,6 +812,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new X5WebViewUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".InputText Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new InputTextUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
