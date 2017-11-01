@@ -82,8 +82,26 @@ class Mp3PlayUIDemo : BaseItemUIView() {
                     player.stopPlay()
                 }
 
+                //暂停播放
+                holder.click(R.id.pause_button) {
+                    player.pausePlay()
+                }
+
                 //事件监听
                 player.onPlayListener = object : RPlayer.OnPlayerListener {
+                    override fun onPlayStateChange(playUrl: String, from: Int, to: Int) {
+                        holder.tv(R.id.state_view).text = when (to) {
+                            RPlayer.STATE_PAUSE -> "STATE_PAUSE"
+                            RPlayer.STATE_PLAYING -> "STATE_PLAYING"
+                            RPlayer.STATE_ERROR -> "STATE_ERROR"
+                            RPlayer.STATE_NORMAL -> "STATE_NORMAL"
+                            RPlayer.STATE_RELEASE -> "STATE_RELEASE"
+                            RPlayer.STATE_STOP -> "STATE_STOP"
+                            RPlayer.STATE_COMPLETION -> "STATE_COMPLETION"
+                            else -> "Unknown"
+                        }
+                    }
+
                     override fun onPlayError(what: Int, extra: Int) {
                         L.e("call: onPlayError -> $what $extra")
                     }

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/base_xhdpi">
 
@@ -44,6 +44,15 @@
             android:text="开始播放"/>
 
         <com.angcyo.uiview.widget.Button
+            android:id="@+id/pause_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:layout_weight="1"
+            android:text="暂停播放"/>
+
+        <com.angcyo.uiview.widget.Button
             android:id="@+id/stop_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,6 +60,7 @@
             android:layout_marginBottom="@dimen/base_xhdpi"
             android:layout_weight="1"
             android:text="停止播放"/>
+
 
     </LinearLayout>
 
@@ -66,6 +76,14 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/base_xhdpi"
             android:text="00:00"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/state_view"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="..."/>
 
         <com.angcyo.uiview.widget.RTextView
             android:id="@+id/duration_view"
