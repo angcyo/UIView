@@ -8,7 +8,7 @@ import com.tencent.smtt.sdk.WebView;
 public class X5WebView extends WebView {
 
     public X5WebView(Context arg0) {
-        super(arg0, null);
+        this(arg0, null);
     }
 
     public X5WebView(Context arg0, AttributeSet arg1) {
