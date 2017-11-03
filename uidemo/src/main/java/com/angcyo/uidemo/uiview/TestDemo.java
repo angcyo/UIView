@@ -1,8 +1,11 @@
 package com.angcyo.uidemo.uiview;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.activity.MemoryTestActivity;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
@@ -28,5 +31,29 @@ public class TestDemo extends UIContentView {
     @Override
     protected TitleBarPattern getTitleBar() {
         return null;
+    }
+
+    @Override
+    protected void initOnShowContentLayout() {
+        super.initOnShowContentLayout();
+        click(R.id.restart_button1, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Debug.logTimeStart("_______________start_");
+//                for (int i = 0; i < Integer.MAX_VALUE; i++) {
+//
+//                }
+//                Debug.logTimeEnd("_______________end_");
+
+                //startIView(new TestDemo());
+                mActivity.startActivity(new Intent(mActivity, MemoryTestActivity.class));
+            }
+        });
+        click(R.id.restart_button2, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startIView(new TestDemo());
+            }
+        });
     }
 }

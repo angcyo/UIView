@@ -39,6 +39,10 @@ class TouchBackUIDemo : BaseContentUIView() {
         inflate(R.layout.view_touch_back_layout)
     }
 
+    override fun showOnDialog(): Boolean {
+        return true
+    }
+
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         mViewHolder.v<RRecyclerView>(R.id.recycler_view).apply {

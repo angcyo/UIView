@@ -92,6 +92,12 @@
             android:theme="@style/AppTheme">
         </activity>
 
+        <!--内存测试activity-->
+        <activity
+            android:name=".activity.MemoryTestActivity"
+            android:label="MemoryTestActivity"
+            android:theme="@style/AppTheme"/>
+
         <!--Android7.0 文件权限-->
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -88,9 +88,9 @@
         <com.angcyo.uiview.widget.ExEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:maxLength="10"
             android:hint="定制"
+            android:maxLength="10"
+            android:padding="20dp"
             android:tag="emoji"
             android:textColor="@android:color/white"/>
 
@@ -100,5 +100,22 @@
             android:hint="标准"
             android:textColor="@android:color/white"/>
     </LinearLayout>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/restart_button1"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base_100dpi"
+        android:text="再来一次(Activity)"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/restart_button2"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/restart_button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/base_xxxhdpi"
+        android:text="再来一次(IView)"/>
 
 </RelativeLayout>
