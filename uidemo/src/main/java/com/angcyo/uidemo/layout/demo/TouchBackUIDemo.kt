@@ -39,7 +39,7 @@ class TouchBackUIDemo : BaseContentUIView() {
         inflate(R.layout.view_touch_back_layout)
     }
 
-    override fun showOnDialog(): Boolean {
+    override fun needTransitionStartAnim(): Boolean {
         return true
     }
 
