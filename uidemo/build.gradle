@@ -83,7 +83,10 @@ android {
 
     /*Gradle3.0 以上的方法*/
     applicationVariants.all { variant ->
-        variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+        if (variant.buildType.name != "debug") {
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+        }
+
         variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
             apkData.outputFileName = "UIViewDemo-" +
                     variant.versionName + "_" +
@@ -108,7 +111,4 @@ dependencies {
     //性能检测库 https://github.com/markzhai/AndroidPerformanceMonitor
     _devCompile 'com.github.markzhai:blockcanary-android:1.5.0'
     preCompile 'com.github.markzhai:blockcanary-android:1.5.0'
-}
-repositories {
-    mavenCentral()
 }

@@ -55,6 +55,7 @@ import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
+import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
@@ -71,6 +72,7 @@ import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 import com.angcyo.uiview.widget.RTextView;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -508,8 +510,10 @@ public class DemoListUIView2 extends BaseItemUIView {
                         });
 
                         //xingqiuqp://null/null?GameID=null&RoomID=860101
-                        String url = "xingqiuqp://null/null?GameID=null&RoomID=860101";
-                        RUtils.openAppFromUrl(mActivity, url);
+                        //String url = "xingqiuqp://null/null?GameID=null&RoomID=860101";
+                        //RUtils.openAppFromUrl(mActivity, url);
+
+                        AppUtils.installApp(RApplication.getApp(), new File("/sdcard/DValley/apk/2.2.3003.apk"));
                     }
                 });
             }
