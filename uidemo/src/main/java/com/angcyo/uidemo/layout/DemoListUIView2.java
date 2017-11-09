@@ -39,6 +39,7 @@ import com.angcyo.uidemo.layout.demo.QQNavigationUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
+import com.angcyo.uidemo.layout.demo.RegularTestUIDemo;
 import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
 import com.angcyo.uidemo.layout.demo.RippleViewUIDemo;
 import com.angcyo.uidemo.layout.demo.SliderLayoutUIDemo;
@@ -829,6 +830,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new InputTextUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Regular Test Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RegularTestUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
