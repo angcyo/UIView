@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clipChildren="false"
+
     android:padding="@dimen/base_xxhdpi">
 
     <FrameLayout
@@ -35,7 +38,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_xhdpi"
         android:background="@color/transparent_dark80">
@@ -45,4 +48,33 @@
             android:layout_height="20dp"/>
     </FrameLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:background="@color/transparent_dark80">
+
+        <com.angcyo.uiview.widget.RSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:background="@android:color/darker_gray"
+            app:r_cur_progress="50"
+            app:r_thumb_color="@color/base_white"
+            app:r_thumb_type="CIRCLE"
+            app:r_track_bg_color="@color/base_white_tran2"
+            app:r_track_color="@color/base_white"/>
+    </FrameLayout>
+
+    <com.angcyo.uiview.widget.RSeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:background="@android:color/darker_gray"
+        app:r_cur_progress="50"
+        app:r_thumb_color="@color/base_white"
+        app:r_thumb_type="CIRCLE"
+        app:r_track_bg_color="@color/base_white_tran2"
+        app:r_track_color="@color/base_white"/>
 </LinearLayout>

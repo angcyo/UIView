@@ -38,9 +38,9 @@ class CanvasTestView(context: Context, attributeSet: AttributeSet? = null) : Vie
 
         //无法突破
         canvas.save()
-        canvas.clipRect(clipBoundsRect, Region.Op.UNION)
+        canvas.clipRect(clipBoundsRect, Region.Op.REPLACE)
         paint.color = Color.RED
-        canvas.drawCircle(cxOffset, cy, drawCenterR + drawCenterR / 2, paint)
+        canvas.drawCircle(cy, cy, drawCenterR + drawCenterR / 2, paint)
         canvas.restore()
 
         //看不见了
@@ -57,7 +57,7 @@ class CanvasTestView(context: Context, attributeSet: AttributeSet? = null) : Vie
         canvas.drawCircle(cxOffset * 3, cy, drawCenterR + drawCenterR / 2, paint)
         canvas.restore()
 
-        //可以突破
+        //可以突破, 动态设置的话, 也需要 android:clipChildren="false" 的支持
         canvas.save()
         canvas.clipRect(clipBoundsRect, Region.Op.REPLACE)
         paint.color = Color.MAGENTA
