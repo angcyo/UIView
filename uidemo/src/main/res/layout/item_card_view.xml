@@ -15,6 +15,6 @@
     <com.angcyo.uidemo.layout.demo.view.CardView
         android:id="@+id/card_view"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/base_100dpi"
+        android:layout_height="@dimen/base_80dpi"
         android:background="@color/base_orange_dark"/>
 </LinearLayout>

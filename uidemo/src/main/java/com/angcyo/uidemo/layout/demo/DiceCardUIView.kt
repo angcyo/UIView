@@ -59,8 +59,16 @@ class DiceCardUIView : BaseRecyclerUIView<RBaseDataItem<*>>() {
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         val softLayout: RSoftInputLayout = mViewHolder.v(R.id.soft_input_layout)
+
+        fun scrollToLastBottom() {
+            post {
+                mRecyclerView.scrollToLastBottom(true)
+            }
+        }
+
         softLayout.addOnEmojiLayoutChangeListener { isEmojiShow, isKeyboardShow, height ->
             L.e("call: initOnShowContentLayout -> 表情:$isEmojiShow 键盘:$isKeyboardShow 高度:$height")
+            scrollToLastBottom()
         }
 
         //显示表情
@@ -84,7 +92,7 @@ class DiceCardUIView : BaseRecyclerUIView<RBaseDataItem<*>>() {
                 intList.add(random.nextInt(6))
             }
             mExBaseAdapter.addLastItem(DiceDataItem(DiceCardBean(intList.toIntArray())))
-            mRecyclerView.scrollToLastBottom(true)
+            scrollToLastBottom()
         }
 
         //发送纸牌
@@ -95,7 +103,7 @@ class DiceCardUIView : BaseRecyclerUIView<RBaseDataItem<*>>() {
                 intList.add(random.nextInt(54))
             }
             mExBaseAdapter.addLastItem(CardDataItem(DiceCardBean(intList.toIntArray())))
-            mRecyclerView.scrollToLastBottom(true)
+            scrollToLastBottom()
         }
     }
 
