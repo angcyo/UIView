@@ -8,9 +8,21 @@
               android:padding="@dimen/base_xxhdpi">
 
     <com.angcyo.uiview.widget.RTextView
-        android:text="测试1"
+        style="@style/BaseMainTextStyle"
         android:layout_width="20dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark"
+        android:maxLines="1"
+        android:text="测试1"
+        app:r_auto_fix_text_size="true"/>
 
+    <com.angcyo.uiview.widget.RTextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark"
+        android:singleLine="true"
+        android:text="测试2"
+        app:r_auto_fix_text_size="true"/>
 
 </LinearLayout>

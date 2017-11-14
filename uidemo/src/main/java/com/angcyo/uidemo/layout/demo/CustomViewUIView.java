@@ -206,5 +206,16 @@ public class CustomViewUIView extends BaseItemUIView {
                 rProgressBar.addStepPoint(0, 10, 20, 30, 40, 50, 80, 100);
             }
         });
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+
+            }
+
+            @Override
+            public int getItemLayoutId() {
+                return R.layout.item_custom_view6;
+            }
+        });
     }
 }
