@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.rsen.RefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refresh_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag="refresh">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.angcyo.uiview.widget.SearchEditText
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:r_search_tip_text="搜一搜"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.angcyo.uiview.recycler.RRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <com.angcyo.uiview.widget.RTextView
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="empty_tip"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</com.angcyo.uiview.rsen.RefreshLayout>

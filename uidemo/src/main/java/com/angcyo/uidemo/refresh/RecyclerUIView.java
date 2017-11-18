@@ -18,7 +18,6 @@ import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.adapter.RModelAdapter;
 import com.angcyo.uiview.resources.ResUtil;
-import com.angcyo.uiview.rsen.BasePointRefreshView;
 import com.angcyo.uiview.rsen.RefreshLayout;
 import com.angcyo.uiview.utils.T_;
 
@@ -42,17 +41,18 @@ public class RecyclerUIView extends UIContentView {
 
     @Override
     protected void inflateContentLayout(ContentLayout baseContentLayout, LayoutInflater inflater) {
-        mRefreshLayout = new RefreshLayout(mActivity);
-        mRefreshLayout.setTag("refresh");
-        mRecyclerView = new RRecyclerView(mActivity);
-        mRefreshLayout.addView(mRecyclerView);
-//        TextView textView = new TextView(mActivity);
-//        textView.setText("我就是内容.....");
-//        mRefreshLayout.addView(textView);
-
-        mRefreshLayout.setTopView(new BasePointRefreshView(mActivity));
-        mRefreshLayout.setBottomView(new BasePointRefreshView(mActivity));
-        baseContentLayout.addView(mRefreshLayout);
+        inflate(R.layout.demo_refresh_recycler_layout);
+//        mRefreshLayout = new RefreshLayout(mActivity);
+//        mRefreshLayout.setTag("refresh");
+//        mRecyclerView = new RRecyclerView(mActivity);
+//        mRefreshLayout.addView(mRecyclerView);
+////        TextView textView = new TextView(mActivity);
+////        textView.setText("我就是内容.....");
+////        mRefreshLayout.addView(textView);
+//
+//        mRefreshLayout.setTopView(new BasePointRefreshView(mActivity));
+//        mRefreshLayout.setBottomView(new BasePointRefreshView(mActivity));
+//        baseContentLayout.addView(mRefreshLayout);
     }
 
     @Override
@@ -64,6 +64,8 @@ public class RecyclerUIView extends UIContentView {
     @Override
     protected void initOnShowContentLayout() {
         super.initOnShowContentLayout();
+        mRefreshLayout = v(R.id.refresh_view);
+        mRecyclerView = v(R.id.recycler_view);
         initRecyclerView();
     }
 
