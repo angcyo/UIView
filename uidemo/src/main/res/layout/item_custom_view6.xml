@@ -25,4 +25,27 @@
         android:text="测试2"
         app:r_auto_fix_text_size="true"/>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_100dpi">
+
+        <com.angcyo.uiview.viewgroup.ClipLayout
+            android:layout_width="@dimen/base_80dpi"
+            android:layout_height="@dimen/base_80dpi"
+            app:r_clip_radius="@dimen/base_xhdpi"
+            app:r_clip_type="CLIP_TYPE_ROUND">
+
+            <com.angcyo.uiview.widget.GlideImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_demo"/>
+
+            <com.angcyo.uiview.widget.HaloProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.angcyo.uiview.viewgroup.ClipLayout>
+    </FrameLayout>
+
 </LinearLayout>
