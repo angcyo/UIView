@@ -53,6 +53,8 @@ class Mp3PlayUIDemo : BaseItemUIView() {
                     startIView(UIFileSelectorDialog(if (path.isNullOrEmpty()) "" else File(path).parent) {
                         textView.text = it.absolutePath
                         path = it.absolutePath
+                    }.apply {
+                        showFileMenu = true
                     })
                 }
 
