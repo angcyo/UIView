@@ -37,6 +37,7 @@ import com.angcyo.uidemo.layout.demo.PasswordInputUIView;
 import com.angcyo.uidemo.layout.demo.PopupWindowUIView;
 import com.angcyo.uidemo.layout.demo.QQNavigationUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
+import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView2;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.RegularTestUIDemo;
@@ -86,7 +87,7 @@ import rx.functions.Action1;
  */
 public class DemoListUIView2 extends BaseItemUIView {
 
-    int progress = 0;
+    int progress = 0, clickCount = 0;
     private Subscription mSubscribe;
     private UIProgressDialog mProgressDialog;
 
@@ -383,7 +384,12 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new RRecyclerViewDemoUIView());
+                        if (clickCount % 2 == 0) {
+                            startIView(new RRecyclerViewDemoUIView2());
+                        } else {
+                            startIView(new RRecyclerViewDemoUIView());
+                        }
+                        clickCount++;
                     }
                 });
             }
