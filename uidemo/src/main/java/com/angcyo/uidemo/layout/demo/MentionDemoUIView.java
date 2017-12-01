@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.text.Editable;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.angcyo.uidemo.R;
@@ -15,8 +18,10 @@ import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.UI;
 import com.angcyo.uiview.utils.string.SingleTextWatcher;
 import com.angcyo.uiview.widget.ExEditText;
+import com.angcyo.uiview.widget.RExTextView;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -166,5 +171,95 @@ public class MentionDemoUIView extends BaseItemUIView {
                 mTipTextView.setBackgroundColor(Color.WHITE);
             }
         });
+
+
+        items.add(new SingleItem(SingleItem.Type.TOP) {
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                final RExTextView textView = holder.v(R.id.text_view);
+                final TextView textTipView = holder.v(R.id.text_tip_view);
+                final CheckBox textColorCheckBox = holder.v(R.id.span_text_color);
+                final Random random = new Random(System.currentTimeMillis());
+
+                textView.setOnImageSpanClick(new RExTextView.ImageTextSpan.OnImageSpanClick() {
+                    @Override
+                    public boolean onClick(TextView view, String showContent, String url) {
+                        textTipView.setText("显示:" + showContent + "\n地址:" + url);
+                        return true;
+                    }
+                });
+
+                CheckBox checkBox = holder.v(R.id.no_url_ico);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        textView.setShowPatternUrlIco(!isChecked);
+                        if (textColorCheckBox.isChecked()) {
+                            textView.setImageSpanTextColor(getRgbColor(random));
+                        }
+                        textView.setText(textView.getText().toString());
+                    }
+                });
+                checkBox = holder.v(R.id.check_url_http);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        textView.setNeedPatternUrlCheckHttp(!isChecked);
+                        if (textColorCheckBox.isChecked()) {
+                            textView.setImageSpanTextColor(getRgbColor(random));
+                        }
+                        textView.setText(textView.getText().toString());
+                    }
+                });
+                checkBox = holder.v(R.id.show_url);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        textView.setShowUrlRawText(isChecked);
+                        if (textColorCheckBox.isChecked()) {
+                            textView.setImageSpanTextColor(getRgbColor(random));
+                        }
+                        textView.setText(textView.getText().toString());
+                    }
+                });
+                checkBox = holder.v(R.id.show_span_bg);
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        textView.setShowSelectionSpanBgColor(isChecked);
+                    }
+                });
+
+
+                RadioGroup radioGroup = holder.v(R.id.radio_group);
+                radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        switch (checkedId) {
+                            case R.id.not_pattern_url:
+                                textView.setNeedPatternUrl(false);
+                                break;
+                            case R.id.pattern_url:
+                                textView.setNeedPatternUrl(true);
+                                break;
+                        }
+                        //L.e("call: onCheckedChanged([group, checkedId])-> " + checkedId);
+                        if (textColorCheckBox.isChecked()) {
+                            textView.setImageSpanTextColor(getRgbColor(random));
+                        }
+                        textView.setText(textView.getText());
+                    }
+                });
+            }
+
+            @Override
+            public int getItemLayoutId() {
+                return R.layout.item_ex_edit_text_demo;
+            }
+        });
+    }
+
+    private int getRgbColor(Random random) {
+        return Color.rgb(random.nextInt(255), random.nextInt(255), random.nextInt(255));
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <com.angcyo.uiview.widget.RExTextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_white"
+        android:padding="@dimen/base_hdpi"
+        android:text="@string/test_url"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_gray"
+        android:checkedButton="@+id/not_pattern_url"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/base_xhdpi"
+        android:paddingTop="@dimen/base_xhdpi">
+
+        <RadioButton
+            android:id="@+id/not_pattern_url"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关闭Url匹配"
+            android:textSize="12dp"/>
+
+        <RadioButton
+            android:id="@+id/pattern_url"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Url匹配"
+            android:textSize="12dp"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_gray"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/show_url"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示原始Url"
+            android:textSize="12dp"/>
+
+        <CheckBox
+            android:id="@+id/no_url_ico"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不显示Ico"
+            android:textSize="12dp"/>
+
+        <CheckBox
+            android:id="@+id/check_url_http"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="匹配非Http开头"
+            android:textSize="12dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_gray"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/show_span_bg"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示点击效果"
+            android:textSize="12dp"/>
+
+        <CheckBox
+            android:id="@+id/span_text_color"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="随机颜色"
+            android:textSize="12dp"/>
+
+    </LinearLayout>
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/text_tip_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_white"/>
+</LinearLayout>

@@ -88,4 +88,9 @@
         李老师扶了扶眼镜，说：“有话你就说，有屁你就放。何苦憋着来呢？
         你看，上面不出气，就从下面响亮的出来了！”
     </string>
+    <string name="test_url">
+        http://baidu.com http://www.baidu.com baidu.com https://baidu.com https://www.baidu.com www.baidu.com \n
+        教数学的李老师突然发问https://www.baidu.com
+        22.22 b.com 教数学的李老师突然发问发问发问https://www.baidu.com
+    </string>
 </resources>
