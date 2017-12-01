@@ -69,6 +69,7 @@ import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.RUtils;
+import com.angcyo.uiview.utils.Tip;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
@@ -454,6 +455,8 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
+                        Tip.show("测试文本", R.drawable.base_add);
+
                         //new ktclass().test();
                         //KtinterfaceKt.ktinterface_fun();
                         //KtfileKt.getN();
