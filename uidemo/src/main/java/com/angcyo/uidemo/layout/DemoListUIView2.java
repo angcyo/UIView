@@ -455,7 +455,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        Tip.show("测试文本", R.drawable.base_add);
+                        Tip.show("测试文本", R.drawable.hot_package_1);
 
                         //new ktclass().test();
                         //KtinterfaceKt.ktinterface_fun();
