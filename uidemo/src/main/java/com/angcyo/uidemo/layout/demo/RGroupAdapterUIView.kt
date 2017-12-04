@@ -100,10 +100,10 @@ class RGroupAdapterUIView : BaseContentUIView() {
         adapter.appendFooterData("_F2")
 
         val groups = mutableListOf<RDemoGroup>()
-        groups.add(RDemoGroup("分组1", false))
-        groups.add(RDemoGroup("分组2", false))
-        groups.add(RDemoGroup("分组3", true))
-        groups.add(RDemoGroup("分组4", true))
+        groups.add(RDemoGroup("分组标题1", false))
+        groups.add(RDemoGroup("分组标题2", false))
+        groups.add(RDemoGroup("分组标题(展开关闭其他)3", true))
+        groups.add(RDemoGroup("分组标题(展开关闭其他)4", true))
         adapter.resetAllData(groups)
     }
 
