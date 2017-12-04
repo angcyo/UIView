@@ -36,6 +36,7 @@ import com.angcyo.uidemo.layout.demo.NotifyDemoUIView;
 import com.angcyo.uidemo.layout.demo.PasswordInputUIView;
 import com.angcyo.uidemo.layout.demo.PopupWindowUIView;
 import com.angcyo.uidemo.layout.demo.QQNavigationUIView;
+import com.angcyo.uidemo.layout.demo.RGroupAdapterUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView2;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
@@ -852,6 +853,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new RegularTestUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".RGroupAdapter Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RGroupAdapterUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
