@@ -63,5 +63,6 @@ public class LoopRecyclerViewUIView extends UIContentView {
             }
         };
         loopRecyclerView.setAdapter(mLoopAdapter);
+        loopRecyclerView.resetScrollPosition();
     }
 }
