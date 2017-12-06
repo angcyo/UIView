@@ -184,7 +184,7 @@ public class MentionDemoUIView extends BaseItemUIView {
                 textView.setOnImageSpanClick(new RExTextView.ImageTextSpan.OnImageSpanClick() {
                     @Override
                     public boolean onClick(TextView view, String showContent, String url) {
-                        textTipView.setText("显示:" + showContent + "\n地址:" + url);
+                        textTipView.setText("显示:" + showContent + " -- " + System.currentTimeMillis() + "\n地址:" + url);
                         return true;
                     }
                 });
@@ -237,17 +237,17 @@ public class MentionDemoUIView extends BaseItemUIView {
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                         switch (checkedId) {
                             case R.id.not_pattern_url:
-                                textView.setNeedPatternUrl(false);
+                                textView.setNeedPattern(false);
                                 break;
                             case R.id.pattern_url:
-                                textView.setNeedPatternUrl(true);
+                                textView.setNeedPattern(true);
                                 break;
                         }
                         //L.e("call: onCheckedChanged([group, checkedId])-> " + checkedId);
                         if (textColorCheckBox.isChecked()) {
                             textView.setImageSpanTextColor(getRgbColor(random));
                         }
-                        textView.setText(textView.getText());
+                        textView.setText(textView.getText().toString());
                     }
                 });
             }
