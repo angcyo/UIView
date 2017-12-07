@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent_dark20"
+    android:orientation="vertical"
+    android:padding="@dimen/base_xhdpi">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/tip_view"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义正则"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:paddingEnd="@dimen/base_hdpi"
+            android:paddingStart="@dimen/base_hdpi"
+            android:text="匹配"/>
+
+    </FrameLayout>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:hint="在此输入测试正则"
+        android:maxHeight="@dimen/base_100dpi"
+        android:textSize="14dp"
+        tools:text="测试文本"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text2"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:hint="在此输入测试文本"
+        android:maxHeight="@dimen/base_100dpi"
+        android:textSize="14dp"
+        tools:text="测试文本"/>
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:minHeight="@dimen/base_item_size"
+        android:text="结果在此展示"
+        android:textSize="10dp"/>
+
+</LinearLayout>

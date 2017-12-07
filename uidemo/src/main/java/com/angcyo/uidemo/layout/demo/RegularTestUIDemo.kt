@@ -7,6 +7,7 @@ import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.widget.RExTextView
+import java.util.regex.Pattern
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -21,6 +22,41 @@ import com.angcyo.uiview.widget.RExTextView
  */
 class RegularTestUIDemo : BaseItemUIView() {
     override fun createItems(items: MutableList<SingleItem>?) {
+        items?.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                //holder.tv(R.id.tip_view).text = "Url正则测试"
+                //holder.eV(R.id.edit_text).hint = RExTextView.patternUrl.pattern()
+
+                holder.click(R.id.button) {
+                    val pattern: Pattern = Pattern.compile(holder.exV(R.id.edit_text).string())
+
+                    val string = holder.exV(R.id.edit_text2).string()
+                    val matcher = pattern.matcher(string)
+
+                    val stringBuild = StringBuilder("length:${string.length}\n")
+                    while (matcher.find()) {
+                        val start = matcher.start()
+                        val end = matcher.end()
+                        val text = matcher.group()
+                        val groupCount = matcher.groupCount()
+                        stringBuild.append("start:$start\n")
+                        stringBuild.append("end:$end\n")
+                        stringBuild.append("text:$text\n")
+                        stringBuild.append("groupCount:$groupCount\n")
+                        for (i in 0..groupCount) {
+                            stringBuild.append("group $i:${matcher.group(i)}\n")
+                        }
+                        stringBuild.append("\n")
+                    }
+
+                    holder.tV(R.id.text_view).text = stringBuild.toString()
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_regular_input_tip_layout_custom
+            }
+        })
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder.tv(R.id.tip_view).text = "Url正则测试"
