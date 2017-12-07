@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout.demo;
 
 import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -18,6 +19,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import com.angcyo.uidemo.R;
+import com.angcyo.uidemo.layout.demo.view.SinMathUIView;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.resources.AnimUtil;
@@ -305,6 +307,34 @@ public class AnimatorDemoUIView extends UIContentView {
                                 mViewHolder.v(R.id.preview_layout).setBackgroundColor(AnimUtil.evaluateColor(progress, Color.TRANSPARENT, Color.BLACK));
                             }
                         });
+            }
+        });
+
+
+        click(R.id.sin_math_view, new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                final View view = view(R.id.test_image_view);
+                final float startX = (float) v.getMeasuredWidth() / 4;
+                final float endX = (float) v.getMeasuredWidth() * 3 / 4;
+                final float offset = 20 * density();
+
+                ValueAnimator animator = ObjectAnimator.ofFloat(endX, startX);
+                animator.setDuration(2000);
+                animator.setInterpolator(new LinearInterpolator());
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        float x = (float) animation.getAnimatedValue();
+                        view.setX(x);
+                        view.setY(SinMathUIView.Companion.y(x,
+                                SinMathUIView.Companion.calculate(new Float[]{startX, (float) v.getMeasuredHeight() - offset},
+                                        new Float[]{(float) v.getMeasuredWidth() / 2, (float) v.getMeasuredHeight() / 2},
+                                        new Float[]{endX, (float) v.getMeasuredHeight() - offset}
+                                )));
+                    }
+                });
+                animator.start();
             }
         });
     }
