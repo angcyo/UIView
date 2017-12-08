@@ -10,7 +10,6 @@
         android:id="@+id/center_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="@dimen/base_100dpi"
         android:background="@drawable/base_dark_color_border_check_selector"
         android:clickable="true"
         android:scaleType="centerInside"
@@ -63,6 +62,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/transparent_dark20"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/view_group1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.angcyo.uiview.widget.GlideImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/image_demo"
+                    android:visibility="invisible"/>
+
+                <com.angcyo.uidemo.layout.demo.view.TestVideoView
+                    android:id="@+id/video_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent_dark20"
+                    android:visibility="invisible"/>
+
+                <com.angcyo.uiview.widget.RTextView
+                    style="@style/BaseWhiteColorTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:text="测试专用文本"
+                    android:visibility="invisible"/>
+
+                <com.angcyo.uiview.widget.Button
+                    android:id="@+id/test_button"
+                    style="@style/BaseWhiteColorTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end|bottom"
+                    android:text="选择视频"/>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/view_group2"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

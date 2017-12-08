@@ -1,23 +1,30 @@
 package com.angcyo.uidemo.layout.demo;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.view.CenterButton;
+import com.angcyo.uiview.Root;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
-import com.angcyo.uiview.dialog.UIDialog;
+import com.angcyo.uiview.dialog.UIFileSelectorDialog;
 import com.angcyo.uiview.utils.T2;
 
+import java.io.File;
 import java.lang.reflect.Field;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func2;
@@ -37,6 +44,7 @@ import rx.schedulers.Schedulers;
 public class CenterRadioButtonUIView extends UIContentView {
     CenterButton mCenterButton;
     int type = 0;
+    String lastPath;
 
     private static void makeToastFullscreen(Context context, Toast toast) {
 
@@ -95,7 +103,32 @@ public class CenterRadioButtonUIView extends UIContentView {
             }
         });
 
-        final View maxLayout = mViewHolder.v(R.id.max_layout);
+        final View maxLayout = v(R.id.max_layout);
+        final ViewGroup viewGroup1 = mViewHolder.viewGroup(R.id.view_group1);
+        final ViewGroup viewGroup2 = mViewHolder.viewGroup(R.id.view_group2);
+        final VideoView videoView = v(R.id.video_view);
+        lastPath = Root.externalStorageDirectory();
+        mViewHolder.click(R.id.test_button, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Tip.ok("测试按钮");
+                startIView(new UIFileSelectorDialog(lastPath, new Function1<File, Unit>() {
+                    @Override
+                    public Unit invoke(File file) {
+                        lastPath = file.getParent();
+                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                videoView.start();
+                            }
+                        });
+                        videoView.setVideoPath(file.getAbsolutePath());
+                        videoView.setVisibility(View.VISIBLE);
+                        return null;
+                    }
+                }));
+            }
+        });
         mViewHolder.v(R.id.max_test_view).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,15 +143,31 @@ public class CenterRadioButtonUIView extends UIContentView {
 //                    }, 1 * i);
 //                }
 
-                final UIDialog dialog = UIDialog.build().setDialogTitle("测试对话框");
-                dialog.showDialog(mParentILayout);
+//                final UIDialog dialog = UIDialog.build().setDialogTitle("测试对话框");
+//                dialog.showDialog(mParentILayout);
+//
+//                postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        dialog.finishIView();
+//                    }
+//                }, 500);
 
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.finishIView();
-                    }
-                }, 500);
+                View childView;
+                int duration = videoView.getCurrentPosition();
+                videoView.setVisibility(View.INVISIBLE);
+                L.e("call: onClick([v])-> " + duration);
+                if (viewGroup1.getChildCount() > 0) {
+                    childView = viewGroup1.getChildAt(0);
+                    viewGroup1.removeView(childView);
+                    viewGroup2.addView(childView);
+                } else {
+                    childView = viewGroup2.getChildAt(0);
+                    viewGroup2.removeView(childView);
+                    viewGroup1.addView(childView);
+                }
+                videoView.seekTo(duration);
+                videoView.setVisibility(View.VISIBLE);
             }
         });
 

@@ -95,7 +95,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
 
         canvas.save()
         //canvas.translate(0f, (-measuredHeight).toFloat())
-        canvas.drawColor(Color.GRAY)
+        //canvas.drawColor(Color.GRAY)
         canvas.drawRect(10f, 10f, 20f, 20f, paint)
         canvas.drawPath(path, paint)
         canvas.restore()
