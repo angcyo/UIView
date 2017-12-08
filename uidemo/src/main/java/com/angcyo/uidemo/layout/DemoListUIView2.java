@@ -27,6 +27,7 @@ import com.angcyo.uidemo.layout.demo.FingerPrinterUIDemo;
 import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.GroupItemDecorationUIView;
+import com.angcyo.uidemo.layout.demo.GuideLayoutUIView;
 import com.angcyo.uidemo.layout.demo.InputTextUIDemo;
 import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MathPathUIView;
@@ -870,6 +871,32 @@ public class DemoListUIView2 extends BaseItemUIView {
                 });
             }
         });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".RGroupAdapter Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RGroupAdapterUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Guide Layout Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new GuideLayoutUIView(v));
+                    }
+                });
+            }
+        });
 
         //版本 编译时间
         items.add(new SingleItem(SingleItem.Type.LINE) {
@@ -912,7 +939,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
         RTextView textView = infoLayout.getTextView();
         textView.setDeleteLine(isDeprecated);
-        infoLayout.setOnClickListener(onClickListener);
+        holder.click(infoLayout, onClickListener);
     }
 
     public static class TestClass {
