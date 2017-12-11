@@ -72,19 +72,19 @@ public class MentionDemoUIView extends BaseItemUIView {
                             public void run() {
                                 switch (index) {
                                     case 1:
-                                        mEditText.addMention("测试1");
+                                        mEditText.addMention("测试1*");
                                         break;
                                     case 2:
-                                        mEditText.addMention("测试2");
+                                        mEditText.addMention("测试2)");
                                         break;
                                     case 3:
-                                        mEditText.addMention("测试3");
+                                        mEditText.addMention("测试3^");
                                         break;
                                     case 4:
-                                        mEditText.addMention("测试4");
+                                        mEditText.addMention("(测试4".replace("(", "\\("));
                                         break;
                                     case 5:
-                                        mEditText.addMention("测试5");
+                                        mEditText.addMention("(测试5)");
                                         break;
                                     default:
                                         mEditText.addMention("angcyo");
@@ -137,7 +137,8 @@ public class MentionDemoUIView extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         index = 2;
-                        mEditText.insert("*");
+//                        mEditText.insert("*");
+                        mEditText.insert("@");
                     }
                 });
                 holder.v(R.id.button3).setOnClickListener(new View.OnClickListener() {
