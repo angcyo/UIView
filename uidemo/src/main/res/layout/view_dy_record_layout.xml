@@ -7,15 +7,18 @@
     android:background="@color/base_gray">
 
     <com.angcyo.uiview.viewgroup.DYRecordView
+        android:id="@+id/record_view1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <com.angcyo.uiview.viewgroup.DYRecordView
+        android:id="@+id/record_view2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:r_default_circle_offset_bottom="150dp"/>
 
     <com.angcyo.uiview.viewgroup.DYRecordView
+        android:id="@+id/record_view3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:r_default_circle_offset_bottom="280dp"/>
@@ -24,5 +27,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:r_search_drawable="@drawable/base_search"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button"
+        style="@style/BaseWhiteColorTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginEnd="@dimen/base_xxhdpi"
+        android:layout_marginStart="@dimen/base_xxhdpi"
+        android:layout_marginTop="@dimen/base_60dpi"
+        android:gravity="center"
+        android:text="切换模式"/>
 
 </FrameLayout>
