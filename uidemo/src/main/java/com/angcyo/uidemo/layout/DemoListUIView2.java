@@ -55,6 +55,7 @@ import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.TouchBackUIDemo;
 import com.angcyo.uidemo.layout.demo.TouchEventDemoUIView;
 import com.angcyo.uidemo.layout.demo.TouchLayoutUIDemo;
+import com.angcyo.uidemo.layout.demo.WebsocketUIView;
 import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
@@ -893,6 +894,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new GuideLayoutUIView(v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".WebSocket Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new WebsocketUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }

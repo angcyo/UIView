@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.widget.RSoftInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/soft_input_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.rsen.RefreshLayout
+            android:id="@+id/refresh_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.angcyo.uiview.recycler.RRecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.angcyo.uiview.rsen.RefreshLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_40dpi"
+            android:orientation="horizontal">
+
+            <com.angcyo.uiview.widget.ExEditText
+                android:id="@+id/edit_text"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/send_button"
+                style="@style/BaseWhiteButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/base_ldpi"
+                android:text="Send"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.angcyo.uiview.widget.RSoftInputLayout>
