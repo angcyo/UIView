@@ -17,6 +17,7 @@
 
     <com.angcyo.uiview.widget.Button
         android:id="@+id/selector_button"
+        style="@style/BaseWhiteColorTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/base_xhdpi"
@@ -36,6 +37,7 @@
 
         <com.angcyo.uiview.widget.Button
             android:id="@+id/play_button"
+            style="@style/BaseWhiteColorTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_ldpi"
@@ -45,6 +47,7 @@
 
         <com.angcyo.uiview.widget.Button
             android:id="@+id/pause_button"
+            style="@style/BaseWhiteColorTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_ldpi"
@@ -54,6 +57,7 @@
 
         <com.angcyo.uiview.widget.Button
             android:id="@+id/stop_button"
+            style="@style/BaseWhiteColorTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_ldpi"

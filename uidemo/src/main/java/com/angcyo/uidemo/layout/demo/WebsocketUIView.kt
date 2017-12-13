@@ -1,16 +1,20 @@
 package com.angcyo.uidemo.layout.demo
 
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.widget.LinearLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.angcyo.uiview.viewgroup.RLinearLayout
 import com.angcyo.uiview.widget.ExEditText
+import com.angcyo.uiview.widget.helper.RainHelper
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -62,6 +66,40 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
         private fun isLeft(position: Int): Boolean = position % 2 != 0
 
+        var isScrollFromBottom = false
+        var needShowSoftInput = false
+
+        override fun onScrollStateChanged(recyclerView: RRecyclerView?, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (newState == RRecyclerView.SCROLL_STATE_IDLE) {
+                isScrollFromBottom = false
+                if (needShowSoftInput) {
+                    showSoftInput(editText)
+                    postDelayed(60) {
+                        recyclerView?.scrollToLastBottom(true)
+                    }
+                }
+                needShowSoftInput = false
+            } else if (newState == RRecyclerView.SCROLL_STATE_DRAGGING) {
+                isScrollFromBottom = recyclerView?.isBottomEnd == true
+            }
+        }
+
+        override fun onScrolledInTouch(recyclerView: RRecyclerView?, e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float) {
+            super.onScrolledInTouch(recyclerView, e1, e2, distanceX, distanceY)
+            if (distanceY < 0) {
+                hideSoftInput()
+                needShowSoftInput = false
+            } else if (distanceY > 0 && isScrollFromBottom) {
+                needShowSoftInput = true
+            }
+        }
+
+        override fun onScrolled(recyclerView: RRecyclerView?, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+        }
+
 
         override fun getDataItemType(posInData: Int): Int {
             return if (isLeft(posInData)) {
@@ -112,12 +150,29 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         }
     }
 
+    private lateinit var editText: ExEditText
+    private lateinit var rainHelper: RainHelper
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         loadData()
 
+        rainHelper = RainHelper(v(R.id.rain_anim_view)).apply {
+            rainResId = R.drawable.hot_package_1
+        }
+
+        editText = v(R.id.edit_text)
+        editText.setOnTextEmptyListener { isEmpty ->
+            view(R.id.send_button).isEnabled = !isEmpty
+        }
+
         click(R.id.send_button) {
-            mExBaseAdapter.addLastItem(v<ExEditText>(R.id.edit_text).string())
+            if (TextUtils.equals(editText.string(), "show")) {
+                hideSoftInput()
+                rainHelper.startRain()
+                return@click
+            }
+
+            mExBaseAdapter.addLastItem(editText.string())
             v<ExEditText>(R.id.edit_text).setText("")
             post {
                 mRecyclerView.scrollToLastBottom(true)
