@@ -23,6 +23,9 @@ import com.angcyo.uiview.utils.RTextPaint;
  * Version: 1.0.0
  */
 public class TouchGroupLayout extends RelativeLayout {
+
+    static String TAG = "touchGroup";
+
     RTextPaint mRTextPaint;
     String string1, string2, string3;
     private float mDownX;
@@ -136,10 +139,68 @@ public class TouchGroupLayout extends RelativeLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        boolean touchEvent = super.onTouchEvent(event);
+
         L.e("call: onTouchEvent([event])-> " + event.getAction() + " x:" + event.getX() + " y:" + event.getY());
         string3 = "onTouchEvent-> " + event.getAction() + " x:" + event.getX() + " y:" + event.getY();
+        int actionMasked = event.getActionMasked();
+        int pointerCount = event.getPointerCount();
+        int index = pointerCount - 1;
+
+        int actionIndex = event.getActionIndex();
+        int id = event.getPointerId(actionIndex);
+
+//        for (int i = 0; i < pointerCount; i++) {
+//            L.i(TAG, event.getPointerId(i));
+//        }
+
+
+        /**
+         * 不管多少个点, 按下去
+         * event.getX() event.getY()
+         * 获取到的,永远都是第一个点的坐标.
+         *
+         * 其他点的坐标要通过event.getX(index) event.getY(index) 获取
+         * */
+        switch (actionMasked) {
+            case MotionEvent.ACTION_DOWN:
+                L.i(TAG, "call__ " + event.getActionMasked() + " " + event.getAction() + " " + actionIndex);
+
+                L.e(TAG, "call: onTouchEvent([event])-> down " + pointerCount + " id:" + id + " x:" + event.getX() + " y:" + event.getY());
+                L.i(TAG, "call: onTouchEvent([event])-> down " + pointerCount + " id:" + id + " x:" + event.getX(actionIndex) + " y:" + event.getY(actionIndex));
+                break;
+            case MotionEvent.ACTION_UP:
+                L.e(TAG, "call: onTouchEvent([event])-> up " + pointerCount + " id:" + id + " x:" + event.getX() + " y:" + event.getY());
+                for (int i = 0; i < pointerCount; i++) {
+                    int pointerId = event.getPointerId(i);
+                    L.i(TAG, "getPointerId:" + pointerId + "  findPointerIndex:" + event.findPointerIndex(pointerId));
+                }
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                L.i(TAG, "__call " + event.getActionMasked() + " " + event.getAction() + " " + actionIndex);
+
+                //L.e(TAG, "call: onTouchEvent([event])-> pointer down " + " x:" + event.getX() + " y:" + event.getY());
+                L.e(TAG, "call: onTouchEvent([event])-> pointer down " + pointerCount + " id:" + id + " x:" + event.getX(index) + " y:" + event.getY(index));
+                L.i(TAG, "call: onTouchEvent([event])-> pointer down " + pointerCount + " id:" + id + " x:" + event.getX(actionIndex) + " y:" + event.getY(actionIndex));
+
+//                for (int i = 0; i < pointerCount; i++) {
+//                    L.i(TAG, "x:" + event.getX(i) + " y:" + event.getY(i));
+//                }
+
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                L.i(TAG, "__call " + event.getActionMasked() + " " + event.getAction() + " " + actionIndex);
+
+                L.e(TAG, "call: onTouchEvent([event])-> pointer up " + pointerCount + " id:" + id + " x:" + event.getX(index) + " y:" + event.getY(index));
+//                for (int i = 0; i < pointerCount; i++) {
+//                    int pointerId = event.getPointerId(i);
+//                    L.i(TAG, "i:" + i + " getPointerId:" + pointerId + "  findPointerIndex:" + event.findPointerIndex(pointerId));
+//                }
+                break;
+
+        }
+
         postInvalidate();
-        boolean touchEvent = super.onTouchEvent(event);
         requestLayout();
         return true;
     }

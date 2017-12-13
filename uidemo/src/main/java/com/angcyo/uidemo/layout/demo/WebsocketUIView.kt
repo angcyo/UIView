@@ -157,7 +157,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         loadData()
 
         rainHelper = RainHelper(v(R.id.rain_anim_view)).apply {
-            rainResId = R.drawable.hot_package_1
+            rainResId = R.drawable.hot_package
         }
 
         editText = v(R.id.edit_text)
