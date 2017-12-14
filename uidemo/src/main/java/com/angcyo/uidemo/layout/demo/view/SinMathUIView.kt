@@ -1,12 +1,10 @@
 package com.angcyo.uidemo.layout.demo.view
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.angcyo.uiview.helper.BezierPointHelper
 import com.angcyo.uiview.kotlin.density
 
 /**
@@ -24,7 +22,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
 
     companion object {
         /**抛物线方程 y = ax² + bx + c */
-        fun calculate(vararg points: Array<Float>): Array<Float> {
+        fun calculate(vararg points: Array<Float> /*a b c 三点的坐标*/): Array<Float> {
             val x1 = points[0][0]
             val y1 = points[0][1]
             val x2 = points[1][0]
@@ -66,10 +64,19 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
     val path: Path by lazy {
         Path()
     }
+    lateinit var bezierHelper: BezierPointHelper
+    val bezierPath: Path by lazy {
+        Path()
+    }
+    val bezierPath2: Path by lazy {
+        Path()
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         path.reset()
+        bezierPath.reset()
+        bezierPath2.reset()
 //        val startX = 100f * density
 //        val startY = measuredHeight / 2f
 //        path.moveTo(startX, startY)
@@ -81,11 +88,31 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
 //            path.lineTo(x, y)
 //            L.e("call: onSizeChanged -> i:$i  x:$x  y:$y")
 //        }
-        val g = calculate(arrayOf(0f, measuredHeight.toFloat()), arrayOf(measuredWidth.toFloat() / 2, 0f), arrayOf(measuredWidth.toFloat(), measuredHeight.toFloat()))
+        val h = measuredHeight.toFloat()
+        val w = measuredWidth.toFloat()
 
-        path.moveTo(0f, measuredHeight.toFloat())
+        val g = calculate(arrayOf(0f, h), arrayOf(w / 2, 0f), arrayOf(w, h))
+
+        path.moveTo(0f, h)
         for (x in 0..measuredWidth) {
             path.lineTo(x.toFloat(), g[0] * x * x + g[1] * x + g[2])
+        }
+
+        val w2 = measuredWidth / 2f
+        bezierHelper = BezierPointHelper(PointF(w2, 0f), PointF(w2, h), PointF(w2 / 2, 0f), PointF(w2 * 3 / 2, 0f))
+        bezierPath.moveTo(w2, 0f)
+        bezierPath2.moveTo(w2, 0f)
+//        (0..100)
+//                .map { bezierHelper.evaluate(it / 100f) }
+//                .forEach { bezierPath.lineTo(it.x, it.y) }
+
+        val circleCount = 5 * 100
+        for (i in 0..circleCount) {
+            val fl = i % 100 / 100f
+            val evaluate = bezierHelper.evaluate(fl)
+            bezierPath.lineTo(evaluate.x, i / circleCount.toFloat() * h)
+            bezierPath2.lineTo(evaluate.x, evaluate.y)
+            //L.e("call: onSizeChanged -> ${evaluate.y}")
         }
     }
 
@@ -93,11 +120,25 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+        //抛物线 绘制
         canvas.save()
         //canvas.translate(0f, (-measuredHeight).toFloat())
         //canvas.drawColor(Color.GRAY)
         canvas.drawRect(10f, 10f, 20f, 20f, paint)
+        paint.color = Color.RED
         canvas.drawPath(path, paint)
+        canvas.restore()
+
+        //贝塞尔曲线 绘制
+        canvas.save()
+        paint.color = Color.BLUE
+        canvas.drawPath(bezierPath, paint)
+        canvas.restore()
+
+        //贝塞尔曲线 绘制
+        canvas.save()
+        paint.color = Color.GREEN
+        canvas.drawPath(bezierPath2, paint)
         canvas.restore()
     }
 }
