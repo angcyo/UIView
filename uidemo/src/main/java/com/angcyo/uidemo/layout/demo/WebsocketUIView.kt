@@ -168,6 +168,8 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         click(R.id.send_button) {
             if (TextUtils.equals(editText.string(), "show")) {
                 hideSoftInput()
+                rainHelper.randomStep = mViewHolder.cV(R.id.step_box).isChecked
+                rainHelper.useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
                 rainHelper.startRain()
                 return@click
             }

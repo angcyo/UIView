@@ -29,26 +29,54 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/base_40dpi"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <com.angcyo.uiview.widget.ExEditText
-                    android:id="@+id/edit_text"
-                    style="@style/BaseMainTextStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="show"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <com.angcyo.uiview.widget.Button
-                    android:id="@+id/send_button"
-                    style="@style/BaseWhiteButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/base_ldpi"
-                    android:text="Send"/>
+                    <CheckBox
+                        android:id="@+id/bezier_box"
+                        style="@style/BaseMainTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="用使用贝塞尔曲线"
+                        android:textSize="12dp"/>
+
+                    <CheckBox
+                        android:id="@+id/step_box"
+                        style="@style/BaseMainTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="随机下降速度"
+                        android:textSize="12dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/base_40dpi"
+                    android:orientation="horizontal">
+
+                    <com.angcyo.uiview.widget.ExEditText
+                        android:id="@+id/edit_text"
+                        style="@style/BaseMainTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="show"/>
+
+                    <com.angcyo.uiview.widget.Button
+                        android:id="@+id/send_button"
+                        style="@style/BaseWhiteButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/base_ldpi"
+                        android:text="Send"/>
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
         <com.angcyo.uiview.widget.RainAnimView
