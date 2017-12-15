@@ -15,15 +15,19 @@ import com.angcyo.uidemo.layout.demo.game.RainLayer
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.game.helper.GameRenderHelper
 import com.angcyo.uiview.game.layer.BaseFrameLayer
+import com.angcyo.uiview.game.layer.BaseMoveLayer
 import com.angcyo.uiview.game.layer.FrameBean
+import com.angcyo.uiview.game.layer.MoveBean
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
+import com.angcyo.uiview.utils.ScreenUtil
 import com.angcyo.uiview.viewgroup.RLinearLayout
 import com.angcyo.uiview.widget.ExEditText
 import com.angcyo.uiview.widget.RainBean
 import com.angcyo.uiview.widget.helper.RainHelper
+import java.util.*
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -159,6 +163,10 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         }
     }
 
+    private val random: Random by lazy {
+        Random(System.nanoTime())
+    }
+
     private lateinit var editText: ExEditText
     private lateinit var rainHelper: RainHelper
 
@@ -191,6 +199,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                 hideSoftInput()
 
                 val baseFrameLayer = BaseFrameLayer()
+                val baseMoveLayer = BaseMoveLayer()
                 val frameArray = arrayOf(getDrawable(R.drawable.home_48_color),
                         getDrawable(R.drawable.me_48_color),
                         getDrawable(R.drawable.live_48_color),
@@ -205,12 +214,24 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                         override fun onClickRain(rainLayout: RainLayer, bean: RainBean) {
                             rainLayout.removeRain(bean)
 
-                            baseFrameLayer.addFrameBean(FrameBean(frameArray, Point(bean.getRect().centerX(), bean.getRect().centerY())))
+                            baseFrameLayer.addFrameBean(FrameBean(frameArray, Point(bean.getRect().centerX(), bean.getRect().centerY())).apply {
+                                loop = random.nextBoolean()
+                            })
+
+                            baseMoveLayer.addFrameBean(MoveBean(
+                                    frameArray,
+                                    Point(bean.getRect().centerX(), bean.getRect().centerY()),
+                                    Point(ScreenUtil.screenWidth, 0)
+                            ).apply {
+                                frameDrawIntervalTime = 16 + random.nextInt(10) * 10
+                                maxMoveTime = (1 + random.nextInt(4)) * 1000
+                            })
                         }
 
                     }
                 })
                 gameRenderHelper.addLayer(baseFrameLayer)
+                gameRenderHelper.addLayer(baseMoveLayer)
                 view(R.id.game_render_view).visibility = View.VISIBLE
                 return@click
             }

@@ -58,7 +58,7 @@ class RainLayer(val rainResId: Int) : BaseLayer() {
     private var isRainEnd = false
 
     init {
-
+        drawIntervalTime = interval
     }
 
     private fun checkListener(x: Int, y: Int): Boolean {
@@ -86,15 +86,12 @@ class RainLayer(val rainResId: Int) : BaseLayer() {
         return super.onTouchEvent(event, point)
     }
 
-    private var lastAddTime = 0L
-
     override fun draw(canvas: Canvas, gameStartTime: Long /*最开始渲染的时间*/, lastRenderTime: Long, nowRenderTime: Long /*现在渲染的时候*/) {
-        super.draw(canvas, gameStartTime, lastRenderTime, nowRenderTime)
         if (isRainEnd) {
             return
         }
-        val offsetTime = nowRenderTime - lastAddTime
-        //L.e("call: draw -> offsetTime:$offsetTime")
+
+        super.draw(canvas, gameStartTime, lastRenderTime, nowRenderTime)
 
         updateRainList()
         rainList?.let {
@@ -102,10 +99,11 @@ class RainLayer(val rainResId: Int) : BaseLayer() {
                 bean.draw(canvas)
             }
         }
-        if (offsetTime >= interval) {
-            addNewRain()
-            lastAddTime = nowRenderTime
-        }
+    }
+
+    override fun onDraw(canvas: Canvas, gameStartTime: Long, lastRenderTime: Long, nowRenderTime: Long) {
+        super.onDraw(canvas, gameStartTime, lastRenderTime, nowRenderTime)
+        addNewRain()
     }
 
     lateinit var gameRenderView: GameRenderView
