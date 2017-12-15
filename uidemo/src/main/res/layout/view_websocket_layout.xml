@@ -83,6 +83,12 @@
             android:id="@+id/rain_anim_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <com.angcyo.uiview.game.GameRenderView
+            android:id="@+id/game_render_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
     </FrameLayout>
 
 </com.angcyo.uiview.widget.RSoftInputLayout>

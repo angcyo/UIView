@@ -1,19 +1,28 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.graphics.Point
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.View
 import android.widget.LinearLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
+import com.angcyo.uidemo.layout.demo.game.OnClickRainListener
+import com.angcyo.uidemo.layout.demo.game.RainBgLayer
+import com.angcyo.uidemo.layout.demo.game.RainLayer
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.game.helper.GameRenderHelper
+import com.angcyo.uiview.game.layer.BaseFrameLayer
+import com.angcyo.uiview.game.layer.FrameBean
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.angcyo.uiview.viewgroup.RLinearLayout
 import com.angcyo.uiview.widget.ExEditText
+import com.angcyo.uiview.widget.RainBean
 import com.angcyo.uiview.widget.helper.RainHelper
 
 /**
@@ -152,6 +161,8 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
     private lateinit var editText: ExEditText
     private lateinit var rainHelper: RainHelper
+
+    private lateinit var gameRenderHelper: GameRenderHelper
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         loadData()
@@ -160,10 +171,13 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             rainResId = R.drawable.hot_package
         }
 
+        gameRenderHelper = GameRenderHelper(v(R.id.game_render_view))
+
         editText = v(R.id.edit_text)
         editText.setOnTextEmptyListener { isEmpty ->
             view(R.id.send_button).isEnabled = !isEmpty
         }
+        editText.setText("show2")
 
         click(R.id.send_button) {
             if (TextUtils.equals(editText.string(), "show")) {
@@ -171,6 +185,33 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                 rainHelper.randomStep = mViewHolder.cV(R.id.step_box).isChecked
                 rainHelper.useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
                 rainHelper.startRain()
+                return@click
+            }
+            if (TextUtils.equals(editText.string(), "show2")) {
+                hideSoftInput()
+
+                val baseFrameLayer = BaseFrameLayer()
+                val frameArray = arrayOf(getDrawable(R.drawable.home_48_color),
+                        getDrawable(R.drawable.me_48_color),
+                        getDrawable(R.drawable.live_48_color),
+                        getDrawable(R.drawable.message_48_color),
+                        getDrawable(R.drawable.shop_48_color))
+
+                gameRenderHelper.addLayer(RainBgLayer(getDrawable(R.drawable.hongbaoyu_bg)))
+                gameRenderHelper.addLayer(RainLayer(R.drawable.hot_package).apply {
+                    randomStep = mViewHolder.cV(R.id.step_box).isChecked
+                    useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
+                    onClickRainListener = object : OnClickRainListener {
+                        override fun onClickRain(rainLayout: RainLayer, bean: RainBean) {
+                            rainLayout.removeRain(bean)
+
+                            baseFrameLayer.addFrameBean(FrameBean(frameArray, Point(bean.getRect().centerX(), bean.getRect().centerY())))
+                        }
+
+                    }
+                })
+                gameRenderHelper.addLayer(baseFrameLayer)
+                view(R.id.game_render_view).visibility = View.VISIBLE
                 return@click
             }
 
