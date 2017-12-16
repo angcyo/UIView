@@ -15,6 +15,7 @@ import com.angcyo.uiview.game.layer.BaseLayer
  * 修改备注：
  * Version: 1.0.0
  */
+@Deprecated("")
 class RainBgLayer(val bgDrawable: Drawable) : BaseLayer() {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

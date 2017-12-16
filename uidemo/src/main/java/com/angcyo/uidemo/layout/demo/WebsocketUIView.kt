@@ -2,8 +2,6 @@ package com.angcyo.uidemo.layout.demo
 
 import android.graphics.Canvas
 import android.graphics.Point
-import android.graphics.Rect
-import android.graphics.drawable.Drawable
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,12 +10,14 @@ import android.view.View
 import android.widget.LinearLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
+import com.angcyo.uidemo.layout.demo.game.GoldCoinLayer
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.helper.GameRenderHelper
 import com.angcyo.uiview.game.layer.BaseFrameLayer
-import com.angcyo.uiview.game.layer.FrameBgBean
-import com.angcyo.uiview.game.layer.MoveBean
+import com.angcyo.uiview.game.spirit.FrameBgBean
+import com.angcyo.uiview.game.spirit.MoveBean
+import com.angcyo.uiview.game.spirit.ScaleRandomPointBean
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
@@ -215,7 +215,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 //                            rainLayout.removeRain(bean)
 //
 //                            baseFrameLayer.addFrameBean(FrameBean(frameArray, Point(bean.getRect().centerX(), bean.getRect().centerY())).apply {
-//                                loop = random.nextBoolean()
+//                                loopDrawFrame = random.nextBoolean()
 //                            })
 //
 //                            baseMoveLayer.addFrameBean(MoveBean(
@@ -231,11 +231,14 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 //                    }
 //                })
 //                gameRenderHelper.addLayer(baseMoveLayer)
+
                 addBgLayer(baseFrameLayer)
                 addLineLayer(baseFrameLayer)
                 addMarkLayer(baseFrameLayer)
+                addXingLayer(baseFrameLayer)
 
                 gameRenderHelper.addLayer(baseFrameLayer)
+                gameRenderHelper.addLayer(GoldCoinLayer())//金币
 
                 view(R.id.game_render_view).visibility = View.VISIBLE
                 return@click
@@ -328,16 +331,6 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                 isLoopMove = true
                 scaleX = 0.6f
                 scaleY = 0.6f
-            }
-
-            private var isSet = false
-            override fun getDrawDrawableBounds(drawable: Drawable): Rect {
-                return super.getDrawDrawableBounds(drawable).apply {
-                    if (!isSet) {
-                        inset(-dp10, -dp10)
-                        isSet = true
-                    }
-                }
             }
         }
         val mb3 = createMBean(R.drawable.liuxing01, Point(0, sh * 1 / 7), degrees)
@@ -436,13 +429,33 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
     /**山*/
     private fun addMarkLayer(hotRainLayer: BaseFrameLayer) {
         hotRainLayer.addFrameBean(object : FrameBgBean(getDrawable(R.drawable.shan_bg)) {
-            override fun draw(canvas: Canvas, gameStartTime: Long, lastRenderTime: Long, nowRenderTime: Long, onDrawEnd: () -> Unit) {
+            override fun draw(canvas: Canvas, gameStartTime: Long, lastRenderTime: Long, nowRenderTime: Long, onDrawEnd: (() -> Unit)?) {
                 bgDrawable.let {
                     it.bounds.set(parentRect.left, parentRect.bottom - bgDrawable.intrinsicHeight, parentRect.right, parentRect.bottom)
                     it.draw(canvas)
                 }
             }
         })
+    }
+
+    /**星星*/
+    private fun addXingLayer(hotRainLayer: BaseFrameLayer) {
+        val scale1 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
+        val scale2 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
+        val scale3 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1f, 1f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
+        val scale4 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1.4f, 1.4f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
+
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale1, getDrawable(R.drawable.xing01)))
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale2, getDrawable(R.drawable.xing02)))
+
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale3, getDrawable(R.drawable.xing01)))
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale1, getDrawable(R.drawable.xing02)))
+
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale4, getDrawable(R.drawable.xing01)))
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale3, getDrawable(R.drawable.xing02)))
+
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale4, getDrawable(R.drawable.xing01)))
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale2, getDrawable(R.drawable.xing02)))
     }
 
 }

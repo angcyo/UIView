@@ -10,7 +10,6 @@ import com.angcyo.uiview.game.layer.BaseLayer
 import com.angcyo.uiview.helper.BezierHelper
 import com.angcyo.uiview.widget.RainBean
 import com.angcyo.uiview.widget.helper.RainHelper
-import java.util.*
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -23,6 +22,7 @@ import java.util.*
  * 修改备注：
  * Version: 1.0.0
  */
+@Deprecated("")
 class RainLayer(val rainResId: Int) : BaseLayer() {
     private val rainList = mutableListOf<RainBean>()
 
@@ -166,10 +166,6 @@ class RainLayer(val rainResId: Int) : BaseLayer() {
             })
             rainAddNum++
         }
-    }
-
-    private val random: Random by lazy {
-        Random(System.nanoTime())
     }
 
     /*随机产生x轴*/
