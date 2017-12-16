@@ -1,6 +1,9 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.graphics.Canvas
 import android.graphics.Point
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -9,14 +12,11 @@ import android.view.View
 import android.widget.LinearLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
-import com.angcyo.uidemo.layout.demo.game.OnClickRainListener
-import com.angcyo.uidemo.layout.demo.game.RainBgLayer
-import com.angcyo.uidemo.layout.demo.game.RainLayer
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.helper.GameRenderHelper
 import com.angcyo.uiview.game.layer.BaseFrameLayer
-import com.angcyo.uiview.game.layer.BaseMoveLayer
-import com.angcyo.uiview.game.layer.FrameBean
+import com.angcyo.uiview.game.layer.FrameBgBean
 import com.angcyo.uiview.game.layer.MoveBean
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
@@ -25,7 +25,6 @@ import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.angcyo.uiview.utils.ScreenUtil
 import com.angcyo.uiview.viewgroup.RLinearLayout
 import com.angcyo.uiview.widget.ExEditText
-import com.angcyo.uiview.widget.RainBean
 import com.angcyo.uiview.widget.helper.RainHelper
 import java.util.*
 
@@ -179,7 +178,8 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             rainResId = R.drawable.hot_package
         }
 
-        gameRenderHelper = GameRenderHelper(v(R.id.game_render_view))
+        val gameRenderView: GameRenderView = v(R.id.game_render_view)
+        gameRenderHelper = GameRenderHelper(gameRenderView)
 
         editText = v(R.id.edit_text)
         editText.setOnTextEmptyListener { isEmpty ->
@@ -199,39 +199,44 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                 hideSoftInput()
 
                 val baseFrameLayer = BaseFrameLayer()
-                val baseMoveLayer = BaseMoveLayer()
-                val frameArray = arrayOf(getDrawable(R.drawable.home_48_color),
-                        getDrawable(R.drawable.me_48_color),
-                        getDrawable(R.drawable.live_48_color),
-                        getDrawable(R.drawable.message_48_color),
-                        getDrawable(R.drawable.shop_48_color))
+//                val baseMoveLayer = BaseMoveLayer()
+//                val frameArray = arrayOf(getDrawable(R.drawable.home_48_color),
+//                        getDrawable(R.drawable.me_48_color),
+//                        getDrawable(R.drawable.live_48_color),
+//                        getDrawable(R.drawable.message_48_color),
+//                        getDrawable(R.drawable.shop_48_color))
+//
+//                gameRenderHelper.addLayer(RainBgLayer(getDrawable(R.drawable.hongbaoyu_bg)))
+//                gameRenderHelper.addLayer(RainLayer(R.drawable.hot_package).apply {
+//                    randomStep = mViewHolder.cV(R.id.step_box).isChecked
+//                    useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
+//                    onClickRainListener = object : OnClickRainListener {
+//                        override fun onClickRain(rainLayout: RainLayer, bean: RainBean) {
+//                            rainLayout.removeRain(bean)
+//
+//                            baseFrameLayer.addFrameBean(FrameBean(frameArray, Point(bean.getRect().centerX(), bean.getRect().centerY())).apply {
+//                                loop = random.nextBoolean()
+//                            })
+//
+//                            baseMoveLayer.addFrameBean(MoveBean(
+//                                    frameArray,
+//                                    Point(bean.getRect().centerX(), bean.getRect().centerY()),
+//                                    Point(ScreenUtil.screenWidth, 0)
+//                            ).apply {
+//                                frameDrawIntervalTime = (16 + random.nextInt(10) * 10).toLong()
+//                                maxMoveTime = (1 + random.nextInt(4)) * 1000
+//                            })
+//                        }
+//
+//                    }
+//                })
+//                gameRenderHelper.addLayer(baseMoveLayer)
+                addBgLayer(baseFrameLayer)
+                addLineLayer(baseFrameLayer)
+                addMarkLayer(baseFrameLayer)
 
-                gameRenderHelper.addLayer(RainBgLayer(getDrawable(R.drawable.hongbaoyu_bg)))
-                gameRenderHelper.addLayer(RainLayer(R.drawable.hot_package).apply {
-                    randomStep = mViewHolder.cV(R.id.step_box).isChecked
-                    useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
-                    onClickRainListener = object : OnClickRainListener {
-                        override fun onClickRain(rainLayout: RainLayer, bean: RainBean) {
-                            rainLayout.removeRain(bean)
-
-                            baseFrameLayer.addFrameBean(FrameBean(frameArray, Point(bean.getRect().centerX(), bean.getRect().centerY())).apply {
-                                loop = random.nextBoolean()
-                            })
-
-                            baseMoveLayer.addFrameBean(MoveBean(
-                                    frameArray,
-                                    Point(bean.getRect().centerX(), bean.getRect().centerY()),
-                                    Point(ScreenUtil.screenWidth, 0)
-                            ).apply {
-                                frameDrawIntervalTime = 16 + random.nextInt(10) * 10
-                                maxMoveTime = (1 + random.nextInt(4)) * 1000
-                            })
-                        }
-
-                    }
-                })
                 gameRenderHelper.addLayer(baseFrameLayer)
-                gameRenderHelper.addLayer(baseMoveLayer)
+
                 view(R.id.game_render_view).visibility = View.VISIBLE
                 return@click
             }
@@ -267,6 +272,152 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         postDelayed(1000) {
             resetUI()
         }
+    }
+
+
+    /**背景*/
+    private fun addBgLayer(hotRainLayer: BaseFrameLayer) {
+        hotRainLayer.addFrameBean(FrameBgBean(getDrawable(R.drawable.rain_game_bg)))
+    }
+
+    /**流星*/
+    private fun addLineLayer(hotRainLayer: BaseFrameLayer) {
+        val dp20: Int = (20 * density()).toInt()
+        val dp10: Int = (10 * density()).toInt()
+        val sw = ScreenUtil.screenWidth
+        val sh = ScreenUtil.screenHeight
+
+        /*根据开始点和角度, 求出结束点*/
+        fun endPoint(startPoint: Point, degrees: Float): Point {
+            val endPoint = Point().apply {
+                set(((ScreenUtil.screenHeight - startPoint.y) * Math.tan(Math.toRadians(degrees.toDouble()))).toInt(), ScreenUtil.screenHeight)
+            }
+            return endPoint
+        }
+
+        fun createMBean(id: Int, startPoint: Point, degrees: Float): MoveBean {
+            return MoveBean(
+                    arrayOf(getDrawable(id)),
+                    startPoint,
+                    endPoint(startPoint, degrees)).apply {
+                maxMoveTime = (5 + random.nextInt(5)) * 1000
+                rotateDegrees = -degrees
+                isLoopMove = true
+            }
+        }
+
+        val mb1 = createMBean(R.drawable.liuxing01, Point(0, dp20 * 2), 25f)
+        val mb2s = Point(0, dp20 * 6)
+        val mb2 = object : MoveBean(
+                arrayOf(getDrawable(R.drawable.liuxing02)),
+                mb2s,
+                endPoint(mb2s, 25f)) {
+            init {
+                maxMoveTime = (5 + random.nextInt(7)) * 1000
+                rotateDegrees = -25f
+                constantSpeed = false
+                isLoopMove = true
+            }
+
+            private var isSet = false
+            override fun getDrawDrawableBounds(drawable: Drawable): Rect {
+                return super.getDrawDrawableBounds(drawable).apply {
+                    if (!isSet) {
+                        inset(-dp10, -dp10)
+                        isSet = true
+                    }
+                }
+            }
+        }
+        val mb3 = createMBean(R.drawable.liuxing01, Point(dp20, dp20 * 2), 25f)
+//                object : MoveBean(
+//                arrayOf(getDrawable(R.drawable.liuxing01)),
+//                Point(dp20, dp20),
+//                Point(sw, sh - dp20)) {
+//            init {
+//                maxMoveTime = 5000
+//                rotateDegrees = -30f
+//                isLoopMove = true
+//            }
+//        }
+
+        val mb4s = Point(0, dp20 * 8)
+        val mb4 = object : MoveBean(
+                arrayOf(getDrawable(R.drawable.liuxing02)),
+                mb4s,
+                endPoint(mb4s, 25f)) {
+            init {
+                maxMoveTime = (5 + random.nextInt(7)) * 1000
+                rotateDegrees = -25f
+                constantSpeed = false
+                isLoopMove = true
+            }
+
+            private var isSet = false
+            override fun getDrawDrawableBounds(drawable: Drawable): Rect {
+                return super.getDrawDrawableBounds(drawable).apply {
+                    if (!isSet) {
+                        inset(-dp10, -dp10)
+                        isSet = true
+                    }
+                }
+            }
+        }
+
+        val mb5 = createMBean(R.drawable.liuxing01, Point(0, 0), 25f)
+//                object : MoveBean(
+//                arrayOf(getDrawable(R.drawable.liuxing01)),
+//                Point(0, dp20 * 3),
+//                Point(sw - dp20 * 3, sh)) {
+//            init {
+//                maxMoveTime = 5000
+//                rotateDegrees = -30f
+//                isLoopMove = true
+//            }
+//        }
+
+        val mb6s = Point(-dp20 * 4, dp20 * 10)
+        val mb6 = object : MoveBean(
+                arrayOf(getDrawable(R.drawable.liuxing02)),
+                mb6s,
+                endPoint(mb6s, 25f)) {
+            init {
+                maxMoveTime = (5 + random.nextInt(7)) * 1000
+                rotateDegrees = -25f
+                constantSpeed = false
+                isLoopMove = true
+            }
+
+            private var isSet = false
+            override fun getDrawDrawableBounds(drawable: Drawable): Rect {
+                return super.getDrawDrawableBounds(drawable).apply {
+                    if (!isSet) {
+                        inset(-dp10, -dp10)
+                        isSet = true
+                    }
+                }
+            }
+        }
+
+        hotRainLayer.addFrameBean(mb1)
+//        hotRainLayer.addFrameBean(mb2)
+//        hotRainLayer.addFrameBean(mb3)
+//        hotRainLayer.addFrameBean(mb4)
+//        hotRainLayer.addFrameBean(mb5)
+//        hotRainLayer.addFrameBean(mb6)
+
+    }
+
+    /**山*/
+    private fun addMarkLayer(hotRainLayer: BaseFrameLayer) {
+        hotRainLayer.addFrameBean(object : FrameBgBean(getDrawable(R.drawable.shan_bg)) {
+            override fun draw(canvas: Canvas, gameStartTime: Long, lastRenderTime: Long, nowRenderTime: Long, onDrawEnd: () -> Unit) {
+                bgDrawable.let {
+                    it.bounds.set(parentRect.left, parentRect.bottom - bgDrawable.intrinsicHeight, parentRect.right, parentRect.bottom)
+                    it.draw(canvas)
+                }
+            }
+        })
     }
 
 }
