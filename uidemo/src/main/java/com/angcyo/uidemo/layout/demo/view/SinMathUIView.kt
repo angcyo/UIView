@@ -2,8 +2,11 @@ package com.angcyo.uidemo.layout.demo.view
 
 import android.content.Context
 import android.graphics.*
+import android.graphics.drawable.Drawable
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import com.angcyo.uidemo.R
 import com.angcyo.uiview.helper.BezierPointHelper
 import com.angcyo.uiview.kotlin.density
 
@@ -116,6 +119,9 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
         }
     }
 
+    private val drawable: Drawable by lazy {
+        ContextCompat.getDrawable(getContext(), R.drawable.hongbao)
+    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -140,5 +146,24 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
         paint.color = Color.GREEN
         canvas.drawPath(bezierPath2, paint)
         canvas.restore()
+
+        val point = Point(100, 100)
+
+        //
+//        drawable.let {
+//            it.bounds = it.getBoundsWith(point, canvas.clipBounds)
+//            it.draw(canvas)
+//        }
+
+        canvas.save()
+        canvas.translate(point.x.toFloat(), point.y.toFloat())
+        canvas.rotate(30f)
+        drawable.let {
+            it.setBounds(-it.intrinsicWidth / 2, -it.intrinsicHeight / 2, it.intrinsicWidth / 2, it.intrinsicHeight / 2)
+            it.draw(canvas)
+        }
+//        canvas.translate(-point.x.toFloat(), -point.y.toFloat())
+        canvas.restore()
+
     }
 }

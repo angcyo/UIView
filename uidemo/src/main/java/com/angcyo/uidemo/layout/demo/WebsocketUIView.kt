@@ -287,36 +287,47 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         val sw = ScreenUtil.screenWidth
         val sh = ScreenUtil.screenHeight
 
+        /*流星的角度*/
+        val degrees = 40f
+
         /*根据开始点和角度, 求出结束点*/
         fun endPoint(startPoint: Point, degrees: Float): Point {
             val endPoint = Point().apply {
-                set(((ScreenUtil.screenHeight - startPoint.y) * Math.tan(Math.toRadians(degrees.toDouble()))).toInt(), ScreenUtil.screenHeight)
+                set(((ScreenUtil.screenHeight - startPoint.y - 300) * Math.tan(Math.toRadians(degrees.toDouble()))).toInt(), ScreenUtil.screenHeight - 300)
             }
             return endPoint
         }
 
+        fun delayDrawTime(f: Int = 6) = (random.nextInt(f) * 1000).toLong()
+        fun maxMoveTime(f: Int = 3) = (5 + random.nextInt(f)) * 1000
+
         fun createMBean(id: Int, startPoint: Point, degrees: Float): MoveBean {
+            val drawable = getDrawable(id)
             return MoveBean(
-                    arrayOf(getDrawable(id)),
+                    arrayOf(drawable),
                     startPoint,
                     endPoint(startPoint, degrees)).apply {
-                maxMoveTime = (5 + random.nextInt(5)) * 1000
+                delayDrawTime = delayDrawTime()
+                maxMoveTime = maxMoveTime()
                 rotateDegrees = -degrees
                 isLoopMove = true
+                constantSpeed = random.nextBoolean()
             }
         }
 
-        val mb1 = createMBean(R.drawable.liuxing01, Point(0, dp20 * 2), 25f)
+        val mb1 = createMBean(R.drawable.liuxing01, Point(0, sh * 1 / 3), degrees)
         val mb2s = Point(0, dp20 * 6)
         val mb2 = object : MoveBean(
                 arrayOf(getDrawable(R.drawable.liuxing02)),
                 mb2s,
-                endPoint(mb2s, 25f)) {
+                endPoint(mb2s, degrees)) {
             init {
-                maxMoveTime = (5 + random.nextInt(7)) * 1000
-                rotateDegrees = -25f
+                maxMoveTime = maxMoveTime(7)
+                rotateDegrees = -degrees
                 constantSpeed = false
                 isLoopMove = true
+                scaleX = 0.6f
+                scaleY = 0.6f
             }
 
             private var isSet = false
@@ -329,7 +340,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                 }
             }
         }
-        val mb3 = createMBean(R.drawable.liuxing01, Point(dp20, dp20 * 2), 25f)
+        val mb3 = createMBean(R.drawable.liuxing01, Point(0, sh * 1 / 7), degrees)
 //                object : MoveBean(
 //                arrayOf(getDrawable(R.drawable.liuxing01)),
 //                Point(dp20, dp20),
@@ -345,26 +356,18 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         val mb4 = object : MoveBean(
                 arrayOf(getDrawable(R.drawable.liuxing02)),
                 mb4s,
-                endPoint(mb4s, 25f)) {
+                endPoint(mb4s, degrees)) {
             init {
-                maxMoveTime = (5 + random.nextInt(7)) * 1000
-                rotateDegrees = -25f
+                maxMoveTime = maxMoveTime(8)
+                rotateDegrees = -degrees
                 constantSpeed = false
                 isLoopMove = true
-            }
-
-            private var isSet = false
-            override fun getDrawDrawableBounds(drawable: Drawable): Rect {
-                return super.getDrawDrawableBounds(drawable).apply {
-                    if (!isSet) {
-                        inset(-dp10, -dp10)
-                        isSet = true
-                    }
-                }
+                scaleX = 0.4f
+                scaleY = 0.4f
             }
         }
 
-        val mb5 = createMBean(R.drawable.liuxing01, Point(0, 0), 25f)
+        val mb5 = createMBean(R.drawable.liuxing01, Point(sw / 3, 0), degrees)
 //                object : MoveBean(
 //                arrayOf(getDrawable(R.drawable.liuxing01)),
 //                Point(0, dp20 * 3),
@@ -380,31 +383,53 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         val mb6 = object : MoveBean(
                 arrayOf(getDrawable(R.drawable.liuxing02)),
                 mb6s,
-                endPoint(mb6s, 25f)) {
+                endPoint(mb6s, degrees)) {
             init {
-                maxMoveTime = (5 + random.nextInt(7)) * 1000
-                rotateDegrees = -25f
+                maxMoveTime = maxMoveTime(9)
+                rotateDegrees = -degrees
+                constantSpeed = random.nextBoolean()
+                isLoopMove = true
+            }
+        }
+
+        val mb7s = Point(sw / 2, 0)
+        val mb7 = object : MoveBean(
+                arrayOf(getDrawable(R.drawable.liuxing02)),
+                mb7s,
+                endPoint(mb7s, degrees)) {
+            init {
+                delayDrawTime = delayDrawTime()
+                maxMoveTime = maxMoveTime(7)
+                rotateDegrees = -degrees
                 constantSpeed = false
                 isLoopMove = true
             }
+        }
 
-            private var isSet = false
-            override fun getDrawDrawableBounds(drawable: Drawable): Rect {
-                return super.getDrawDrawableBounds(drawable).apply {
-                    if (!isSet) {
-                        inset(-dp10, -dp10)
-                        isSet = true
-                    }
-                }
+        val mb8s = Point(sw / 3, 0)
+        val mb8 = object : MoveBean(
+                arrayOf(getDrawable(R.drawable.liuxing02)),
+                mb8s,
+                endPoint(mb8s, degrees)) {
+            init {
+                delayDrawTime = delayDrawTime()
+                maxMoveTime = maxMoveTime(7)
+                rotateDegrees = -degrees
+                constantSpeed = random.nextBoolean()
+                isLoopMove = true
+                scaleX = 0.6f
+                scaleY = 0.6f
             }
         }
 
         hotRainLayer.addFrameBean(mb1)
-//        hotRainLayer.addFrameBean(mb2)
-//        hotRainLayer.addFrameBean(mb3)
-//        hotRainLayer.addFrameBean(mb4)
-//        hotRainLayer.addFrameBean(mb5)
-//        hotRainLayer.addFrameBean(mb6)
+        hotRainLayer.addFrameBean(mb2)
+        hotRainLayer.addFrameBean(mb3)
+        hotRainLayer.addFrameBean(mb4)
+        hotRainLayer.addFrameBean(mb5)
+        hotRainLayer.addFrameBean(mb6)
+        hotRainLayer.addFrameBean(mb7)
+        hotRainLayer.addFrameBean(mb8)
 
     }
 
