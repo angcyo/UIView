@@ -3,6 +3,7 @@ package com.angcyo.uidemo.layout.demo.game
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.game.layer.BaseTouchLayer
 import com.angcyo.uiview.game.layer.TouchSpiritBean
+import com.angcyo.uiview.utils.ScreenUtil
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -18,10 +19,15 @@ import com.angcyo.uiview.game.layer.TouchSpiritBean
 class GoldCoinLayer : BaseTouchLayer() {
 
     init {
-        addSpiritNum = 3
+        addSpiritNum = 5
         maxSpiritNum = Int.MAX_VALUE
         checkTouchEvent = false
-        spiritAddInterval = 1000L
+        spiritAddInterval = 600L //控制金币添加的速度
+        drawIntervalTime = spiritAddInterval //控制检查金币是否需要添加的时间
+    }
+
+    override fun randomY(h: Int): Int {
+        return -((random.nextFloat() * (ScreenUtil.screenHeight / 2)).toInt())
     }
 
     override fun onAddNewSpirit(): TouchSpiritBean = TouchSpiritBean(arrayOf(
@@ -31,7 +37,8 @@ class GoldCoinLayer : BaseTouchLayer() {
             getDrawable(R.drawable.jinbi_00003),
             getDrawable(R.drawable.jinbi_00004),
             getDrawable(R.drawable.jinbi_00005))).apply {
-        stepY = 6
+        useBezier = true
+        stepY = 10 + random.nextInt(30)
         initSpirit(this)
     }
 }
