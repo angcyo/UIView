@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.LinearLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
-import com.angcyo.uidemo.layout.demo.game.GoldCoinLayer
+import com.angcyo.uidemo.layout.demo.game.PacketLayer
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.helper.GameRenderHelper
@@ -166,10 +166,19 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         Random(System.nanoTime())
     }
 
+    override fun onBackPressed(): Boolean {
+        if (view(R.id.game_control_view).visibility == View.VISIBLE) {
+            view(R.id.game_control_view).visibility = View.GONE
+            return false
+        }
+        return super.onBackPressed()
+    }
+
     private lateinit var editText: ExEditText
     private lateinit var rainHelper: RainHelper
 
     private lateinit var gameRenderHelper: GameRenderHelper
+    private val packetLayer = PacketLayer()
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         loadData()
@@ -197,6 +206,17 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             }
             if (TextUtils.equals(editText.string(), "show2")) {
                 hideSoftInput()
+
+                view(R.id.game_control_view).visibility = View.VISIBLE
+
+                packetLayer.apply {
+                    randomStep = mViewHolder.cV(R.id.step_box).isChecked
+                    useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
+                }
+
+                if (gameRenderView.layerList.isNotEmpty()) {
+                    return@click
+                }
 
                 val baseFrameLayer = BaseFrameLayer()
 //                val baseMoveLayer = BaseMoveLayer()
@@ -232,15 +252,15 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 //                })
 //                gameRenderHelper.addLayer(baseMoveLayer)
 
-                addBgLayer(baseFrameLayer)
+//                addBgLayer(baseFrameLayer)
                 addLineLayer(baseFrameLayer)
                 addMarkLayer(baseFrameLayer)
                 addXingLayer(baseFrameLayer)
 
-                gameRenderHelper.addLayer(baseFrameLayer)
-                gameRenderHelper.addLayer(GoldCoinLayer())//金币
+//                gameRenderHelper.addLayer(baseFrameLayer)
+                gameRenderHelper.addLayer(packetLayer)//红包
+//                gameRenderHelper.addLayer(GoldCoinLayer())//金币
 
-                view(R.id.game_render_view).visibility = View.VISIBLE
                 return@click
             }
 
@@ -444,6 +464,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         val scale2 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
         val scale3 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1f, 1f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
         val scale4 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1.4f, 1.4f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
+        val scale5 = arrayOf(0.2f, 0.6f, 1.2f, 1.8f, 1.2f, 1.8f, 1.2f, 0.6f, 0.2f)
 
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale1, getDrawable(R.drawable.xing01)))
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale2, getDrawable(R.drawable.xing02)))
@@ -456,6 +477,9 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale4, getDrawable(R.drawable.xing01)))
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale2, getDrawable(R.drawable.xing02)))
+
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale5, getDrawable(R.drawable.xing01)))
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale5, getDrawable(R.drawable.xing01)))
     }
 
 }

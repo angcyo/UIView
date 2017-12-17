@@ -6,7 +6,9 @@ import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
+import com.angcyo.uiview.helper.BezierHelper
 import com.angcyo.uiview.helper.BezierPointHelper
 import com.angcyo.uiview.kotlin.density
 
@@ -77,6 +79,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        L.i("call: onSizeChanged -> w:$w h:$h")
         path.reset()
         bezierPath.reset()
         bezierPath2.reset()
@@ -109,13 +112,23 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
 //                .map { bezierHelper.evaluate(it / 100f) }
 //                .forEach { bezierPath.lineTo(it.x, it.y) }
 
+        val bezier = BezierHelper(500f, 400f, 910f, 390f)
+
         val circleCount = 5 * 100
         for (i in 0..circleCount) {
-            val fl = i % 100 / 100f
+            val fl = i % 101 / 100f
             val evaluate = bezierHelper.evaluate(fl)
             bezierPath.lineTo(evaluate.x, i / circleCount.toFloat() * h)
-            bezierPath2.lineTo(evaluate.x, evaluate.y)
+            //bezierPath2.lineTo(evaluate.x, evaluate.y)
             //L.e("call: onSizeChanged -> ${evaluate.y}")
+        }
+        for (i in 0..100) {
+            val fl = i % 101 / 100f
+            val evaluate = bezier.evaluate(fl)
+            val x = evaluate
+            val y = fl * (h + 100) - 100
+            bezierPath2.lineTo(x, y)
+            L.e("call: onSizeChanged ->$fl $x $y")
         }
     }
 
