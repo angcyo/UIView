@@ -501,6 +501,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         val scale3 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1f, 1f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
         val scale4 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1.4f, 1.4f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
         val scale5 = arrayOf(0.2f, 0.6f, 1.2f, 1.8f, 2.5f, 3f, 2.5f, 1.8f, 1.2f, 0.6f, 0.2f)
+        val scale6 = arrayOf(0.2f, 0.6f, 1.2f, 1.6f, 2f, 2.5f, 2f, 1.6f, 1.2f, 0.6f, 0.2f)
 
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale1, getDrawable(R.drawable.xing01)))
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale2, getDrawable(R.drawable.xing02)))
@@ -516,6 +517,9 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale5, getDrawable(R.drawable.xing01)))
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale5, getDrawable(R.drawable.xing01)))
+
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale6, getDrawable(R.drawable.xing02)))
+        hotRainLayer.addFrameBean(ScaleRandomPointBean(scale6, getDrawable(R.drawable.xing02)))
     }
 
 }
