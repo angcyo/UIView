@@ -10,11 +10,16 @@ import android.view.View
 import android.widget.LinearLayout
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
+import com.angcyo.uidemo.layout.demo.game.GoldCoinLayer
 import com.angcyo.uidemo.layout.demo.game.PacketLayer
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.helper.GameRenderHelper
 import com.angcyo.uiview.game.layer.BaseFrameLayer
+import com.angcyo.uiview.game.layer.BaseTouchLayer
+import com.angcyo.uiview.game.layer.OnClickSpiritListener
+import com.angcyo.uiview.game.layer.TouchSpiritBean
+import com.angcyo.uiview.game.spirit.FrameBean
 import com.angcyo.uiview.game.spirit.FrameBgBean
 import com.angcyo.uiview.game.spirit.MoveBean
 import com.angcyo.uiview.game.spirit.ScaleRandomPointBean
@@ -179,6 +184,8 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
     private lateinit var gameRenderHelper: GameRenderHelper
     private val packetLayer = PacketLayer()
+    private val effectLayer = BaseFrameLayer()
+    private val scoreLayer = BaseFrameLayer()
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         loadData()
@@ -210,8 +217,35 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
                 view(R.id.game_control_view).visibility = View.VISIBLE
 
                 packetLayer.apply {
+                    reset()
                     randomStep = mViewHolder.cV(R.id.step_box).isChecked
                     useBezier = mViewHolder.cV(R.id.bezier_box).isChecked
+                    onClickSpiritListener = object : OnClickSpiritListener {
+                        override fun onClickSpirit(baseTouchLayer: BaseTouchLayer, spiritBean: TouchSpiritBean, x: Int, y: Int) {
+                            effectLayer.addFrameBean(FrameBean(arrayOf(
+                                    getDrawable(R.drawable.hongbao_g_00000),
+                                    getDrawable(R.drawable.hongbao_g_00001),
+                                    getDrawable(R.drawable.hongbao_g_00002),
+                                    getDrawable(R.drawable.hongbao_g_00003),
+                                    getDrawable(R.drawable.hongbao_g_00004),
+                                    getDrawable(R.drawable.hongbao_g_00005),
+                                    getDrawable(R.drawable.hongbao_g_00006),
+                                    getDrawable(R.drawable.hongbao_g_00007),
+                                    getDrawable(R.drawable.hongbao_g_00008),
+                                    getDrawable(R.drawable.hongbao_g_00009),
+                                    getDrawable(R.drawable.score_1)
+                            ), Point(spiritBean.getRect().centerX(), spiritBean.getRect().centerY())).apply {
+                                frameDrawIntervalTime = 60L
+                                loopDrawFrame = false
+                                onDrawEndFun = { drawPoint ->
+                                    scoreLayer.addFrameBean(
+                                            MoveBean(arrayOf(getDrawable(R.drawable.score_1)),
+                                                    drawPoint,
+                                                    Point(gameRenderView.measuredWidth, 0)))
+                                }
+                            })
+                        }
+                    }
                 }
 
                 if (gameRenderView.layerList.isNotEmpty()) {
@@ -252,14 +286,16 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 //                })
 //                gameRenderHelper.addLayer(baseMoveLayer)
 
-//                addBgLayer(baseFrameLayer)
+                addBgLayer(baseFrameLayer)
                 addLineLayer(baseFrameLayer)
                 addMarkLayer(baseFrameLayer)
                 addXingLayer(baseFrameLayer)
 
-//                gameRenderHelper.addLayer(baseFrameLayer)
+                gameRenderHelper.addLayer(baseFrameLayer)
                 gameRenderHelper.addLayer(packetLayer)//红包
-//                gameRenderHelper.addLayer(GoldCoinLayer())//金币
+                gameRenderHelper.addLayer(GoldCoinLayer())//金币
+                gameRenderHelper.addLayer(effectLayer)//红包炸开效果
+                gameRenderHelper.addLayer(scoreLayer)//分数漂移
 
                 return@click
             }
@@ -464,7 +500,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         val scale2 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
         val scale3 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1f, 1f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
         val scale4 = arrayOf(0.2f, 0.4f, 0.6f, 0.8f, 1f, 1.2f, 1.4f, 1.4f, 1.2f, 1f, 0.8f, 0.6f, 0.4f, 0.2f, 0f)
-        val scale5 = arrayOf(0.2f, 0.6f, 1.2f, 1.8f, 1.2f, 1.8f, 1.2f, 0.6f, 0.2f)
+        val scale5 = arrayOf(0.2f, 0.6f, 1.2f, 1.8f, 2.5f, 3f, 2.5f, 1.8f, 1.2f, 0.6f, 0.2f)
 
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale1, getDrawable(R.drawable.xing01)))
         hotRainLayer.addFrameBean(ScaleRandomPointBean(scale2, getDrawable(R.drawable.xing02)))

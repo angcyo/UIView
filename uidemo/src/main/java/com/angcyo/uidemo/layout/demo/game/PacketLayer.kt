@@ -3,7 +3,6 @@ package com.angcyo.uidemo.layout.demo.game
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.game.layer.BaseTouchLayer
 import com.angcyo.uiview.game.layer.TouchSpiritBean
-import com.angcyo.uiview.utils.ScreenUtil
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -23,22 +22,26 @@ class PacketLayer : BaseTouchLayer() {
 
     init {
         addSpiritNum = 3
-        maxSpiritNum = 10000
+        maxSpiritNum = 1000
         checkTouchEvent = true
         spiritAddInterval = 1000L //控制红包添加的速度
     }
 
-    override fun randomY(h: Int): Int {
-        return -((random.nextFloat() * (ScreenUtil.screenHeight / 2)).toInt())
-    }
+//    override fun getSpiritStartY(h: Int): Int {
+//        return -((random.nextFloat() * (ScreenUtil.screenHeight / 2)).toInt())
+//    }
 
-//    override fun randomX(sw: Int, w: Int): Int {
+//    override fun getSpiritStartX(sw: Int, w: Int): Int {
 //        return (random.nextFloat() * (sw - w / 2)).toInt()
 //    }
 
-    override fun getExcludeWidth(spiritBean: TouchSpiritBean, intrinsicWidth: Int): Int {
-        val excludeWidth = super.getExcludeWidth(spiritBean, intrinsicWidth)
-        return if (spiritBean.useBezier) excludeWidth / 2 else excludeWidth
+//    override fun getExcludeWidth(spiritBean: TouchSpiritBean, intrinsicWidth: Int): Int {
+//        val excludeWidth = super.getExcludeWidth(spiritBean, intrinsicWidth)
+//        return if (spiritBean.useBezier) excludeWidth / 2 else excludeWidth
+//    }
+
+    override fun getSpiritStartY(spiritBean: TouchSpiritBean): Int {
+        return super.getSpiritStartY(spiritBean) + spiritBean.height()
     }
 
     override fun onAddNewSpirit(): TouchSpiritBean = TouchSpiritBean(arrayOf(getDrawable(R.drawable.hongbao))).apply {
@@ -48,7 +51,7 @@ class PacketLayer : BaseTouchLayer() {
         initSpirit(this)
 
         if (randomStep) {
-            stepY = 10 + random.nextInt(30) //控制红包下降速度
+            stepY += random.nextInt(30) //控制红包下降速度
         }
         rotateDegrees = when (random.nextInt(4)) {
             0 -> 45f

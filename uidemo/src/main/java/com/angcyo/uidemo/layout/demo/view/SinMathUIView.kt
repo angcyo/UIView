@@ -160,7 +160,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
         canvas.drawPath(bezierPath2, paint)
         canvas.restore()
 
-        val point = Point(100, 100)
+        val point = Point(400, 400)
 
         //
 //        drawable.let {
@@ -171,6 +171,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
         canvas.save()
         canvas.translate(point.x.toFloat(), point.y.toFloat())
         canvas.rotate(30f)
+        canvas.scale(2f, 2f)
         drawable.let {
             it.setBounds(-it.intrinsicWidth / 2, -it.intrinsicHeight / 2, it.intrinsicWidth / 2, it.intrinsicHeight / 2)
             it.draw(canvas)
