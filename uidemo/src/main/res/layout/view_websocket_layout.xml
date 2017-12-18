@@ -99,6 +99,18 @@
 
         </FrameLayout>
 
+        <com.angcyo.uiview.widget.group.GameTipView
+            android:id="@+id/game_tip_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/base_hdpi"
+            android:background="@drawable/base_tran_round_shape"
+            android:paddingBottom="@dimen/base_xhdpi"
+            android:paddingEnd="@dimen/base_xxhdpi"
+            android:paddingStart="@dimen/base_xxhdpi"
+            android:paddingTop="@dimen/base_xhdpi"/>
+
     </FrameLayout>
 
 </com.angcyo.uiview.widget.RSoftInputLayout>

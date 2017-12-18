@@ -31,6 +31,16 @@ class RainRenderHelper(private val gameView: GameRenderView) {
     private val packetLayer = PacketLayer()
     private val effectLayer = BaseFrameLayer()
     private val scoreLayer = BaseFrameLayer()
+    private val goldCoinLayer = GoldCoinLayer()
+
+    /**每次新增数量*/
+    var addNum = 5
+
+    /**每次新增 时间间隔*/
+    var interval = 700L
+
+    /**最大数量*/
+    var maxNum = 100
 
     /**会按顺序绘制*/
     fun addLayer(layer: BaseLayer) {
@@ -41,6 +51,9 @@ class RainRenderHelper(private val gameView: GameRenderView) {
 
     var useBezier = true
     var randomStep = true
+
+    /**点击的数量*/
+    var touchNum = 0
 
     private val random: Random by lazy {
         Random(System.nanoTime())
@@ -83,14 +96,14 @@ class RainRenderHelper(private val gameView: GameRenderView) {
 //                })
 //                gameRenderHelper.addLayer(baseMoveLayer)
 
-        addBgLayer(baseFrameLayer)
+        //addBgLayer(baseFrameLayer)
         addLineLayer(baseFrameLayer)
         addMarkLayer(baseFrameLayer)
         addXingLayer(baseFrameLayer)
 
         addLayer(baseFrameLayer)
         addLayer(packetLayer)//红包
-        addLayer(GoldCoinLayer())//金币
+        addLayer(goldCoinLayer)//金币
         addLayer(effectLayer)//红包炸开效果
         addLayer(scoreLayer)//分数漂移
     }
@@ -101,8 +114,14 @@ class RainRenderHelper(private val gameView: GameRenderView) {
             randomStep = this@RainRenderHelper.randomStep
             useBezier = this@RainRenderHelper.useBezier
 
+            addSpiritNum = addNum
+            spiritAddInterval = interval
+            maxSpiritNum = maxNum
+
             onClickSpiritListener = object : OnClickSpiritListener {
                 override fun onClickSpirit(baseTouchLayer: BaseTouchLayer, spiritBean: TouchSpiritBean, x: Int, y: Int) {
+                    touchNum++
+
                     effectLayer.addFrameBean(FrameBean(arrayOf(
                             getDrawable(R.drawable.hongbao_g_00000),
                             getDrawable(R.drawable.hongbao_g_00001),
@@ -130,6 +149,20 @@ class RainRenderHelper(private val gameView: GameRenderView) {
         }
     }
 
+    /**开始下红包 (金币也开始下)*/
+    fun startRain() {
+        packetLayer.reset()
+        goldCoinLayer.reset()
+        packetLayer.pauseDrawFrame = false
+        goldCoinLayer.pauseDrawFrame = false
+    }
+
+    /**立刻结束下红包 (金币延时结束)*/
+    fun endRain() {
+        packetLayer.endSpirit()
+        packetLayer.pauseDrawFrame = true
+        goldCoinLayer.delayEndSpirit()
+    }
 
     /**背景*/
     private fun addBgLayer(hotRainLayer: BaseFrameLayer) {

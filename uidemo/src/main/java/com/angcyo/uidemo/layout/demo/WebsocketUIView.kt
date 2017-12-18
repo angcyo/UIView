@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.graphics.Color
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.angcyo.uiview.viewgroup.RLinearLayout
 import com.angcyo.uiview.widget.ExEditText
+import com.angcyo.uiview.widget.group.GameTipView
 import com.angcyo.uiview.widget.helper.RainHelper
 import java.util.*
 
@@ -40,7 +42,11 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
     }
 
     override fun getTitleBar(): TitleBarPattern {
-        return super.getTitleBar().setTitleString("WebSocket聊天室")
+        return super.getTitleBar()
+                .setTitleString("WebSocket聊天室")
+                .setShowTitleBarBottomLine(true)
+                .setBottomTitleBarLineColor(Color.RED)
+                .setBottomTitleBarLineHeight((2 * density()).toInt())
     }
 
 //    override fun getDefaultBackgroundColor(): Int {
@@ -211,10 +217,12 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
                 rainRenderHelper.resetPacketLayer()
                 if (gameRenderView.layerList.isNotEmpty()) {
+                    rainRenderHelper.startRain()
                     return@click
                 }
 
                 rainRenderHelper.initGame()
+                rainRenderHelper.startRain()
                 return@click
             }
 
@@ -223,6 +231,12 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             post {
                 mRecyclerView.scrollToLastBottom(true)
             }
+        }
+
+        val gameTipView: GameTipView = v(R.id.game_tip_view)
+        gameTipView.setTipText("游戏开始倒计时")
+        gameTipView.startCountDown(30) {
+            gameTipView.setTimeText("游戏已开始")
         }
     }
 
