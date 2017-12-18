@@ -13,8 +13,13 @@
     <com.angcyo.uiview.widget.GlideImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:padding="6dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_demo"
+        app:r_mask_drawable="@drawable/icon_diyiming"
+        app:r_mask_gravity="MASK_GRAVITY_LT"
+        app:r_mask_scale_x="0.8"
+        app:r_mask_scale_y="0.8"
         app:r_show_type="CIRCLE"/>
 
     <LinearLayout
