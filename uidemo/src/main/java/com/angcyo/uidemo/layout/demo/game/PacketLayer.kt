@@ -40,6 +40,17 @@ class PacketLayer : BaseTouchLayer() {
 //        return if (spiritBean.useBezier) excludeWidth / 2 else excludeWidth
 //    }
 
+    /*随机产生x轴*/
+    override fun getSpiritStartX(spiritBean: TouchSpiritBean, sw: Int): Int {
+//        val width = spiritBean.width() / 8
+//        if (spiritBean.useBezier) {
+//            return (random.nextFloat() * (sw - 2 * width)).toInt() + width
+//        } else {
+//            return (random.nextFloat() * (sw - width)).toInt() + width / 4
+//        }
+        return (random.nextFloat() * (sw - spiritBean.width())).toInt()
+    }
+
     override fun getSpiritStartY(spiritBean: TouchSpiritBean): Int {
         return super.getSpiritStartY(spiritBean) + spiritBean.height()
     }
