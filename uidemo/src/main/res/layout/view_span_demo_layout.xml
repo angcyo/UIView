@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:clipChildren="false"
+    android:orientation="vertical"
 
     android:padding="@dimen/base_xxhdpi">
 
@@ -51,9 +51,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipChildren="false"
         android:layout_marginTop="@dimen/base_xhdpi"
-        android:background="@color/transparent_dark80">
+        android:background="@color/transparent_dark80"
+        android:clipChildren="false">
 
         <com.angcyo.uiview.widget.RSeekBar
             android:layout_width="match_parent"
@@ -77,4 +77,19 @@
         app:r_thumb_type="CIRCLE"
         app:r_track_bg_color="@color/base_white_tran2"
         app:r_track_color="@color/base_white"/>
+
+    <com.angcyo.uiview.widget.RTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/transparent_dark80"
+        android:drawablePadding="@dimen/base_xhdpi"
+        android:drawableTop="@mipmap/demo_logo"
+        android:paddingEnd="@dimen/base_xxxhdpi"
+        android:text="测试文本测试文本"
+        android:textSize="30dp"
+        app:r_is_show_tip_text="true"
+        app:r_tip_text="已开启"
+        app:r_tip_text_left_offset="20dp"
+        app:r_tip_text_top_offset="-5dp"/>
 </LinearLayout>
