@@ -25,6 +25,7 @@ class ContentStateUIView : BaseItemUIView() {
     override fun getTitleBar(): TitleBarPattern {
         return super.getTitleBar()
                 .setTitleGravity(Gravity.LEFT)
+                .setShowDarkLoading(true)
                 .setTitleString("标题在左边")
                 .addLeftItem(TitleBarPattern.TitleBarItem("左边") {
                     Tip.tip("测试 左边")
