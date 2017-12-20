@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.graphics.Color
 import android.view.Gravity
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
@@ -26,6 +27,7 @@ class ContentStateUIView : BaseItemUIView() {
         return super.getTitleBar()
                 .setTitleGravity(Gravity.LEFT)
                 .setShowDarkLoading(true)
+                .setTitleBarBGColor(Color.BLUE)
                 .setTitleString("标题在左边")
                 .addLeftItem(TitleBarPattern.TitleBarItem("左边") {
                     Tip.tip("测试 左边")
