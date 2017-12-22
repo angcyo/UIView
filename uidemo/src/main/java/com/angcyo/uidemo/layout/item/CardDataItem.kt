@@ -27,7 +27,7 @@ class CardDataItem(bean: DiceCardBean) : RBaseDataItem<DiceCardBean>(bean) {
         return super.getDataItemType() + 2
     }
 
-    override fun onBindDataView(dataAdapter: RDataAdapter?, holder: RBaseViewHolder, posInData: Int) {
+    override fun onBindDataView(dataAdapter: RDataAdapter<*>, holder: RBaseViewHolder, posInData: Int) {
         super.onBindDataView(dataAdapter, holder, posInData)
         val cardView: CardView = holder.v(R.id.card_view)
 

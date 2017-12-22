@@ -11,6 +11,7 @@ import com.angcyo.uiview.game.spirit.FrameBean
 import com.angcyo.uiview.game.spirit.FrameBgBean
 import com.angcyo.uiview.game.spirit.MoveBean
 import com.angcyo.uiview.game.spirit.ScaleRandomPointBean
+import com.angcyo.uiview.helper.SoundHelper
 import com.angcyo.uiview.utils.ScreenUtil
 import com.angcyo.uiview.utils.ScreenUtil.density
 import java.util.*
@@ -54,6 +55,10 @@ class RainRenderHelper(private val gameView: GameRenderView) {
 
     /**点击的数量*/
     var touchNum = 0
+
+    private val soundHelper: SoundHelper by lazy {
+        SoundHelper()
+    }
 
     private val random: Random by lazy {
         Random(System.nanoTime())
@@ -144,6 +149,8 @@ class RainRenderHelper(private val gameView: GameRenderView) {
                                             Point(gameView.measuredWidth, 0)))
                         }
                     })
+
+                    //soundHelper.playMusiuc(R.raw.glod_sound)
                 }
             }
         }
