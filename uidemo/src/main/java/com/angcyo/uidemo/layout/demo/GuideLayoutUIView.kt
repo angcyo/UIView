@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.base.UIIDialogImpl
-import com.angcyo.uiview.utils.UI
+import com.angcyo.uiview.widget.group.GuideFrameLayout
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -37,15 +37,18 @@ class GuideLayoutUIView(anchorView: View /*锚点View*/) : UIIDialogImpl() {
 
     override fun initDialogContentView() {
         super.initDialogContentView()
-        view(R.id.view).x = anchorRect.left.toFloat()
-        view(R.id.view).y = anchorRect.top.toFloat()
-        UI.setView(view(R.id.view), anchorRect.width(), anchorRect.height())
+        //view(R.id.view).x = anchorRect.left.toFloat()
+        //view(R.id.view).y = anchorRect.top.toFloat()
+        //UI.setView(view(R.id.view), anchorRect.width(), anchorRect.height())
 
-        val rootLayout = view(R.id.root_layout)
+        val rootLayout: GuideFrameLayout = v(R.id.root_layout)
+        rootLayout.addAnchor(anchorRect)
         rootLayout.setBackgroundColor(getColor(R.color.transparent_dark20))
         click(rootLayout) {
             finishIView(this, false)
         }
+
+        L.e("call: initDialogContentView -> ")
     }
 
     override fun isDimBehind(): Boolean {
