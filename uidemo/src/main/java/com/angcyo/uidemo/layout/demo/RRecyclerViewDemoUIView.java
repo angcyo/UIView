@@ -6,7 +6,11 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextPaint;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
@@ -15,6 +19,7 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RExItemDecoration;
+import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.utils.UI;
 
 import java.util.List;
@@ -32,7 +37,29 @@ import java.util.List;
  */
 public class RRecyclerViewDemoUIView extends BaseItemUIView {
 
+    TextView scrollToBottomTipView;
     private boolean mVertical;
+
+    @Override
+    protected void createRecyclerRootView(ContentLayout baseContentLayout, LayoutInflater inflater) {
+        super.createRecyclerRootView(baseContentLayout, inflater);
+
+        scrollToBottomTipView = new TextView(mActivity);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2);
+        params.gravity = Gravity.END | Gravity.BOTTOM;
+        params.setMarginEnd((int) (20 * density()));
+        params.bottomMargin = (int) (20 * density());
+        scrollToBottomTipView.setVisibility(View.INVISIBLE);
+        scrollToBottomTipView.setText("回到底部");
+        scrollToBottomTipView.setBackgroundResource(R.drawable.base_dark_solid_round_shape);
+        scrollToBottomTipView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecyclerView.scrollToLastBottom(false);
+            }
+        });
+        baseContentLayout.addView(scrollToBottomTipView, params);
+    }
 
     @Override
     protected void afterInflateView(ContentLayout baseContentLayout) {
@@ -47,6 +74,18 @@ public class RRecyclerViewDemoUIView extends BaseItemUIView {
     @Override
     protected int getItemLayoutId(int viewType) {
         return R.layout.item_image_view;
+    }
+
+    @Override
+    public void onScrollStateEnd(RRecyclerView rRecyclerView, boolean firstItemVisible, boolean lastItemVisible, boolean topCanScroll, boolean bottomCanScroll) {
+        super.onScrollStateEnd(rRecyclerView, firstItemVisible, lastItemVisible, topCanScroll, bottomCanScroll);
+        if (lastItemVisible) {
+            scrollToBottomTipView.setVisibility(View.INVISIBLE);
+        } else {
+            if (bottomCanScroll) {
+                scrollToBottomTipView.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
