@@ -107,6 +107,9 @@ class FileObserverUIView : BaseContentUIView() {
         click(R.id.float_image_view) {
             Tip.tip("Float Touch ${nowTime()}")
         }
+        click(R.id.float_image_view2) {
+            Tip.tip("Touch ${nowTime()}")
+        }
     }
 
     override fun onViewUnload() {
