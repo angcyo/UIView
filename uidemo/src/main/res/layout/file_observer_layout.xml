@@ -1,131 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.angcyo.uiview.viewgroup.RFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.angcyo.uiview.widget.RTextView
-            android:id="@+id/sd_tip_text_view"
-            style="@style/BaseMainTextStyle"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
 
-        <com.angcyo.uiview.widget.group.PileFrameLayout
-            android:id="@+id/pile_frame_layout"
-            android:layout_width="wrap_content"
+            <com.angcyo.uiview.widget.RTextView
+                android:id="@+id/sd_tip_text_view"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.widget.group.PileFrameLayout
+                android:id="@+id/pile_frame_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:background="@android:color/holo_green_light"
+                android:paddingBottom="@dimen/base_ldpi"
+                android:paddingEnd="@dimen/base_xhdpi"
+                android:paddingStart="@dimen/base_xxhdpi"
+                android:paddingTop="@dimen/base_ldpi"
+                app:r_pile_width="11dp"/>
+
+        </FrameLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/transparent_dark20">
+
+            <com.angcyo.uiview.widget.RTextView
+                android:id="@+id/text_view"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/base_ldpi"/>
+        </android.support.v4.widget.NestedScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.angcyo.uiview.widget.RTextView
+                android:id="@+id/photo_tip_text_view"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.widget.group.PileFrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:background="@android:color/holo_green_light"
+                android:paddingEnd="@dimen/base_xhdpi"
+                android:paddingStart="@dimen/base_xxhdpi">
+
+                <com.angcyo.uiview.widget.GlideImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_demo"
+                    app:r_draw_border="true"
+                    app:r_line_color="@color/base_gold_color"
+                    app:r_line_width="2dp"
+                    app:r_show_type="CIRCLE"/>
+
+                <com.angcyo.uiview.widget.GlideImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_demo"
+                    app:r_draw_border="true"
+                    app:r_line_color="@color/base_gold_color"
+                    app:r_line_width="2dp"
+                    app:r_show_type="CIRCLE"/>
+
+                <com.angcyo.uiview.widget.GlideImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_demo"
+                    app:r_draw_border="true"
+                    app:r_line_color="@color/base_gold_color"
+                    app:r_line_width="2dp"
+                    app:r_show_type="CIRCLE"/>
+
+                <com.angcyo.uiview.widget.GlideImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_demo"
+                    app:r_draw_border="true"
+                    app:r_line_color="@color/base_gold_color"
+                    app:r_line_width="2dp"
+                    app:r_show_type="CIRCLE"/>
+
+                <com.angcyo.uiview.widget.GlideImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_demo"
+                    app:r_draw_border="true"
+                    app:r_line_color="@color/base_gold_color"
+                    app:r_line_width="2dp"
+                    app:r_show_type="CIRCLE"/>
+
+            </com.angcyo.uiview.widget.group.PileFrameLayout>
+        </FrameLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:background="@android:color/holo_green_light"
-            android:paddingBottom="@dimen/base_ldpi"
-            android:paddingEnd="@dimen/base_xhdpi"
-            android:paddingStart="@dimen/base_xxhdpi"
-            android:paddingTop="@dimen/base_ldpi"
-            app:r_pile_width="11dp"/>
+            android:background="@color/transparent_dark20">
 
-    </FrameLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/transparent_dark20">
-
-        <com.angcyo.uiview.widget.RTextView
-            android:id="@+id/text_view"
-            style="@style/BaseMainTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/base_ldpi"/>
-    </android.support.v4.widget.NestedScrollView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.angcyo.uiview.widget.RTextView
-            android:id="@+id/photo_tip_text_view"
-            style="@style/BaseMainTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.angcyo.uiview.widget.group.PileFrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|end"
-            android:background="@android:color/holo_green_light"
-            android:paddingEnd="@dimen/base_xhdpi"
-            android:paddingStart="@dimen/base_xxhdpi">
-
-            <com.angcyo.uiview.widget.GlideImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.angcyo.uiview.widget.RecentlyPhotoImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_demo"
-                app:r_draw_border="true"
-                app:r_line_color="@color/base_gold_color"
-                app:r_line_width="2dp"
-                app:r_show_type="CIRCLE"/>
+                app:r_equ_width="true"/>
+        </android.support.v4.widget.NestedScrollView>
 
-            <com.angcyo.uiview.widget.GlideImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_demo"
-                app:r_draw_border="true"
-                app:r_line_color="@color/base_gold_color"
-                app:r_line_width="2dp"
-                app:r_show_type="CIRCLE"/>
+    </LinearLayout>
 
-            <com.angcyo.uiview.widget.GlideImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_demo"
-                app:r_draw_border="true"
-                app:r_line_color="@color/base_gold_color"
-                app:r_line_width="2dp"
-                app:r_show_type="CIRCLE"/>
+    <ImageView
+        android:id="@+id/float_image_view"
+        android:layout_width="@dimen/base_50dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="@dimen/base_50dpi"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_demo"
+        app:r_is_float_view="true"/>
 
-            <com.angcyo.uiview.widget.GlideImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_demo"
-                app:r_draw_border="true"
-                app:r_line_color="@color/base_gold_color"
-                app:r_line_width="2dp"
-                app:r_show_type="CIRCLE"/>
+    <ImageView
+        android:layout_width="@dimen/base_50dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="@dimen/base_50dpi"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_demo"
+        app:r_float_auto_adsorb="true"
+        app:r_is_float_view="true"/>
 
-            <com.angcyo.uiview.widget.GlideImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_demo"
-                app:r_draw_border="true"
-                app:r_line_color="@color/base_gold_color"
-                app:r_line_width="2dp"
-                app:r_show_type="CIRCLE"/>
+    <ImageView
+        android:layout_width="@dimen/base_50dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="@dimen/base_50dpi"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_demo"
+        app:r_float_auto_adsorb="true"
+        app:r_float_fix_rect="true"
+        app:r_is_float_view="true"/>
 
-        </com.angcyo.uiview.widget.group.PileFrameLayout>
-    </FrameLayout>
-
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent_dark20">
-
-        <com.angcyo.uiview.widget.RecentlyPhotoImageView
-            android:id="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            app:r_equ_width="true"/>
-    </android.support.v4.widget.NestedScrollView>
-
-
-</LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/base_50dpi"
+        android:layout_height="@dimen/base_50dpi"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/base_50dpi"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_demo"/>
+</com.angcyo.uiview.viewgroup.RFrameLayout>

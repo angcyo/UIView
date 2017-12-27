@@ -13,6 +13,8 @@ import com.angcyo.uiview.Root
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.kotlin.OnAddViewCallback
 import com.angcyo.uiview.kotlin.addView
+import com.angcyo.uiview.kotlin.nowTime
+import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.CircleImageView
 import com.angcyo.uiview.widget.GlideImageView
 import com.angcyo.uiview.widget.RecentlyPhotoImageView
@@ -101,6 +103,10 @@ class FileObserverUIView : BaseContentUIView() {
                 return view
             }
         })
+
+        click(R.id.float_image_view) {
+            Tip.tip("Float Touch ${nowTime()}")
+        }
     }
 
     override fun onViewUnload() {
