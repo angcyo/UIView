@@ -1,15 +1,22 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.graphics.Color
 import android.os.FileObserver
-import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.Root
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.kotlin.OnAddViewCallback
+import com.angcyo.uiview.kotlin.addView
+import com.angcyo.uiview.widget.CircleImageView
+import com.angcyo.uiview.widget.GlideImageView
 import com.angcyo.uiview.widget.RecentlyPhotoImageView
+import com.angcyo.uiview.widget.group.PileFrameLayout
 import com.lzy.imagepicker.ImageDataSource
 import java.io.File
 
@@ -30,15 +37,6 @@ class FileObserverUIView : BaseContentUIView() {
     }
 
     private var fileObserver: FileObserver? = null
-
-    private val IMAGE_PROJECTION = arrayOf(//查询图片需要的数据列
-            MediaStore.Images.Media.DISPLAY_NAME, //图片的显示名称  aaa.jpg
-            MediaStore.Images.Media.DATA, //图片的真实路径  /storage/emulated/0/pp/downloader/wallpaper/aaa.jpg
-            MediaStore.Images.Media.SIZE, //图片的大小，long型  132492
-            MediaStore.Images.Media.WIDTH, //图片的宽度，int型  1920
-            MediaStore.Images.Media.HEIGHT, //图片的高度，int型  1080
-            MediaStore.Images.Media.MIME_TYPE, //图片的类型     image/jpeg
-            MediaStore.Images.Media.DATE_ADDED)    //图片被添加的时间，long型  1450518608
 
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
@@ -89,6 +87,20 @@ class FileObserverUIView : BaseContentUIView() {
             photos.add(image.path)
         }
         recentlyPhotoImageView.addPhotoList(photos)
+
+        val pileFrameLayout: PileFrameLayout = v(R.id.pile_frame_layout)
+        pileFrameLayout.addView(listOf("", "", "", ""), object : OnAddViewCallback<String>() {
+            override fun getView(): View? {
+                val view = GlideImageView(mActivity)
+                view.lineColor = Color.WHITE
+                view.lineWidth = 3 * density()
+                view.showType = CircleImageView.ROUND_RECT
+                view.roundRadius = 45 * density()
+                //view.setImageResource(R.drawable.image_demo)
+                view.layoutParams = ViewGroup.LayoutParams(30 * density().toInt(), 30 * density().toInt())
+                return view
+            }
+        })
     }
 
     override fun onViewUnload() {
