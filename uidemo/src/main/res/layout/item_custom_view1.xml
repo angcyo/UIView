@@ -18,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="bottom|end"
-            android:inputType="number"
             android:hint="文本测试"
+            android:inputType="number"
             android:tag="hide"
             app:r_left_text="Demo:"/>
 
@@ -246,7 +246,8 @@
             android:paddingBottom="@dimen/base_xhdpi"
             android:paddingStart="@dimen/base_50dpi"
             android:paddingTop="@dimen/base_xhdpi"
-            app:r_cur_progress="50"/>
+            app:r_cur_progress="50"
+            app:r_second_progress="90"/>
 
         <com.angcyo.uiview.widget.RTextView
             android:id="@+id/progress_view"
@@ -266,6 +267,8 @@
         android:layout_margin="@dimen/base_xhdpi"
         android:background="@android:color/darker_gray"
         app:r_cur_progress="50"
+        app:r_second_progress="95"
+        app:r_second_progress_color="@color/base_red"
         app:r_thumb_color="@color/base_white"
         app:r_thumb_type="CIRCLE"
         app:r_track_bg_color="@color/base_white_tran2"
