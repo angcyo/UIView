@@ -528,6 +528,9 @@ public class DemoListUIView2 extends BaseItemUIView {
                         //RUtils.openAppFromUrl(mActivity, url);
 
                         AppUtils.installApp(RApplication.getApp(), new File("/sdcard/DValley/apk/2.2.3003.apk"));
+
+                        L.e("call: onClick([v])-> 1::" + RUtils.decimal(2f / 3f, 2, false));
+                        L.e("call: onClick([v])-> 2::" + RUtils.decimal(2f / 3f, 2, true));
                     }
                 });
             }
@@ -955,6 +958,21 @@ public class DemoListUIView2 extends BaseItemUIView {
                 });
             }
         });
+
+//        Rx.interval(1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())
+//                .map(new Func1<Long, String>() {
+//                    @Override
+//                    public String call(Long s) {
+//                        L.e("call: call([s])-> " + s);
+//                        return "";
+//                    }
+//                })
+//                .subscribe(new RSubscriber<String>() {
+//                    @Override
+//                    public void onSucceed(String bean) {
+//                        super.onSucceed(bean);
+//                    }
+//                });
     }
 
     void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
