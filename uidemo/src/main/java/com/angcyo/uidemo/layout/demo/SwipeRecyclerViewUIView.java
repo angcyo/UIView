@@ -96,6 +96,18 @@ public class SwipeRecyclerViewUIView extends UIContentView {
                 return 100;
             }
         });
+//        swipeMenuRecyclerView.setAdapter(new RImageAdapter<String>(mActivity) {
+//            @Override
+//            public int getItemCount() {
+//                return 30;
+//            }
+//
+//            @Override
+//            public void onBindImageView(@Nullable GlideImageView imageView, @NotNull RBaseViewHolder holder, int position, @Nullable String bean) {
+//                super.onBindImageView(imageView, holder, position, bean);
+//                imageView.setImageResource(R.drawable.image_demo);
+//            }
+//        });
         baseContentLayout.addView(swipeMenuRecyclerView, new ViewGroup.LayoutParams(-1, -1));
     }
 

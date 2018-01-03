@@ -46,7 +46,7 @@ class StickTopLayoutUIDemo : BaseContentUIView() {
         initPager()
 
         stickTopLayout.onTopScrollListener = object : StickTopLayout.OnTopScrollListener {
-            override fun onTopScroll(isStickTop: Boolean, y: Int, max: Int) {
+            override fun onTopScroll(isChange: Boolean, isStickTop: Boolean, y: Int, max: Int) {
                 uiTitleBarContainer.alpha = (max - y) * 1f / uiTitleBarContainer.measuredHeight
             }
         }
