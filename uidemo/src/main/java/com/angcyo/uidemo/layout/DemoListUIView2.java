@@ -109,6 +109,11 @@ public class DemoListUIView2 extends BaseItemUIView {
 
 
     @Override
+    protected String getTitleString() {
+        return String.valueOf(mActivity.getTitle());
+    }
+
+    @Override
     public boolean enableTouchBack() {
         return false;
     }
