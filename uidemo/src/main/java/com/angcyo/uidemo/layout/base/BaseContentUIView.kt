@@ -16,6 +16,6 @@ import com.angcyo.uiview.model.TitleBarPattern
  */
 abstract class BaseContentUIView : UIContentView() {
     override fun getTitleBar(): TitleBarPattern? {
-        return super.getTitleBar()
+        return super.getTitleBar().setTitleStringLength(30)
     }
 }

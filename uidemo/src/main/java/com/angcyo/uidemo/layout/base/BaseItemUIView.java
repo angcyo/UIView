@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.base;
 
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIItemUIView;
+import com.angcyo.uiview.model.TitleBarPattern;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -15,6 +16,12 @@ import com.angcyo.uiview.base.UIItemUIView;
  * Version: 1.0.0
  */
 public abstract class BaseItemUIView extends UIItemUIView<SingleItem> {
+
+    @Override
+    protected TitleBarPattern getTitleBar() {
+        return super.getTitleBar().setTitleStringLength(30);
+    }
+
     @Override
     public int getDefaultBackgroundColor() {
         return super.getDefaultBackgroundColor();

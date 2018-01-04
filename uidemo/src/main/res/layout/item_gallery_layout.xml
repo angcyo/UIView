@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.angcyo.uiview.viewgroup.RGalleryLayout
+        android:id="@+id/gallery_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/transparent_dark20">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_red"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_gold_color"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"/>
+
+    </com.angcyo.uiview.viewgroup.RGalleryLayout>
+
+    <com.angcyo.uiview.widget.RTextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="angcyo"/>
+
+</LinearLayout>

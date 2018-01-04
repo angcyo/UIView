@@ -25,6 +25,7 @@ import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExpandRecordLayoutUIView;
 import com.angcyo.uidemo.layout.demo.FileObserverUIView;
 import com.angcyo.uidemo.layout.demo.FingerPrinterUIDemo;
+import com.angcyo.uidemo.layout.demo.GalleryLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GameCircleLayoutUIView;
 import com.angcyo.uidemo.layout.demo.GithubDemoUIView;
 import com.angcyo.uidemo.layout.demo.GroupItemDecorationUIView;
@@ -924,6 +925,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new FileObserverUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".GalleryLayout Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new GalleryLayoutUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
