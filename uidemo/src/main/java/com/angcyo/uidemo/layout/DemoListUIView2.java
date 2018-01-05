@@ -234,7 +234,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Center Button Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Center Button Demo + Video", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
@@ -246,7 +246,7 @@ public class DemoListUIView2 extends BaseItemUIView {
         items.add(new SingleItem(SingleItem.Type.LINE) {
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".Animator Demo", new View.OnClickListener() {
+                initItem(holder, posInData + 1 + ".Animator Demo + Math", new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
