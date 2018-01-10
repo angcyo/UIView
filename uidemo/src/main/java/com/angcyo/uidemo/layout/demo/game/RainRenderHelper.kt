@@ -7,10 +7,7 @@ import android.support.v4.content.ContextCompat
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.layer.*
-import com.angcyo.uiview.game.spirit.FrameBean
-import com.angcyo.uiview.game.spirit.FrameBgBean
-import com.angcyo.uiview.game.spirit.MoveBean
-import com.angcyo.uiview.game.spirit.ScaleRandomPointBean
+import com.angcyo.uiview.game.spirit.*
 import com.angcyo.uiview.helper.SoundHelper
 import com.angcyo.uiview.utils.ScreenUtil
 import com.angcyo.uiview.utils.ScreenUtil.density

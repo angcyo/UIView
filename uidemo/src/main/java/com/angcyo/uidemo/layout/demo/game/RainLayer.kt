@@ -106,12 +106,6 @@ class RainLayer(val rainResId: Int) : BaseLayer() {
         addNewRain()
     }
 
-    lateinit var gameRenderView: GameRenderView
-    override fun onRenderStart(gameRenderView: GameRenderView) {
-        super.onRenderStart(gameRenderView)
-        this.gameRenderView = gameRenderView
-    }
-
     fun removeRain(bean: RainBean) {
         rainList.remove(bean)
     }

@@ -2,8 +2,10 @@ package com.angcyo.uidemo.layout.demo
 
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
+import com.angcyo.uidemo.layout.demo.game.MusicNoteLayer
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
+import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.viewgroup.OnGalleryChangeListener
 import com.angcyo.uiview.viewgroup.RGalleryLayout
@@ -35,6 +37,9 @@ class GalleryLayoutUIView : BaseItemUIView() {
                     holder.click(R.id.text_view) {
                         galleryLayout.scrollToIndex(0)
                     }
+
+                    val gameRenderView: GameRenderView = holder.v(R.id.game_render_view)
+                    gameRenderView.addLayer(MusicNoteLayer())
                 }
 
                 override fun getItemLayoutId(): Int {

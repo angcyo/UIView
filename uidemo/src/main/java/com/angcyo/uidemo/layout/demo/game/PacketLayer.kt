@@ -2,7 +2,7 @@ package com.angcyo.uidemo.layout.demo.game
 
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.game.layer.BaseTouchLayer
-import com.angcyo.uiview.game.layer.TouchSpiritBean
+import com.angcyo.uiview.game.spirit.TouchSpiritBean
 import com.angcyo.uiview.utils.ScreenUtil
 
 /**
