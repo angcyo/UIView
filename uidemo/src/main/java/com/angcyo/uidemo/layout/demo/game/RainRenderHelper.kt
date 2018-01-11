@@ -6,7 +6,10 @@ import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.game.GameRenderView
-import com.angcyo.uiview.game.layer.*
+import com.angcyo.uiview.game.layer.BaseFrameLayer
+import com.angcyo.uiview.game.layer.BaseLayer
+import com.angcyo.uiview.game.layer.BaseTouchLayer
+import com.angcyo.uiview.game.layer.OnClickSpiritListener
 import com.angcyo.uiview.game.spirit.*
 import com.angcyo.uiview.helper.SoundHelper
 import com.angcyo.uiview.utils.ScreenUtil
@@ -136,7 +139,7 @@ class RainRenderHelper(private val gameView: GameRenderView) {
                             getDrawable(R.drawable.hongbao_g_00008),
                             getDrawable(R.drawable.hongbao_g_00009),
                             getDrawable(R.drawable.score_1)
-                    ), Point(spiritBean.getRect().centerX(), spiritBean.getRect().centerY())).apply {
+                    ), Point(spiritBean.getSpiritDrawRect().centerX(), spiritBean.getSpiritDrawRect().centerY())).apply {
                         frameDrawIntervalTime = 60L
                         loopDrawFrame = false
                         onDrawEndFun = { drawPoint ->

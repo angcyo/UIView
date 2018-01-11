@@ -60,6 +60,10 @@ class PacketLayer : BaseTouchLayer() {
         useBezier = this@PacketLayer.useBezier
         randomStep = this@PacketLayer.randomStep
 
+        //红包缩放
+        scaleX = 0.1f + random.nextInt(3) / 10f
+        scaleY = scaleX
+
         initSpirit(this)
 
         if (randomStep) {
@@ -72,10 +76,6 @@ class PacketLayer : BaseTouchLayer() {
             3 -> -15f
             else -> 0f
         }
-
-        //红包缩放
-        scaleX = 0.4f + random.nextInt(4) / 10f
-        scaleY = scaleX
     }
 
     override fun initSpiritRect(spiritBean: TouchSpiritBean, sx: Int, sy: Int, width: Int, height: Int) {

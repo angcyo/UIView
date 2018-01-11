@@ -36,6 +36,8 @@ class GoldCoinLayer : BaseTouchLayer() {
             getDrawable(R.drawable.jinbi_00003),
             getDrawable(R.drawable.jinbi_00004),
             getDrawable(R.drawable.jinbi_00005))).apply {
+        scaleX = 0.5f
+        scaleY = 0.5f
         useBezier = true
         stepY = 10 + random.nextInt(30)
         initSpirit(this)
