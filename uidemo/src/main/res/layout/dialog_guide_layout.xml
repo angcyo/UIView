@@ -2,17 +2,20 @@
 <com.angcyo.uiview.widget.group.GuideFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true">
+    android:clickable="true"
+    app:r_guide_anchors="100,100,400,160"
+    tools:background="@color/transparent_dark80">
 
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/base_white_round_border_shape"
         app:r_guide_gravity="CENTER"
+        app:r_guide_is_anchor="true"
         app:r_guide_show_in_anchor="0"/>
 
     <com.angcyo.uiview.widget.Button
@@ -23,8 +26,7 @@
         android:paddingStart="@dimen/base_xhdpi"
         android:text="点我"
         android:textColor="@color/base_white"
-        app:r_guide_gravity="TOP"
-        app:r_guide_offset_y="-10dp"
+        app:r_guide_gravity="TOP_CENTER"
         app:r_guide_show_in_anchor="0"/>
 
     <TextView
@@ -42,9 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:src="@drawable/hot_package"
-        app:r_guide_gravity="BOTTOM"
+        app:r_guide_gravity="RIGHT_CENTER"
         app:r_guide_offset_x="-30dp"
-        app:r_guide_offset_y="-10dp"
         app:r_guide_show_in_anchor="0"/>
 
 
