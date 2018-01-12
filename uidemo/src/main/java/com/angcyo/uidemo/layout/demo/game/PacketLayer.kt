@@ -53,7 +53,8 @@ class PacketLayer : BaseTouchLayer() {
     }
 
     override fun getSpiritStartY(spiritBean: TouchSpiritBean): Int {
-        return super.getSpiritStartY(spiritBean) + spiritBean.getDrawableScaleBounds().height()
+        val height = spiritBean.getDrawableScaleBounds().height()
+        return (-(random.nextFloat() * height / 2).toInt() - height) + height
     }
 
     override fun onAddNewSpirit(): TouchSpiritBean = TouchSpiritBean(arrayOf(getDrawable(R.drawable.hongbao))).apply {
