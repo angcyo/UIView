@@ -74,6 +74,7 @@ import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.RUtils;
+import com.angcyo.uiview.utils.ScreenUtil;
 import com.angcyo.uiview.utils.Tip;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.OnUIViewListener;
@@ -961,7 +962,8 @@ public class DemoListUIView2 extends BaseItemUIView {
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 holder.tv(R.id.text_view).setText(AppUtils.getAppVersionName(mActivity) +
                         " by " + getString(R.string.build_time) +
-                        " on " + getString(R.string.os_name));
+                        " on " + getString(R.string.os_name) + " " +
+                        ScreenUtil.densityDpi + " " + ScreenUtil.density);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

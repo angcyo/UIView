@@ -43,7 +43,7 @@ class MusicNoteLayer : BaseTouchLayer() {
         spiritAddInterval = 1500 //300毫秒添加一个
     }
 
-    override fun createBezierHelper(randomX: Int, randomY: Int, intrinsicWidth: Int, intrinsicHeight: Int): BezierHelper {
+    override fun createBezierHelper(spirit: TouchSpiritBean, randomX: Int, randomY: Int, intrinsicWidth: Int, intrinsicHeight: Int): BezierHelper {
         val random = 30 + random.nextInt(30)
 
         return BezierHelper(randomX.toFloat(), randomX - random * density,
