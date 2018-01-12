@@ -49,11 +49,11 @@ class PacketLayer : BaseTouchLayer() {
 //        } else {
 //            return (random.nextFloat() * (sw - width)).toInt() + width / 4
 //        }
-        return (random.nextFloat() * (sw - spiritBean.width())).toInt()
+        return (random.nextFloat() * (sw - spiritBean.getDrawableScaleBounds().width())).toInt()
     }
 
     override fun getSpiritStartY(spiritBean: TouchSpiritBean): Int {
-        return super.getSpiritStartY(spiritBean) + spiritBean.height()
+        return super.getSpiritStartY(spiritBean) + spiritBean.getDrawableScaleBounds().height()
     }
 
     override fun onAddNewSpirit(): TouchSpiritBean = TouchSpiritBean(arrayOf(getDrawable(R.drawable.hongbao))).apply {
