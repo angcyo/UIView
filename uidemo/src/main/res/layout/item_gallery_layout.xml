@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical">
@@ -43,6 +44,47 @@
         android:id="@+id/game_render_view"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/transparent_dark80"/>
+        android:background="@color/transparent_dark80">
+
+    </com.angcyo.uiview.game.GameRenderView>
+
+    <com.angcyo.uiview.widget.group.HumpTabLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:background="@color/transparent_dark20"
+        app:r_hump_height="40dp">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_red"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_gold_color"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_bright"
+            app:r_is_hump="true"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_dark"
+            android:gravity="center_horizontal"
+            android:text="文本测试"
+            app:r_is_hump="true"/>
+
+    </com.angcyo.uiview.widget.group.HumpTabLayout>
+
 
 </LinearLayout>
