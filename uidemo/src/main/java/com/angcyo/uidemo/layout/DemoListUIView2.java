@@ -963,6 +963,8 @@ public class DemoListUIView2 extends BaseItemUIView {
                 holder.tv(R.id.text_view).setText(AppUtils.getAppVersionName(mActivity) +
                         " by " + getString(R.string.build_time) +
                         " on " + getString(R.string.os_name) + " " +
+                        ScreenUtil.screenWidth + "×" + ScreenUtil.screenHeight + " " +
+                        mActivity.getWindow().getDecorView().getMeasuredHeight() + " " +
                         ScreenUtil.densityDpi + " " + ScreenUtil.density);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
