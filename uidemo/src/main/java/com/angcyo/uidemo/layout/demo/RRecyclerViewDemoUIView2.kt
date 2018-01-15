@@ -7,6 +7,8 @@ import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
+import com.angcyo.uiview.widget.CircleImageView
+import com.angcyo.uiview.widget.RImageView
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -40,6 +42,20 @@ class RRecyclerViewDemoUIView2 : BaseRecyclerUIView<String>() {
 
                 override fun onBindView(holder: RBaseViewHolder, position: Int, bean: String?) {
                     holder.tv(R.id.text_view).text = "测试位置提示 $position"
+
+                    val imageView: RImageView = holder.v(R.id.image_view)
+                    if (position % 2 == 0) {
+                        imageView.showType = CircleImageView.ROUND_RECT
+                    } else {
+                        imageView.showType = CircleImageView.CIRCLE
+                    }
+                    holder.click(imageView) {
+                        if (imageView.showType == CircleImageView.ROUND_RECT) {
+                            imageView.showType = CircleImageView.CIRCLE
+                        } else {
+                            imageView.showType = CircleImageView.ROUND_RECT
+                        }
+                    }
                 }
             }
         }

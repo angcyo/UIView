@@ -13,6 +13,8 @@
         android:layout_height="100dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_demo"
+        app:r_line_color="@color/base_dark_red"
+        app:r_line_width="2dp"
         app:r_show_type="CIRCLE"/>
 
     <com.angcyo.uiview.widget.RTextView
