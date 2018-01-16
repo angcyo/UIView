@@ -96,13 +96,29 @@
         app:r_is_scroll_text="true"
         app:r_scroll_type="SCROLL_TYPE_DEFAULT"/>
 
-    <com.angcyo.uiview.widget.RTextView
-        style="@style/BaseMainTextStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1很长的文本2很长的文本3很长的文本4很长的文本5很长的文本很长的文本很长的文本"
-        app:r_is_scroll_text="true"
-        app:r_is_scroll_text_circle="true"
-        app:r_scroll_type="SCROLL_TYPE_START"/>
+        android:background="@color/transparent_dark80"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/iconfontview"/>
+
+        <com.angcyo.uiview.widget.RTextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1很长的文本2很长的文本3很长的文本4很长的文本5很长的文本很长的文本很长的文本"
+            android:textColor="@color/base_dark_red"
+            app:r_is_scroll_text="true"
+            app:r_is_scroll_text_circle="true"
+            app:r_scroll_type="SCROLL_TYPE_START"/>
+
+    </LinearLayout>
 
 </LinearLayout>
