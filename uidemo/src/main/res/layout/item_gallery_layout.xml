@@ -86,5 +86,25 @@
 
     </com.angcyo.uiview.widget.group.HumpTabLayout>
 
+    <com.angcyo.uiview.widget.RTextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:text="1很长的文本2很长的文本3很长的文本4很长的文本5很长的文本很长的文本很长的文本"
+        app:r_is_scroll_text="true"
+        app:r_scroll_type="SCROLL_TYPE_DEFAULT"/>
+
+    <com.angcyo.uiview.widget.RTextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:text="1很长的文本2很长的文本3很长的文本4很长的文本5很长的文本很长的文本很长的文本"
+        app:r_is_scroll_text="true"
+        app:r_is_scroll_text_circle="true"
+        app:r_scroll_type="SCROLL_TYPE_START"/>
 
 </LinearLayout>
