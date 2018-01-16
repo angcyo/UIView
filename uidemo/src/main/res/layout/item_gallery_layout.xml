@@ -115,6 +115,7 @@
             android:layout_weight="1"
             android:text="1很长的文本2很长的文本3很长的文本4很长的文本5很长的文本很长的文本很长的文本"
             android:textColor="@color/base_dark_red"
+            android:textSize="30dp"
             app:r_is_scroll_text="true"
             app:r_is_scroll_text_circle="true"
             app:r_scroll_type="SCROLL_TYPE_START"/>
