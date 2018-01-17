@@ -3,6 +3,7 @@ package com.angcyo.uidemo.layout.demo.game
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.game.layer.BaseTouchLayer
 import com.angcyo.uiview.game.spirit.TouchSpiritBean
+import com.angcyo.uiview.helper.BezierHelper
 import com.angcyo.uiview.utils.ScreenUtil
 
 /**
@@ -62,7 +63,7 @@ class PacketLayer : BaseTouchLayer() {
         randomStep = this@PacketLayer.randomStep
 
         //红包缩放
-        scaleX = 0.1f + random.nextInt(3) / 10f
+        scaleX = 0.15f + random.nextFloat() * 0.05f
         scaleY = scaleX
 
         initSpirit(this)
@@ -77,6 +78,12 @@ class PacketLayer : BaseTouchLayer() {
             3 -> -15f
             else -> 0f
         }
+    }
+
+    override fun createBezierHelper(spirit: TouchSpiritBean, randomX: Int, randomY: Int, intrinsicWidth: Int, intrinsicHeight: Int): BezierHelper {
+        val sw = intrinsicWidth * spirit.scaleX.toInt()
+        return super.createBezierHelper(spirit, randomX + 30 * density.toInt(), randomY,
+                sw / 2, intrinsicHeight * spirit.scaleY.toInt() / 2)
     }
 
     override fun initSpiritRect(spiritBean: TouchSpiritBean, sx: Int, sy: Int, width: Int, height: Int) {

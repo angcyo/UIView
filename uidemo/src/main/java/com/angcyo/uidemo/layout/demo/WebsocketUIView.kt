@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import com.ang.RainRenderHelper
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
-import com.angcyo.uidemo.layout.demo.game.RainRenderHelper
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.helper.GameRenderHelper

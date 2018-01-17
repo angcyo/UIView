@@ -1,10 +1,16 @@
-package com.angcyo.uidemo.layout.demo.game
+package com.ang
 
 import android.graphics.Canvas
 import android.graphics.Point
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
+import com.angcyo.github.utilcode.utils.VibrationUtils
 import com.angcyo.uidemo.R
+import com.angcyo.uidemo.layout.demo.game.BombLayer
+import com.angcyo.uidemo.layout.demo.game.GoldCoinLayer
+import com.angcyo.uidemo.layout.demo.game.PacketLayer
+import com.angcyo.uiview.RApplication
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.layer.BaseFrameLayer
 import com.angcyo.uiview.game.layer.BaseLayer
@@ -15,6 +21,7 @@ import com.angcyo.uiview.helper.SoundHelper
 import com.angcyo.uiview.utils.ScreenUtil
 import com.angcyo.uiview.utils.ScreenUtil.density
 import java.util.*
+
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -32,7 +39,9 @@ class RainRenderHelper(private val gameView: GameRenderView) {
     private val packetLayer = PacketLayer()
     private val effectLayer = BaseFrameLayer()
     private val scoreLayer = BaseFrameLayer()
+    private val splashLayer = BaseFrameLayer()
     private val goldCoinLayer = GoldCoinLayer()
+    private val bombLayer = BombLayer()
 
     /**每次新增数量*/
     var addNum = 5
@@ -109,8 +118,10 @@ class RainRenderHelper(private val gameView: GameRenderView) {
         addLayer(baseFrameLayer)
         addLayer(packetLayer)//红包
         addLayer(goldCoinLayer)//金币
+        addLayer(bombLayer)//炸弹
         addLayer(effectLayer)//红包炸开效果
         addLayer(scoreLayer)//分数漂移
+        addLayer(splashLayer)//炸弹 闪屏
     }
 
     fun resetPacketLayer() {
@@ -150,7 +161,63 @@ class RainRenderHelper(private val gameView: GameRenderView) {
                         }
                     })
 
+                    //音效
                     //soundHelper.playMusiuc(R.raw.glod_sound)
+                }
+            }
+        }
+
+        bombLayer.apply {
+            onClickSpiritListener = object : OnClickSpiritListener {
+                override fun onClickSpirit(baseTouchLayer: BaseTouchLayer, spiritBean: TouchSpiritBean, x: Int, y: Int) {
+                    touchNum--
+
+                    effectLayer.addFrameBean(FrameBean(arrayOf(
+                            getDrawable(R.drawable.baozha_00001),
+                            getDrawable(R.drawable.baozha_00002),
+                            getDrawable(R.drawable.baozha_00003),
+                            getDrawable(R.drawable.baozha_00004),
+                            getDrawable(R.drawable.baozha_00005),
+                            getDrawable(R.drawable.baozha_00006),
+                            getDrawable(R.drawable.baozha_00007),
+                            getDrawable(R.drawable.baozha_00008),
+                            getDrawable(R.drawable.baozha_00009),
+                            getDrawable(R.drawable.baozha_00010),
+                            getDrawable(R.drawable.baozha_00011),
+                            getDrawable(R.drawable.baozha_00012),
+                            getDrawable(R.drawable.baozha_00013)
+                    ), Point(spiritBean.getSpiritDrawRect().centerX(), spiritBean.getSpiritDrawRect().centerY())).apply {
+                        frameDrawIntervalTime = 60L
+                        loopDrawFrame = false
+                        onDrawEndFun = { drawPoint ->
+                            scoreLayer.addFrameBean(
+                                    MoveBean(arrayOf(getDrawable(R.drawable.subtract_1)),
+                                            drawPoint,
+                                            Point(gameView.measuredWidth, 0)).apply {
+                                        enableAlpha = true
+                                    }
+                            )
+                        }
+                    })
+
+                    //闪屏
+                    splashLayer.addFrameBean(object : AlphaSpiritBean(arrayOf(getDrawable(R.drawable.shanpin)),
+                            Point(splashLayer.layerRect.centerX(), splashLayer.layerRect.centerY()), listOf(0, 255, 0)) {
+                        init {
+                            frameDrawThreadIntervalTime = 0
+
+                            onLoopAlphaEnd = {
+                                splashLayer.removeFrameBean(this)
+                            }
+                        }
+
+                        override fun getDrawDrawableBounds(drawable: Drawable): Rect {
+                            return Rect(0, 0, parentRect.width(), parentRect.height())
+                        }
+                    })
+
+                    //震动提示
+                    VibrationUtils.vibrate(RApplication.getApp(), 100)
                 }
             }
         }
@@ -160,8 +227,10 @@ class RainRenderHelper(private val gameView: GameRenderView) {
     fun startRain() {
         packetLayer.reset()
         goldCoinLayer.reset()
+        bombLayer.reset()
         packetLayer.pauseDrawFrame = false
         goldCoinLayer.pauseDrawFrame = false
+        bombLayer.pauseDrawFrame = false
     }
 
     /**立刻结束下红包 (金币延时结束)*/
