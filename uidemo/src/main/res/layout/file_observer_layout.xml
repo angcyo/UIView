@@ -2,6 +2,7 @@
 <com.angcyo.uiview.widget.RSoftInputLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,7 +23,10 @@
                     android:id="@+id/sd_tip_text_view"
                     style="@style/BaseMainTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12dp"
+                    tools:text="测试文本"/>
 
                 <com.angcyo.uiview.widget.group.PileFrameLayout
                     android:id="@+id/pile_frame_layout"
@@ -48,7 +52,8 @@
                     style="@style/BaseMainTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/base_ldpi"/>
+                    android:padding="@dimen/base_ldpi"
+                    android:textSize="9dp"/>
             </android.support.v4.widget.NestedScrollView>
 
             <FrameLayout
@@ -59,7 +64,10 @@
                     android:id="@+id/photo_tip_text_view"
                     style="@style/BaseMainTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12dp"
+                    tools:text="测试文本"/>
 
                 <com.angcyo.uiview.widget.group.PileFrameLayout
                     android:layout_width="wrap_content"

@@ -3,6 +3,7 @@ package com.angcyo.uidemo.layout.demo
 import android.graphics.Color
 import android.os.FileObserver
 import android.text.TextUtils
+import android.text.format.Formatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.kotlin.OnAddViewCallback
 import com.angcyo.uiview.kotlin.addView
 import com.angcyo.uiview.kotlin.nowTime
+import com.angcyo.uiview.utils.RUtils
 import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.CircleImageView
 import com.angcyo.uiview.widget.GlideImageView
@@ -43,12 +45,14 @@ class FileObserverUIView : BaseContentUIView() {
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
 
-        tv(R.id.sd_tip_text_view).text = "监听 ${Root.sd()} 中..."
+        val targetPath = Root.getScreenshotsDirectory() //Root.sd()
+
+        tv(R.id.sd_tip_text_view).text = "监听$targetPath 中..."
 
         if (fileObserver == null) {
 
             /*只能监听根目录的文件变化, 子目录中的文件变化不监听, 根目录的文件夹变化不监听*/
-            fileObserver = object : FileObserver(Root.sd()) {
+            fileObserver = object : FileObserver(targetPath) {
                 override fun onEvent(e: Int, path: String?) {
 
                     val event = when (e) {
@@ -68,10 +72,14 @@ class FileObserverUIView : BaseContentUIView() {
                     }
 
                     if (!TextUtils.isEmpty(event) && !TextUtils.isEmpty(path)) {
-                        val file = File("${Root.sd()}/$path")
-                        L.e("\nevent:$event isFile:${file.isFile} \npath:${Root.sd()}/$path \n")
+                        val file = File("$targetPath/$path")
+                        L.e("\nevent:$event isFile:${file.isFile} \npath:$targetPath/$path \n")
                         post {
-                            mViewHolder.tv(R.id.text_view).text = "${mViewHolder.tv(R.id.text_view).text}\nevent:$event isFile:${file.isFile} \npath:${Root.sd()}/$path \n"
+                            mViewHolder.tv(R.id.text_view).text = "${mViewHolder.tv(R.id.text_view).text}\n" +
+                                    "${RUtils.getDataTime("yyyy-MM-dd HH:mm:ss:SSS")}\n" +
+                                    "event:$event isFile:${file.isFile} " +
+                                    "size:${if (file.isFile) Formatter.formatFileSize(mActivity, file.length()) else "${file.list().size}项"}\n" +
+                                    "path:$targetPath/$path \n"
                         }
                     }
                 }
