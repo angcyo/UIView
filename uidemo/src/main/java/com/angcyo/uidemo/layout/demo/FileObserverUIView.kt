@@ -72,14 +72,16 @@ class FileObserverUIView : BaseContentUIView() {
                     }
 
                     if (!TextUtils.isEmpty(event) && !TextUtils.isEmpty(path)) {
-                        val file = File("$targetPath/$path")
-                        L.e("\nevent:$event isFile:${file.isFile} \npath:$targetPath/$path \n")
                         post {
+                            val file = File("$targetPath/$path")
+                            L.e("\nevent:$event isFile:${file.isFile} \npath:$targetPath/$path \n")
                             mViewHolder.tv(R.id.text_view).text = "${mViewHolder.tv(R.id.text_view).text}\n" +
                                     "${RUtils.getDataTime("yyyy-MM-dd HH:mm:ss:SSS")}\n" +
                                     "event:$event isFile:${file.isFile} " +
                                     "size:${if (file.isFile) Formatter.formatFileSize(mActivity, file.length()) else "${file.list().size}项"}\n" +
                                     "path:$targetPath/$path \n"
+//                            val scrollView: NestedScrollView = v(R.id.scroll_view)
+//                            scrollView.scrollBy(0, (50 * density()).toInt())
                         }
                     }
                 }

@@ -43,6 +43,7 @@
             </FrameLayout>
 
             <android.support.v4.widget.NestedScrollView
+                android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:background="@color/transparent_dark20">
