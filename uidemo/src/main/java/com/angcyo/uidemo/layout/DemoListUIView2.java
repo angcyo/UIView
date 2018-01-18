@@ -62,7 +62,6 @@ import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
-import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
@@ -72,7 +71,6 @@ import com.angcyo.uiview.kotlin.ViewExKt;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
-import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.ScreenUtil;
 import com.angcyo.uiview.utils.Tip;
@@ -81,7 +79,6 @@ import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 import com.angcyo.uiview.widget.RTextView;
 
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -466,6 +463,8 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
+                        shakeView();
+
                         Tip.show("测试文本", R.drawable.hot_package_1);
 
                         //new ktclass().test();
@@ -522,22 +521,22 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                         L.e("call: onClick([v])-> " + v1);
 
-                        ResUtil.setGreyscale(getILayout(), true);
-                        postDelayed(2000, new Runnable() {
-                            @Override
-                            public void run() {
-                                ResUtil.setGreyscale(getILayout(), false);
-                            }
-                        });
-
-                        //xingqiuqp://null/null?GameID=null&RoomID=860101
-                        //String url = "xingqiuqp://null/null?GameID=null&RoomID=860101";
-                        //RUtils.openAppFromUrl(mActivity, url);
-
-                        AppUtils.installApp(RApplication.getApp(), new File("/sdcard/DValley/apk/2.2.3003.apk"));
-
-                        L.e("call: onClick([v])-> 1::" + RUtils.decimal(2f / 3f, 2, false));
-                        L.e("call: onClick([v])-> 2::" + RUtils.decimal(2f / 3f, 2, true));
+//                        ResUtil.setGreyscale(getILayout(), true);
+//                        postDelayed(2000, new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                ResUtil.setGreyscale(getILayout(), false);
+//                            }
+//                        });
+//
+//                        //xingqiuqp://null/null?GameID=null&RoomID=860101
+//                        //String url = "xingqiuqp://null/null?GameID=null&RoomID=860101";
+//                        //RUtils.openAppFromUrl(mActivity, url);
+//
+//                        AppUtils.installApp(RApplication.getApp(), new File("/sdcard/DValley/apk/2.2.3003.apk"));
+//
+//                        L.e("call: onClick([v])-> 1::" + RUtils.decimal(2f / 3f, 2, false));
+//                        L.e("call: onClick([v])-> 2::" + RUtils.decimal(2f / 3f, 2, true));
                     }
                 });
             }
