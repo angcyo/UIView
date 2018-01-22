@@ -63,7 +63,11 @@ class PacketLayer : BaseTouchLayer() {
         randomStep = this@PacketLayer.randomStep
 
         //红包缩放
-        scaleX = 0.15f + random.nextFloat() * 0.05f
+        scaleX = if (ScreenUtil.density >= 3) {
+            0.15f + random.nextFloat() * 0.1f
+        } else {
+            0.25f + random.nextFloat() * 0.2f
+        }
         scaleY = scaleX
 
         initSpirit(this)

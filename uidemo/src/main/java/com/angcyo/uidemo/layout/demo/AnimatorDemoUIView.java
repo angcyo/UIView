@@ -18,6 +18,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
+import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.demo.view.SinMathUIView;
 import com.angcyo.uiview.base.UIContentView;
@@ -27,6 +28,7 @@ import com.angcyo.uiview.resources.RAnimListener;
 import com.angcyo.uiview.utils.ScreenUtil;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.widget.RImageView;
+import com.angcyo.uiview.widget.RSeekBar;
 import com.github.florent37.viewanimator.ViewAnimator;
 
 
@@ -335,6 +337,28 @@ public class AnimatorDemoUIView extends UIContentView {
                     }
                 });
                 animator.start();
+            }
+        });
+
+        final SinMathUIView sinMathUIView = v(R.id.sin_math_view);
+        RSeekBar seekBar = v(R.id.seek_bar);
+        seekBar.setMaxProgress(360);
+        seekBar.addOnProgressChangeListener(new RSeekBar.OnProgressChangeListener() {
+            @Override
+            public void onProgress(int progress, boolean fromTouch) {
+                L.e("call: onProgress([progress, fromTouch])-> " + progress + " " + fromTouch);
+                sinMathUIView.setRotateDegrees(/*360 -*/ progress);
+                sinMathUIView.postInvalidate();
+            }
+
+            @Override
+            public void onStartTouch() {
+
+            }
+
+            @Override
+            public void onStopTouch() {
+
             }
         });
     }

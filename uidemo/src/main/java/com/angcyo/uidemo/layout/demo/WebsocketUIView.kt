@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import com.ang.RainRenderHelper
 import com.angcyo.uidemo.R
@@ -196,6 +197,16 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             view(R.id.send_button).isEnabled = !isEmpty
         }
         editText.setText("show2")
+
+        //暂停游戏
+        val pauseBox: CheckBox = v(R.id.pause_box)
+        pauseBox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                gameRenderView.pauseGameRenderThread.set(true)
+            } else {
+                gameRenderView.pauseGameRenderThread.set(false)
+            }
+        }
 
         click(R.id.send_button) {
             if (TextUtils.equals(editText.string(), "show")) {

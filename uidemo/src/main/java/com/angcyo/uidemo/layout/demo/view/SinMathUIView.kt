@@ -10,7 +10,9 @@ import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.helper.BezierHelper
 import com.angcyo.uiview.helper.BezierPointHelper
+import com.angcyo.uiview.kotlin.c
 import com.angcyo.uiview.kotlin.density
+import com.angcyo.uiview.kotlin.rotateTo
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -179,5 +181,40 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
 //        canvas.translate(-point.x.toFloat(), -point.y.toFloat())
         canvas.restore()
 
+        paint.strokeWidth = 4 * density
+        canvas.save()
+        val l = 600
+        val t = 1000
+        val w = 400
+        val h = 700//(800 * Math.cos( Math.toRadians(30.0))).toInt()
+        testRect1.set(l, t, l + w, t + h)
+        testRect1.rotateTo(testRect2, rotateDegrees)
+        paint.color = Color.YELLOW
+        canvas.drawRect(testRect1, paint)
+        paint.color = Color.RED
+        canvas.drawCircle(testRect1.centerX().toFloat(), testRect1.centerY().toFloat(), (testRect1.c() / 2).toFloat(), paint)
+        canvas.restore()
+
+        canvas.save()
+        canvas.translate(testRect1.centerX().toFloat(), testRect1.centerY().toFloat())
+        canvas.rotate(rotateDegrees)
+        paint.strokeWidth = 2 * density
+        paint.color = Color.BLUE
+        canvas.drawRect((-testRect1.width() / 2).toFloat(), (-testRect1.height() / 2).toFloat(),
+                (testRect1.width() / 2).toFloat(), (testRect1.height() / 2).toFloat(), paint)
+        canvas.restore()
+
+        canvas.save()
+        paint.color = Color.GREEN
+        paint.strokeWidth = 1 * density
+        canvas.drawRect(testRect2, paint)
+        canvas.restore()
+
     }
+
+    var rotateDegrees = 0f
+
+    val testRect1 = Rect()
+    val testRect2 = Rect()
+
 }
