@@ -12,6 +12,7 @@ import com.ang.RainRenderHelper
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.container.UILayoutImpl
 import com.angcyo.uiview.game.GameRenderView
 import com.angcyo.uiview.game.helper.GameRenderHelper
 import com.angcyo.uiview.model.TitleBarPattern
@@ -197,6 +198,8 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             view(R.id.send_button).isEnabled = !isEmpty
         }
         editText.setText("show2")
+
+        UILayoutImpl.showDebugLayout = false
 
         //暂停游戏
         val pauseBox: CheckBox = v(R.id.pause_box)

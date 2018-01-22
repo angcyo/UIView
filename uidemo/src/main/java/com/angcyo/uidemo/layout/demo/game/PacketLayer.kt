@@ -62,6 +62,9 @@ class PacketLayer : BaseTouchLayer() {
         useBezier = this@PacketLayer.useBezier
         randomStep = this@PacketLayer.randomStep
 
+        touchOffsetDx = (10 * density).toInt()
+        touchOffsetDy = (10 * density).toInt()
+
         //红包缩放
         scaleX = if (ScreenUtil.density >= 3) {
             0.15f + random.nextFloat() * 0.1f
