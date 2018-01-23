@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.design.StickLayout2
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stick_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_app_info"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/select_button"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/base_hdpi"
+            android:layout_marginEnd="@dimen/base_xhdpi"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:layout_marginTop="@dimen/base_hdpi"
+            android:text="选择APK文件(需要ApkTool.jar的支持)"/>
+
+    </LinearLayout>
+
+    <com.angcyo.uiview.rsen.RefreshLayout
+        android:id="@+id/base_refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.angcyo.uiview.recycler.RRecyclerView
+            android:id="@+id/base_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.angcyo.uiview.rsen.RefreshLayout>
+
+</com.angcyo.uiview.design.StickLayout2>

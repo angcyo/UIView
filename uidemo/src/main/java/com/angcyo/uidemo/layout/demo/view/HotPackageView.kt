@@ -28,10 +28,10 @@ import com.angcyo.uiview.resources.RAnimListener
 class HotPackageView(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
 
     private val hot1: Drawable by lazy {
-        ContextCompat.getDrawable(context, R.drawable.hot_package_1)
+        ContextCompat.getDrawable(context, R.drawable.hot_package_1)!!
     }
     private val hot2: Drawable by lazy {
-        ContextCompat.getDrawable(context, R.drawable.hot_package_2)
+        ContextCompat.getDrawable(context, R.drawable.hot_package_2)!!
     }
 
     private var showHot2 = true

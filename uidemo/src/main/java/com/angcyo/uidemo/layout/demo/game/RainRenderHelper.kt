@@ -57,7 +57,7 @@ class RainRenderHelper(private val gameView: GameRenderView) {
         gameView.layerList.add(layer)
     }
 
-    fun getDrawable(id: Int): Drawable = ContextCompat.getDrawable(gameView.context, id)
+    fun getDrawable(id: Int): Drawable = ContextCompat.getDrawable(gameView.context, id)!!
 
     var useBezier = true
     var randomStep = true

@@ -135,7 +135,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
     }
 
     private val drawable: Drawable by lazy {
-        ContextCompat.getDrawable(getContext(), R.drawable.hongbao)
+        ContextCompat.getDrawable(getContext(), R.drawable.hongbao)!!
     }
 
     override fun onDraw(canvas: Canvas) {

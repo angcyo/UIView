@@ -11,6 +11,7 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.kotlin.cls.SingleClass2;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uidemo.layout.demo.AnimatorDemoUIView;
+import com.angcyo.uidemo.layout.demo.AppInfoDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView;
 import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView2;
 import com.angcyo.uidemo.layout.demo.CenterRadioButtonUIView;
@@ -943,6 +944,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new GalleryLayoutUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".App Info Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new AppInfoDemoUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }

@@ -54,7 +54,7 @@ class CardView(context: Context, attributeSet: AttributeSet? = null) : View(cont
         fun getCardDrawable(context: Context, card: Int): Drawable {
             val drawable = drawablesMap[card]
             if (drawable == null) {
-                drawablesMap[card] = ContextCompat.getDrawable(context, card)
+                drawablesMap[card] = ContextCompat.getDrawable(context, card)!!
                 return drawablesMap[card]!!
             } else {
             }

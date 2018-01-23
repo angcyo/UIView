@@ -14,4 +14,7 @@ import com.angcyo.uiview.base.UIRecyclerUIView
  * Version: 1.0.0
  */
 abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
+    override fun isUIHaveLoadMore(datas: MutableList<T>?): Boolean {
+        return false
+    }
 }

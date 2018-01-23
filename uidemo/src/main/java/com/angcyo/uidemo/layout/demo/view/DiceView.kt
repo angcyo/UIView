@@ -69,7 +69,7 @@ class DiceView(context: Context, attributeSet: AttributeSet? = null) : View(cont
             val drawable = drawablesMap[dice]
             if (drawable == null) {
 //                L.e("call: getDiceDrawable 创建-> $dice")
-                drawablesMap[dice] = ContextCompat.getDrawable(context, dice)
+                drawablesMap[dice] = ContextCompat.getDrawable(context, dice)!!
                 return drawablesMap[dice]!!
             } else {
 //                L.e("call: getDiceDrawable 缓存-> $dice")
