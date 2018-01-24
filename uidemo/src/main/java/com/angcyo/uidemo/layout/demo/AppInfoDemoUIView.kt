@@ -49,19 +49,26 @@ class AppInfoDemoUIView : BaseRecyclerUIView<AppInfo>() {
                     reset()
                     setImageDrawable(bean.appIcon)
                 }
+
+                val packageName = bean.packageName
+
                 holder.tv(R.id.app_name_view).text = "${bean.appName}_n:${bean.versionName}_c:${bean.versionCode}"
-                holder.tv(R.id.app_pka_name_view).text = bean.packageName
+                holder.tv(R.id.app_pka_name_view).text = packageName
 
                 holder.click(R.id.open_button) {
-                    val error = RUtils.startApp(bean.packageName)
+                    val error = RUtils.startApp(packageName)
                     if (error.isNotEmpty()) {
                         Tip.tip("启动失败\n$error")
                     }
                 }
 
                 holder.click(R.id.copy_button) {
-                    ClipboardUtils.copyText(bean.packageName)
-                    Tip.ok("包名\n${bean.packageName}\n已复制")
+                    ClipboardUtils.copyText(packageName)
+                    Tip.ok("包名\n$packageName\n已复制")
+                }
+
+                holder.click(R.id.attr_button) {
+                    RUtils.openAppDetailView(mActivity, packageName)
                 }
 
                 holder.clickItem {
