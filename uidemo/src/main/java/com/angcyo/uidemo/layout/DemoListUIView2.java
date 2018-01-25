@@ -982,7 +982,7 @@ public class DemoListUIView2 extends BaseItemUIView {
                         ScreenUtil.screenWidth + "×" + ScreenUtil.screenHeight + " " +
                         mActivity.getWindow().getDecorView().getMeasuredHeight() + " " +
                         ScreenUtil.densityDpi + " " + ScreenUtil.density + "\n" +
-                        "厂家:" + Build.MANUFACTURER + " " +
+                        "v:" + Build.MANUFACTURER + " " +
                         "m:" + Build.MODEL + " " +
                         "d:" + Build.DEVICE + " " +
                         "h:" + Build.HARDWARE + " "
