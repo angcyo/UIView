@@ -464,6 +464,8 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
+                        KtDemo.INSTANCE.main();
+
                         shakeView();
 
                         Tip.show("测试文本", R.drawable.hot_package_1);
@@ -1004,7 +1006,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 //                    }
 //                })
 //                .subscribe(new RSubscriber<String>() {
-//                    @Override
+//                    @Overrides
 //                    public void onSucceed(String bean) {
 //                        super.onSucceed(bean);
 //                    }
