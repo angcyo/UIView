@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.getkeepsafe.dexcount'
 //apply from: 'build_time.gradle'
-apply from: 'android.gradle'
+apply from: '../RLibrary/android.gradle'
 
 def apkTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))

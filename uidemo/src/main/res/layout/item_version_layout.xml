@@ -11,7 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:tag="V %1$s"
-        android:textSize="@dimen/default_text_size9"
+        android:textSize="8dp"
         tools:text="1.0.3"/>
 </FrameLayout>

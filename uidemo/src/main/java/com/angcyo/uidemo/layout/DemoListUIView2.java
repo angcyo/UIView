@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout;
 
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -980,7 +981,12 @@ public class DemoListUIView2 extends BaseItemUIView {
                         " on " + getString(R.string.os_name) + " " +
                         ScreenUtil.screenWidth + "×" + ScreenUtil.screenHeight + " " +
                         mActivity.getWindow().getDecorView().getMeasuredHeight() + " " +
-                        ScreenUtil.densityDpi + " " + ScreenUtil.density);
+                        ScreenUtil.densityDpi + " " + ScreenUtil.density + "\n" +
+                        "厂家:" + Build.MANUFACTURER + " " +
+                        "m:" + Build.MODEL + " " +
+                        "d:" + Build.DEVICE + " " +
+                        "h:" + Build.HARDWARE + " "
+                );
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
