@@ -133,6 +133,20 @@ public class DemoListUIView2 extends BaseItemUIView {
         return R.layout.item_demo_list_layout;
     }
 
+
+    void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
+        initItem(holder, itemText, false, onClickListener);
+    }
+
+    void initItem(RBaseViewHolder holder, String itemText, boolean isDeprecated, View.OnClickListener onClickListener) {
+        ItemInfoLayout infoLayout = holder.v(R.id.item_info_layout);
+        infoLayout.setItemText(itemText);
+
+        RTextView textView = infoLayout.getTextView();
+        textView.setDeleteLine(isDeprecated);
+        holder.click(infoLayout, onClickListener);
+    }
+
     @Override
     protected void createItems(List<SingleItem> items) {
         items.add(new SingleItem(SingleItem.Type.TOP) {
@@ -1018,22 +1032,4 @@ public class DemoListUIView2 extends BaseItemUIView {
 //                    }
 //                });
     }
-
-    void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
-        initItem(holder, itemText, false, onClickListener);
-    }
-
-    void initItem(RBaseViewHolder holder, String itemText, boolean isDeprecated, View.OnClickListener onClickListener) {
-        ItemInfoLayout infoLayout = holder.v(R.id.item_info_layout);
-        infoLayout.setItemText(itemText);
-
-        RTextView textView = infoLayout.getTextView();
-        textView.setDeleteLine(isDeprecated);
-        holder.click(infoLayout, onClickListener);
-    }
-
-    public static class TestClass {
-    }
-
-
 }

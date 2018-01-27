@@ -2,7 +2,6 @@ package com.angcyo.uidemo.kotlin.cls
 
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.kotlin.ktinterface_fun
-import com.angcyo.uidemo.layout.DemoListUIView2
 import kotlin.properties.Delegates
 
 /**
@@ -78,7 +77,7 @@ for (c in "angcyo\"robi") {
         p(b as Int)
         p(c)
 
-        val testClass = DemoListUIView2.TestClass()
+        val testClass = TestClass()
     }
 
     fun fun_test_when() {

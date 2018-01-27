@@ -21,6 +21,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_line"
+        android:background="@color/line_color"/>
+
+    <com.angcyo.uiview.widget.ItemInfoLayout
+        android:id="@+id/item_layout3"
+        style="@style/BaseItemInfoStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_line"
+        android:background="@color/line_color"/>
+
+    <com.angcyo.uiview.widget.ItemInfoLayout
+        android:id="@+id/item_layout4"
+        style="@style/BaseItemInfoStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_line"
+        android:background="@color/line_color"/>
+
+    <com.angcyo.uiview.widget.ItemInfoLayout
+        android:id="@+id/item_layout5"
+        style="@style/BaseItemInfoStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <com.angcyo.uiview.widget.RTextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"

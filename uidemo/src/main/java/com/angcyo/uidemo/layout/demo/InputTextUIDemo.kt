@@ -5,6 +5,8 @@ import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.base.UIInputView
+import com.angcyo.uiview.dialog.UIInputDialog
+import com.angcyo.uiview.dialog.UIInputExDialog
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.widget.ItemInfoLayout
 
@@ -29,6 +31,15 @@ class InputTextUIDemo : BaseItemUIView() {
 
                 val infoLayout2: ItemInfoLayout = holder.v(R.id.item_layout2)
                 infoLayout2.setItemText("点击输入多行文本")
+
+                val infoLayout3: ItemInfoLayout = holder.v(R.id.item_layout3)
+                infoLayout3.setItemText("点击输入文本 Dialog")
+
+                val infoLayout4: ItemInfoLayout = holder.v(R.id.item_layout4)
+                infoLayout4.setItemText("点击输入单行文本 DialogEx")
+
+                val infoLayout5: ItemInfoLayout = holder.v(R.id.item_layout5)
+                infoLayout5.setItemText("点击输入多行文本 DialogEx")
 
                 holder.click(R.id.item_layout1) {
                     startIView(object : UIInputView() {
@@ -82,6 +93,34 @@ class InputTextUIDemo : BaseItemUIView() {
                         override fun onInputTextResult(text: String) {
                             super.onInputTextResult(text)
                             holder.tv(R.id.text_view).text = text
+                        }
+                    })
+                }
+
+                holder.click(infoLayout3) {
+                    startIView(UIInputDialog())
+                }
+
+                holder.click(infoLayout4) {
+                    startIView(UIInputExDialog().apply {
+                        okButtonTextString = "Ok"
+                        inputDefaultString = "angcyo"
+                        autoShowSoftInput = false
+                        onInputTextResult = {
+                            holder.tv(R.id.text_view).text = it
+                        }
+                    })
+                }
+
+                holder.click(infoLayout5) {
+                    startIView(UIInputExDialog().apply {
+                        inputHintString = "可以输入多行文本"
+                        inputTitleString = "标题设置"
+                        inputTipString = "请输入多行文本"
+                        maxInputLength = 22
+                        isSingleLine = false
+                        onInputTextResult = {
+                            holder.tv(R.id.text_view).text = it
                         }
                     })
                 }
