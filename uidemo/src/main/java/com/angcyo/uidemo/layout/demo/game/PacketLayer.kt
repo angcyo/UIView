@@ -75,9 +75,12 @@ class PacketLayer : BaseTouchLayer() {
 
         initSpirit(this)
 
+        stepY = (5 * ScreenUtil.density).toInt()
+
         if (randomStep) {
-            stepY += random.nextInt(30) //控制红包下降速度
+            stepY += (random.nextInt(15) * 1f * ScreenUtil.density).toInt() //控制红包下降速度
         }
+
         rotateDegrees = when (random.nextInt(4)) {
             0 -> 45f
             1 -> -45f
