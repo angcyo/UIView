@@ -75,6 +75,7 @@ import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.ScreenUtil;
+import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.utils.Tip;
 import com.angcyo.uiview.view.IView;
 import com.angcyo.uiview.view.OnUIViewListener;
@@ -123,6 +124,9 @@ public class DemoListUIView2 extends BaseItemUIView {
         super.onViewShowFirst(bundle);
         //mRootView.setEnabled(false);
         //showLoadView();
+
+        //魅族自动识别状态栏颜色的BUG
+        lightStatusBar(false);
     }
 
     @Override
@@ -145,6 +149,14 @@ public class DemoListUIView2 extends BaseItemUIView {
         RTextView textView = infoLayout.getTextView();
         textView.setDeleteLine(isDeprecated);
         holder.click(infoLayout, onClickListener);
+    }
+
+    void onKotlinDemoClick() {
+        lightStatusBar(false);
+        if (Build.MODEL.contains("OPPO") || Build.MODEL.contains("ONEPLUS")) {
+            T_.info("友情提示\n请关闭 '三指截屏'");
+            Tip.tip("友情提示\n请关闭 '三指截屏'");
+        }
     }
 
     @Override
@@ -479,11 +491,13 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
+                        onKotlinDemoClick();
+
                         KtDemo.INSTANCE.main();
 
                         shakeView();
 
-                        Tip.show("测试文本", R.drawable.hot_package_1);
+                        //Tip.show("测试文本", R.drawable.hot_package_1);
 
                         //new ktclass().test();
                         //KtinterfaceKt.ktinterface_fun();
