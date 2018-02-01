@@ -36,6 +36,7 @@
 
             <com.angcyo.uiview.widget.Button
                 android:id="@+id/show_emoji"
+                style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/base_xxxhdpi"
                 android:layout_marginStart="@dimen/base_xhdpi"
@@ -45,6 +46,7 @@
 
             <com.angcyo.uiview.widget.Button
                 android:id="@+id/send_dice"
+                style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/base_xxxhdpi"
                 android:layout_marginStart="@dimen/base_xhdpi"
@@ -54,6 +56,7 @@
 
             <com.angcyo.uiview.widget.Button
                 android:id="@+id/send_card"
+                style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/base_xxxhdpi"
                 android:layout_marginStart="@dimen/base_xhdpi"

@@ -55,5 +55,12 @@ public class TestDemo extends UIContentView {
                 startIView(new TestDemo());
             }
         });
+
+        click(R.id.close_button, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mParentILayout.finishIView(TestDemo.class, mViewHolder.cV(R.id.keep_last).isChecked());
+            }
+        });
     }
 }
