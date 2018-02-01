@@ -15,13 +15,30 @@
         android:layout_marginBottom="@dimen/base_xhdpi"
         android:text="请选择音频文件"/>
 
-    <com.angcyo.uiview.widget.Button
-        android:id="@+id/selector_button"
-        style="@style/BaseWhiteColorTextStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/base_xhdpi"
-        android:text="选择文件"/>
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/selector_button"
+            style="@style/BaseWhiteColorTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择文件"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/install_button"
+            style="@style/BaseWhiteColorTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:layout_weight="1"
+            android:text="安装APK"/>
+    </LinearLayout>
+
 
     <com.angcyo.uiview.widget.ExEditText
         android:id="@+id/edit_text"

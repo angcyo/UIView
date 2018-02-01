@@ -1,10 +1,14 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.Manifest
 import android.content.Context
 import android.media.AudioManager
+import android.os.Build
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import com.angcyo.github.utilcode.utils.AppUtils
+import com.angcyo.github.utilcode.utils.SpannableStringUtils
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
@@ -12,11 +16,14 @@ import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.dialog.UIFileSelectorDialog
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.skin.SkinHelper
 import com.angcyo.uiview.utils.RPlayer
 import com.angcyo.uiview.utils.RUtils
+import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.RSeekBar
 import com.angcyo.uiview.widget.RTextView
 import java.io.File
+
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -37,6 +44,7 @@ class Mp3PlayUIDemo : BaseItemUIView() {
 
     private val url = "http://audio.klgwl.com/63362/AAC_20171024_133804.aac_t_7.aac"
 
+    private var click_count = 0
     override fun createItems(items: MutableList<SingleItem>?) {
         player.init()
 
@@ -56,6 +64,42 @@ class Mp3PlayUIDemo : BaseItemUIView() {
                     }.apply {
                         showFileMenu = true
                     })
+                }
+
+                //安装APK
+                holder.click(R.id.install_button) {
+                    if (click_count < 3) {
+                        AppUtils.installApp(mActivity, path)
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            val canInstall = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                mActivity.packageManager.canRequestPackageInstalls()
+                            } else {
+                                true
+                            }
+                            if (canInstall) {
+                                AppUtils.installApp(mActivity, path)
+                            } else {
+                                mActivity.checkPermissions(arrayOf(Manifest.permission.REQUEST_INSTALL_PACKAGES)) {
+                                    if (it) {
+                                        AppUtils.installApp(mActivity, path)
+                                    } else {
+                                        val stringBuilder = SpannableStringUtils.getBuilder("请允许\n")
+                                                .append(RUtils.getAppName())
+                                                .setTextSize((24 * density()).toInt())
+                                                .setForegroundColor(SkinHelper.getSkin().themeSubColor)
+                                                .append("\n安装应用")
+                                                .create()
+                                        Tip.tip(stringBuilder)
+                                        AppUtils.startUnknownAppManage(mActivity)
+                                    }
+                                }
+                            }
+                        } else {
+                            AppUtils.installApp(mActivity, path)
+                        }
+                    }
+                    click_count++
                 }
 
                 holder.eV(R.id.edit_text).setText(url, TextView.BufferType.NORMAL)
