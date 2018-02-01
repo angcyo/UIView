@@ -37,6 +37,7 @@ import com.angcyo.uidemo.layout.demo.LoopRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.Mp3PlayUIDemo;
+import com.angcyo.uidemo.layout.demo.MyScanUIView;
 import com.angcyo.uidemo.layout.demo.NotifyDemoUIView;
 import com.angcyo.uidemo.layout.demo.PasswordInputUIView;
 import com.angcyo.uidemo.layout.demo.PopupWindowUIView;
@@ -67,7 +68,6 @@ import com.angcyo.uidemo.uiview.TestDemo;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
-import com.angcyo.uiview.base.UIScanView;
 import com.angcyo.uiview.dialog.UIProgressDialog;
 import com.angcyo.uiview.kotlin.ViewExKt;
 import com.angcyo.uiview.model.TitleBarPattern;
@@ -1006,7 +1006,7 @@ public class DemoListUIView2 extends BaseItemUIView {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startIView(new UIScanView(new Action1<String>() {
+                        startIView(new MyScanUIView(new Action1<String>() {
                             @Override
                             public void call(String s) {
                                 //T_.info("扫码结果:" + s);
