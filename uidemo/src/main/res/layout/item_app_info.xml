@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,14 +36,14 @@
                 style="@style/BaseMainTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"/>
+                android:textSize="12dp"/>
 
             <com.angcyo.uiview.widget.RTextView
                 android:id="@+id/app_pka_name_view"
                 style="@style/BaseDarkTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"/>
+                android:textSize="10dp"/>
 
         </LinearLayout>
 
@@ -52,36 +53,80 @@
         android:id="@+id/control_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="horizontal"
-        android:paddingEnd="@dimen/base_ldpi">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/base_hdpi">
 
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/open_button"
-            style="@style/BaseSkinButtonStyle"
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/app_md5_view"
+            style="@style/BaseDarkTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="打开"
-            android:textSize="12dp"/>
+            android:tag="MD5: %1$s"
+            android:textSize="10dp"
+            tools:text="demo string"/>
 
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/copy_button"
-            style="@style/BaseSkinButtonStyle"
+        <com.angcyo.uiview.widget.RTextView
+            android:id="@+id/app_sha1_view"
+            style="@style/BaseDarkTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_xhdpi"
-            android:text="复制"
-            android:textSize="12dp"/>
+            android:tag="SHA1: %1$s"
+            android:textSize="10dp"
+            tools:text="demo string"/>
 
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/attr_button"
-            style="@style/BaseSkinButtonStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/base_xhdpi"
-            android:text="属性"
-            android:textSize="12dp"/>
+            android:layout_marginTop="@dimen/base_hdpi"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/base_ldpi">
 
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/open_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打开"
+                android:textSize="12dp"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/copy_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="复制包名"
+                android:textSize="12dp"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/copy_md5_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="复制MD5"
+                android:textSize="12dp"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/copy_sha1_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="复制SHA1"
+                android:textSize="12dp"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/attr_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_xhdpi"
+                android:text="属性"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

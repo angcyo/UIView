@@ -71,13 +71,16 @@ class FileObserverUIView : BaseContentUIView() {
                         else -> ""
                     }
 
+                    L.w("event:$event path:$targetPath/$path")
+
                     if (!TextUtils.isEmpty(event) && !TextUtils.isEmpty(path)) {
                         post {
                             val file = File("$targetPath/$path")
                             L.e("\nevent:$event isFile:${file.isFile} \npath:$targetPath/$path \n")
+
                             mViewHolder.tv(R.id.text_view).text = "${mViewHolder.tv(R.id.text_view).text}\n" +
                                     "${RUtils.getDataTime("yyyy-MM-dd HH:mm:ss:SSS")}\n" +
-                                    "event:$event isFile:${file.isFile} " +
+                                    "event:$event isFile:${file.isFile} R:${file.canRead()} W:${file.canWrite()} E:${file.canExecute()} " +
                                     "size:${if (file.isFile) Formatter.formatFileSize(mActivity, file.length()) else "${file.list().size}项"}\n" +
                                     "path:$targetPath/$path \n"
 //                            val scrollView: NestedScrollView = v(R.id.scroll_view)
@@ -125,5 +128,6 @@ class FileObserverUIView : BaseContentUIView() {
     override fun onViewUnload() {
         super.onViewUnload()
         fileObserver?.stopWatching()
+        fileObserver = null
     }
 }

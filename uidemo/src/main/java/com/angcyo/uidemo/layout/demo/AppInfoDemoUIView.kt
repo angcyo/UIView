@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout.demo
 
+import com.angcyo.github.utilcode.utils.AppUtils
 import com.angcyo.github.utilcode.utils.ClipboardUtils
 import com.angcyo.github.utilcode.utils.CmdUtil
 import com.angcyo.github.utilcode.utils.CmdUtil.AppInfo
@@ -66,6 +67,14 @@ class AppInfoDemoUIView : BaseRecyclerUIView<AppInfo>() {
                     ClipboardUtils.copyText(packageName)
                     Tip.ok("包名\n$packageName\n已复制")
                 }
+                holder.click(R.id.copy_md5_button) {
+                    ClipboardUtils.copyText(bean.md5)
+                    Tip.ok("MD5\n${bean.md5}\n已复制")
+                }
+                holder.click(R.id.copy_sha1_button) {
+                    ClipboardUtils.copyText(bean.sha1)
+                    Tip.ok("SHA1\n${bean.sha1}\n已复制")
+                }
 
                 holder.click(R.id.attr_button) {
                     RUtils.openAppDetailView(mActivity, packageName)
@@ -81,6 +90,16 @@ class AppInfoDemoUIView : BaseRecyclerUIView<AppInfo>() {
                 super.onBindModelView(model, isSelector, holder, position, bean)
                 if (isSelector) {
                     holder.visible(R.id.control_layout)
+                    bean?.let {
+                        if (it.md5 == null) {
+                            it.md5 = AppUtils.getAppSignatureMD5(mActivity, it.packageName)
+                            it.sha1 = AppUtils.getAppSignatureSHA1(mActivity, it.packageName)
+                            notifyItemChanged(position)
+                        } else {
+                            holder.tv(R.id.app_md5_view).text = it.md5
+                            holder.tv(R.id.app_sha1_view).text = it.sha1
+                        }
+                    }
                 } else {
                     holder.gone(R.id.control_layout)
                 }
