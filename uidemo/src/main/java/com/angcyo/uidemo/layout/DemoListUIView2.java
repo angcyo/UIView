@@ -918,19 +918,6 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                initItem(holder, posInData + 1 + ".RGroupAdapter Demo", false, new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View v) {
-                        startIView(new RGroupAdapterUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
-                    }
-                });
-            }
-        });
-        items.add(new SingleItem(SingleItem.Type.LINE) {
-
-            @Override
-            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
                 initItem(holder, posInData + 1 + ".Guide Layout Demo", false, new View.OnClickListener() {
 
                     @Override
