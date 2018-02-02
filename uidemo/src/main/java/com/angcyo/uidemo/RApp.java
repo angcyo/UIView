@@ -8,8 +8,6 @@ import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.Root;
 import com.tencent.smtt.sdk.QbSdk;
 
-import jp.wasabeef.takt.Takt;
-
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
  * 项目名称：
@@ -68,7 +66,7 @@ public class RApp extends RApplication {
     @Override
     public void onTerminate() {
         if (BuildConfig.SHOW_DEBUG) {
-            Takt.finish();
+            //Takt.finish();
         }
         super.onTerminate();
     }
