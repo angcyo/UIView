@@ -35,6 +35,16 @@ android {
 //            ]
 //        }
 //    }
+
+    signingConfigs {
+        angcyo {
+            keyAlias 'angcyo'
+            keyPassword 'angcyo'
+            storeFile file('../RLibrary/angcyo.jks')
+            storePassword 'angcyo'
+        }
+    }
+
     flavorDimensions "type"
     productFlavors {
         //develop
