@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -247,6 +247,29 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_mdpi"
             android:text="B2_4"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/base_shadow_white_bg"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/base_shadow_white_bg"
+            android:gravity="center"
+            android:text="测试文本"/>
 
     </LinearLayout>
 
