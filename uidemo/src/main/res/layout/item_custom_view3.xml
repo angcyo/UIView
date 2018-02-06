@@ -87,6 +87,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"/>
+
+        <com.angcyo.uiview.widget.ShakeImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hot_package_1"
+            android:visibility="visible"/>
+
+        <com.angcyo.uiview.widget.ShakeImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/base_san_ico"
+            android:visibility="visible"
+            app:r_shake_y_ratio="0.85"/>
     </LinearLayout>
 
     <LinearLayout
@@ -121,7 +134,6 @@
             android:layout_marginStart="@dimen/base_xhdpi"
             app:r_age="11120"
             app:r_sex="MALE"/>
-
 
         <com.angcyo.uiview.widget.SexView
             android:layout_width="wrap_content"

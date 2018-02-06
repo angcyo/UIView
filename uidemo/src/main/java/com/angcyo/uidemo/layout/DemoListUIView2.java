@@ -158,6 +158,10 @@ public class DemoListUIView2 extends BaseItemUIView {
             T_.info("友情提示\n请关闭 '三指截屏'");
             Tip.tip("友情提示\n请关闭 '三指截屏'");
         }
+
+        for (int a = 0; a < 100; a++) {
+            L.e((a << 3) + " -> " + (a * 8));
+        }
     }
 
     @Override
