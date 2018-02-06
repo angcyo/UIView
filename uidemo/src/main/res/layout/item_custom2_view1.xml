@@ -11,5 +11,16 @@
         android:layout_gravity="center_horizontal"
         android:paddingStart="@dimen/base_ldpi"/>
 
+    <com.angcyo.uidemo.layout.demo.view.CanvasView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
+    <com.angcyo.uidemo.layout.demo.view.CanvasEditTextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我不是很好"
+        android:textColor="@color/base_white"
+        android:textSize="30dp"/>
 
 </LinearLayout>
