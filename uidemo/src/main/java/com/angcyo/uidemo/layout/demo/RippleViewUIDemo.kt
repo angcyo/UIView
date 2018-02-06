@@ -18,7 +18,7 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
  * Version: 1.0.0
  */
 class RippleViewUIDemo : BaseItemUIView() {
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
 

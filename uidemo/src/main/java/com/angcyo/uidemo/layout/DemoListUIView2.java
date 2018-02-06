@@ -20,6 +20,7 @@ import com.angcyo.uidemo.layout.demo.ConstraintLayoutUIView;
 import com.angcyo.uidemo.layout.demo.ContentStateUIView;
 import com.angcyo.uidemo.layout.demo.CursorLoaderUIView;
 import com.angcyo.uidemo.layout.demo.CustomViewUIView;
+import com.angcyo.uidemo.layout.demo.CustomViewUIView2;
 import com.angcyo.uidemo.layout.demo.DYRecordLayoutUIView;
 import com.angcyo.uidemo.layout.demo.DiceCardUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
@@ -466,6 +467,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new CustomViewUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".Custom View Demo2", new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new CustomViewUIView2().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }

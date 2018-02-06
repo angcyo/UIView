@@ -35,6 +35,12 @@ import java.util.List;
  * Version: 1.0.0
  */
 public class CustomViewUIView extends BaseItemUIView {
+
+    @Override
+    protected String getTitleString() {
+        return "自定义View演示";
+    }
+
     @Override
     protected int getItemLayoutId(int viewType) {
         if (viewType == 0) {

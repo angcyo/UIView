@@ -11,29 +11,26 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
  * 项目名称：
  * 类的描述：
  * 创建人员：Robi
- * 创建时间：2017/08/26 16:07
+ * 创建时间：2018/02/05 17:24
  * 修改人员：Robi
- * 修改时间：2017/08/26 16:07
+ * 修改时间：2018/02/05 17:24
  * 修改备注：
  * Version: 1.0.0
  */
-class ConstraintLayoutUIView : BaseItemUIView() {
+class CustomViewUIView2 : BaseItemUIView() {
 
-    override fun getItemLayoutId(position: Int) = when (position) {
-        0 -> R.layout.view_constraint_layout
-        1 -> R.layout.view_constraint_linearlayout
-        else -> R.layout.view_constraint_layout
+    override fun getTitleString(): String {
+        return "自定义View演示2"
     }
 
     override fun createItems(items: MutableList<SingleItem>) {
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
 
             }
-        })
-        items?.add(object : SingleItem() {
-            override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
 
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_custom2_view1
             }
         })
     }

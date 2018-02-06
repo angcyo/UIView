@@ -22,7 +22,7 @@ import com.angcyo.uiview.viewgroup.RGalleryLayout
  * Version: 1.0.0
  */
 class GalleryLayoutUIView : BaseItemUIView() {
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         items?.let {
             it.add(object : SingleItem() {
                 override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {

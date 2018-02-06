@@ -23,7 +23,7 @@ import com.angcyo.uiview.widget.ItemInfoLayout
  */
 
 class InputTextUIDemo : BaseItemUIView() {
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val infoLayout1: ItemInfoLayout = holder.v(R.id.item_layout1)

@@ -23,7 +23,7 @@ import java.util.regex.Pattern
  */
 class RegularTestUIDemo : BaseItemUIView() {
     private var parrernEditText: ExEditText? = null
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 //holder.tv(R.id.tip_view).text = "Url正则测试"

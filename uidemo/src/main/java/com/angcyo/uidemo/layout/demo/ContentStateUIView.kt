@@ -51,7 +51,7 @@ class ContentStateUIView : BaseItemUIView() {
         }
     }
 
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)

@@ -45,7 +45,7 @@ class Mp3PlayUIDemo : BaseItemUIView() {
     private val url = "http://audio.klgwl.com/63362/AAC_20171024_133804.aac_t_7.aac"
 
     private var click_count = 0
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         player.init()
 
         items?.add(object : SingleItem() {

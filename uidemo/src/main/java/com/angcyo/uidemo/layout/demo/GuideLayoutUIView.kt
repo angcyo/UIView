@@ -31,7 +31,7 @@ class GuideLayoutUIView(anchorView: View /*锚点View*/) : UIIDialogImpl() {
         L.e("call: GuideLayoutUIView init -> $anchorRect")
     }
 
-    override fun inflateDialogView(dialogRootLayout: FrameLayout?, inflater: LayoutInflater?): View {
+    override fun inflateDialogView(dialogRootLayout: FrameLayout, inflater: LayoutInflater): View {
         return inflate(R.layout.dialog_guide_layout)
     }
 

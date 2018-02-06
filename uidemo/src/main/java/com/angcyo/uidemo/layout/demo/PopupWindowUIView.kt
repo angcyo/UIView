@@ -25,7 +25,7 @@ class PopupWindowUIView : BaseItemUIView() {
         return R.layout.view_popup_window
     }
 
-    override fun createItems(items: MutableList<SingleItem>?) {
+    override fun createItems(items: MutableList<SingleItem>) {
         items?.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
 //                holder.click(R.id.button1) { view ->
