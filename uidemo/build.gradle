@@ -114,6 +114,7 @@ dependencies {
     implementation project(':RLibrary:uiview')
     implementation project(':RLibrary:imagepicker')
     implementation project(':RLibrary:websocket')
+    implementation project(':RTbs')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

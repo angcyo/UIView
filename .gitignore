@@ -17,5 +17,6 @@ gradlew.bat
 /RLibrary2
 /RLibrary
 /apk
+/RTbs
 *.log
 

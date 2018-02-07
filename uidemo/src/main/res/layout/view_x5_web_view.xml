@@ -26,6 +26,14 @@
             android:layout_height="35dp"
             android:text="Go"/>
 
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/new_button"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/base_hdpi"
+            android:text="new"/>
+
     </LinearLayout>
 
     <FrameLayout

@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
 import com.angcyo.library.utils.L
+import com.angcyo.rtbs.X5WebUIView
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uidemo.x5.X5Utils
@@ -38,6 +39,7 @@ class X5WebViewUIDemo : BaseContentUIView() {
         inflate(R.layout.view_x5_web_view)
     }
 
+    private lateinit var webView: X5WebView
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
         mActivity.window.setFormat(PixelFormat.TRANSLUCENT)
@@ -52,7 +54,7 @@ class X5WebViewUIDemo : BaseContentUIView() {
         }
 
 
-        val webView: X5WebView = mViewHolder.v(R.id.web_view)
+        webView = mViewHolder.v(R.id.web_view)
         val editView: ExEditText = mViewHolder.v(R.id.edit_text)
 
         editView.text = SpannableStringBuilder("http://wap.klgwl.com/index/openapp")
@@ -82,6 +84,10 @@ class X5WebViewUIDemo : BaseContentUIView() {
             addToLast("go->" + editView.string())
         }
 
+        click(R.id.new_button) {
+            startIView(X5WebUIView(webView.url))
+        }
+
         X5Utils.initWebSetting(webView)
         X5Utils.initWebViewClient(webView, object : WebViewClient() {
             override fun shouldOverrideUrlLoading(webView: WebView, url: String?): Boolean {
@@ -108,5 +114,13 @@ class X5WebViewUIDemo : BaseContentUIView() {
                 T_.show("下载:$url")
             }
         })
+    }
+
+    override fun onBackPressed(): Boolean {
+        if (webView.canGoBack()) {
+            webView.goBack()
+            return false
+        }
+        return true
     }
 }
