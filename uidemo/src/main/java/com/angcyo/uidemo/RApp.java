@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.telephony.TelephonyManager;
 
+import com.angcyo.rjpush.RJpush;
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.Root;
 import com.tencent.smtt.sdk.QbSdk;
@@ -56,6 +57,8 @@ public class RApp extends RApplication {
 
         //x5内核初始化接口
         QbSdk.initX5Environment(this, null);
+
+        RJpush.init(this, BuildConfig.DEBUG);
     }
 
     @Override

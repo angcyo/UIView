@@ -15,7 +15,7 @@ android {
     compileSdkVersion Integer.parseInt(rootProject.C_SDK)
     buildToolsVersion rootProject.B_TOOLS
     defaultConfig {
-        applicationId "com.angcyo.uidemo"
+        applicationId "$application_id"
         minSdkVersion Integer.parseInt(rootProject.M_SDK)
         targetSdkVersion Integer.parseInt(rootProject.T_SDK)
         versionCode 1
@@ -27,6 +27,14 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'x86', 'x86_64'//, 'arm64-v8a'
             //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: "$application_id",
+                //JPush上注册的包名对应的appkey.
+                JPUSH_APPKEY : "b88ee118e6a0c810dbba5012",
+                //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default",
+        ]
     }
 //    sourceSets {
 //        main {
@@ -79,6 +87,10 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     /*Gradle3.0 以下的方法*/
 //    getApplicationVariants().all { variant ->
 //        variant.outputs.each { output ->
@@ -115,6 +127,7 @@ dependencies {
     implementation project(':RLibrary:imagepicker')
     implementation project(':RLibrary:websocket')
     implementation project(':RTbs')
+    implementation project(':RJpush')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
