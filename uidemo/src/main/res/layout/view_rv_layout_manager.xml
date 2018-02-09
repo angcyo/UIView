@@ -3,4 +3,73 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
+    <com.angcyo.uiview.recycler.RRecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark40"
+        android:checkedButton="@+id/circle"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/circle"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="CircleLayoutManager"
+            android:textSize="14dp"/>
+
+        <RadioButton
+            android:id="@+id/circle_scale"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="CircleScaleLayoutManager"
+            android:textSize="14dp"/>
+
+        <RadioButton
+            android:id="@+id/scale"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="ScaleLayoutManager"
+            android:textSize="14dp"/>
+
+        <RadioButton
+            android:id="@+id/carousel"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="CarouselLayoutManager"
+            android:textSize="14dp"/>
+
+        <RadioButton
+            android:id="@+id/gallery"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="GalleryLayoutManager"
+            android:textSize="14dp"/>
+
+        <RadioButton
+            android:id="@+id/rotate"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="RotateLayoutManager"
+            android:textSize="14dp"/>
+
+    </RadioGroup>
+
 </FrameLayout>
