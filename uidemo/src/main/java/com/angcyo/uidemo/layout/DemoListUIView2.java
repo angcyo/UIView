@@ -48,6 +48,7 @@ import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView2;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
+import com.angcyo.uidemo.layout.demo.RVLayoutManagerUIView;
 import com.angcyo.uidemo.layout.demo.RegularTestUIDemo;
 import com.angcyo.uidemo.layout.demo.RippleDrawableDemoUIView;
 import com.angcyo.uidemo.layout.demo.RippleViewUIDemo;
@@ -993,6 +994,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new AppInfoDemoUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".RV LayoutManager Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new RVLayoutManagerUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
