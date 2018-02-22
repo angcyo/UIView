@@ -20,7 +20,7 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
 class RippleViewUIDemo : BaseItemUIView() {
     override fun createItems(items: MutableList<SingleItem>) {
         items?.add(object : SingleItem() {
-            override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
 
             }
 

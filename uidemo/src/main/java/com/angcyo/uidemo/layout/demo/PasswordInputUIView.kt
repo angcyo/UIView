@@ -33,7 +33,7 @@ class PasswordInputUIView : BaseItemUIView() {
 
     override fun createItems(items: MutableList<SingleItem>) {
         items.add(object : SingleItem() {
-            override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder?.click(R.id.button) {
                     val view: PasswordInputEditText = holder!!.v(R.id.password_input_view)
                     //view.isEnabled = false

@@ -25,7 +25,7 @@ class CustomViewUIView2 : BaseItemUIView() {
 
     override fun createItems(items: MutableList<SingleItem>) {
         items.add(object : SingleItem() {
-            override fun onBindView(holder: RBaseViewHolder?, posInData: Int, dataBean: Item?) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
 
             }
 
