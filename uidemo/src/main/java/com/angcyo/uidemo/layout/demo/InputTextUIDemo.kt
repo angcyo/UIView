@@ -8,7 +8,9 @@ import com.angcyo.uiview.base.UIInputView
 import com.angcyo.uiview.dialog.UIInputDialog
 import com.angcyo.uiview.dialog.UIInputExDialog
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.widget.ExEditText
 import com.angcyo.uiview.widget.ItemInfoLayout
+import com.angcyo.uiview.widget.viewpager.TextIndicator
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -24,7 +26,7 @@ import com.angcyo.uiview.widget.ItemInfoLayout
 
 class InputTextUIDemo : BaseItemUIView() {
     override fun createItems(items: MutableList<SingleItem>) {
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val infoLayout1: ItemInfoLayout = holder.v(R.id.item_layout1)
                 infoLayout1.setItemText("点击输入单行文本")
@@ -128,6 +130,25 @@ class InputTextUIDemo : BaseItemUIView() {
 
             override fun getItemLayoutId(): Int {
                 return R.layout.view_input_text
+            }
+
+        })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                val editText: ExEditText = holder.v(R.id.edit_text)
+                val indicator: TextIndicator = holder.v(R.id.indicator)
+
+                indicator.setupEditText(editText)
+
+                holder.cV(R.id.char_filter_cb).setOnCheckedChangeListener { _, isChecked ->
+                    editText.isUseCharLengthFilter = isChecked
+                    editText.setMaxLength(editText.maxCharLength)
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_input_layout2
             }
 
         })
