@@ -1047,6 +1047,15 @@ public class DemoListUIView2 extends BaseItemUIView {
                         }));
                     }
                 });
+
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Tip.tip("正在模拟Crash");
+                        int i = 1 / 0;
+                        return false;
+                    }
+                });
             }
         });
 
