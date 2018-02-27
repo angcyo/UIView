@@ -4,3 +4,4 @@ include ':RLibrary:uiview', ':RLibrary:rcode', ':RLibrary:github', ':RLibrary:li
 include ':RLibrary:websocket'
 include ':RTbs'
 include ':RJpush'
+include ':RLibrary:zxingzbar'

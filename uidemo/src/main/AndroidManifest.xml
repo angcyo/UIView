@@ -23,7 +23,11 @@
         android:theme="@style/BaseWhiteAppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

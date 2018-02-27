@@ -39,6 +39,7 @@ import com.angcyo.uidemo.layout.demo.MathPathUIView;
 import com.angcyo.uidemo.layout.demo.MentionDemoUIView;
 import com.angcyo.uidemo.layout.demo.Mp3PlayUIDemo;
 import com.angcyo.uidemo.layout.demo.MyScanUIView;
+import com.angcyo.uidemo.layout.demo.MyScanUIView2;
 import com.angcyo.uidemo.layout.demo.NotifyDemoUIView;
 import com.angcyo.uidemo.layout.demo.PasswordInputUIView;
 import com.angcyo.uidemo.layout.demo.PopupWindowUIView;
@@ -1007,6 +1008,25 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new RVLayoutManagerUIView().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".ZxingZbar Scan Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new MyScanUIView2(new Action1<String>() {
+                            @Override
+                            public void call(String s) {
+                                startIView(new ScanResultUIView(s));
+                            }
+                        })/*.setEnableClipMode(ClipMode.CLIP_BOTH, v)*/);
                     }
                 });
             }
