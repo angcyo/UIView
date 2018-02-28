@@ -47,6 +47,7 @@ import com.angcyo.uidemo.layout.demo.QQNavigationUIView;
 import com.angcyo.uidemo.layout.demo.RGroupAdapterUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView;
 import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView2;
+import com.angcyo.uidemo.layout.demo.RRecyclerViewDemoUIView3;
 import com.angcyo.uidemo.layout.demo.RSwipeRecyclerUIView;
 import com.angcyo.uidemo.layout.demo.RTLUIView;
 import com.angcyo.uidemo.layout.demo.RVLayoutManagerUIView;
@@ -428,10 +429,13 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        if (clickCount % 2 == 0) {
-                            startIView(new RRecyclerViewDemoUIView2());
-                        } else {
+                        int value = clickCount % 3;
+                        if (value == 0) {
+                            startIView(new RRecyclerViewDemoUIView3());
+                        } else if (value == 1) {
                             startIView(new RRecyclerViewDemoUIView());
+                        } else if (value == 2) {
+                            startIView(new RRecyclerViewDemoUIView2());
                         }
                         clickCount++;
                     }
