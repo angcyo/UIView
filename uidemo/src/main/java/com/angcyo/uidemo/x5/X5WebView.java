@@ -3,9 +3,7 @@ package com.angcyo.uidemo.x5;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.tencent.smtt.sdk.WebView;
-
-public class X5WebView extends WebView {
+public class X5WebView extends com.angcyo.rtbs.X5WebView {
 
     public X5WebView(Context arg0) {
         this(arg0, null);
@@ -15,6 +13,6 @@ public class X5WebView extends WebView {
         super(arg0, arg1);
         setBackgroundColor(85621);
         this.getView().setClickable(true);
-        X5Utils.initWebSetting(this);
+//        X5Utils.initWebSetting(this);
     }
 }

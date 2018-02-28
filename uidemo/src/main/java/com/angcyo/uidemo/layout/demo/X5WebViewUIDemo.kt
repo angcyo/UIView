@@ -6,22 +6,17 @@ import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
-import com.angcyo.library.utils.L
+import com.angcyo.rtbs.DownloadFileBean
+import com.angcyo.rtbs.X5FileDownloadUIView
 import com.angcyo.rtbs.X5WebUIView
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
-import com.angcyo.uidemo.x5.X5Utils
 import com.angcyo.uidemo.x5.X5WebView
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
-import com.angcyo.uiview.utils.RUtils
-import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.widget.ExEditText
-import com.tencent.smtt.sdk.DownloadListener
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -88,33 +83,57 @@ class X5WebViewUIDemo : BaseContentUIView() {
             startIView(X5WebUIView(webView.url))
         }
 
-        X5Utils.initWebSetting(webView)
-        X5Utils.initWebViewClient(webView, object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(webView: WebView, url: String?): Boolean {
-                L.e("call: shouldOverrideUrlLoading -> $url")
-                if (!TextUtils.isEmpty(url)) {
-                    addToLast("load->" + url)
+//        X5Utils.initWebSetting(webView)
+//        X5Utils.initWebViewClient(webView, object : WebViewClient() {
+//            override fun shouldOverrideUrlLoading(webView: WebView, url: String?): Boolean {
+//                L.e("call: shouldOverrideUrlLoading -> $url")
+//                if (!TextUtils.isEmpty(url)) {
+//                    addToLast("load->" + url)
+//
+//                    if (url!!.startsWith("http")) {
+//                        webView.loadUrl(url)
+//                    } else {
+//                        RUtils.openAppFromUrl(mActivity, url)
+//                    }
+//                }
+//                return true
+//            }
+//        })
+//        X5Utils.initWebChromeClient(webView)
+//
+//        X5Utils.initDownloadListener(webView, object : DownloadListener {
+//            override fun onDownloadStart(url: String?, p1: String?, p2: String?, p3: String?, p4: Long) {
+//                L.e("call: onDownloadStart -> $url")
+//                addToLast("down->" + url)
+//
+//                T_.show("下载:$url")
+//            }
+//        })
 
-                    if (url!!.startsWith("http")) {
-                        webView.loadUrl(url)
-                    } else {
-                        RUtils.openAppFromUrl(mActivity, url)
+        webView.setMyDownloadListener { url, userAgent, contentDisposition, mime, length ->
+            if (TextUtils.equals(downloadUrl, url)) {
+
+            } else {
+                downloadUrl = url
+                val dialog = X5FileDownloadUIView()
+                dialog.mDownloadFileBean = DownloadFileBean()
+                dialog.mDownloadFileBean.url = url
+                dialog.mDownloadFileBean.userAgent = userAgent
+                dialog.mDownloadFileBean.fileType = mime
+                dialog.mDownloadFileBean.fileSize = length
+                dialog.mDownloadFileBean.fileName = url
+                dialog.mDownloadListener = X5FileDownloadUIView.OnDownloadListener { bean ->
+                    downloadUrl = ""
+                    if (bean == null) {
+
                     }
                 }
-                return true
+                mParentILayout.startIView(dialog)
             }
-        })
-        X5Utils.initWebChromeClient(webView)
-
-        X5Utils.initDownloadListener(webView, object : DownloadListener {
-            override fun onDownloadStart(url: String?, p1: String?, p2: String?, p3: String?, p4: Long) {
-                L.e("call: onDownloadStart -> $url")
-                addToLast("down->" + url)
-
-                T_.show("下载:$url")
-            }
-        })
+        }
     }
+
+    private var downloadUrl = ""
 
     override fun onBackPressed(): Boolean {
         if (webView.canGoBack()) {
@@ -123,4 +142,22 @@ class X5WebViewUIDemo : BaseContentUIView() {
         }
         return true
     }
+
+    override fun onViewShow(viewShowCount: Long) {
+        super.onViewShow(viewShowCount)
+        webView.onResume()
+        webView.resumeTimers()
+    }
+
+    override fun onViewHide() {
+        super.onViewHide()
+        webView.onPause()
+        webView.pauseTimers()
+    }
+
+    override fun onViewUnload() {
+        super.onViewUnload()
+        webView.destroy()
+    }
+
 }
