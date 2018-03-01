@@ -16,6 +16,7 @@ import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
+import com.angcyo.uiview.utils.RUtils
 import com.angcyo.uiview.widget.ExEditText
 
 /**
@@ -121,7 +122,8 @@ class X5WebViewUIDemo : BaseContentUIView() {
                 dialog.mDownloadFileBean.userAgent = userAgent
                 dialog.mDownloadFileBean.fileType = mime
                 dialog.mDownloadFileBean.fileSize = length
-                dialog.mDownloadFileBean.fileName = url
+                dialog.mDownloadFileBean.fileName = RUtils.getFileNameFromAttachment(contentDisposition)
+                dialog.mDownloadFileBean.contentDisposition = contentDisposition
                 dialog.mDownloadListener = X5FileDownloadUIView.OnDownloadListener { bean ->
                     downloadUrl = ""
                     if (bean == null) {
