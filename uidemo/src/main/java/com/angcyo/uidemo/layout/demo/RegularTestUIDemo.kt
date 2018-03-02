@@ -6,6 +6,7 @@ import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.utils.RUtils
 import com.angcyo.uiview.widget.ExEditText
 import com.angcyo.uiview.widget.RExTextView
 import java.util.regex.Pattern
@@ -24,7 +25,7 @@ import java.util.regex.Pattern
 class RegularTestUIDemo : BaseItemUIView() {
     private var parrernEditText: ExEditText? = null
     override fun createItems(items: MutableList<SingleItem>) {
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 //holder.tv(R.id.tip_view).text = "Url正则测试"
                 //holder.eV(R.id.edit_text).hint = RExTextView.patternUrl.pattern()
@@ -61,7 +62,7 @@ class RegularTestUIDemo : BaseItemUIView() {
                 return R.layout.item_regular_input_tip_layout_custom
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder.tv(R.id.tip_view).text = "Url正则测试"
                 holder.eV(R.id.edit_text).hint = RExTextView.patternUrl.pattern()
@@ -79,7 +80,7 @@ class RegularTestUIDemo : BaseItemUIView() {
                 return R.layout.item_regular_input_tip_layout
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder.tv(R.id.tip_view).text = "Phone正则测试"
                 holder.eV(R.id.edit_text).hint = RExTextView.patternPhone.pattern()
@@ -95,7 +96,7 @@ class RegularTestUIDemo : BaseItemUIView() {
                 return R.layout.item_regular_input_tip_layout
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder.tv(R.id.tip_view).text = "Tel正则测试"
                 holder.eV(R.id.edit_text).hint = RExTextView.patternTel.pattern()
@@ -111,7 +112,7 @@ class RegularTestUIDemo : BaseItemUIView() {
                 return R.layout.item_regular_input_tip_layout
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder.tv(R.id.tip_view).text = "Number正则测试"
                 holder.eV(R.id.edit_text).hint = RExTextView.patternNumber.pattern()
@@ -120,6 +121,25 @@ class RegularTestUIDemo : BaseItemUIView() {
                 }
                 holder.click(R.id.apply_button) {
                     parrernEditText?.setInputText(RExTextView.patternNumber.pattern())
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_regular_input_tip_layout
+            }
+        })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                holder.tv(R.id.tip_view).text = "身份证号码验证"
+                holder.tv(R.id.apply_button).text = "默认值"
+
+                holder.eV(R.id.edit_text).hint = "18位"
+                holder.click(R.id.button) {
+                    (it as TextView).text = RUtils.isIDCardValidate(holder.exV(R.id.edit_text).string()).toString()
+                }
+                holder.click(R.id.apply_button) {
+                    holder.exV(R.id.edit_text).setInputText("61052619910820938X")
                 }
             }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.widget.RFlowLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/start_button"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_ldpi"
+        android:text="启动一个UIView"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/finish_button"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_ldpi"
+        android:text="关闭一个UIView"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/show_button"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_ldpi"
+        android:text="显示一个UIView"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/hide_button"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_ldpi"
+        android:text="隐藏一个UIView"/>
+
+</com.angcyo.uiview.widget.RFlowLayout>

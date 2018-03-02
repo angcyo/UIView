@@ -39,7 +39,7 @@ class ContentStateUIView : BaseItemUIView() {
                     Tip.tip("按钮按钮按钮按钮")
                 })
                 .addRightItem(TitleBarPattern.TitleBarItem(R.drawable.hot_package) {
-                    Tip.tip("红包")
+                    Tip.tip("隐藏自己")
                 })
     }
 
@@ -52,40 +52,62 @@ class ContentStateUIView : BaseItemUIView() {
     }
 
     override fun createItems(items: MutableList<SingleItem>) {
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)
                 itemInfo.setItemText("显示加载状态")
                 itemInfo.setOnClickListener { showLoadLayout() }
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)
                 itemInfo.setItemText("显示空数据状态")
                 itemInfo.setOnClickListener { showEmptyLayout() }
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)
                 itemInfo.setItemText("显示无网络状态")
                 itemInfo.setOnClickListener { showNonetLayout { showContentLayout() } }
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)
                 itemInfo.setItemText("显示错误状态")
                 itemInfo.setOnClickListener { showErrorLayout() }
             }
         })
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 val itemInfo = holder.item(R.id.base_item_info_layout)
                 itemInfo.setItemText("显示内容状态")
                 itemInfo.setOnClickListener { showContentLayout() }
             }
+        })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                holder.click(R.id.start_button) {
+
+                }
+                holder.click(R.id.finish_button) {
+
+                }
+                holder.click(R.id.show_button) {
+
+                }
+                holder.click(R.id.hide_button) {
+
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_uiview_start_demo
+            }
+
         })
     }
 }
