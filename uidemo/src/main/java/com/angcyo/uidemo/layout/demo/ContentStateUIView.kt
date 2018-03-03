@@ -11,6 +11,7 @@ import com.angcyo.uiview.model.TitleBarItem
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.Tip
+import com.angcyo.uiview.view.IView
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -92,8 +93,9 @@ class ContentStateUIView : BaseItemUIView() {
 
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
-                val startUIView = StartUIView()
+                var startUIView: IView? = StartUIView()
                 holder.click(R.id.start_button) {
+                    startUIView = StartUIView()
                     startIView(startUIView)
                 }
                 holder.click(R.id.finish_button) {
