@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.model.TitleBarItem;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.view.UIIViewImpl;
@@ -35,16 +36,16 @@ public class Demo3IView extends UIIViewImpl {
         return null;
     }
 
-    private ArrayList<TitleBarPattern.TitleBarItem> getRightItems() {
-        ArrayList<TitleBarPattern.TitleBarItem> items = new ArrayList<>();
-        items.add(TitleBarPattern.TitleBarItem.build()
+    private ArrayList<TitleBarItem> getRightItems() {
+        ArrayList<TitleBarItem> items = new ArrayList<>();
+        items.add(TitleBarItem.build()
                 .setText("Demo").setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         T.show(mActivity, "Demo");
                     }
                 }));
-        items.add(TitleBarPattern.TitleBarItem.build()
+        items.add(TitleBarItem.build()
                 .setText("Item").setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -54,7 +55,7 @@ public class Demo3IView extends UIIViewImpl {
         return items;
     }
 
-    private ArrayList<TitleBarPattern.TitleBarItem> getLeftItems() {
+    private ArrayList<TitleBarItem> getLeftItems() {
         return getRightItems();
     }
 

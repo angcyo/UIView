@@ -8,6 +8,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
+import com.angcyo.uiview.model.AnimParam;
 import com.angcyo.uiview.resources.ResUtil;
 import com.angcyo.uiview.widget.ExSoftInputLayout;
 
@@ -27,7 +28,7 @@ public class EmojiUIView extends UIContentView {
     ExSoftInputLayout mSoftInputLayout;
 
     @Override
-    public Animation loadLayoutAnimation() {
+    public Animation loadLayoutAnimation(AnimParam animParam) {
         return null;
     }
 

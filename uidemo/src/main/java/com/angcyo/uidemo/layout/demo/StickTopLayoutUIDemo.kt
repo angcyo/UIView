@@ -7,6 +7,7 @@ import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.design.StickTopLayout
 import com.angcyo.uiview.kotlin.vh
+import com.angcyo.uiview.model.TitleBarItem
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.widget.viewpager.UIViewPager
 
@@ -30,7 +31,7 @@ class StickTopLayoutUIDemo : BaseContentUIView() {
     override fun getTitleBar(): TitleBarPattern? {
         return super.getTitleBar()
                 ?.setFloating(true)
-                ?.addRightItem(TitleBarPattern.TitleBarItem(R.drawable.base_next) {
+                ?.addRightItem(TitleBarItem(R.drawable.base_next) {
                     stickTopLayout.openTop()
                 })
     }

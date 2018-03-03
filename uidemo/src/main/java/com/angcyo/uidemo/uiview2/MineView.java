@@ -7,6 +7,7 @@ import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.container.ContentLayout;
+import com.angcyo.uiview.model.TitleBarItem;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.base.Network;
 import com.angcyo.uiview.utils.Reflect;
@@ -33,20 +34,20 @@ public class MineView extends UIBaseView {
             @Override
             public void run() {
                 showContentLayout();
-                ArrayList<TitleBarPattern.TitleBarItem> items = new ArrayList<TitleBarPattern.TitleBarItem>();
-                items.add(TitleBarPattern.TitleBarItem.build().setRes(R.drawable.home_48).setListener(new View.OnClickListener() {
+                ArrayList<TitleBarItem> items = new ArrayList<TitleBarItem>();
+                items.add(TitleBarItem.build().setRes(R.drawable.home_48).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         T.show(mActivity, "Home " + Network.getNetTypeName(mActivity));
                     }
                 }));
-                items.add(TitleBarPattern.TitleBarItem.build().setRes(R.drawable.live_48).setListener(new View.OnClickListener() {
+                items.add(TitleBarItem.build().setRes(R.drawable.live_48).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         T.show(mActivity, "Love " + Network.isConnected(mActivity));
                     }
                 }));
-                ArrayList<TitleBarPattern.TitleBarItem> items2 = new ArrayList<TitleBarPattern.TitleBarItem>();
+                ArrayList<TitleBarItem> items2 = new ArrayList<TitleBarItem>();
                 items2.addAll(items);
 
                 mUITitleBarContainer.setTitleBarPattern(

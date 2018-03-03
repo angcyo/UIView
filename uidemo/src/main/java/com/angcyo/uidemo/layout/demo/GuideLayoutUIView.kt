@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uiview.base.UIIDialogImpl
+import com.angcyo.uiview.model.AnimParam
 import com.angcyo.uiview.widget.group.GuideFrameLayout
 
 /**
@@ -55,19 +56,19 @@ class GuideLayoutUIView(anchorView: View /*锚点View*/) : UIIDialogImpl() {
         return false
     }
 
-    override fun loadStartAnimation(): Animation? {
+    override fun loadStartAnimation(animParam: AnimParam): Animation? {
         return null
     }
 
-    override fun loadFinishAnimation(): Animation? {
+    override fun loadFinishAnimation(animParam: AnimParam): Animation? {
         return null
     }
 
-    override fun loadOtherEnterAnimation(): Animation? {
+    override fun loadOtherEnterAnimation(animParam: AnimParam): Animation? {
         return null
     }
 
-    override fun loadOtherExitAnimation(): Animation? {
+    override fun loadOtherExitAnimation(animParam: AnimParam): Animation? {
         return null
     }
 

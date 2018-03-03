@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="50dp">
 
     <com.angcyo.uiview.widget.Button
         android:id="@+id/start_button"
@@ -19,7 +20,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/base_ldpi"
-        android:text="关闭一个UIView"/>
+        android:text="关闭"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/replace_button"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_ldpi"
+        android:text="Replace"/>
 
     <com.angcyo.uiview.widget.Button
         android:id="@+id/show_button"
@@ -27,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/base_ldpi"
-        android:text="显示一个UIView"/>
+        android:text="显示"/>
 
     <com.angcyo.uiview.widget.Button
         android:id="@+id/hide_button"
@@ -35,6 +44,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/base_ldpi"
-        android:text="隐藏一个UIView"/>
+        android:text="隐藏"/>
 
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/show_button2"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_ldpi"
+        android:text="重新显示StartUIView"/>
 </com.angcyo.uiview.widget.RFlowLayout>

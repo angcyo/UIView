@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.container.ILayout;
+import com.angcyo.uiview.model.TitleBarItem;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.utils.T;
 import com.angcyo.uiview.view.UIIViewImpl;
@@ -35,18 +36,18 @@ public class DemoIView extends UIIViewImpl {
         return pattern;
     }
 
-    private ArrayList<TitleBarPattern.TitleBarItem> getRightItems() {
-        ArrayList<TitleBarPattern.TitleBarItem> items = new ArrayList<>();
-        items.add(TitleBarPattern.TitleBarItem.build()
+    private ArrayList<TitleBarItem> getRightItems() {
+        ArrayList<TitleBarItem> items = new ArrayList<>();
+        items.add(TitleBarItem.build()
                 .setRes(R.drawable.iconfontjixieqimo));
-        items.add(TitleBarPattern.TitleBarItem.build()
+        items.add(TitleBarItem.build()
                 .setRes(R.drawable.wxbbiaowang).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         T.show(mActivity, "皇冠");
                     }
                 }));
-        items.add(TitleBarPattern.TitleBarItem.build()
+        items.add(TitleBarItem.build()
                 .setRes(R.drawable.wxbgongju).setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -56,7 +57,7 @@ public class DemoIView extends UIIViewImpl {
         return items;
     }
 
-    private ArrayList<TitleBarPattern.TitleBarItem> getLeftItems() {
+    private ArrayList<TitleBarItem> getLeftItems() {
         return getRightItems();
     }
 

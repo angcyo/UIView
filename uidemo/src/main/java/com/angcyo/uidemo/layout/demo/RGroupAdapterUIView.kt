@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.model.TitleBarItem
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
@@ -31,7 +32,7 @@ import com.angcyo.uiview.utils.Tip
 class RGroupAdapterUIView : BaseContentUIView() {
 
     override fun getTitleBar(): TitleBarPattern? {
-        return super.getTitleBar()?.addRightItem(TitleBarPattern.TitleBarItem("展开") { textView ->
+        return super.getTitleBar()?.addRightItem(TitleBarItem("展开") { textView ->
             clickExpandView(textView as TextView)
         })
     }
