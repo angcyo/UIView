@@ -3,9 +3,10 @@ package com.angcyo.uidemo.uiview3.login;
 import com.angcyo.uidemo.mvp.presenter.BasePresenter;
 import com.angcyo.uidemo.uiview3.bean.Bean;
 import com.angcyo.uidemo.uiview3.service.UserService;
+import com.angcyo.uiview.net.RException;
 import com.angcyo.uiview.net.RRetrofit;
+import com.angcyo.uiview.net.RSubscriber;
 import com.angcyo.uiview.net.TransformUtils;
-import com.angcyo.uiview.net.base.BaseSubscriber;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -26,22 +27,27 @@ public class LoginPresenterImpl extends BasePresenter<Login.ILoginView> implemen
         RRetrofit.create(UserService.class)
                 .login(authtoken, authsecret, authtype, uniqueid)
                 .compose(TransformUtils.<Bean<String>>defaultSchedulers())
-                .subscribe(new BaseSubscriber<Bean<String>>() {
+                .subscribe(new RSubscriber<Bean<String>>() {
                     @Override
                     public void onStart() {
                         mBaseView.onStartLoad();
                     }
 
                     @Override
-                    public void onResult(boolean success, Bean<String> bean, String msg) {
-                        if (success) {
-                            if (bean.getC() == 1) {
-                                mBaseView.onSuccess();
-                            } else {
-                                mBaseView.onError(bean.getC(), bean.getM());
-                            }
+                    public void onSucceed(Bean<String> bean) {
+                        super.onSucceed(bean);
+                        if (bean.getC() == 1) {
+                            mBaseView.onSuccess();
                         } else {
-                            mBaseView.onError(1, msg);
+                            mBaseView.onError(bean.getC(), bean.getM());
+                        }
+                    }
+
+                    @Override
+                    public void onEnd(boolean isError, boolean isNoNetwork, RException e) {
+                        super.onEnd(isError, isNoNetwork, e);
+                        if (isError) {
+                            mBaseView.onError(1, e.getMsg());
                         }
                     }
                 });
