@@ -47,7 +47,8 @@
             android:background="@color/base_dark_red"
             android:scaleType="centerInside"
             android:src="@drawable/base_back"
-            app:r_show_text="测试测试测试"/>
+            app:r_show_text="测试测试测试"
+            app:r_text_offset="10dp"/>
 
         <TextView
             android:layout_width="wrap_content"
