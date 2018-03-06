@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.graphics.Color
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
@@ -21,6 +22,25 @@ class CustomViewUIView2 : BaseItemUIView() {
 
     override fun getTitleString(): String {
         return "自定义View演示2"
+    }
+
+    override fun initOnShowContentLayout() {
+        super.initOnShowContentLayout()
+        startCountDown()
+    }
+
+    private fun startCountDown() {
+        startCountDown(3) {
+            val backImageView = uiTitleBarContainer.backImageView
+            backImageView.setBackgroundColor(Color.RED)
+            backImageView.setImageDrawable(null)
+            backImageView.showText = it.toString()
+            if (it <= 0) {
+                backImageView.showText = ""
+                backImageView.setImageResource(R.drawable.base_back)
+                backImageView.setBackgroundColor(Color.TRANSPARENT)
+            }
+        }
     }
 
     override fun createItems(items: MutableList<SingleItem>) {

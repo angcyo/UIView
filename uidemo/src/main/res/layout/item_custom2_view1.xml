@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/transparent_dark80"
@@ -22,5 +23,41 @@
         android:text="我不是很好"
         android:textColor="@color/base_white"
         android:textSize="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.ImageTextView2
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_green_light"
+            app:r_show_text="测试1"/>
+
+        <com.angcyo.uiview.widget.ImageTextView2
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@color/base_orange"
+            app:r_show_text="测试123"/>
+
+        <com.angcyo.uiview.widget.ImageTextView2
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/base_dark_red"
+            android:scaleType="centerInside"
+            android:src="@drawable/base_back"
+            app:r_show_text="测试测试测试"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/base_gray"
+            android:drawableLeft="@drawable/base_back"
+            android:gravity="center"
+            android:text="测试测试测试"
+            android:textColor="@color/base_white"/>
+
+    </LinearLayout>
 
 </LinearLayout>
