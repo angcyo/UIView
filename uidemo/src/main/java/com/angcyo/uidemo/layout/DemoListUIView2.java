@@ -564,13 +564,13 @@ public class DemoListUIView2 extends BaseItemUIView {
                         }
 
                         long numTest = 12347980981235L;
-                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        L.e(numTest + " : 缩短后-> " + RUtils.getShortString(numTest));
                         numTest = 78983L;
-                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        L.e(numTest + " : 缩短后-> " + RUtils.getShortString(numTest));
                         numTest = 87654321L;
-                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        L.e(numTest + " : 缩短后-> " + RUtils.getShortString(numTest));
                         numTest = 4300L;
-                        L.e("call: 缩短后-> " + RUtils.getShortString(numTest));
+                        L.e(numTest + " : 缩短后-> " + RUtils.getShortString(numTest));
 
                         View view = new View(mActivity);
                         View v1 = ViewExKt.v(view, R.id.text_view);
