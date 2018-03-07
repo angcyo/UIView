@@ -75,7 +75,14 @@ class X5WebViewUIDemo : BaseContentUIView() {
             recyclerView.scrollToLastBottom(true)
         }
 
-        mViewHolder.click(R.id.go_button) {
+        click(R.id.go_button) {
+            webView.loadUrl(editView.string())
+            addToLast("go->" + editView.string())
+        }
+        click(R.id.cookie_button) {
+            val url = "http://wap.klgwl.com/survey/detail"
+            webView.synCookies(mActivity, url, "test=angcyo")
+            editView.setInputText(url)
             webView.loadUrl(editView.string())
             addToLast("go->" + editView.string())
         }

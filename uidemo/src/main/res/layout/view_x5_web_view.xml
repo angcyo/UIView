@@ -22,17 +22,25 @@
         <com.angcyo.uiview.widget.Button
             android:id="@+id/go_button"
             style="@style/BaseSkinButtonStyle"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:text="Go"/>
 
         <com.angcyo.uiview.widget.Button
             android:id="@+id/new_button"
             style="@style/BaseSkinButtonStyle"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginStart="@dimen/base_hdpi"
             android:text="new"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/cookie_button"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="@dimen/base_hdpi"
+            android:text="Cookie"/>
 
     </LinearLayout>
 
