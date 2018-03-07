@@ -28,13 +28,13 @@ class RRecyclerViewDemoUIView2 : BaseRecyclerUIView<String>() {
     }
 
     companion object {
-        fun loadData(): List<String> {
+        fun loadDatas(): List<String> {
             val datas = (0..29).map { it.toString() }
             return datas
         }
 
         fun createSingleAdapter(context: Context): RBaseAdapter<String> {
-            return object : RBaseAdapter<String>(context, loadData()) {
+            return object : RBaseAdapter<String>(context, loadDatas()) {
                 override fun getItemLayoutId(viewType: Int): Int {
                     return R.layout.item_image_text_view
 //                    return R.layout.item_image_view
@@ -62,7 +62,7 @@ class RRecyclerViewDemoUIView2 : BaseRecyclerUIView<String>() {
     }
 
     override fun createAdapter(): RExBaseAdapter<String, String, String> {
-        return object : RExBaseAdapter<String, String, String>(mActivity, loadData()) {
+        return object : RExBaseAdapter<String, String, String>(mActivity, loadDatas()) {
 
             override fun getItemLayoutId(viewType: Int): Int {
                 return R.layout.item_recycler_view

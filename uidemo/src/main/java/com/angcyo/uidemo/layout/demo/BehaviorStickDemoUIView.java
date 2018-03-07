@@ -34,8 +34,12 @@ import java.util.List;
 public class BehaviorStickDemoUIView extends UIContentView {
 
     public static List<String> createItems() {
+        return createItems(30);
+    }
+
+    public static List<String> createItems(int size) {
         List<String> items = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < size; i++) {
             items.add("");
         }
         return items;

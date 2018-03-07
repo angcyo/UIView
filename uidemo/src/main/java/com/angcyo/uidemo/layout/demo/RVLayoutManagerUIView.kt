@@ -6,6 +6,7 @@ import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.recycler.RExLoopRecyclerView
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.utils.UI
@@ -34,23 +35,14 @@ class RVLayoutManagerUIView : BaseContentUIView() {
         val radio_group: RadioGroup = v(R.id.radio_group)
         radio_group.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.circle -> {
-                    recyclerView.layoutManager = CircleLayoutManager(mActivity)
-                }
-                R.id.circle_scale -> {
-                    recyclerView.layoutManager = CircleScaleLayoutManager(mActivity)
-                }
-                R.id.scale -> {
-                    recyclerView.layoutManager = ScaleLayoutManager(mActivity, (100 * density()).toInt())
-                }
-                R.id.carousel -> {
-                    recyclerView.layoutManager = CarouselLayoutManager(mActivity, (100 * density()).toInt())
-                }
-                R.id.rotate -> {
-                    recyclerView.layoutManager = RotateLayoutManager(mActivity, (100 * density()).toInt())
-                }
-                R.id.gallery -> {
-                    recyclerView.layoutManager = GalleryLayoutManager(mActivity, (10 * density()).toInt())
+                R.id.circle -> recyclerView.layoutManager = CircleLayoutManager(mActivity)
+                R.id.circle_scale -> recyclerView.layoutManager = CircleScaleLayoutManager(mActivity)
+                R.id.scale -> recyclerView.layoutManager = ScaleLayoutManager(mActivity, (100 * density()).toInt())
+                R.id.carousel -> recyclerView.layoutManager = CarouselLayoutManager(mActivity, (100 * density()).toInt())
+                R.id.rotate -> recyclerView.layoutManager = RotateLayoutManager(mActivity, (100 * density()).toInt())
+                R.id.gallery -> recyclerView.layoutManager = GalleryLayoutManager(mActivity, (10 * density()).toInt())
+                R.id.loop -> recyclerView.layoutManager = RExLoopRecyclerView.LoopLayoutManager(mActivity).apply {
+                    setItemInterval(recyclerView.measuredWidth.toFloat())
                 }
             }
         }

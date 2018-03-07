@@ -70,6 +70,15 @@
             android:text="RotateLayoutManager"
             android:textSize="14dp"/>
 
+        <RadioButton
+            android:id="@+id/loop"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_ldpi"
+            android:text="LoopLayoutManager"
+            android:textSize="14dp"/>
+
     </RadioGroup>
 
 </FrameLayout>

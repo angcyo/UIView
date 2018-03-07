@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.demo
 
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.demo.chat.Chat1UIView
+import com.angcyo.uidemo.layout.demo.chat.Chat2UIView
 import com.angcyo.uiview.base.PageBean
 import com.angcyo.uiview.base.UINavigationView
 
@@ -22,7 +23,10 @@ class UIChatDemo : UINavigationView() {
                 null, null,
                 R.drawable.skin_tab_icon_conversation_normal, R.drawable.skin_tab_icon_conversation_selected))
 
-        pages.add(PageBean(Chat1UIView(), "正常", "选中"))
+        pages.add(PageBean(Chat2UIView(), "正常", "选中",
+                null, null,
+                null, R.drawable.skin_tab_icon_plugin_selected,
+                null, null))
 
         pages.add(PageBean(Chat1UIView(), "", "",
                 null, null,

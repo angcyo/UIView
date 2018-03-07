@@ -105,7 +105,9 @@ public class DemoListUIView2 extends BaseItemUIView {
 
     @Override
     protected TitleBarPattern getTitleBar() {
-        return super.getTitleBar().setShowBackImageView(false);
+        return super.getTitleBar()
+                .setShowBackImageView(false)
+                .setShowTitleBarBottomShadow(true);
     }
 
 //    @Override

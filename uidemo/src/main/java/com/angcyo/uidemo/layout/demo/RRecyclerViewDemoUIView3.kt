@@ -29,7 +29,7 @@ class RRecyclerViewDemoUIView3 : BaseRecyclerUIView<String>() {
     }
 
     companion object {
-        fun loadData(): List<String> {
+        fun loadDatas(): List<String> {
             val datas = (0..29).map { it.toString() }
             return datas
         }
@@ -62,7 +62,7 @@ class RRecyclerViewDemoUIView3 : BaseRecyclerUIView<String>() {
     }
 
     override fun createAdapter(): RExBaseAdapter<String, String, String> {
-        return object : RExBaseAdapter<String, String, String>(mActivity, loadData()) {
+        return object : RExBaseAdapter<String, String, String>(mActivity, loadDatas()) {
 
             override fun getItemLayoutId(viewType: Int): Int {
                 return R.layout.item_qq_card_test_layout

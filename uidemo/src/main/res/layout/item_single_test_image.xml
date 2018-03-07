@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.angcyo.uiview.widget.RImageView
+        android:id="@+id/base_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/image_demo"/>
+
+    <TextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/base_40dpi"
+        android:layout_gravity="center"
+        android:background="@drawable/base_main_color_bg_selector"
+        android:text="测试文本"/>
+
+    <TextView
+        android:id="@+id/text_view2"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/base_40dpi"
+        android:layout_gravity="bottom"
+        android:background="@color/theme_color_accent"
+        android:gravity="right|center_vertical"
+        android:text="测试文本2"/>
+
+</FrameLayout>

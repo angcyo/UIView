@@ -183,7 +183,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
-        loadData()
+        loadDatas()
 
         rainHelper = RainHelper(v(R.id.rain_anim_view)).apply {
             rainResId = R.drawable.hot_package
@@ -256,7 +256,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
 
     override fun onBaseLoadData() {
         super.onBaseLoadData()
-        loadData()
+        loadDatas()
     }
 
     override fun onBaseLoadMore() {
@@ -270,7 +270,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         }
     }
 
-    private fun loadData() {
+    private fun loadDatas() {
         val datas = (0..100).map { it.toString() }
 
         mExBaseAdapter.resetAllData(datas)
