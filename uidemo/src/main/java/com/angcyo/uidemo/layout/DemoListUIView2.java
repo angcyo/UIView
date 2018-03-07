@@ -64,6 +64,7 @@ import com.angcyo.uidemo.layout.demo.SwipeRecyclerViewUIView;
 import com.angcyo.uidemo.layout.demo.TouchBackUIDemo;
 import com.angcyo.uidemo.layout.demo.TouchEventDemoUIView;
 import com.angcyo.uidemo.layout.demo.TouchLayoutUIDemo;
+import com.angcyo.uidemo.layout.demo.UIChatDemo;
 import com.angcyo.uidemo.layout.demo.WebsocketUIView;
 import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
@@ -1031,6 +1032,20 @@ public class DemoListUIView2 extends BaseItemUIView {
                                 startIView(new ScanResultUIView(s));
                             }
                         })/*.setEnableClipMode(ClipMode.CLIP_BOTH, v)*/);
+                    }
+                });
+            }
+        });
+
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".UIChat Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new UIChatDemo(), false);
                     }
                 });
             }
