@@ -61,4 +61,37 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/transparent_dark40"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/drawable_view"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
+
+        <com.angcyo.uidemo.layout.demo.qq.SweepView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:tag="90"/>
+
+        <com.angcyo.uidemo.layout.demo.qq.SweepView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"/>
+
+        <com.angcyo.uidemo.layout.demo.qq.SweepView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:tag="270"/>
+
+        <com.angcyo.uidemo.layout.demo.qq.SweepView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:tag="360"/>
+
+    </LinearLayout>
+
 </LinearLayout>
