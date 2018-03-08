@@ -1,6 +1,8 @@
 package com.angcyo.uidemo.uiview;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -8,7 +10,10 @@ import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.activity.MemoryTestActivity;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
+import com.angcyo.uiview.kotlin.ViewExKt;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.wangjie.shadowviewhelper.ShadowProperty;
+import com.wangjie.shadowviewhelper.ShadowViewDrawable;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -62,5 +67,17 @@ public class TestDemo extends UIContentView {
                 mParentILayout.finishIView(TestDemo.class, mViewHolder.cV(R.id.keep_last).isChecked());
             }
         });
+
+        View bgView = v(R.id.bg_layout);
+        ShadowProperty sp = new ShadowProperty()
+                .setShadowColor(0x77000000)
+                .setShadowDy((int) (1f * density()))
+                .setShadowRadius((int) (6 * density()))
+                .setShadowSide(ShadowProperty.ALL);
+        ShadowViewDrawable sd = new ShadowViewDrawable(sp, Color.RED, 0, 0);
+        ViewCompat.setLayerType(bgView, ViewCompat.LAYER_TYPE_SOFTWARE, null);
+        ViewCompat.setBackground(bgView, sd);
+
+        ViewExKt.showShadowViewDrawable(v(R.id.bg_layout2), 6);
     }
 }

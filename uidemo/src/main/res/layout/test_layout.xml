@@ -77,6 +77,34 @@
             android:tag="R"/>
     </com.angcyo.uidemo.layout.TestLayout>
 
+    <FrameLayout
+        android:id="@+id/bg_layout"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true">
+
+        <com.angcyo.uiview.widget.Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="测试"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/bg_layout2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true">
+
+        <com.angcyo.uiview.widget.Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="测试"/>
+
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
