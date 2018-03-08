@@ -1,6 +1,12 @@
 package com.angcyo.uidemo.layout
 
+import android.graphics.Paint
+import android.support.annotation.ColorInt
+import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.angcyo.library.utils.L
+import com.angcyo.uiview.utils.Reflect
+import com.angcyo.uiview.view.UIIViewImpl
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
 
@@ -158,5 +164,67 @@ object KtDemo {
     }
 
     fun <T> async(block: suspend () -> T) {
+    }
+
+    fun ensureGlow(recyclerView: RecyclerView?, color: Int) {
+        if (!UIIViewImpl.isLollipop()) {
+            if (recyclerView != null) {
+                recyclerView.overScrollMode = View.OVER_SCROLL_NEVER
+            }
+            return
+        }
+
+        try {
+            Reflect.invokeMethod(RecyclerView::class.java, recyclerView, "ensureTopGlow")
+            Reflect.invokeMethod(RecyclerView::class.java, recyclerView, "ensureBottomGlow")
+            Reflect.invokeMethod(RecyclerView::class.java, recyclerView, "ensureRightGlow")
+            Reflect.invokeMethod(RecyclerView::class.java, recyclerView, "ensureLeftGlow")
+
+            setEdgeEffect(recyclerView, color)
+        } catch (e: Exception) {
+            L.e(e.message)
+        }
+
+    }
+
+    //-----------获取 默认的adapter, 获取 RBaseAdapter, 获取 AnimationAdapter----------//
+
+    private fun setEdgeEffect(recyclerView: RecyclerView?, color: Int) {
+        var mGlow = Reflect.getMember(RecyclerView::class.java, recyclerView, "mTopGlow")
+        setEdgetEffect(mGlow, color)
+        mGlow = Reflect.getMember(RecyclerView::class.java, recyclerView, "mLeftGlow")
+        setEdgetEffect(mGlow, color)
+        mGlow = Reflect.getMember(RecyclerView::class.java, recyclerView, "mRightGlow")
+        setEdgetEffect(mGlow, color)
+        mGlow = Reflect.getMember(RecyclerView::class.java, recyclerView, "mBottomGlow")
+        setEdgetEffect(mGlow, color)
+    }
+
+    fun setEdgetEffect(edgeEffectCompat: Any?, @ColorInt color: Int) {
+        val mEdgeEffect = Reflect.getMember(edgeEffectCompat, "mEdgeEffect")
+        val mPaint: Any
+        if (mEdgeEffect != null) {
+            mPaint = Reflect.getMember(mEdgeEffect, "mPaint")
+        } else {
+            mPaint = Reflect.getMember(edgeEffectCompat, "mPaint")
+        }
+
+        if (mPaint is Paint) {
+            mPaint.color = color
+        }
+    }
+
+
+    fun getMember(cls: Class<*>, target: Any, member: String): Any? {
+        var result: Any? = null
+        try {
+            val memberField = cls.getDeclaredField(member)
+            memberField.isAccessible = true
+            result = memberField.get(target)
+        } catch (e: Exception) {
+            //L.i("错误:" + cls.getSimpleName() + " ->" + e.getMessage());
+        }
+
+        return result
     }
 }
