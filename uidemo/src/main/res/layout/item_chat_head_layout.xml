@@ -54,6 +54,22 @@
             android:checked="true"
             android:text="无限循环"/>
 
+        <CheckBox
+            android:id="@+id/start_scroll"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="开始滚动"/>
+
+        <CheckBox
+            android:id="@+id/vertical_scroll"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="垂直方向"/>
+
     </LinearLayout>
 
 </LinearLayout>

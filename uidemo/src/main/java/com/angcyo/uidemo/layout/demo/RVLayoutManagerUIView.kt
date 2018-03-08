@@ -42,7 +42,7 @@ class RVLayoutManagerUIView : BaseContentUIView() {
                 R.id.rotate -> recyclerView.layoutManager = RotateLayoutManager(mActivity, (100 * density()).toInt())
                 R.id.gallery -> recyclerView.layoutManager = GalleryLayoutManager(mActivity, (10 * density()).toInt())
                 R.id.loop -> recyclerView.layoutManager = RExLoopRecyclerView.LoopLayoutManager(mActivity).apply {
-                    setItemInterval(recyclerView.measuredWidth.toFloat())
+                    setItemWidthHeight(recyclerView.measuredWidth.toFloat(), recyclerView.measuredHeight.toFloat())
                 }
             }
         }

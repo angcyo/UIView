@@ -3,6 +3,7 @@ package com.angcyo.uidemo.layout.demo.chat
 import android.app.Activity
 import android.graphics.Color
 import android.graphics.Paint
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.angcyo.library.utils.L
@@ -12,6 +13,7 @@ import com.angcyo.uidemo.layout.demo.BehaviorStickDemoUIView
 import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RExLoopRecyclerView
+import com.angcyo.uiview.recycler.RPagerSnapHelper
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.angcyo.uiview.utils.Reflect
@@ -37,8 +39,8 @@ class Chat2UIView : BaseRecyclerUIView<String>() {
                 }
 
                 override fun onBindView(holder: RBaseViewHolder, position: Int, bean: String?) {
-                    holder.tv(R.id.text_view).text = "测试1_$position"
-                    holder.tv(R.id.text_view2).text = "测试2_$position"
+                    holder.tv(R.id.text_view).text = "测试1_pos:$position"
+                    holder.tv(R.id.text_view2).text = "测试2_pos:$position"
                 }
 
             }
@@ -75,11 +77,30 @@ class Chat2UIView : BaseRecyclerUIView<String>() {
                 super.onBindHeaderView(holder, posInHeader, headerBean)
                 val loopRecyclerView: RExLoopRecyclerView = holder.v(R.id.recycler_view)
                 loopRecyclerView.adapter = createLoopAdapter(mActivity)
-                holder.click(R.id.pre_button) {}
-                holder.click(R.id.next_button) {}
+                holder.click(R.id.pre_button) { loopRecyclerView.scrollToPrev() }
+                holder.click(R.id.next_button) { loopRecyclerView.scrollToNext() }
                 holder.cV(R.id.infinite_cb).setOnCheckedChangeListener { _, isChecked ->
                     loopRecyclerView.setInfinite(isChecked)
                 }
+                holder.cV(R.id.vertical_scroll).setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        loopRecyclerView.setOrientation(LinearLayoutManager.VERTICAL)
+                    } else {
+                        loopRecyclerView.setOrientation(LinearLayoutManager.HORIZONTAL)
+                    }
+                }
+
+                holder.cV(R.id.start_scroll).setOnCheckedChangeListener { _, isChecked ->
+                    loopRecyclerView.setEnableScroll(isChecked)
+                    loopRecyclerView.startAutoScroll()
+                }
+
+                loopRecyclerView.setOnPageListener(object : RPagerSnapHelper.OnPageListener() {
+                    override fun onPageSelector(fromPosition: Int, toPosition: Int) {
+                        super.onPageSelector(fromPosition, toPosition)
+                        holder.tv(R.id.tip_view).text = "from:$fromPosition  to:$toPosition"
+                    }
+                })
             }
 
             override fun onBindDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String?) {
