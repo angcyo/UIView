@@ -3,7 +3,9 @@ package com.angcyo.uidemo.layout.demo
 import android.graphics.Color
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
@@ -13,10 +15,14 @@ import com.angcyo.uiview.model.TitleBarPattern
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
+import com.angcyo.uiview.recycler.adapter.RExGroupData
 import com.angcyo.uiview.recycler.adapter.RGroupAdapter
 import com.angcyo.uiview.recycler.adapter.RGroupData
 import com.angcyo.uiview.rsen.RefreshLayout
 import com.angcyo.uiview.utils.Tip
+import com.brandongogetap.stickyheaders.StickyLayoutManager
+import com.brandongogetap.stickyheaders.exposed.StickyHeader
+import com.brandongogetap.stickyheaders.exposed.StickyHeaderListener
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -55,23 +61,27 @@ class RGroupAdapterUIView : BaseContentUIView() {
 
     lateinit var refreshLayout: RefreshLayout
     lateinit var recyclerView: RRecyclerView
-    lateinit var adapter: RGroupAdapter<String, RDemoGroup, String>
+    lateinit var adapter: RGroupAdapter<String, RDemoGroup2, String>
 
     override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
         baseContentLayout?.let {
             refreshLayout = RefreshLayout(mActivity)
             refreshLayout.setNotifyListener(false)
 
+            val frameLayout = FrameLayout(mActivity)
+
             recyclerView = RRecyclerView(mActivity)
 
-            refreshLayout.addView(recyclerView, ViewGroup.LayoutParams(-1, -1))
+            frameLayout.addView(recyclerView, ViewGroup.LayoutParams(-1, -1))
+            refreshLayout.addView(frameLayout, ViewGroup.LayoutParams(-1, -1))
+
             it.addView(refreshLayout, ViewGroup.LayoutParams(-1, -1))
         }
     }
 
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
-        adapter = object : RGroupAdapter<String, RDemoGroup, String>(mActivity) {
+        adapter = object : RGroupAdapter<String, RDemoGroup2, String>(mActivity) {
             override fun getItemLayoutId(viewType: Int): Int {
                 if (viewType == RExBaseAdapter.TYPE_HEADER) {
                     return R.layout.item_single_text_view
@@ -100,12 +110,86 @@ class RGroupAdapterUIView : BaseContentUIView() {
         adapter.appendFooterData("_F1")
         adapter.appendFooterData("_F2")
 
-        val groups = mutableListOf<RDemoGroup>()
-        groups.add(RDemoGroup("分组标题1", false))
-        groups.add(RDemoGroup("分组标题2", false))
-        groups.add(RDemoGroup("分组标题(展开关闭其他)3", true))
-        groups.add(RDemoGroup("分组标题(展开关闭其他)4", true))
+//        val groups = mutableListOf<RDemoGroup>()
+//        groups.add(RDemoGroup("分组标题1", false))
+//        groups.add(RDemoGroup("分组标题2", false))
+//        groups.add(RDemoGroup("分组标题(展开关闭其他)3", true))
+//        groups.add(RDemoGroup("分组标题(展开关闭其他)4", true))
+//        adapter.resetAllData(groups)
+
+        recyclerView.layoutManager = StickyLayoutManager(mActivity, adapter).apply {
+            setStickyHeaderListener(object : StickyHeaderListener {
+                override fun headerDetached(headerView: View?, adapterPosition: Int) {
+                    //L.e("call: headerDetached ->$adapterPosition $headerView")
+                }
+
+                override fun headerAttached(headerView: View?, adapterPosition: Int) {
+                    //L.e("call: headerAttached ->$adapterPosition $headerView")
+                }
+            })
+//            elevateHeaders(true)
+        }
+        val groups = mutableListOf<RDemoGroup2>()
+
+        fun headers(): MutableList<DemoHeader> {
+            val list = mutableListOf<DemoHeader>()
+            for (i in 0 until 1) {
+                list.add(DemoHeader())
+            }
+            return list
+        }
+
+        fun datas(): MutableList<String> {
+            val list = mutableListOf<String>()
+            for (i in 0 until 10) {
+                list.add("$i")
+            }
+            return list
+        }
+
+        groups.add(RDemoGroup2("分组标题1", false, headers(), datas()))
+        groups.add(RDemoGroup2("分组标题2", false, headers(), datas()))
+        groups.add(RDemoGroup2("分组标题(展开关闭其他)3", true, headers(), datas()))
+        groups.add(RDemoGroup2("分组标题(展开关闭其他)4", true, headers(), datas()))
         adapter.resetAllData(groups)
+    }
+
+    inner class DemoHeader : StickyHeader {
+
+    }
+
+    inner class RDemoGroup2(private val groupTitle: String, private val closeOther: Boolean,
+                            list1: MutableList<DemoHeader>, list2: MutableList<String>) :
+            RExGroupData<DemoHeader, String>(list1, list2) {
+
+        init {
+            isExpand = false
+        }
+
+        override fun getGroupLayoutId(indexInGroup: Int): Int {
+            return R.layout.item_single_text_view
+        }
+
+        override fun onBindGroupView(holder: RBaseViewHolder, position: Int, indexInGroup: Int) {
+            super.onBindGroupView(holder, position, indexInGroup)
+            //holder.itemView.setBackgroundResource(R.drawable.base_bg_selector)
+            holder.tv(R.id.text_view).text = "${groupTitle}_$indexInGroup $position:$indexInGroup"
+            holder.clickItem {
+                setExpand(adapter, !isExpand, closeOther)
+            }
+        }
+
+        override fun getDataLayoutId(indexInData: Int): Int {
+            return R.layout.item_image_text_view_little
+        }
+
+        override fun onBindDataView(holder: RBaseViewHolder, position: Int, indexInData: Int) {
+            super.onBindDataView(holder, position, indexInData)
+            holder.tv(R.id.text_view).text = "数据测试$position:$indexInData"
+            holder.clickItem {
+                Tip.show(holder.tv(R.id.text_view).text, R.drawable.base_ok)
+            }
+        }
     }
 
     inner class RDemoGroup(private val groupTitle: String, private val closeOther: Boolean) : RGroupData<String>() {

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.angcyo.uiview.viewgroup.RLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/base_bg_selector_v21"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/base_xhdpi"
+    app:r_background="@color/base_white">
 
     <com.angcyo.uiview.widget.RTextView
         android:id="@+id/text_view"
@@ -15,4 +19,4 @@
         android:padding="@dimen/base_ldpi"
         tools:text="测试数据"/>
 
-</LinearLayout>
+</com.angcyo.uiview.viewgroup.RLinearLayout>
