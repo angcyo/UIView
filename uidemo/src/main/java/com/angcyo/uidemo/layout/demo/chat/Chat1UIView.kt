@@ -68,14 +68,20 @@ class Chat1UIView : BaseRecyclerUIView<String>() {
 
     override fun onUILoadData(page: Int, extend: String?) {
         super.onUILoadData(page, extend)
+        if (isShowInViewPager() && showInPagerCount < 2) {
+            return
+        }
         postDelayed(1000) {
             resetUI()
+            if (isShowInViewPager()) {
+                showContentLayout()
+            }
         }
     }
 
     override fun onViewShow(viewShowCount: Long) {
         super.onViewShow(viewShowCount)
-        if (viewShowCount == 2L) {
+        if (viewShowCount == 2L && !isShowInViewPager()) {
             resetUI()
             showContentLayout()
         }

@@ -65,6 +65,7 @@ import com.angcyo.uidemo.layout.demo.TouchBackUIDemo;
 import com.angcyo.uidemo.layout.demo.TouchEventDemoUIView;
 import com.angcyo.uidemo.layout.demo.TouchLayoutUIDemo;
 import com.angcyo.uidemo.layout.demo.UIChatDemo;
+import com.angcyo.uidemo.layout.demo.UIChatViewPagerDemo;
 import com.angcyo.uidemo.layout.demo.WebsocketUIView;
 import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
@@ -83,6 +84,7 @@ import com.angcyo.uiview.utils.ScreenUtil;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.utils.Tip;
 import com.angcyo.uiview.view.IView;
+import com.angcyo.uiview.view.IViewAnimationType;
 import com.angcyo.uiview.view.OnUIViewListener;
 import com.angcyo.uiview.widget.ItemInfoLayout;
 import com.angcyo.uiview.widget.RTextView;
@@ -1047,7 +1049,20 @@ public class DemoListUIView2 extends BaseItemUIView {
 
                     @Override
                     public void onClick(View v) {
-                        startIView(new UIChatDemo(), false);
+                        startIView(new UIChatDemo().setAnimationType(IViewAnimationType.ALPHA));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".UIChat With ViewPager Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new UIChatViewPagerDemo().setAnimationType(IViewAnimationType.TRANSLATE_VERTICAL));
                     }
                 });
             }
