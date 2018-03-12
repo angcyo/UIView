@@ -114,6 +114,22 @@ class RegularTestUIDemo : BaseItemUIView() {
         })
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                holder.tv(R.id.tip_view).text = "Tel正则测试2"
+                holder.eV(R.id.edit_text).hint = RExTextView.patternTel2.pattern()
+                holder.click(R.id.button) {
+                    (it as TextView).text = RExTextView.isTel(holder.exV(R.id.edit_text).string()).toString()
+                }
+                holder.click(R.id.apply_button) {
+                    parrernEditText?.setInputText(RExTextView.patternTel2.pattern())
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_regular_input_tip_layout
+            }
+        })
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 holder.tv(R.id.tip_view).text = "Number正则测试"
                 holder.eV(R.id.edit_text).hint = RExTextView.patternNumber.pattern()
                 holder.click(R.id.button) {
