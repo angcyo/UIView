@@ -171,6 +171,36 @@ public class DemoListUIView2 extends BaseItemUIView {
         for (int a = 0; a < 100; a++) {
             L.e((a << 3) + " -> " + (a * 8));
         }
+
+        onSynchronizedDemo(true, "");
+    }
+
+    void onSynchronizedDemo(boolean runThread, String tag) {
+        L.e("call: onSynchronizedDemo([])-> synchronized start " + tag);
+
+        if (runThread) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    onSynchronizedDemo(false, " thread");
+                }
+            }).start();
+        }
+
+        synchronized (this) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        L.e("call: onSynchronizedDemo([])-> synchronized end " + tag);
     }
 
     @Override
