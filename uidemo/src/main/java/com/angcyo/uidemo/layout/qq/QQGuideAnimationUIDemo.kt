@@ -50,5 +50,14 @@ class QQGuideAnimationUIDemo : BaseContentUIView() {
         click(R.id.next_4) {
             run(3)
         }
+        click(R.id.next_5) {
+            run(4)
+        }
+        click(R.id.next_6) {
+            run(5)
+        }
+        click(R.id.next_7) {
+            run(6)
+        }
     }
 }

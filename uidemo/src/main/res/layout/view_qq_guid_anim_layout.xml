@@ -98,10 +98,89 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/base_40dpi"
-                android:text=".......................结束............................"/>
+                android:text="asdflnsadg"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/default_image"/>
 
             <com.angcyo.uiview.widget.Button
                 android:id="@+id/next_4"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:text="下一步"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/base_40dpi"
+                android:text="asdflnsadg撒范德萨发撒的范德萨发"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/next_5"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:text="下一步"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/base_40dpi"
+                android:text="asdflnsadg撒范德萨发撒的范德萨发asdflnsadg撒范德萨发撒的范德萨发asdflnsadg撒范德萨发撒的范德萨发asdflnsadg撒范德萨发撒的范德萨发"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/base_red"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/next_6"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:text="下一步"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/base_40dpi"
+                android:text=".......................结束............................"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/next_7"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
