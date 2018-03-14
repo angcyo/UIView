@@ -136,12 +136,12 @@ class QQGuideAnimLayout(context: Context, attributeSet: AttributeSet? = null) : 
 
         } else {
             currentIndex++
-            translationY(view, (-nextView.measuredHeight).toFloat())
 
             nextView.alpha = 0f
             refreshLayout()
-            alpha(nextView, 1f)
 
+            translationY(view, (-nextView.measuredHeight).toFloat())
+            alpha(nextView, 1f)
             logo(nextView.measuredHeight.toFloat())
         }
     }
@@ -157,10 +157,9 @@ class QQGuideAnimLayout(context: Context, attributeSet: AttributeSet? = null) : 
 
         } else {
             currentIndex--
-            translationY(prevView, 0f)
 
             alpha(view, 0f)
-
+            translationY(prevView, 0f)
             logo(prevView.measuredHeight.toFloat())
         }
     }
