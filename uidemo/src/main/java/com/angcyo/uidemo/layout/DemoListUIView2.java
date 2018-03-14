@@ -68,6 +68,7 @@ import com.angcyo.uidemo.layout.demo.UIChatDemo;
 import com.angcyo.uidemo.layout.demo.UIChatViewPagerDemo;
 import com.angcyo.uidemo.layout.demo.WebsocketUIView;
 import com.angcyo.uidemo.layout.demo.X5WebViewUIDemo;
+import com.angcyo.uidemo.layout.qq.QQGuideAnimationUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
@@ -1063,6 +1064,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new UIChatViewPagerDemo().setAnimationType(IViewAnimationType.TRANSLATE_VERTICAL));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".QQ Guide Animation Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new QQGuideAnimationUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
                     }
                 });
             }
