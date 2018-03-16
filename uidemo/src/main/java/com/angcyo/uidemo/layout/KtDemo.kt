@@ -16,6 +16,11 @@ import java.util.concurrent.locks.ReentrantLock
 object KtDemo {
 
     fun main() {
+        val s1 = "我"
+        val s2 = "我".toString()
+
+        L.e("in kotlin-> " + ("我" === "我") + (s1 === s2) + (s1 === "我") + (s2 === "我"))
+
         threadDemo1()
         threadDemo2()
     }

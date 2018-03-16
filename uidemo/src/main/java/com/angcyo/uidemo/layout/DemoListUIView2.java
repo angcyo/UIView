@@ -168,9 +168,13 @@ public class DemoListUIView2 extends BaseItemUIView {
             Tip.tip("友情提示\n请关闭 '三指截屏'");
         }
 
-        for (int a = 0; a < 100; a++) {
+        for (int a = 0; a < 10; a++) {
             L.e((a << 3) + " -> " + (a * 8));
         }
+
+        String s1 = "我";
+        String s2 = new String("我");
+        L.e("in java-> " + ("我" == "我") + (s1 == s2) + (s1 == "我") + (s2 == "我"));
 
         onSynchronizedDemo(true, "");
     }
@@ -183,7 +187,7 @@ public class DemoListUIView2 extends BaseItemUIView {
                 @Override
                 public void run() {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -194,7 +198,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
         synchronized (this) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
