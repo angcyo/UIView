@@ -3,6 +3,8 @@ package com.angcyo.uidemo.layout.demo
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.demo.chat.Chat1UIView
 import com.angcyo.uidemo.layout.demo.chat.Chat2UIView
+import com.angcyo.uidemo.layout.demo.chat.ChatClassMessageUIView
+import com.angcyo.uidemo.layout.demo.chat.ChatMessageUIView
 import com.angcyo.uiview.base.PageBean
 import com.angcyo.uiview.base.UINavigationView
 
@@ -19,7 +21,7 @@ import com.angcyo.uiview.base.UINavigationView
  */
 class UIChatDemo : UINavigationView() {
     override fun createPages(pages: ArrayList<PageBean>) {
-        pages.add(PageBean(Chat1UIView(), "", "",
+        pages.add(PageBean(ChatMessageUIView(), "", "",
                 null, null,
                 R.drawable.skin_tab_icon_conversation_normal, R.drawable.skin_tab_icon_conversation_selected))
 
@@ -28,7 +30,7 @@ class UIChatDemo : UINavigationView() {
                 null, R.drawable.skin_tab_icon_plugin_selected,
                 null, null))
 
-        pages.add(PageBean(Chat1UIView(), "", "",
+        pages.add(PageBean(ChatClassMessageUIView(), "", "",
                 null, null,
                 R.drawable.skin_tab_icon_contact_normal, R.drawable.skin_tab_icon_contact_selected))
 
