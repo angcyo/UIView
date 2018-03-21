@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import com.angcyo.github.utilcode.utils.AppUtils;
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.NavUIView;
 import com.angcyo.uidemo.R;
@@ -72,6 +71,7 @@ import com.angcyo.uidemo.layout.qq.QQGuideAnimationUIDemo;
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo;
 import com.angcyo.uidemo.uiview.ScrollerIView;
 import com.angcyo.uidemo.uiview.TestDemo;
+import com.angcyo.uiview.Root;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
@@ -81,7 +81,6 @@ import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.RUtils;
-import com.angcyo.uiview.utils.ScreenUtil;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.utils.Tip;
 import com.angcyo.uiview.view.IView;
@@ -1127,17 +1126,7 @@ public class DemoListUIView2 extends BaseItemUIView {
 
             @Override
             public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
-                holder.tv(R.id.text_view).setText(AppUtils.getAppVersionName(mActivity) +
-                        " by " + getString(R.string.build_time) +
-                        " on " + getString(R.string.os_name) + " " +
-                        ScreenUtil.screenWidth + "×" + ScreenUtil.screenHeight + " " +
-                        mActivity.getWindow().getDecorView().getMeasuredHeight() + " " +
-                        ScreenUtil.densityDpi + " " + ScreenUtil.density + "\n" +
-                        "v:" + Build.MANUFACTURER + " " +
-                        "m:" + Build.MODEL + " " +
-                        "d:" + Build.DEVICE + " " +
-                        "h:" + Build.HARDWARE + " "
-                );
+                holder.tv(R.id.text_view).setText(Root.device_info(mActivity));
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
