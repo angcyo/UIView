@@ -36,7 +36,7 @@ class StickTopLayoutUIDemo : BaseContentUIView() {
                 })
     }
 
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_stick_top_layout)
     }
 

@@ -18,7 +18,7 @@ import com.angcyo.uiview.viewgroup.ExpandRecordLayout
  * Version: 1.0.0
  */
 class ExpandRecordLayoutUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_expand_record_layout)
     }
 

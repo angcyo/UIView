@@ -31,7 +31,7 @@ import com.angcyo.uiview.widget.ExEditText
  * Version: 1.0.0
  */
 class X5WebViewUIDemo : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_x5_web_view)
     }
 

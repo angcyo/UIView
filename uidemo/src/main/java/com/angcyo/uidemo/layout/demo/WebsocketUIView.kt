@@ -60,7 +60,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         return LayoutState.CONTENT
     }
 
-    override fun createRecyclerRootView(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun createRecyclerRootView(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_websocket_layout).apply {
             mRecyclerView = findViewById(R.id.recycler_view)
             mRefreshLayout = findViewById(R.id.refresh_view)

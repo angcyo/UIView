@@ -35,7 +35,7 @@ class TouchBackUIDemo : BaseContentUIView() {
 
     override fun getDefaultBackgroundColor(): Int = getColor(R.color.transparent_dark80)//Color.TRANSPARENT
 
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_touch_back_layout)
     }
 

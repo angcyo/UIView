@@ -36,7 +36,7 @@ import java.io.File
  * Version: 1.0.0
  */
 class FileObserverUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.file_observer_layout)
     }
 

@@ -26,7 +26,7 @@ class QQNavigationUIView : BaseContentUIView() {
         return super.getTitleBar()?.setShowBackImageView(true)
     }
 
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_qq_navigation)
     }
 

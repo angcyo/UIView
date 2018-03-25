@@ -11,6 +11,10 @@ import com.angcyo.uiview.container.UILayoutImpl;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.model.ViewPattern;
 import com.angcyo.uiview.rsen.RefreshLayout;
+import com.angcyo.uiview.view.IView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -25,6 +29,7 @@ import com.angcyo.uiview.rsen.RefreshLayout;
  */
 public class RefreshLayoutDemo extends UIContentView {
 
+    static int count = 0;
 
     UILayoutImpl mUILayout;
     private NormalUIView mNormalUIView;
@@ -58,11 +63,24 @@ public class RefreshLayoutDemo extends UIContentView {
         mGridUIView = new GridUIView();
         mStaggerUIView = new StaggerUIView();
         mUILayout.setEnableSwipeBack(false);
-        mUILayout.startIView(mNormalUIView);
-        mUILayout.startIView(mWebviewUIView);
-        mUILayout.startIView(mRecyclerUIView);
-        mUILayout.startIView(mGridUIView);
-        mUILayout.startIView(mStaggerUIView);
+
+        if (count % 2 == 0) {
+            mUILayout.startIView(mNormalUIView);
+            mUILayout.startIView(mWebviewUIView);
+            mUILayout.startIView(mRecyclerUIView);
+            mUILayout.startIView(mGridUIView);
+            mUILayout.startIView(mStaggerUIView);
+        } else {
+            List<IView> iViewList = new ArrayList<>();
+            iViewList.add(mNormalUIView);
+            iViewList.add(mWebviewUIView);
+            iViewList.add(mRecyclerUIView);
+            iViewList.add(mGridUIView);
+            iViewList.add(mStaggerUIView);
+            mUILayout.startIViewList(iViewList);
+        }
+
+        count++;
         mUILayout.showIView(mNormalUIView);
 
         click(R.id.in_normal_view, new View.OnClickListener() {

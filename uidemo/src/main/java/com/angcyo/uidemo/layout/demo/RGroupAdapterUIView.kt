@@ -63,7 +63,7 @@ class RGroupAdapterUIView : BaseContentUIView() {
     lateinit var recyclerView: RRecyclerView
     lateinit var adapter: RGroupAdapter<String, RDemoGroup2, String>
 
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         baseContentLayout?.let {
             refreshLayout = RefreshLayout(mActivity)
             refreshLayout.setNotifyListener(false)

@@ -46,7 +46,7 @@ class DiceCardUIView : BaseRecyclerUIView<RBaseDataItem<*>>() {
         refreshLayout?.setNoNotifyPlaceholder()
     }
 
-    override fun createRecyclerRootView(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun createRecyclerRootView(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         //super.createRecyclerRootView(baseContentLayout, inflater)
         val inflate = inflate(R.layout.view_dice_card_layout)
 

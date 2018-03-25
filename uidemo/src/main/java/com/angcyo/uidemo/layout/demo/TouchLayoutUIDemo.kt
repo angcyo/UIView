@@ -17,7 +17,7 @@ import com.angcyo.uiview.container.ContentLayout
  * Version: 1.0.0
  */
 class TouchLayoutUIDemo : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_touch_stick_layout)
     }
 

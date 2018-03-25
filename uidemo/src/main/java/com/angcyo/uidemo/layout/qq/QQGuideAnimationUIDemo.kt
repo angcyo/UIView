@@ -18,7 +18,7 @@ import com.angcyo.uiview.container.ContentLayout
  * Version: 1.0.0
  */
 class QQGuideAnimationUIDemo : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_qq_guid_anim_layout)
     }
 

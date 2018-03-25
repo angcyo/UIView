@@ -24,7 +24,7 @@ import com.leochuan.*
  * Version: 1.0.0
  */
 class RVLayoutManagerUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_rv_layout_manager)
     }
 

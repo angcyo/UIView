@@ -18,7 +18,7 @@ import com.angcyo.uiview.viewgroup.DYRecordView
  * Version: 1.0.0
  */
 class DYRecordLayoutUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_dy_record_layout)
     }
 

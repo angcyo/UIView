@@ -30,7 +30,7 @@ import com.angcyo.uiview.recycler.adapter.RBaseAdapter
  * Version: 1.0.0
  */
 class GroupItemDecorationUIView : BaseContentUIView() {
-    override fun inflateContentLayout(baseContentLayout: ContentLayout?, inflater: LayoutInflater?) {
+    override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_group_item_decoration_layout)
     }
 
