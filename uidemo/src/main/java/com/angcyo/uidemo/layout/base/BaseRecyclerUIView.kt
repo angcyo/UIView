@@ -1,6 +1,7 @@
 package com.angcyo.uidemo.layout.base
 
 import com.angcyo.uiview.base.UIRecyclerUIView
+import com.angcyo.uiview.model.TitleBarPattern
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -16,5 +17,9 @@ import com.angcyo.uiview.base.UIRecyclerUIView
 abstract class BaseRecyclerUIView<T> : UIRecyclerUIView<String, T, String>() {
     override fun isUIHaveLoadMore(datas: MutableList<T>?): Boolean {
         return false
+    }
+
+    override fun createTitleBarPattern(): TitleBarPattern {
+        return super.createTitleBarPattern().setTitleStringLength(25)
     }
 }

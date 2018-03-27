@@ -125,6 +125,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':RLibrary:uiview')
     implementation project(':RLibrary:imagepicker')
+    implementation project(':RLibrary:filedownloader')
     implementation project(':RLibrary:websocket')
     implementation project(':RTbs')
     implementation project(':RJpush')

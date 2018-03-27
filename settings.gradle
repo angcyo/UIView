@@ -1,7 +1,15 @@
 include ':uidemo'
-include ':RLibrary:imagepicker'
-include ':RLibrary:uiview', ':RLibrary:rcode', ':RLibrary:github', ':RLibrary:library'
-include ':RLibrary:websocket'
 include ':RTbs'
 include ':RJpush'
+
+include ':RLibrary:uiview'
+include ':RLibrary:library'
+include ':RLibrary:github'
+include ':RLibrary:rcode'
 include ':RLibrary:zxingzbar'
+
+include ':RLibrary:websocket'
+include ':RLibrary:filedownloader'
+include ':RLibrary:imagepicker'
+
+

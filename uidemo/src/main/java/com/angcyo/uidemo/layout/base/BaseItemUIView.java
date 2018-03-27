@@ -18,6 +18,11 @@ import com.angcyo.uiview.model.TitleBarPattern;
 public abstract class BaseItemUIView extends UIItemUIView<SingleItem> {
 
     @Override
+    public TitleBarPattern createTitleBarPattern() {
+        return super.createTitleBarPattern().setTitleStringLength(25);
+    }
+
+    @Override
     protected TitleBarPattern getTitleBar() {
         return super.getTitleBar().setTitleStringLength(30);
     }

@@ -25,6 +25,7 @@ import com.angcyo.uidemo.layout.demo.DiceCardUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExpandRecordLayoutUIView;
+import com.angcyo.uidemo.layout.demo.FileDownLoadUIView;
 import com.angcyo.uidemo.layout.demo.FileObserverUIView;
 import com.angcyo.uidemo.layout.demo.FingerPrinterUIDemo;
 import com.angcyo.uidemo.layout.demo.GalleryLayoutUIView;
@@ -1110,6 +1111,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(new QQGuideAnimationUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, v));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".File Download Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(FileDownLoadUIView.Companion.get().setAnimationType(IViewAnimationType.SCALE_TO_MAX));
                     }
                 });
             }

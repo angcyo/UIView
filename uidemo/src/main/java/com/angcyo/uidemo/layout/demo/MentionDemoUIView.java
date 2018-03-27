@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.angcyo.github.utilcode.utils.SingleTextWatcher;
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
 import com.angcyo.uiview.base.Item;
@@ -16,7 +17,6 @@ import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.RUtils;
 import com.angcyo.uiview.utils.UI;
-import com.angcyo.uiview.utils.string.SingleTextWatcher;
 import com.angcyo.uiview.widget.ExEditText;
 import com.angcyo.uiview.widget.RExTextView;
 

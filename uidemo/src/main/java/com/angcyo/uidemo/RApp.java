@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import com.angcyo.rjpush.RJpush;
 import com.angcyo.uiview.RApplication;
 import com.angcyo.uiview.Root;
+import com.liulishuo.FDown;
 import com.tencent.smtt.sdk.QbSdk;
 
 /**
@@ -59,6 +60,8 @@ public class RApp extends RApplication {
         QbSdk.initX5Environment(this, null);
 
         RJpush.init(this, BuildConfig.DEBUG);
+
+        FDown.init(this, false/*BuildConfig.DEBUG*/);
     }
 
     @Override

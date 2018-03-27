@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="300dp"
+              android:orientation="vertical">
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text"
+        style="@style/BaseInputEditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:background="@drawable/base_white_round_bg_5x"
+        android:hint="下载地址"
+        android:text="http://apk.klgwl.com/20180326/1522064555262BsyH.apk"/>
+
+    <com.angcyo.uiview.widget.RProgressBar
+        android:id="@+id/progress_bar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.angcyo.uiview.viewgroup.RLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_ldpi"
+        app:r_draw_line="BOTTOM"
+        app:r_draw_line_color="@color/base_orange">
+
+        <TextView
+            android:id="@+id/tip_view1"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="--"
+            tools:text="99%"/>
+
+        <TextView
+            android:id="@+id/id_view1"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="--"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/download_1"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="下载1"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/pause_1"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="暂停1"/>
+    </com.angcyo.uiview.viewgroup.RLinearLayout>
+
+    <com.angcyo.uiview.widget.RProgressBar
+        android:id="@+id/progress_bar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.angcyo.uiview.viewgroup.RLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_ldpi"
+        app:r_draw_line="BOTTOM"
+        app:r_draw_line_color="@color/base_orange">
+
+        <TextView
+            android:id="@+id/tip_view2"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="--"
+            tools:text="99%"/>
+
+        <TextView
+            android:id="@+id/id_view2"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="--"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/download_2"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="下载2"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/pause_2"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:text="暂停2"/>
+    </com.angcyo.uiview.viewgroup.RLinearLayout>
+</LinearLayout>
