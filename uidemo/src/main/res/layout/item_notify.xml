@@ -66,6 +66,30 @@
             android:layout_margin="@dimen/base_ldpi"
             android:text="Tip Toast"/>
 
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/uiload_view"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="UILoading Normal"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/uiload_view2"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="UILoading Progress"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/flow_view"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="UILoading Flow"/>
+
     </com.angcyo.uiview.widget.RFlowLayout>
 
 </LinearLayout>
