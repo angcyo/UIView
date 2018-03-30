@@ -6,31 +6,66 @@
     android:gravity="center"
     android:orientation="vertical">
 
-
-    <Button
-        android:id="@+id/notify_bigPic"
+    <com.angcyo.uiview.widget.RFlowLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="notify_bigPic"
-        android:textAllCaps="false"/>
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/notify_normal_singline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="notify_normal_singline"
-        android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/notify_bigPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="notify_bigPic"
+            android:textAllCaps="false"/>
 
-    <Button
-        android:id="@+id/show_notify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="显示通知"/>
+        <Button
+            android:id="@+id/notify_normal_singline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="notify_normal_singline"
+            android:textAllCaps="false"/>
 
-    <Button
-        android:id="@+id/show_progress_notify"
+        <Button
+            android:id="@+id/show_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示通知"/>
+
+        <Button
+            android:id="@+id/show_progress_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="显示进度通知"/>
+
+    </com.angcyo.uiview.widget.RFlowLayout>
+
+    <com.angcyo.uiview.widget.RFlowLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="显示进度通知"/>
+        android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/t1_view"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="T Toast"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/t2_view"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="T_ Toast"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/tip_view"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Tip Toast"/>
+
+    </com.angcyo.uiview.widget.RFlowLayout>
 
 </LinearLayout>

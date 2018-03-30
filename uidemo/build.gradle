@@ -1,26 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.getkeepsafe.dexcount'
-//apply from: 'build_time.gradle'
-apply from: '../RLibrary/android.gradle'
-
-def apkTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
-}
-
-def apk_time = apkTime()
+apply from: 'key.gradle'
 
 android {
 
-    compileSdkVersion Integer.parseInt(rootProject.C_SDK)
-    buildToolsVersion rootProject.B_TOOLS
     defaultConfig {
-        applicationId "$application_id"
-        minSdkVersion Integer.parseInt(rootProject.M_SDK)
-        targetSdkVersion Integer.parseInt(rootProject.T_SDK)
-        versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
 
         ndk {
             // 设置支持的SO库架构
@@ -36,94 +18,9 @@ android {
                 JPUSH_CHANNEL: "developer-default",
         ]
     }
-//    sourceSets {
-//        main {
-//            res.srcDirs = [
-//                    'src/main/res/'
-//            ]
-//        }
-//    }
-
-    signingConfigs {
-        angcyo {
-            keyAlias 'angcyo'
-            keyPassword 'angcyo'
-            storeFile file('../RLibrary/angcyo.jks')
-            storePassword 'angcyo'
-        }
-    }
-
-    flavorDimensions "type"
-    productFlavors {
-        //develop
-        _dev {
-            dimension "type"
-            minSdkVersion 21
-            buildConfigField "boolean", "SHOW_DEBUG", "true"
-        }
-        //preview
-        pre {
-            dimension "type"
-            minSdkVersion Integer.parseInt(rootProject.M_SDK)
-            buildConfigField "boolean", "SHOW_DEBUG", "true"
-        }
-        //apk
-        apk {
-            dimension "type"
-            minSdkVersion Integer.parseInt(rootProject.M_SDK)
-            buildConfigField "boolean", "SHOW_DEBUG", "false"
-        }
-    }
-    buildTypes {
-        release {
-            //applicationIdSuffix ".release"
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.angcyo
-        }
-        debug {
-            //applicationIdSuffix ".debug"
-            signingConfig signingConfigs.angcyo
-        }
-    }
-
-    lintOptions {
-        abortOnError false
-    }
-
-    /*Gradle3.0 以下的方法*/
-//    getApplicationVariants().all { variant ->
-//        variant.outputs.each { output ->
-//            def appName = "UIViewDemo-${variant.buildType.name}-${variant.versionName}"
-//            def time = ""
-//            if (variant.buildType.name.equalsIgnoreCase("release")) {
-//                time = "_${new Date().format("yyyy-MM-dd_HH-mm")}"
-//            }
-//            output.outputFile = new File(output.outputFile.parent, "${appName}${time}.apk")
-//        }
-//    }
-
-    /*Gradle3.0 以上的方法*/
-    applicationVariants.all { variant ->
-        if (variant.buildType.name != "debug") {
-            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
-        }
-
-        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-            apkData.outputFileName = "UIViewDemo-" +
-                    variant.versionName + "_" +
-                    apk_time + "_" +
-                    variant.flavorName + "_" +
-                    variant.buildType.name + "_" +
-                    variant.signingConfig.name +
-                    ".apk"
-        }
-    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':RLibrary:uiview')
     implementation project(':RLibrary:imagepicker')
     implementation project(':RLibrary:filedownloader')
     implementation project(':RLibrary:websocket')
@@ -131,7 +28,6 @@ dependencies {
     implementation project(':RJpush')
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     //FPS显示库 https://github.com/wasabeef/Takt
 //    implementation 'jp.wasabeef:takt:1.0.4'
     //性能检测库 https://github.com/markzhai/AndroidPerformanceMonitor
