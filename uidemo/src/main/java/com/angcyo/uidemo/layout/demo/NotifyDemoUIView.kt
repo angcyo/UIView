@@ -1,10 +1,14 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
 import android.view.Gravity
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.LayoutDemoActivity
@@ -50,14 +54,16 @@ class NotifyDemoUIView : BaseItemUIView() {
                         ProgressNotify.instance()
                                 .setClickActivity(LayoutDemoActivity::class.java)
                                 .show("title", R.mipmap.demo_logo, mIndex)
-                        mIndex++
+                        mIndex += 10
 
                         if (mIndex >= 100) {
-                            ProgressNotify.instance()
-                                    .setClickActivity(LayoutDemoActivity::class.java)
-                                    .show("下载完成", R.mipmap.demo_logo, mIndex)
+                            postDelayed(100) {
+                                ProgressNotify.instance()
+                                        .setClickActivity(LayoutDemoActivity::class.java)
+                                        .show("File下载完成", R.mipmap.demo_logo, 100)
+                            }
                         } else {
-                            postDelayed(mProgressRunnable, 100)
+                            postDelayed(mProgressRunnable, 300)
                         }
                     }
                     post(mProgressRunnable)
@@ -101,22 +107,34 @@ class NotifyDemoUIView : BaseItemUIView() {
     }
 
     private fun showNotify() {
-        val managerCompat = NotificationManagerCompat.from(mActivity)
-        val builder = NotificationCompat.Builder(mActivity)
+        val managerCompat = mActivity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            managerCompat.createNotificationChannel(NotificationChannel(mActivity.packageName,
+                    "showNotify",
+                    NotificationManager.IMPORTANCE_HIGH).apply {
+                enableVibration(false)
+                enableLights(false)
+                setSound(null, null)
+            })
+        }
+
+        val builder = NotificationCompat.Builder(mActivity, mActivity.packageName)
+
+        //builder.setCustomContentView()
         builder.setContentText("showNotify")
         builder.setContentTitle("title")
         builder.setSmallIcon(R.mipmap.demo_logo)
         builder.setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.demo_logo))//显示在通知内容右边的图片
         builder.setWhen(System.currentTimeMillis())
+        builder.setLocalOnly(true)
+        builder.setVisibility(Notification.VISIBILITY_SECRET)
         builder.setAutoCancel(true)
         builder.priority = NotificationCompat.PRIORITY_MAX
 
         builder.setContentIntent(pendingIntent)
 
-        //builder.setDefaults(NotificationCompat.DEFAULT_SOUND)//如果不设置提示, 横幅通知就不会出现. (横幅需要系统允许)
-
-        builder.setChannelId("1")
+        builder.setDefaults(NotificationCompat.FLAG_ONLY_ALERT_ONCE)//如果不设置提示, 横幅通知就不会出现. (横幅需要系统允许)
 
         //        builder.setTicker("TickerText");
 
