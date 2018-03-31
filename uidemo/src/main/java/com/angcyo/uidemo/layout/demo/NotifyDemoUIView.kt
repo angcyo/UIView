@@ -114,7 +114,9 @@ class NotifyDemoUIView : BaseItemUIView() {
 
         builder.setContentIntent(pendingIntent)
 
-        builder.setDefaults(NotificationCompat.DEFAULT_SOUND)//如果不设置提示, 横幅通知就不会出现. (横幅需要系统允许)
+        //builder.setDefaults(NotificationCompat.DEFAULT_SOUND)//如果不设置提示, 横幅通知就不会出现. (横幅需要系统允许)
+
+        builder.setChannelId("1")
 
         //        builder.setTicker("TickerText");
 

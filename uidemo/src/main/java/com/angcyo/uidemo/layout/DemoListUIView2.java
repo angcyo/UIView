@@ -1128,6 +1128,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                 });
             }
         });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".File Download Demo 123", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(FileDownLoadUIView.Companion.get().setAnimationType(IViewAnimationType.SCALE_TO_MAX));
+                    }
+                });
+            }
+        });
 
         //版本 编译时间
         items.add(new SingleItem(SingleItem.Type.LINE) {
