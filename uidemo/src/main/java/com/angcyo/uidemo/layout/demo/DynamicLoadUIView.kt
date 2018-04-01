@@ -10,7 +10,6 @@ import com.angcyo.uiview.dialog.UILoading
 import com.angcyo.uiview.dynamicload.ProxyActivity
 import com.angcyo.uiview.dynamicload.RPlugin
 import com.angcyo.uiview.dynamicload.internal.DLPluginPackage
-import com.angcyo.uiview.kotlin.newObject
 import com.angcyo.uiview.kotlin.setInputText
 import com.angcyo.uiview.kotlin.string
 import com.angcyo.uiview.model.TitleBarPattern
@@ -18,7 +17,6 @@ import com.angcyo.uiview.net.RException
 import com.angcyo.uiview.net.RSubscriber
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.T_
-import com.angcyo.uiview.view.IView
 
 /**
  * Created by angcyo on 2018/04/01 16:09
@@ -118,8 +116,8 @@ class DynamicLoadUIView : BaseItemUIView() {
                             if (proxy) {
                                 ProxyActivity.start(mActivity, bean.packageName, className)
                             } else {
-                                RPlugin.loadPluginClass(bean.classLoader, className!!)?.let {
-                                    startIView(it.newObject() as IView?)
+                                RPlugin.getIView(bean, className!!)?.let {
+                                    startIView(it)
                                 }
                             }
                         }
