@@ -7,7 +7,7 @@ import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.dialog.UIFileSelectorDialog
 import com.angcyo.uiview.dialog.UILoading
-import com.angcyo.uiview.dynamicload.ProxyActivity
+import com.angcyo.uiview.dynamicload.ProxyStartActivity
 import com.angcyo.uiview.dynamicload.RPlugin
 import com.angcyo.uiview.dynamicload.internal.DLPluginPackage
 import com.angcyo.uiview.kotlin.setInputText
@@ -114,7 +114,7 @@ class DynamicLoadUIView : BaseItemUIView() {
                             onError.invoke()
                         } else {
                             if (proxy) {
-                                ProxyActivity.start(mActivity, bean.packageName, className)
+                                ProxyStartActivity.start(mActivity, bean.packageName, className)
                             } else {
                                 RPlugin.getIView(bean, className!!)?.let {
                                     startIView(it)
