@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/base_xhdpi">
+
+    <TextView
+        android:id="@+id/load_apk_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请选择需要加载的APK"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/selector_apk_button"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:text="选择"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi">
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:id="@+id/class_input_view"
+            style="@style/BaseInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入需要加载的类名"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.angcyo.uiview.widget.RFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/button1"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="预设1"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/button2"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="预设2"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/button3"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="预设3"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/button4"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="预设4"/>
+    </com.angcyo.uiview.widget.RFlowLayout>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/start_apk_button"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:text="启动"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/start_apk_button2"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:text="代理启动"/>
+
+    <TextView
+        android:id="@+id/result_tip_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:text=""/>
+
+
+</LinearLayout>

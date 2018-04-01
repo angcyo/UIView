@@ -22,6 +22,7 @@ import com.angcyo.uidemo.layout.demo.CustomViewUIView;
 import com.angcyo.uidemo.layout.demo.CustomViewUIView2;
 import com.angcyo.uidemo.layout.demo.DYRecordLayoutUIView;
 import com.angcyo.uidemo.layout.demo.DiceCardUIView;
+import com.angcyo.uidemo.layout.demo.DynamicLoadUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExpandRecordLayoutUIView;
@@ -1124,6 +1125,19 @@ public class DemoListUIView2 extends BaseItemUIView {
                     @Override
                     public void onClick(View v) {
                         startIView(FileDownLoadUIView.Companion.get().setAnimationType(IViewAnimationType.SCALE_TO_MAX));
+                    }
+                });
+            }
+        });
+        items.add(new SingleItem(SingleItem.Type.LINE) {
+
+            @Override
+            public void onBindView(RBaseViewHolder holder, int posInData, Item dataBean) {
+                initItem(holder, posInData + 1 + ".DynamicLoad Demo", false, new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startIView(new DynamicLoadUIView().setAnimationType(IViewAnimationType.SCALE_TO_MAX_AND_END));
                     }
                 });
             }
