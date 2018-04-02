@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.NavUIView;
@@ -22,7 +23,6 @@ import com.angcyo.uidemo.layout.demo.CustomViewUIView;
 import com.angcyo.uidemo.layout.demo.CustomViewUIView2;
 import com.angcyo.uidemo.layout.demo.DYRecordLayoutUIView;
 import com.angcyo.uidemo.layout.demo.DiceCardUIView;
-import com.angcyo.uidemo.layout.demo.DynamicLoadUIView;
 import com.angcyo.uidemo.layout.demo.EmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExEmojiUIView;
 import com.angcyo.uidemo.layout.demo.ExpandRecordLayoutUIView;
@@ -78,6 +78,7 @@ import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
 import com.angcyo.uiview.dialog.UIProgressDialog;
+import com.angcyo.uiview.dynamicload.DynamicLoadUIView;
 import com.angcyo.uiview.kotlin.ViewExKt;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.net.Rx;
@@ -148,6 +149,17 @@ public class DemoListUIView2 extends BaseItemUIView {
         return R.layout.item_demo_list_layout;
     }
 
+    @Override
+    protected View createItemView(ViewGroup parent, int position) {
+        if (isInPlugin()) {
+            if (isLast(position)) {
+                return mPluginPackage.inflate(mActivity, R.layout.item_version_layout, parent, false);
+            } else {
+                return mPluginPackage.inflate(mActivity, R.layout.item_demo_list_layout, parent, false);
+            }
+        }
+        return super.createItemView(parent, position);
+    }
 
     void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
         initItem(holder, itemText, false, onClickListener);

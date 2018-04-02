@@ -41,7 +41,7 @@
     <com.angcyo.uiview.widget.RFlowLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
+Pr
         <com.angcyo.uiview.widget.Button
             android:id="@+id/t1_view"
             style="@style/BaseSkinButtonStyle2"
