@@ -13,6 +13,7 @@ import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
+import com.angcyo.uiview.base.UILayoutActivity
 import com.angcyo.uiview.base.UIVideoView
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.T_
@@ -217,8 +218,10 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
 
     override fun onViewLoad() {
         super.onViewLoad()
-        val loaderManager = mActivity.supportLoaderManager
-        loaderManager.initLoader(1, null, this)
+        if (mActivity is UILayoutActivity) {
+            val loaderManager = (mActivity as UILayoutActivity).supportLoaderManager
+            loaderManager.initLoader(1, null, this)
+        }
 
         //loaderManager.destroyLoader(1)
     }

@@ -80,7 +80,7 @@ class Mp3PlayUIDemo : BaseItemUIView() {
                             if (canInstall) {
                                 AppUtils.installApp(mActivity, path)
                             } else {
-                                mActivity.checkPermissions(arrayOf(Manifest.permission.REQUEST_INSTALL_PACKAGES)) {
+                                checkPermissions(arrayOf(Manifest.permission.REQUEST_INSTALL_PACKAGES)) {
                                     if (it) {
                                         AppUtils.installApp(mActivity, path)
                                     } else {
