@@ -36,7 +36,6 @@ class PluginTestUIView : BaseContentUIView() {
 
         click(R.id.button_view) {
             startIView(NotifyDemoUIView())
-
         }
 
         injectCancelPluginPackage()

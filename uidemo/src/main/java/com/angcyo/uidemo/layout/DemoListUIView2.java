@@ -76,6 +76,7 @@ import com.angcyo.uiview.Root;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.base.UIIDialogImpl;
+import com.angcyo.uiview.container.UIParam;
 import com.angcyo.uiview.dialog.UIProgressDialog;
 import com.angcyo.uiview.dynamicload.DynamicLoadUIView;
 import com.angcyo.uiview.kotlin.ViewExKt;
@@ -138,6 +139,12 @@ public class DemoListUIView2 extends BaseItemUIView {
 
         //魅族自动识别状态栏颜色的BUG
         lightStatusBar(false);
+    }
+
+    @Override
+    public void onViewUnload(UIParam uiParam) {
+        super.onViewUnload(uiParam);
+        injectCancelPluginPackage();
     }
 
     @Override
