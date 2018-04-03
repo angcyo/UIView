@@ -4,7 +4,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.angcyo.library.utils.L;
 import com.angcyo.uidemo.NavUIView;
@@ -143,23 +142,24 @@ public class DemoListUIView2 extends BaseItemUIView {
 
     @Override
     protected int getItemLayoutId(int viewType) {
+        injectPluginPackage();
         if (isLast(viewType)) {
             return R.layout.item_version_layout;
         }
         return R.layout.item_demo_list_layout;
     }
 
-    @Override
-    protected View createItemView(ViewGroup parent, int position) {
-        if (isInPlugin()) {
-            if (isLast(position)) {
-                return mPluginPackage.inflate(mActivity, R.layout.item_version_layout, parent, false);
-            } else {
-                return mPluginPackage.inflate(mActivity, R.layout.item_demo_list_layout, parent, false);
-            }
-        }
-        return super.createItemView(parent, position);
-    }
+//    @Override
+//    protected View createItemView(ViewGroup parent, int position) {
+//        if (isInPlugin()) {
+//            if (isLast(position)) {
+//                return mPluginPackage.inflate(mActivity, R.layout.item_version_layout, parent, false);
+//            } else {
+//                return mPluginPackage.inflate(mActivity, R.layout.item_demo_list_layout, parent, false);
+//            }
+//        }
+//        return super.createItemView(parent, position);
+//    }
 
     void initItem(RBaseViewHolder holder, String itemText, View.OnClickListener onClickListener) {
         initItem(holder, itemText, false, onClickListener);

@@ -21,14 +21,14 @@ import com.angcyo.uiview.container.UIParam
  */
 class PluginTestUIView : BaseContentUIView() {
     override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
-        injectPluginPackage(mPluginPackage)
+        injectPluginPackage()
         inflate(R.layout.view_plugin_text_layout)
     }
 
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
 
-        injectPluginPackage(mPluginPackage)
+        injectPluginPackage()
         click(R.id.text_view) {
             it.setBackgroundColor(Color.RED)
             mViewHolder.tv(R.id.text_view).text = "动态设置文本"
@@ -36,7 +36,10 @@ class PluginTestUIView : BaseContentUIView() {
 
         click(R.id.button_view) {
             startIView(NotifyDemoUIView())
+
         }
+
+        injectCancelPluginPackage()
     }
 
     override fun onViewUnload(uiParam: UIParam?) {
