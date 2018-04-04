@@ -24,7 +24,7 @@ class SliderLayoutUIDemo : BaseItemUIView() {
     }
 
     override fun createItems(items: MutableList<SingleItem>) {
-        items?.add(object : SingleItem() {
+        items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
 
             }

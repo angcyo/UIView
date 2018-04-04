@@ -60,7 +60,7 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
             MediaStore.Video.Thumbnails.VIDEO_ID
     )
 
-    override fun onLoadFinished(loader: Loader<Cursor>?, data: Cursor?) {
+    override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
         L.e("call: onLoadFinished -> ")
         if (data != null) {
             val allImages = ArrayList<ImageItem>()   //所有图片的集合,不分文件夹
@@ -135,11 +135,11 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
         }
     }
 
-    override fun onLoaderReset(loader: Loader<Cursor>?) {
+    override fun onLoaderReset(loader: Loader<Cursor>) {
         L.e("call: onLoaderReset -> ")
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor>? {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         L.e("call: onCreateLoader -> ")
         var cursorLoader: CursorLoader? = null
         cursorLoader = CursorLoader(mActivity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEO_PROJECTION,

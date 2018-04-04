@@ -18,6 +18,7 @@
             android:text="左上"/>
 
         <com.angcyo.uiview.widget.Button
+            android:id="@+id/button1"
             style="@style/BaseSkinButtonStyle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,11 +40,12 @@
             android:text="右下"/>
 
         <com.angcyo.uiview.widget.Button
+            android:id="@+id/close_menu"
             style="@style/BaseSkinButtonStyle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="居中"/>
+            android:text="关闭菜单"/>
 
     </FrameLayout>
 
@@ -54,6 +56,7 @@
         android:background="@color/base_orange">
 
         <com.angcyo.uiview.widget.Button
+            android:id="@+id/button2"
             style="@style/BaseSkinButtonStyle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,12 +85,22 @@
             android:text="右下"/>
 
         <com.angcyo.uiview.widget.Button
+            android:id="@+id/open_menu"
             style="@style/BaseSkinButtonStyle2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="居中"/>
+            android:text="打开菜单"/>
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/tip_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/base_white"/>
 
 </com.angcyo.uiview.viewgroup.SliderMenuLayout>

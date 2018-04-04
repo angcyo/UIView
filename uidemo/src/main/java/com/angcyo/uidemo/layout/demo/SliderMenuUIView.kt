@@ -1,6 +1,5 @@
 package com.angcyo.uidemo.layout.demo
 
-import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
@@ -40,10 +39,22 @@ class SliderMenuUIView : BaseItemUIView() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
                 slideMenuLayout = holder.itemView as SliderMenuLayout
                 slideMenuLayout?.sliderCallback = object : SliderMenuLayout.SimpleSliderCallback() {
-                    override fun onMenuSlider(ratio: Float) {
-                        super.onMenuSlider(ratio)
-                        L.e("call: onMenuSlider -> $ratio")
+                    override fun onMenuSlider(menuLayout: SliderMenuLayout, ratio: Float, isTouchDown: Boolean) {
+                        super.onMenuSlider(menuLayout, ratio, isTouchDown)
+                        holder.tv(R.id.tip_view).text = "菜单之前:${menuLayout.isOldMenuOpen} ratio:$ratio isTouchDown:$isTouchDown"
                     }
+//                    override fun onMenuSlider(ratio: Float) {
+//                        super.onMenuSlider(ratio)
+//                        L.e("call: onMenuSlider -> $ratio")
+//                    }
+                }
+
+                holder.click(R.id.close_menu) {
+                    slideMenuLayout?.closeMenu()
+                }
+
+                holder.click(R.id.open_menu) {
+                    slideMenuLayout?.openMenu()
                 }
             }
 
