@@ -1,7 +1,7 @@
 package com.angcyo.uidemo.layout.demo
 
 import android.content.Intent
-import com.angcyo.uiview.base.UIScanView2
+import com.angcyo.iview.UIScanView2
 import com.lzy.imagepicker.ImagePickerHelper
 import rx.functions.Action1
 
