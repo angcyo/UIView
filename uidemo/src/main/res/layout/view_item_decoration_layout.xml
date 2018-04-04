@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.angcyo.uiview.rsen.RefreshLayout
+        android:id="@+id/base_refresh_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.angcyo.uiview.recycler.RRecyclerView
+            android:id="@+id/base_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.angcyo.uiview.rsen.RefreshLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@color/transparent_dark40"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/base_hdpi">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:checkedButton="@+id/linear_lm"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/linear_lm"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="线性布局"
+                android:textColor="@color/base_white"/>
+
+            <RadioButton
+                android:id="@+id/grid_lm"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网格布局"
+                android:textColor="@color/base_white"/>
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:checkedButton="@+id/v"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/v"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="纵向"
+                android:textColor="@color/base_white"/>
+
+            <RadioButton
+                android:id="@+id/h"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="横向"
+                android:textColor="@color/base_white"/>
+
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/first_line"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:text="绘制头线"
+            android:textColor="@color/base_white"/>
+
+        <CheckBox
+            android:id="@+id/last_line"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绘制尾线"
+            android:textColor="@color/base_white"/>
+
+    </LinearLayout>
+
+</FrameLayout>

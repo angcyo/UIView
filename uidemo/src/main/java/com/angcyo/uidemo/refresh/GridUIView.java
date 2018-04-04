@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
+import com.angcyo.uiview.recycler.RBaseItemDecoration;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.recycler.RRecyclerView;
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter;
@@ -58,6 +59,9 @@ public class GridUIView extends UIContentView {
     }
 
     private void initRecyclerView() {
+        RBaseItemDecoration itemDecoration = new RBaseItemDecoration((int) (2 * density()), Color.RED);
+        itemDecoration.setDrawLastLine(true);
+        mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setAdapter(new RBaseAdapter<String>(mActivity) {
             @Override
             protected int getItemLayoutId(int viewType) {
