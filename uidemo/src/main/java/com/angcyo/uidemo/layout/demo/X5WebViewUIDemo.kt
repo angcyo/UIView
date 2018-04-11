@@ -17,7 +17,10 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.utils.RUtils
+import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.ExEditText
+import com.github.lzyzsd.jsbridge.CallBackFunction
+
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -48,7 +51,6 @@ class X5WebViewUIDemo : BaseContentUIView() {
             }
         } catch (e: Exception) {
         }
-
 
         webView = mViewHolder.v(R.id.web_view)
         val editView: ExEditText = mViewHolder.v(R.id.edit_text)
@@ -89,6 +91,17 @@ class X5WebViewUIDemo : BaseContentUIView() {
 
         click(R.id.new_button) {
             startIView(X5WebUIView(webView.url))
+        }
+
+        click(R.id.js_call) {
+            webView.callHandler("functionInJs", "data in java", CallBackFunction {
+                Tip.tip("CallBack :$it")
+            })
+        }
+        click(R.id.js_url) {
+            editView.setInputText("http://wap.klgwl.com/static/android.html")
+            webView.loadUrl(editView.string())
+            addToLast("go->" + editView.string())
         }
 
 //        X5Utils.initWebSetting(webView)

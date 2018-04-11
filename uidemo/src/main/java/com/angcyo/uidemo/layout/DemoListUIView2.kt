@@ -67,7 +67,7 @@ class DemoListUIView2 : BaseItemUIView() {
         return false
     }
 
-    override fun onViewShowFirst(bundle: Bundle) {
+    override fun onViewShowFirst(bundle: Bundle?) {
         super.onViewShowFirst(bundle)
         //mRootView.setEnabled(false);
         //showLoadView();

@@ -8,39 +8,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="@dimen/base_hdpi">
 
-        <com.angcyo.uiview.widget.ExEditText
-            android:id="@+id/edit_text"
-            style="@style/BaseMainTextStyle"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="12dp"/>
+            android:orientation="horizontal">
 
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/go_button"
-            style="@style/BaseSkinButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:text="Go"/>
+            <com.angcyo.uiview.widget.ExEditText
+                android:id="@+id/edit_text"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
 
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/new_button"
-            style="@style/BaseSkinButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginStart="@dimen/base_hdpi"
-            android:text="new"/>
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/go_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="Go"/>
 
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/cookie_button"
-            style="@style/BaseSkinButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_marginStart="@dimen/base_hdpi"
-            android:text="Cookie"/>
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/new_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/base_hdpi"
+                android:text="new"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/cookie_button"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/base_hdpi"
+                android:text="Cookie"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/js_url"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="js_url"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/js_call"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/base_hdpi"
+                android:text="js_call"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -58,7 +86,8 @@
             android:id="@+id/recycler_view"
             android:layout_width="200dp"
             android:layout_height="300dp"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:alpha="0.6"/>
 
     </FrameLayout>
 
