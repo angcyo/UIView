@@ -1,20 +1,27 @@
 package com.angcyo.uidemo.layout.demo
 
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import com.angcyo.github.utilcode.utils.AppUtils
 import com.angcyo.github.utilcode.utils.ClipboardUtils
 import com.angcyo.github.utilcode.utils.CmdUtil
 import com.angcyo.github.utilcode.utils.CmdUtil.AppInfo
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseRecyclerUIView
+import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.design.StickLayout2
 import com.angcyo.uiview.dialog.UIFileSelectorDialog
+import com.angcyo.uiview.kotlin.clickIt
 import com.angcyo.uiview.net.RFunc
 import com.angcyo.uiview.net.RSubscriber
 import com.angcyo.uiview.net.Rx
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.adapter.RExBaseAdapter
 import com.angcyo.uiview.recycler.adapter.RModelAdapter
+import com.angcyo.uiview.rsen.RefreshLayout
 import com.angcyo.uiview.utils.RUtils
+import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.utils.Tip
 
 /**
@@ -30,12 +37,31 @@ import com.angcyo.uiview.utils.Tip
  */
 class AppInfoDemoUIView : BaseRecyclerUIView<AppInfo>() {
 
+    companion object {
+        var count = 0
+    }
+
     override fun getTitleString(): String {
         return "包名获取"
     }
 
     override fun getRecyclerRootLayoutId(): Int {
         return R.layout.view_app_info_layout
+    }
+
+    override fun initRefreshLayout(refreshLayout: RefreshLayout?, baseContentLayout: ContentLayout?) {
+        super.initRefreshLayout(refreshLayout, baseContentLayout)
+        refreshLayout?.let {
+            it.addMenuLayout(LayoutInflater.from(mActivity).inflate(R.layout.menu_refresh_layout, baseContentLayout, false))
+            it.menuLayout.apply {
+                findViewById<View>(R.id.button1).clickIt {
+                    T_.info("按钮1", Gravity.LEFT)
+                }
+                findViewById<View>(R.id.button2).clickIt {
+                    T_.info("按钮2", Gravity.LEFT)
+                }
+            }
+        }
     }
 
     override fun createAdapter(): RExBaseAdapter<String, AppInfo, String> {
@@ -112,7 +138,10 @@ class AppInfoDemoUIView : BaseRecyclerUIView<AppInfo>() {
 
     override fun initOnShowContentLayout() {
         super.initOnShowContentLayout()
-        v<StickLayout2>(R.id.stick_layout).setScrollTarget(mRecyclerView)
+        v<StickLayout2>(R.id.stick_layout).apply {
+            setScrollTarget(mRecyclerView)
+            isEnabled = count++ % 2 == 0
+        }
 
         mViewHolder.gone(R.id.item_root_layout)
 

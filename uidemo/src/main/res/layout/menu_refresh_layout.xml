@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/transparent_dark20"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/base_xxxhdpi"
+    android:paddingTop="@dimen/base_xxxhdpi">
+
+    <TextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:text="小程序菜单模仿"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button1"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:text="按钮1"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button2"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:text="按钮2"/>
+
+</LinearLayout>
