@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.viewgroup.RViewGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/base_xhdpi"
+    android:background="@color/transparent_dark20"
+    android:paddingEnd="@dimen/base_ldpi"
+    android:paddingStart="@dimen/base_xhdpi"
+    android:paddingTop="@dimen/base_xxxhdpi">
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="默认按钮1"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="160dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/base_xhdpi"-->
+    <!--android:text="底部对齐(屏幕宽度一半)"-->
+    <!--app:r_layout_gravity="BOTTOM"-->
+    <!--app:r_layout_width="0.5sw"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="160dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="60dp"-->
+    <!--android:layout_marginStart="@dimen/base_xhdpi"-->
+    <!--android:text="(Parent宽度一半)"-->
+    <!--app:r_layout_gravity="BOTTOM"-->
+    <!--app:r_layout_width="0.5pw"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:text="底部靠右"-->
+    <!--app:r_layout_gravity="BOTTOM|RIGHT"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/base_xhdpi"-->
+    <!--android:text="居中对齐"-->
+    <!--app:r_layout_gravity="CENTER"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="40dp"-->
+    <!--android:text="顶部居中"-->
+    <!--app:r_layout_gravity="CENTER_HORIZONTAL"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/base_xhdpi"-->
+    <!--android:text="左居中"-->
+    <!--app:r_layout_gravity="CENTER_VERTICAL"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="80dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/base_xhdpi"-->
+    <!--android:text="右居中"-->
+    <!--app:r_layout_gravity="RIGHT|CENTER_VERTICAL"/>-->
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:text="lh1 1"
+        app:r_layout_gravity="BOTTOM"
+        app:r_layout_rule="lh1"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:text="lh1 2 lv1 1"
+        app:r_layout_rule="lh1 lv1"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:text="lh1 3"
+        app:r_layout_gravity="BOTTOM"
+        app:r_layout_rule="lh1"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:text="lv1 2"
+        app:r_layout_rule="lv1"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:text="lv1 3"
+        app:r_layout_rule="lv1"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:gravity="center|bottom"
+        android:text="lv1 4"
+        app:r_layout_gravity="CENTER_VERTICAL|BOTTOM"
+        app:r_layout_rule="lv1"/>
+
+</com.angcyo.uiview.viewgroup.RViewGroup>

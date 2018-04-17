@@ -128,7 +128,22 @@ class DemoListUIView2 : BaseItemUIView() {
 //        val s2 = String("我")
 //        L.e("in java-> " + ("我" === "我") + (s1 === s2) + (s1 === "我") + (s2 === "我"))
 
-        onSynchronizedDemo(true, "")
+
+        //onSynchronizedDemo(true, "")
+
+        var str: String? = null
+        var log = str?.length?.let {
+            it + 1
+        } ?: "is empty"
+
+        L.e("call: onKotlinDemoClick1 -> $log")
+
+        str = "angcyo"
+        log = str?.length?.let {
+            it + 1
+        } ?: "is empty"
+
+        L.e("call: onKotlinDemoClick2 -> $log")
     }
 
     internal fun onSynchronizedDemo(runThread: Boolean, tag: String) {
@@ -401,7 +416,7 @@ class DemoListUIView2 : BaseItemUIView() {
                             val view = View(mActivity)
                             val v1 = view.v<View>(R.id.text_view)
 
-                            L.e("call: onClick([v])-> " + v1!!)
+                            L.e("call: onClick([v])-> " + v1)
 
                             //                        ResUtil.setGreyscale(getILayout(), true);
                             //                        postDelayed(2000, new Runnable() {
@@ -720,6 +735,14 @@ class DemoListUIView2 : BaseItemUIView() {
                 initItem(holder, (posInData + 1).toString() + ".Item Decoration Demo",
                         false, View.OnClickListener {
                     startIView(ItemDecorationUIDemo().setAnimationType(IViewAnimationType.NONE))
+                })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                initItem(holder, (posInData + 1).toString() + ".RViewGroup Demo",
+                        false, View.OnClickListener {
+                    startIView(RViewGroupUIDemo().setAnimationType(IViewAnimationType.TRANSLATE_VERTICAL))
                 })
             }
         })
