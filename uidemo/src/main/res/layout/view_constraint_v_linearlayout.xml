@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent_dark20">
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button1"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按钮1"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button2"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按钮2"
+        app:layout_constraintTop_toBottomOf="@id/button1"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button3"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按钮3"
+        app:layout_constraintTop_toBottomOf="@id/button2"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button4"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按钮4"
+        app:layout_constraintTop_toBottomOf="@id/button3"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button11"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_xhdpi"
+        android:text="按钮11"
+        app:layout_constraintLeft_toRightOf="@id/button1"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button21"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="按钮21"
+        app:layout_constraintLeft_toLeftOf="@id/button11"
+        app:layout_constraintTop_toBottomOf="@id/button11"/>
+
+    <com.angcyo.uiview.widget.Button
+        android:id="@+id/button31"
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_ldpi"
+        android:text="按钮31"
+        app:layout_constraintLeft_toLeftOf="@id/button11"
+        app:layout_constraintTop_toBottomOf="@id/button21"/>
+</android.support.constraint.ConstraintLayout>

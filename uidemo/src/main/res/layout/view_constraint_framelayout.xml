@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_margin="@dimen/base_xhdpi"
+    android:background="@color/transparent_dark40"
+    android:paddingRight="@dimen/base_xxxhdpi"
+    android:paddingTop="@dimen/base_xhdpi">
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左上"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="右上"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左下"
+        app:layout_constraintBottom_toTopOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="右下"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="居中"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左居中"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="右居中"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="顶部居中"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
+    <com.angcyo.uiview.widget.Button
+        style="@style/BaseSkinButtonStyle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="底部居中"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"/>
+
+
+</android.support.constraint.ConstraintLayout>

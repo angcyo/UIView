@@ -37,5 +37,39 @@ class ConstraintLayoutUIView : BaseItemUIView() {
             }
         })
 
+        //使用约束布局模仿 帧布局
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.view_constraint_framelayout
+            }
+        })
+
+        //横向LinearLayout
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.view_constraint_h_linearlayout
+            }
+        })
+
+        //纵向LinearLayout
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.view_constraint_v_linearlayout
+            }
+        })
+
+
     }
 }
