@@ -28,7 +28,6 @@ dependencies {
     implementation project(':RJpush')
     implementation project(':RLibrary:rcode')
 
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //FPS显示库 https://github.com/wasabeef/Takt
 //    implementation 'jp.wasabeef:takt:1.0.4'
