@@ -90,7 +90,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/base_xhdpi"
         android:text="lh1 2 lv1 1"
-        app:r_layout_rule="lh1 lv1"/>
+        app:r_layout_rule="lh1 lv1"
+        app:r_layout_weight="1"/>
 
     <com.angcyo.uiview.widget.Button
         style="@style/BaseSkinButtonStyle2"
@@ -99,32 +100,33 @@
         android:layout_margin="@dimen/base_xhdpi"
         android:text="lh1 3"
         app:r_layout_gravity="BOTTOM"
+        app:r_layout_weight="1"
         app:r_layout_rule="lh1"/>
 
-    <com.angcyo.uiview.widget.Button
-        style="@style/BaseSkinButtonStyle2"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_xhdpi"
-        android:text="lv1 2"
-        app:r_layout_rule="lv1"/>
+    <!--<com.angcyo.uiview.widget.Button-->
+        <!--style="@style/BaseSkinButtonStyle2"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/base_xhdpi"-->
+        <!--android:text="lv1 2"-->
+        <!--app:r_layout_rule="lv1"/>-->
 
-    <com.angcyo.uiview.widget.Button
-        style="@style/BaseSkinButtonStyle2"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_xhdpi"
-        android:text="lv1 3"
-        app:r_layout_rule="lv1"/>
+    <!--<com.angcyo.uiview.widget.Button-->
+        <!--style="@style/BaseSkinButtonStyle2"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/base_xhdpi"-->
+        <!--android:text="lv1 3"-->
+        <!--app:r_layout_rule="lv1"/>-->
 
-    <com.angcyo.uiview.widget.Button
-        style="@style/BaseSkinButtonStyle2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_xhdpi"
-        android:gravity="center|bottom"
-        android:text="lv1 4"
-        app:r_layout_gravity="CENTER_VERTICAL|BOTTOM"
-        app:r_layout_rule="lv1"/>
+    <!--<com.angcyo.uiview.widget.Button-->
+        <!--style="@style/BaseSkinButtonStyle2"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/base_xhdpi"-->
+        <!--android:gravity="center|bottom"-->
+        <!--android:text="lv1 4"-->
+        <!--app:r_layout_gravity="CENTER_VERTICAL|BOTTOM"-->
+        <!--app:r_layout_rule="lv1"/>-->
 
 </com.angcyo.uiview.viewgroup.RViewGroup>
