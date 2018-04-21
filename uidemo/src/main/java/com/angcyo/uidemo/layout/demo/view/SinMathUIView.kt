@@ -167,7 +167,7 @@ class SinMathUIView(context: Context, attributeSet: AttributeSet? = null) : View
         //
 //        drawable.let {
 //            it.bounds = it.getBoundsWith(point, canvas.clipBounds)
-//            it.draw(canvas)
+//            it.onDraw(canvas)
 //        }
 
         canvas.save()

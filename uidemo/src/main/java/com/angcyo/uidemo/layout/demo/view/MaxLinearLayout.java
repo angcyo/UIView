@@ -96,7 +96,7 @@ public class MaxLinearLayout extends LinearLayout {
 
     @Override
     public void draw(Canvas canvas) {
-        e("父View call: draw([canvas])-> ");
+        e("父View call: onDraw([canvas])-> ");
         super.draw(canvas);
 
         if (drawMask) {

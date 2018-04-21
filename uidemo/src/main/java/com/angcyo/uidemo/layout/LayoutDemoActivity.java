@@ -11,12 +11,14 @@ import com.angcyo.uiview.RCrashHandler;
 import com.angcyo.uiview.base.UIBaseView;
 import com.angcyo.uiview.base.UILayoutActivity;
 import com.angcyo.uiview.container.RSwipeLayout;
+import com.liulishuo.FDown;
 
 public class LayoutDemoActivity extends UILayoutActivity {
     @Override
     protected void onLoadView(Intent intent) {
         //mLayout.getLayout().setBackgroundColor(Color.RED);
-
+        FDown.init(getApplication(), false);
+        
         mLayout.getLayout().post(new Runnable() {
             @Override
             public void run() {

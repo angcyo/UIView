@@ -80,7 +80,7 @@ public class BatteryView extends View {
 
     @Override
     public void draw(Canvas canvas) {
-        e("子View call: draw([canvas])-> ");
+        e("子View call: onDraw([canvas])-> ");
         super.draw(canvas);
     }
 
