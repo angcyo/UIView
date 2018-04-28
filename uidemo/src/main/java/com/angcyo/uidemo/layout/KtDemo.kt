@@ -5,8 +5,11 @@ import android.support.annotation.ColorInt
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.angcyo.library.utils.L
+import com.angcyo.uiview.net.RException
+import com.angcyo.uiview.net.RSubscriber
 import com.angcyo.uiview.utils.Reflect
 import com.angcyo.uiview.view.UIIViewImpl
+import rx.Observable
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
 
@@ -21,8 +24,9 @@ object KtDemo {
 
         L.e("in kotlin-> " + ("我" === "我") + (s1 === s2) + (s1 === "我") + (s2 === "我"))
 
-        threadDemo1()
-        threadDemo2()
+//        threadDemo1()
+//        threadDemo2()
+        rxTest()
     }
 
     private fun threadDemo2() {
@@ -231,5 +235,61 @@ object KtDemo {
         }
 
         return result
+    }
+
+    fun rxTest() {
+        var count = 1
+        rxLog("开始测试: rxTest -> ")
+        Observable.just("start")
+                .flatMap {
+                    rxLog("flatMap->$it  ${count++}")
+                    Observable.just("startFlatMap")
+                }
+                .map {
+                    rxLog("map->$it  ${count++}")
+                    if (count >= 3) {
+                        throw NullPointerException("重试")
+                    }
+                    ""
+                }
+//                .repeatWhen {
+//                    Observable.timer(3, TimeUnit.SECONDS)
+//                }
+                //.repeat(3) //重复执行流, onNext 会多次执行
+                .retry(3)  //onError的时候, 重试次数
+                .subscribe(object : RSubscriber<String>() {
+                    override fun onStart() {
+                        super.onStart()
+                        rxLog("call: onStart -> ")
+                    }
+
+                    override fun onCompleted() {
+                        super.onCompleted()
+                        rxLog("call: onCompleted -> ")
+                    }
+
+                    override fun onSucceed(bean: String?) {
+                        super.onSucceed(bean)
+                        rxLog("call: onSucceed -> $bean")
+                    }
+
+                    override fun onError(code: Int, msg: String?) {
+                        super.onError(code, msg)
+                        rxLog("call: onError -> ")
+                    }
+
+                    override fun onEnd(isError: Boolean, isNoNetwork: Boolean, e: RException?) {
+                        super.onEnd(isError, isNoNetwork, e)
+                        rxLog("call: onEnd -> $isError $isNoNetwork $e")
+                    }
+                })
+
+
+        //.take(3) //从流中一直取, 取到3个为止
+        //.takeUntil() //一直取, 渠道条件为true为止
+    }
+
+    fun rxLog(log: String) {
+        L.i("rxTest", log)
     }
 }
