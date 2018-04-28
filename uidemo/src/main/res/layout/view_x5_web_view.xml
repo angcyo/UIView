@@ -86,7 +86,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="200dp"
             android:layout_height="300dp"
-            android:layout_gravity="bottom"
+            android:layout_gravity="bottom|right"
             android:alpha="0.6"/>
 
     </FrameLayout>

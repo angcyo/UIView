@@ -6,6 +6,7 @@ import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
+import com.angcyo.library.utils.L
 import com.angcyo.rtbs.DownloadFileBean
 import com.angcyo.rtbs.X5FileDownloadUIView
 import com.angcyo.rtbs.X5WebUIView
@@ -17,8 +18,10 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
 import com.angcyo.uiview.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.utils.RUtils
+import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.ExEditText
+import com.github.lzyzsd.jsbridge.BridgeHandler
 import com.github.lzyzsd.jsbridge.CallBackFunction
 
 
@@ -94,7 +97,12 @@ class X5WebViewUIDemo : BaseContentUIView() {
         }
 
         click(R.id.js_call) {
-            webView.callHandler("functionInJs", "data in java", CallBackFunction {
+            webView.registerHandler("setShareAppMessage", BridgeHandler { data, function ->
+                L.e("registerHandler setShareAppMessage ->$data")
+                T_.info(data)
+            })
+
+            webView.callHandler("functionInJs", "data in java.", CallBackFunction {
                 Tip.tip("CallBack :$it")
             })
         }
