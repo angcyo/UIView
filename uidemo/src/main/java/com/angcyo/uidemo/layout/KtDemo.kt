@@ -26,7 +26,8 @@ object KtDemo {
 
 //        threadDemo1()
 //        threadDemo2()
-        rxTest()
+        //rxTest()
+        rxTest2()
     }
 
     private fun threadDemo2() {
@@ -237,6 +238,33 @@ object KtDemo {
         return result
     }
 
+    val subscriber = object : RSubscriber<String>() {
+        override fun onStart() {
+            super.onStart()
+            rxLog("call: onStart -> ")
+        }
+
+        override fun onCompleted() {
+            super.onCompleted()
+            rxLog("call: onCompleted -> ")
+        }
+
+        override fun onSucceed(bean: String?) {
+            super.onSucceed(bean)
+            rxLog("call: onSucceed -> $bean")
+        }
+
+        override fun onError(code: Int, msg: String?) {
+            super.onError(code, msg)
+            rxLog("call: onError -> ")
+        }
+
+        override fun onEnd(isError: Boolean, isNoNetwork: Boolean, e: RException?) {
+            super.onEnd(isError, isNoNetwork, e)
+            rxLog("call: onEnd -> $isError $isNoNetwork $e")
+        }
+    }
+
     fun rxTest() {
         var count = 1
         rxLog("开始测试: rxTest -> ")
@@ -257,36 +285,56 @@ object KtDemo {
 //                }
                 //.repeat(3) //重复执行流, onNext 会多次执行
                 .retry(3)  //onError的时候, 重试次数
-                .subscribe(object : RSubscriber<String>() {
-                    override fun onStart() {
-                        super.onStart()
-                        rxLog("call: onStart -> ")
-                    }
-
-                    override fun onCompleted() {
-                        super.onCompleted()
-                        rxLog("call: onCompleted -> ")
-                    }
-
-                    override fun onSucceed(bean: String?) {
-                        super.onSucceed(bean)
-                        rxLog("call: onSucceed -> $bean")
-                    }
-
-                    override fun onError(code: Int, msg: String?) {
-                        super.onError(code, msg)
-                        rxLog("call: onError -> ")
-                    }
-
-                    override fun onEnd(isError: Boolean, isNoNetwork: Boolean, e: RException?) {
-                        super.onEnd(isError, isNoNetwork, e)
-                        rxLog("call: onEnd -> $isError $isNoNetwork $e")
-                    }
-                })
+                .subscribe(subscriber)
 
 
         //.take(3) //从流中一直取, 取到3个为止
         //.takeUntil() //一直取, 渠道条件为true为止
+    }
+
+    fun rxTest2() {
+        rxLog("开始测试: rxTest -> ")
+//        Observable.timer(300, TimeUnit.MILLISECONDS) //延迟300毫秒发射一个数据
+//                .flatMap {
+//                    rxLog("flatMap1:$it")
+//                    Observable.timer(300, TimeUnit.MILLISECONDS)
+//                }
+//                .flatMap {
+//                    rxLog("flatMap2:$it")
+//                    Observable.timer(300, TimeUnit.MILLISECONDS)
+//                }
+//                .flatMap {
+//                    rxLog("flatMap3:$it")
+//                    Observable.timer(300, TimeUnit.MILLISECONDS)
+//                }
+//                .map {
+//                    "from map.$it"
+//                }
+//                .subscribe(subscriber)
+
+//        Observable.just("1")
+//                .map {
+//                    rxLog("map1:$it")
+//                    "map1"
+//                }
+//                .delay(300, TimeUnit.MILLISECONDS)
+//                .map {
+//                    rxLog("map2:$it")
+//                    "map2"
+//                }
+//                .delay(300, TimeUnit.MILLISECONDS)
+//                .subscribe(subscriber)
+
+//        Observable
+//                .just("a", 2)
+//                //.interval(100, TimeUnit.MILLISECONDS)
+//                .buffer(3)//缓冲3个数据, 如果不够3个也会继续执行
+//                .map {
+//                    "map:$it"
+//                }
+//                .subscribe(subscriber)
+
+        
     }
 
     fun rxLog(log: String) {
