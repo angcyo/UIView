@@ -296,42 +296,43 @@ object KtDemo {
 
     fun rxTest2() {
         rxLog("开始测试: rxTest -> ")
-//        Observable.timer(300, TimeUnit.MILLISECONDS) //延迟300毫秒发射一个数据
-//                .flatMap {
-//                    rxLog("flatMap1:$it")
-//                    Observable.timer(300, TimeUnit.MILLISECONDS)
-//                }
-//                .flatMap {
-//                    rxLog("flatMap2:$it")
-//                    Observable.timer(300, TimeUnit.MILLISECONDS)
-//                }
-//                .flatMap {
-//                    rxLog("flatMap3:$it")
-//                    Observable.timer(300, TimeUnit.MILLISECONDS)
-//                }
-//                .map {
-//                    "from map.$it"
-//                }
-//                .subscribe(subscriber)
-
-        Observable.just("1")
-                .map {
-                    rxLog("map1:$it")
-                    "map1"
+        Observable.timer(300, TimeUnit.MILLISECONDS) //延迟300毫秒发射一个数据
+                .flatMap {
+                    rxLog("flatMap1:$it")
+                    Observable.timer(300, TimeUnit.MILLISECONDS)
                 }
-                .delay(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    rxLog("map2:$it")
-                    "map2"
+                .flatMap {
+                    rxLog("flatMap2:$it")
+                    Observable.timer(300, TimeUnit.MILLISECONDS)
                 }
-                .delay(300, TimeUnit.MILLISECONDS)
-//                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap {
+                    rxLog("flatMap3:$it")
+                    Observable.timer(300, TimeUnit.MILLISECONDS)
+                }
                 .map {
-                    rxLog("map3:$it")
-                    "map3"
+                    "from map.$it"
                 }
                 .subscribe(subscriber)
+
+//        Observable.just("1")
+//                .map {
+//                    rxLog("map1:$it")
+//                    "map1"
+//                }
+//                .delay(300, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .map {
+//                    rxLog("map2:$it")
+//                    "map2"
+//                }
+//                .delay(300, TimeUnit.MILLISECONDS)
+////                .observeOn(AndroidSchedulers.mainThread())
+//                .map {
+//                    rxLog("map3:$it")
+//                    "map3"
+//                }
+//                .subscribe(subscriber)
 
 //        Observable
 //                .just("a", 2)
