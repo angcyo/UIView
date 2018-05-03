@@ -94,4 +94,9 @@
 
     </LinearLayout>
 
+    <com.angcyo.uiview.widget.FlatImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/test_image"/>
+
 </LinearLayout>
