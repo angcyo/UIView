@@ -10,6 +10,8 @@ import com.angcyo.uiview.net.RSubscriber
 import com.angcyo.uiview.utils.Reflect
 import com.angcyo.uiview.view.UIIViewImpl
 import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
 
@@ -312,18 +314,24 @@ object KtDemo {
 //                }
 //                .subscribe(subscriber)
 
-//        Observable.just("1")
-//                .map {
-//                    rxLog("map1:$it")
-//                    "map1"
-//                }
-//                .delay(300, TimeUnit.MILLISECONDS)
-//                .map {
-//                    rxLog("map2:$it")
-//                    "map2"
-//                }
-//                .delay(300, TimeUnit.MILLISECONDS)
-//                .subscribe(subscriber)
+        Observable.just("1")
+                .map {
+                    rxLog("map1:$it")
+                    "map1"
+                }
+                .delay(300, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    rxLog("map2:$it")
+                    "map2"
+                }
+                .delay(300, TimeUnit.MILLISECONDS)
+//                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    rxLog("map3:$it")
+                    "map3"
+                }
+                .subscribe(subscriber)
 
 //        Observable
 //                .just("a", 2)
@@ -334,7 +342,7 @@ object KtDemo {
 //                }
 //                .subscribe(subscriber)
 
-        
+
     }
 
     fun rxLog(log: String) {
