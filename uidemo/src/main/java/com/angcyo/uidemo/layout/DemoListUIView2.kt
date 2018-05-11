@@ -746,6 +746,14 @@ class DemoListUIView2 : BaseItemUIView() {
 //                })
 //            }
 //        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                initItem(holder, (posInData + 1).toString() + ".IP Mac Network Demo",
+                        false, View.OnClickListener {
+                    startIView(IpMacNetworkUIDemo().setAnimationType(IViewAnimationType.ALPHA))
+                })
+            }
+        })
 
         //版本 编译时间
         items.add(object : SingleItem(SingleItem.Type.LINE) {

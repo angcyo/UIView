@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/base_xhdpi">
+
+    <TextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="main"/>
+
+    <!--&lt;!&ndash;网络状态&ndash;&gt;-->
+    <!--<TextView-->
+    <!--android:id="@+id/state_tip_view"-->
+    <!--style="@style/BaseMainTextStyle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="当前网络状态:"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/state_text_view"-->
+    <!--style="@style/BaseMainTextStyle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintLeft_toRightOf="@id/state_tip_view"-->
+    <!--tools:text="WIFI"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/mac_tip_view"-->
+    <!--style="@style/BaseMainTextStyle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="MAC地址:"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/state_tip_view"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/mac_text_view"-->
+    <!--style="@style/BaseMainTextStyle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toBottomOf="@id/mac_tip_view"-->
+    <!--app:layout_constraintLeft_toRightOf="@id/mac_tip_view"-->
+    <!--tools:text="00:00"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/ip_tip_view"-->
+    <!--style="@style/BaseMainTextStyle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="IP地址:"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/mac_tip_view"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/ip_text_view"-->
+    <!--style="@style/BaseMainTextStyle"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toBottomOf="@id/ip_tip_view"-->
+    <!--app:layout_constraintLeft_toRightOf="@id/ip_tip_view"-->
+    <!--tools:text="00:00"/>-->
+</android.support.constraint.ConstraintLayout>
