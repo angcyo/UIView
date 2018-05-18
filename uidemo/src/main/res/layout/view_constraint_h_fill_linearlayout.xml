@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/base_hdpi"
+    tools:background="@color/transparent_dark40">
+
+    <!--模仿微信选择联系人布局-->
+    <TextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/base_red2"
+        android:text="很长的123文本abc很长的123文本abc很长的123文本abc很长的123文本abc"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/edit_text"/>
+
+    <com.angcyo.uiview.widget.ExEditText
+        android:id="@+id/edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/base_orange"
+        android:hint="输入关键字"
+        app:layout_constraintLeft_toRightOf="@id/text_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_min="100dp"/>
+
+    <!--<com.angcyo.uiview.viewgroup.FillLayout-->
+    <!--android:id="@+id/fill_layout1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/edit_text">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/base_red2"-->
+    <!--android:text="很长的123文本abc"/>-->
+
+    <!--<com.angcyo.uiview.widget.ExEditText-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/base_orange"-->
+    <!--android:hint="输入关键字"/>-->
+
+    <!--</com.angcyo.uiview.viewgroup.FillLayout>-->
+
+    <com.angcyo.uiview.viewgroup.FillLayout
+        android:id="@+id/fill_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/transparent_dark80"
+        android:padding="@dimen/base_ldpi"
+        app:layout_constraintTop_toBottomOf="@id/edit_text"
+        app:r_reverse_fill_layout="false">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:background="@color/base_red2"
+            android:gravity="bottom"
+            android:text="很长的123文本abc很长的123文本abc很长的123文本abc很长的123文本abc"
+            app:r_fill_view="true"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/base_ldpi"
+            android:background="@color/base_orange"
+            android:hint="输入关键字"
+            android:padding="2dp"
+            app:r_fill_min_width="20dp"
+            app:r_fill_space="true"/>
+
+    </com.angcyo.uiview.viewgroup.FillLayout>
+
+    <com.angcyo.uiview.viewgroup.FillLayout
+        android:id="@+id/fill_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/transparent_dark80"
+        android:padding="@dimen/base_ldpi"
+        app:layout_constraintTop_toBottomOf="@id/fill_layout1"
+        app:r_reverse_fill_layout="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/base_red2"
+            android:gravity="bottom"
+            android:text="很长的123文本abc很长的123文本abc很长的123文本abc很长的123文本abc"
+            app:r_fill_view="true"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="@dimen/base_ldpi"
+            android:background="@color/base_orange"
+            android:hint="输入关键字"
+            android:padding="2dp"
+            app:r_fill_space="true"/>
+
+    </com.angcyo.uiview.viewgroup.FillLayout>
+
+
+    <com.angcyo.uiview.viewgroup.FillLayout
+        android:id="@+id/fill_layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@color/transparent_dark80"
+        android:padding="@dimen/base_ldpi"
+        app:layout_constraintTop_toBottomOf="@id/fill_layout2"
+        app:r_reverse_fill_layout="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/base_red2"
+            android:gravity="bottom"
+            android:text="很长的123文本abc"
+            app:r_fill_view="true"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="@dimen/base_ldpi"
+            android:background="@color/base_orange"
+            android:hint="输入关键字"
+            android:padding="2dp"
+            app:r_fill_space="true"/>
+
+    </com.angcyo.uiview.viewgroup.FillLayout>
+
+    <com.angcyo.uiview.viewgroup.RLinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/fill_layout3"
+        app:r_is_in_chat_layout="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_red2"
+            android:tag="is_chat_content_layout"
+            android:text="很长的123文本abc很长的123文本abc很长的123文本abc"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/base_orange"
+            android:hint="输入关键字"
+            android:minWidth="100dp"/>
+    </com.angcyo.uiview.viewgroup.RLinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layout2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_red2"
+            android:text="很长的123文本abc很长的123文"/>
+
+        <com.angcyo.uiview.widget.ExEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/base_orange"
+            android:hint="输入关键字"/>
+
+        <!--<TextView-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/base_red2"-->
+        <!--android:text="!@##$%%$#%"/>-->
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

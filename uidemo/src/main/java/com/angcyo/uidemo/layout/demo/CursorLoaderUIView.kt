@@ -60,6 +60,15 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
             MediaStore.Video.Thumbnails.VIDEO_ID
     )
 
+    private val IMAGE_PROJECTION = arrayOf(//查询图片需要的数据列
+            MediaStore.Images.Media.DISPLAY_NAME, //图片的显示名称  aaa.jpg
+            MediaStore.Images.Media.DATA, //图片的真实路径  /storage/emulated/0/pp/downloader/wallpaper/aaa.jpg
+            MediaStore.Images.Media.SIZE, //图片的大小，long型  132492
+            MediaStore.Images.Media.WIDTH, //图片的宽度，int型  1920
+            MediaStore.Images.Media.HEIGHT, //图片的高度，int型  1080
+            MediaStore.Images.Media.MIME_TYPE, //图片的类型     image/jpeg
+            MediaStore.Images.Media.DATE_ADDED)    //图片被添加的时间，long型  1450518608
+
     override fun onLoadFinished(loader: Loader<Cursor>, data: Cursor?) {
         L.e("call: onLoadFinished -> ")
         if (data != null) {
@@ -68,22 +77,22 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
             data.moveToFirst()
             while (data.moveToNext()) {
                 //查询数据
-                val imageName = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[0]))
-                val imagePath = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[1]))
-
-                val videoDuration = data.getLong(data.getColumnIndexOrThrow(VIDEO_PROJECTION[2]))
-                val thumbId = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[3])) //缩略图id
-                val resolution = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[4])) //分辨率
-
-                val imageSize = data.getLong(data.getColumnIndexOrThrow(VIDEO_PROJECTION[5]))
-                val imageWidth = data.getInt(data.getColumnIndexOrThrow(VIDEO_PROJECTION[6]))
-                val imageHeight = data.getInt(data.getColumnIndexOrThrow(VIDEO_PROJECTION[7]))
-                val imageMimeType = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[8]))
-                val imageAddTime = data.getLong(data.getColumnIndexOrThrow(VIDEO_PROJECTION[9]))
-
-                val videoId = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[10]))
-
-                val thumbPath = getVideoThumb(mActivity.contentResolver, videoId)
+//                val imageName = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[0]))
+//                val imagePath = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[1]))
+//
+//                val videoDuration = data.getLong(data.getColumnIndexOrThrow(VIDEO_PROJECTION[2]))
+//                val thumbId = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[3])) //缩略图id
+//                val resolution = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[4])) //分辨率
+//
+//                val imageSize = data.getLong(data.getColumnIndexOrThrow(VIDEO_PROJECTION[5]))
+//                val imageWidth = data.getInt(data.getColumnIndexOrThrow(VIDEO_PROJECTION[6]))
+//                val imageHeight = data.getInt(data.getColumnIndexOrThrow(VIDEO_PROJECTION[7]))
+//                val imageMimeType = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[8]))
+//                val imageAddTime = data.getLong(data.getColumnIndexOrThrow(VIDEO_PROJECTION[9]))
+//
+//                val videoId = data.getString(data.getColumnIndexOrThrow(VIDEO_PROJECTION[10]))
+//
+//                val thumbPath = getVideoThumb(mActivity.contentResolver, videoId)
 
 
 //                L.e(" -> ${index++}\n $imageName\n$imagePath\n" +
@@ -133,6 +142,10 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
 //                imageFolders.add(0, allImagesFolder)  //确保第一条是所有图片
 //            }
         }
+        if (loader.id == 1) {
+            destroyLoader(1)
+            initImageLoader()
+        }
     }
 
     override fun onLoaderReset(loader: Loader<Cursor>) {
@@ -142,8 +155,13 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<Cursor> {
         L.e("call: onCreateLoader -> ")
         var cursorLoader: CursorLoader? = null
-        cursorLoader = CursorLoader(mActivity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEO_PROJECTION,
-                null, null, VIDEO_PROJECTION[9] + " DESC")//按照添加时间逆序
+        if (id == 1) {
+            cursorLoader = CursorLoader(mActivity, MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEO_PROJECTION,
+                    null, null, VIDEO_PROJECTION[9] + " DESC")//按照添加时间逆序
+        } else {
+            cursorLoader = CursorLoader(mActivity, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION,
+                    null, null, IMAGE_PROJECTION[6] + " DESC")//按照添加时间逆序
+        }
         return cursorLoader
     }
 
@@ -208,6 +226,20 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
                 itemInfo.setOnClickListener { ImagePickerHelper.startImagePicker(mActivity, false, 3, VIDEO) }
             }
         })
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                val itemInfo = holder.item(R.id.base_item_info_layout)
+                itemInfo.setItemText("打开图片/视频选择器(多选)")
+                itemInfo.setOnClickListener { ImagePickerHelper.startImageVideoPicker(mActivity, true, 3, 1 * 60 * 1000) }
+            }
+        })
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                val itemInfo = holder.item(R.id.base_item_info_layout)
+                itemInfo.setItemText("打开图片/视频选择器(单选)")
+                itemInfo.setOnClickListener { ImagePickerHelper.startImageVideoPicker(mActivity, false, 3, 60) }
+            }
+        })
 
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
@@ -218,12 +250,30 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
 
     override fun onViewLoad() {
         super.onViewLoad()
+        initVideoLoader()
+
+        //loaderManager.destroyLoader(1)
+    }
+
+    private fun initVideoLoader() {
         if (mActivity is UILayoutActivity) {
             val loaderManager = (mActivity as UILayoutActivity).supportLoaderManager
             loaderManager.initLoader(1, null, this)
         }
+    }
 
-        //loaderManager.destroyLoader(1)
+    private fun initImageLoader() {
+        if (mActivity is UILayoutActivity) {
+            val loaderManager = (mActivity as UILayoutActivity).supportLoaderManager
+            loaderManager.initLoader(2, null, this)
+        }
+    }
+
+    private fun destroyLoader(id: Int) {
+        if (mActivity is UILayoutActivity) {
+            val loaderManager = (mActivity as UILayoutActivity).supportLoaderManager
+            loaderManager.destroyLoader(id)
+        }
     }
 
     var iv_thumb: ImagePickerImageView? = null

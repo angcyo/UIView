@@ -70,6 +70,17 @@ class ConstraintLayoutUIView : BaseItemUIView() {
             }
         })
 
+        //横向撑满布局
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.view_constraint_h_fill_linearlayout
+            }
+        })
+
 
     }
 }
