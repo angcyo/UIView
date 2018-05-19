@@ -7,11 +7,15 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.angcyo.uidemo.R;
 import com.angcyo.uidemo.layout.base.BaseItemUIView;
+import com.angcyo.uidemo.layout.demo.view.MaskImageView;
+import com.angcyo.uidemo.layout.demo.view.MaskLayout;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
@@ -132,6 +136,34 @@ public class RippleDrawableDemoUIView extends BaseItemUIView {
                                         ResUtil.createDrawable(Color.RED, roundRadius * 2)))
                 );
 
+            }
+        });
+
+        items.add(new SingleItem() {
+            @Override
+            public void onBindView(@NonNull RBaseViewHolder holder, int posInData, Item itemDataBean) {
+                final MaskImageView maskImageView1 = holder.v(R.id.mask_image_view1);
+                MaskImageView maskImageView2 = holder.v(R.id.mask_image_view2);
+                MaskImageView maskImageView3 = holder.v(R.id.mask_image_view3);
+
+                maskImageView1.setMaskDrawable(getDrawable(R.drawable.round_shape));
+                maskImageView2.setBackgroundResource(R.drawable.round_shape);
+                maskImageView3.setImageResource(R.drawable.round_shape);
+
+                holder.click(maskImageView1, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        maskImageView1.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                });
+
+                MaskLayout maskLayout1 = holder.v(R.id.mask_layout_view1);
+                maskLayout1.setMaskDrawable(getDrawable(R.drawable.round_shape));
+            }
+
+            @Override
+            public int getItemLayoutId() {
+                return R.layout.mask_layout_test;
             }
         });
     }
