@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.viewgroup.RConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark80"
+        android:orientation="horizontal">
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CLIP_PATH"
+            app:r_show_type="NORMAL"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CLIP_PATH"
+            app:r_show_type="CIRCLE"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CLIP_PATH"
+            app:r_show_type="ROUND"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CLIP_PATH"
+            app:r_show_type="ROUND_RECT"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_ldpi"
+        android:text="SCHEME_CLIP_PATH"
+        android:textColor="@color/base_red"
+        android:textSize="9dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark20"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layout1">
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CANVAS_BITMAP"
+            app:r_show_type="NORMAL"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CANVAS_BITMAP"
+            app:r_show_type="CIRCLE"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CANVAS_BITMAP"
+            app:r_show_type="ROUND"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_CANVAS_BITMAP"
+            app:r_show_type="ROUND_RECT"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_ldpi"
+        android:text="SCHEME_CANVAS_BITMAP"
+        android:textColor="@color/base_red"
+        android:textSize="9dp"
+        app:layout_constraintTop_toTopOf="@id/layout2"/>
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark60"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/layout2">
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_MASK_DRAWABLE"
+            app:r_show_type="NORMAL"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_MASK_DRAWABLE"
+            app:r_show_type="CIRCLE"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_MASK_DRAWABLE"
+            app:r_show_type="ROUND"/>
+
+        <com.angcyo.uiview.widget.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_ldpi"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:r_scheme_version="SCHEME_MASK_DRAWABLE"
+            app:r_show_type="ROUND_RECT"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_ldpi"
+        android:text="SCHEME_MASK_DRAWABLE"
+        android:textColor="@color/base_red"
+        android:textSize="9dp"
+        app:layout_constraintTop_toTopOf="@id/layout3"/>
+
+</com.angcyo.uiview.viewgroup.RConstraintLayout>

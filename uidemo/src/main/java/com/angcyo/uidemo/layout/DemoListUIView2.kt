@@ -58,7 +58,6 @@ class DemoListUIView2 : BaseItemUIView() {
     //        return Color.GREEN;
     //    }
 
-
     override fun getTitleString(): String {
         return mActivity.title.toString()
     }
@@ -751,6 +750,14 @@ class DemoListUIView2 : BaseItemUIView() {
                 initItem(holder, (posInData + 1).toString() + ".IP Mac Network Demo",
                         false, View.OnClickListener {
                     startIView(IpMacNetworkUIDemo().setAnimationType(IViewAnimationType.ALPHA))
+                })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                initItem(holder, (posInData + 1).toString() + ".CircleImageView Demo",
+                        false, View.OnClickListener {
+                    startIView(CircleImageViewUIDemo().setAnimationType(IViewAnimationType.TRANSLATE_VERTICAL))
                 })
             }
         })
