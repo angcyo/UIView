@@ -1,8 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.angcyo.uiview.viewgroup.SliderMenuLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:r_menu_slider_gravity="SLIDER_GRAVITY_RIGHT"
+    app:r_menu_view_index="1">
+
+    <!--&lt;!&ndash;菜单&ndash;&gt;-->
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@color/base_red">-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="top|left"-->
+    <!--android:text="左上"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--android:id="@+id/button1"-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="right|top"-->
+    <!--android:text="右上"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|left"-->
+    <!--android:text="左下"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="right|bottom"-->
+    <!--android:text="右下"/>-->
+
+    <!--<com.angcyo.uiview.widget.Button-->
+    <!--android:id="@+id/close_menu"-->
+    <!--style="@style/BaseSkinButtonStyle2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:text="关闭菜单"/>-->
+
+    <!--</FrameLayout>-->
+
+    <!--内容, 注意防止内容事件穿透-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/base_orange">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/button2"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
+            android:text="左上"/>
+
+        <com.angcyo.uiview.widget.Button
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:text="右上"/>
+
+        <com.angcyo.uiview.widget.Button
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:text="左下"/>
+
+        <com.angcyo.uiview.widget.Button
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:text="右下"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/open_menu"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="打开菜单"/>
+
+    </FrameLayout>
 
     <!--菜单-->
     <FrameLayout
@@ -49,50 +142,6 @@
 
     </FrameLayout>
 
-    <!--内容, 注意防止内容事件穿透-->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/base_orange">
-
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/button2"
-            style="@style/BaseSkinButtonStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:text="左上"/>
-
-        <com.angcyo.uiview.widget.Button
-            style="@style/BaseSkinButtonStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|top"
-            android:text="右上"/>
-
-        <com.angcyo.uiview.widget.Button
-            style="@style/BaseSkinButtonStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|left"
-            android:text="左下"/>
-
-        <com.angcyo.uiview.widget.Button
-            style="@style/BaseSkinButtonStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:text="右下"/>
-
-        <com.angcyo.uiview.widget.Button
-            android:id="@+id/open_menu"
-            style="@style/BaseSkinButtonStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="打开菜单"/>
-
-    </FrameLayout>
 
     <TextView
         android:id="@+id/tip_view"
