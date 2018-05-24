@@ -19,7 +19,7 @@ import com.angcyo.uiview.utils.UI
  * Version: 1.0.0
  */
 class ItemMusicHolder : RExItemHolder<String>() {
-    override fun onBindItemDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String) {
+    override fun onBindItemDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String?) {
         holder.itemView.setBackgroundColor(Color.GREEN)
         UI.setViewHeight(holder.itemView, (500 * ScreenUtil.density()).toInt())
         holder.tv(R.id.text_view).text = "数据:$dataBean"

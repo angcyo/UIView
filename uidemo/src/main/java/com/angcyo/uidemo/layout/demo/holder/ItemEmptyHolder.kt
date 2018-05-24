@@ -16,7 +16,7 @@ import com.angcyo.uiview.recycler.adapter.RExItemHolder
  * Version: 1.0.0
  */
 class ItemEmptyHolder : RExItemHolder<String>() {
-    override fun onBindItemDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String) {
+    override fun onBindItemDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String?) {
         holder.tv(R.id.text_view).text = "暂无数据"
     }
 }

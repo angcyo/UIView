@@ -17,7 +17,7 @@ import com.angcyo.uiview.recycler.adapter.RExItemHolder
  * Version: 1.0.0
  */
 class ItemTextHolder : RExItemHolder<String>() {
-    override fun onBindItemDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String) {
+    override fun onBindItemDataView(holder: RBaseViewHolder, posInData: Int, dataBean: String?) {
         holder.itemView.setBackgroundColor(Color.BLUE)
         holder.tv(R.id.text_view).text = "数据:$dataBean"
     }
