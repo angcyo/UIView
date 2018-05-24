@@ -20,6 +20,10 @@ import com.angcyo.uiview.viewgroup.SliderMenuLayout
  */
 class SliderMenuUIView : BaseItemUIView() {
 
+    companion object {
+        var count = 0
+    }
+
     private var slideMenuLayout: SliderMenuLayout? = null
 
     override fun getTitleShowString(): String {
@@ -59,7 +63,11 @@ class SliderMenuUIView : BaseItemUIView() {
             }
 
             override fun getItemLayoutId(): Int {
-                return R.layout.item_slder_menu_layout
+                return when (count++ % 3) {
+                    0 -> R.layout.item_slder_menu_layout
+                    1 -> R.layout.item_slder_menu_layout1
+                    else -> R.layout.item_slder_menu_layout2
+                }
             }
         })
     }
