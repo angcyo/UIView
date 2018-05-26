@@ -15,10 +15,12 @@ import com.angcyo.uidemo.layout.LayoutDemoActivity
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
+import com.angcyo.uiview.dialog.UIDialog
 import com.angcyo.uiview.dialog.UILoading
 import com.angcyo.uiview.kotlin.random
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.*
+import com.angcyo.uiview.view.IViewAnimationType
 
 /**
  * Created by angcyo on 2017-05-28.
@@ -96,6 +98,54 @@ class NotifyDemoUIView : BaseItemUIView() {
 
                 holder.click(R.id.flow_view) {
                     UILoading.flow(mParentILayout).isDimBehind = random.nextBoolean()
+                }
+
+                //dialog 动画测试
+                holder.click(R.id.dialog_button) {
+                    UIDialog.build()
+                            .setDialogContent("Dialog Demo\nDialog Demo\nDialog Demo\nDialog Demo")
+                            .setDialogTitle("Dialog Demo")
+                            .showDialog(mParentILayout)
+                }
+
+                holder.click(R.id.dialog_button2) {
+                    UIDialog.build()
+                            .setDialogContent("Dialog Demo\nDialog Demo\nDialog Demo\nDialog Demo")
+                            .setDialogTitle("Dialog Demo")
+                            .setAnimationType(IViewAnimationType.SCALE_TO_MAX)
+                            .showDialog(mParentILayout)
+                }
+
+                holder.click(R.id.dialog_button3) {
+                    UIDialog.build()
+                            .setDialogContent("Dialog Demo\nDialog Demo\nDialog Demo\nDialog Demo")
+                            .setDialogTitle("Dialog Demo")
+                            .setAnimationType(IViewAnimationType.SCALE_TO_MAX_AND_END)
+                            .showDialog(mParentILayout)
+                }
+
+                holder.click(R.id.dialog_button4) {
+                    UIDialog.build()
+                            .setDialogContent("Dialog Demo\nDialog Demo\nDialog Demo\nDialog Demo")
+                            .setDialogTitle("Dialog Demo")
+                            .setAnimationType(IViewAnimationType.SCALE_TO_MAX_OVERSHOOT)
+                            .showDialog(mParentILayout)
+                }
+
+                holder.click(R.id.dialog_button5) {
+                    UIDialog.build()
+                            .setDialogContent("Dialog Demo\nDialog Demo\nDialog Demo\nDialog Demo")
+                            .setDialogTitle("Dialog Demo")
+                            .setAnimationType(IViewAnimationType.SCALE_TO_MAX_AND_END_OVERSHOOT)
+                            .showDialog(mParentILayout)
+                }
+
+                holder.click(R.id.dialog_button6) {
+                    UIDialog.build()
+                            .setDialogContent("Dialog Demo\nDialog Demo\nDialog Demo\nDialog Demo")
+                            .setDialogTitle("Dialog Demo")
+                            .setAnimationType(IViewAnimationType.SCALE_TO_MAX_AND_TO_MAX_END_OVERSHOOT)
+                            .showDialog(mParentILayout)
                 }
             }
 

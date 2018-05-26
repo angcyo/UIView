@@ -42,7 +42,7 @@ class ChatClassMessageUIView : UIClassItemUIView<String>() {
         mExBaseAdapter.resetData(listOf("文本", "图片", "视频", "音乐", "其他", "空", "文本", "图片", "视频", "音乐", "其他", "空", "文本", "图片", "视频", "音乐", "其他", "空"))
     }
 
-    override fun getItemTypeFromData(data: String): Class<*> {
+    override fun getItemTypeFromData(data: String?, position: Int): Class<*>? {
         return when (data) {
             "文本" -> {
                 StringType::class.java

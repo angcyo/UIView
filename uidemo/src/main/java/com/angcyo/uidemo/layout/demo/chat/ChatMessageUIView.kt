@@ -50,7 +50,7 @@ class ChatMessageUIView : BaseRecyclerUIView<String>() {
                 allRegItems.add(RExItem("空", R.layout.ex_item_empty_layout, ItemEmptyHolder::class.java))
             }
 
-            override fun getItemTypeFromData(data: String): String {
+            override fun getItemTypeFromData(data: String?): String? {
                 return data
             }
         }

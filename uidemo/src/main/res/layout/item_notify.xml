@@ -41,7 +41,7 @@
     <com.angcyo.uiview.widget.RFlowLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-Pr
+
         <com.angcyo.uiview.widget.Button
             android:id="@+id/t1_view"
             style="@style/BaseSkinButtonStyle2"
@@ -89,6 +89,55 @@ Pr
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_ldpi"
             android:text="UILoading Flow"/>
+
+        <!--dialog-->
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/dialog_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Dialog Default"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/dialog_button2"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="SCALE_TO_MAX"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/dialog_button3"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="SCALE_TO_MAX_AND_END"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/dialog_button4"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="SCALE_TO_MAX_OVERSHOOT"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/dialog_button5"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="SCALE_TO_MAX_AND_END_OVERSHOOT"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/dialog_button6"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="SCALE_TO_MAX_AND_TO_MAX_END_OVERSHOOT"/>
 
     </com.angcyo.uiview.widget.RFlowLayout>
 
