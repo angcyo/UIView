@@ -89,7 +89,7 @@ class IpMacNetworkUIDemo : BaseItemUIView() {
         NetworkStateReceiver.addNetworkStateListener(networkStateListener)
     }
 
-    override fun onViewUnload(uiParam: UIParam?) {
+    override fun onViewUnload(uiParam: UIParam) {
         super.onViewUnload(uiParam)
         NetworkStateReceiver.removeNetworkStateListener(networkStateListener)
     }

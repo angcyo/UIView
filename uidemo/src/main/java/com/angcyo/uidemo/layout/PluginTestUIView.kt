@@ -41,7 +41,7 @@ class PluginTestUIView : BaseContentUIView() {
         injectCancelPluginPackage()
     }
 
-    override fun onViewUnload(uiParam: UIParam?) {
+    override fun onViewUnload(uiParam: UIParam) {
         super.onViewUnload(uiParam)
         injectPluginPackage(null)
     }

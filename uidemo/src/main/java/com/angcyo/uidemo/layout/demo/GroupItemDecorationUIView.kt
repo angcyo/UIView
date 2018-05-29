@@ -2,17 +2,15 @@ package com.angcyo.uidemo.layout.demo
 
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.Rect
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.TextPaint
 import android.view.LayoutInflater
 import android.view.View
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
 import com.angcyo.uiview.container.ContentLayout
+import com.angcyo.uiview.container.UIParam
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RExGroupItemDecoration
 import com.angcyo.uiview.recycler.RRecyclerView
@@ -30,6 +28,11 @@ import com.angcyo.uiview.recycler.adapter.RBaseAdapter
  * Version: 1.0.0
  */
 class GroupItemDecorationUIView : BaseContentUIView() {
+
+    companion object {
+        var count = 0
+    }
+
     override fun inflateContentLayout(baseContentLayout: ContentLayout, inflater: LayoutInflater) {
         inflate(R.layout.view_group_item_decoration_layout)
     }
@@ -65,75 +68,79 @@ class GroupItemDecorationUIView : BaseContentUIView() {
         recyclerView2.addItemDecoration(createItemDecoration())
     }
 
+    override fun onViewCreate(rootView: View, param: UIParam) {
+        super.onViewCreate(rootView, param)
+        count++
+    }
+
     fun createItemDecoration(): RecyclerView.ItemDecoration {
         return object : RExGroupItemDecoration(object : GroupCallBack() {
 
-            var paint: TextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
 
-            init {
-                paint.textSize = 12 * scaledDensity()
-                paint.color = Color.RED
-            }
+//            override fun getGroupTextSize(position: Int, layoutOrientation: Int): Float {
+//                if (layoutOrientation == LinearLayoutManager.HORIZONTAL) {
+//                    return paint.measureText(getGroupText(position))
+//                } else {
+//                    return paint.descent() - paint.ascent()
+//                }
+//            }
 
-            override fun getGroupTextSize(position: Int, layoutOrientation: Int): Float {
-                if (layoutOrientation == LinearLayoutManager.HORIZONTAL) {
-                    return paint.measureText(getGroupText(position))
-                } else {
-                    return paint.descent() - paint.ascent()
-                }
-            }
+//            override fun getGroupTextWidth(position: Int, groupInfo: GroupInfo): Float {
+//                if (groupInfo.layoutOrientation == LinearLayoutManager.HORIZONTAL) {
+//                    return mTextPaint.measureText(getGroupText(position))
+//                } else {
+//                    return mTextPaint.descent() - mTextPaint.ascent()
+//                }
+//            }
+
+//            override fun onGetItemOffsets(outRect: Rect, groupInfo: GroupInfo) {
+//                if (groupInfo.adapterPosition in groupInfo.groupStartPosition..groupInfo.groupEndPosition) {
+//                    outRect.top = 100/* (paint.descent() - paint.ascent()).toInt()*/
+//                }
+//            }
 
             override fun getGroupText(position: Int): String {
-                return when {
-                    position < 3 -> {
-                        ""
-                    }
-                    position < 6 -> {
-                        "测试1 >"
-                    }
-                    position < 10 -> {
-                        "测试测试 >"
-                    }
-                    position < 15 -> {
-                        "测试15555 >"
-                    }
-                    else -> {
-                        "剩余 >"
+                if (count % 3 == 0) {
+                    return "$position"
+                } else {
+                    return when {
+                        position < 3 -> {
+                            ""
+                        }
+                        position < 6 -> {
+                            "测试1 >"
+                        }
+                        position < 10 -> {
+                            "测试测试 >"
+                        }
+                        position < 15 -> {
+                            "测试15555 >"
+                        }
+                        else -> {
+                            "剩余 >"
+                        }
                     }
                 }
+            }
+
+            override fun onGroupDraw(canvas: Canvas, view: View, adapterPosition: Int, groupInfo: GroupInfo) {
+                textColor = Color.BLUE
+                super.onGroupDraw(canvas, view, adapterPosition, groupInfo)
+            }
+
+            override fun onGroupOverDraw(canvas: Canvas, view: View, adapterPosition: Int, groupInfo: GroupInfo) {
+                textColor = Color.RED
+                super.onGroupOverDraw(canvas, view, adapterPosition, groupInfo)
+                L.e("top:${groupInfo.groupStartOffset.toFloat() - mTextPaint.descent()} position:${groupInfo.adapterPosition}")
             }
 
             override fun onGetItemOffsets(outRect: Rect, groupInfo: GroupInfo) {
-                if (groupInfo.adapterPosition in groupInfo.groupStartPosition..groupInfo.groupEndPosition) {
-                    outRect.top = 100/* (paint.descent() - paint.ascent()).toInt()*/
-                }
-            }
-
-            override fun onGroupDraw(canvas: Canvas, view: View, groupInfo: GroupInfo) {
-                paint.color = Color.BLUE
-
-                if (groupInfo.isHorizontal) {
-                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
-                            view.left.toFloat(), view.top - paint.descent(), paint)
+                if (count % 2 == 0) {
+                    super.onGetItemOffsets(outRect, groupInfo)
                 } else {
-                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
-                            0F, view.top - paint.descent(), paint)
-                }
-            }
-
-            override fun onGroupOverDraw(canvas: Canvas, view: View, groupInfo: GroupInfo) {
-                paint.color = Color.RED
-
-                if (groupInfo.isHorizontal) {
-                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
-                            groupInfo.groupStartOffset.toFloat(), view.top - paint.descent(), paint)
-                } else {
-//                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
-//                            view.left.toFloat(), groupInfo.groupStartOffset.toFloat() - paint.ascent(), paint)
-                    canvas.drawText(getGroupText(groupInfo.adapterPosition),
-                            view.left.toFloat(), groupInfo.groupStartOffset.toFloat() - paint.descent(), paint)
-
-                    L.e("top:${groupInfo.groupStartOffset.toFloat() - paint.descent()} position:${groupInfo.adapterPosition}")
+                    if (groupInfo.adapterPosition in groupInfo.groupStartPosition..groupInfo.groupEndPosition) {
+                        outRect.top = (mTextPaint.descent() - mTextPaint.ascent() + bottomOffset + topOffset).toInt()
+                    }
                 }
             }
         }) {
