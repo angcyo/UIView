@@ -62,5 +62,16 @@ class CustomViewUIView2 : BaseItemUIView() {
                 return R.layout.item_custom2_view1
             }
         })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_custom2_view2
+            }
+
+        })
     }
 }
