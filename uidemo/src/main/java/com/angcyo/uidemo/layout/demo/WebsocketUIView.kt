@@ -82,7 +82,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
         var isScrollFromBottom = false
         var needShowSoftInput = false
 
-        override fun onScrollStateChanged(recyclerView: RRecyclerView?, newState: Int) {
+        override fun onScrollStateChanged(recyclerView: RRecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if (newState == RRecyclerView.SCROLL_STATE_IDLE) {
                 isScrollFromBottom = false
@@ -98,7 +98,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             }
         }
 
-        override fun onScrolledInTouch(recyclerView: RRecyclerView?, e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float) {
+        override fun onScrolledInTouch(recyclerView: RRecyclerView, e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float) {
             super.onScrolledInTouch(recyclerView, e1, e2, distanceX, distanceY)
             if (distanceY < 0) {
                 hideSoftInput()
@@ -108,7 +108,7 @@ class WebsocketUIView : BaseRecyclerUIView<String>() {
             }
         }
 
-        override fun onScrolled(recyclerView: RRecyclerView?, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: RRecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
         }
