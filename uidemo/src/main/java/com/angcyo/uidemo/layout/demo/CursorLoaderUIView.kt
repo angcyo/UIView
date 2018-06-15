@@ -250,7 +250,7 @@ class CursorLoaderUIView : BaseItemUIView(), LoaderManager.LoaderCallbacks<Curso
 
     override fun onViewLoad() {
         super.onViewLoad()
-        initVideoLoader()
+        //initVideoLoader()
 
         //loaderManager.destroyLoader(1)
     }

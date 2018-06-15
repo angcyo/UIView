@@ -488,6 +488,13 @@ class DemoListUIView2 : BaseItemUIView() {
         items.add(object : SingleItem(SingleItem.Type.LINE) {
 
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
+                initItem(holder, (posInData + 1).toString() + ".R Media Loader Demo",
+                        View.OnClickListener { v -> startIView(RMediaLoaderDemoUIView().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
                 initItem(holder, (posInData + 1).toString() + ".PopupWindow Demo",
                         View.OnClickListener { v -> startIView(PopupWindowUIView().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
             }
