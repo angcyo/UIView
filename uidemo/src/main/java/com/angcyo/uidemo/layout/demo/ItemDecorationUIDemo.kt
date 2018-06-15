@@ -34,7 +34,7 @@ class ItemDecorationUIDemo : BaseRecyclerUIView<String>() {
         return object : RExBaseAdapter<String, String, String>(mActivity) {
 
             override fun getItemCount(): Int {
-                return 40
+                return 38
             }
 
             override fun isInData(position: Int): Boolean {
