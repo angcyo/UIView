@@ -1,5 +1,6 @@
 package com.angcyo.uidemo.layout.demo
 
+import com.angcyo.picker.media.bean.MediaLoaderConfig
 import com.angcyo.picker.media.uiview.RMediaLoaderUIView
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
@@ -23,7 +24,59 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 UIItemUIView.baseInitItem(holder, "打开图片/视频/音频 选择器") {
-                    startIView(RMediaLoaderUIView())
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_ALL
+                        }
+                    })
+                }
+            }
+        })
+
+        items.add(object : SingleItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                UIItemUIView.baseInitItem(holder, "打开图片/视频 选择器") {
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE_VIDEO
+                        }
+                    })
+                }
+            }
+        })
+
+        items.add(object : SingleItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                UIItemUIView.baseInitItem(holder, "打开图片 选择器") {
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE
+                        }
+                    })
+                }
+            }
+        })
+
+        items.add(object : SingleItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                UIItemUIView.baseInitItem(holder, "打开视频 选择器") {
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_VIDEO
+                        }
+                    })
+                }
+            }
+        })
+
+        items.add(object : SingleItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                UIItemUIView.baseInitItem(holder, "打开音频 选择器") {
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_AUDIO
+                        }
+                    })
                 }
             }
         })
