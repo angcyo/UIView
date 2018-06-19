@@ -12,5 +12,6 @@ include ':RLibrary:zxingzbar'
 include ':RLibrary:websocket'
 include ':RLibrary:filedownloader'
 include ':RLibrary:imagepicker'
+include ':RLibrary:ucrop'
 
 

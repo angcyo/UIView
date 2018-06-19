@@ -1,12 +1,16 @@
 package com.angcyo.uidemo.layout.demo
 
+import com.angcyo.picker.media.OnMediaSelectorObserver
+import com.angcyo.picker.media.bean.MediaItem
 import com.angcyo.picker.media.bean.MediaLoaderConfig
 import com.angcyo.picker.media.uiview.RMediaLoaderUIView
+import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.base.UIItemUIView
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.utils.RUtils
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -20,7 +24,17 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
  * Version: 1.0.0
  */
 class RMediaLoaderDemoUIView : BaseItemUIView() {
+
+    var mediaItemList: MutableList<MediaItem>? = null
+
     override fun createItems(items: MutableList<SingleItem>) {
+        val observer = object : OnMediaSelectorObserver {
+            override fun onMediaSelector(mediaItemList: MutableList<MediaItem>) {
+                this@RMediaLoaderDemoUIView.mediaItemList = mediaItemList
+                notifyItemChangedByTag("result")
+            }
+        }
+
         items.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 UIItemUIView.baseInitItem(holder, "打开图片/视频/音频 选择器") {
@@ -28,6 +42,8 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_ALL
                         }
+
+                        onMediaSelectorObserver = observer
                     })
                 }
             }
@@ -40,6 +56,8 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE_VIDEO
                         }
+
+                        onMediaSelectorObserver = observer
                     })
                 }
             }
@@ -52,6 +70,8 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE
                         }
+
+                        onMediaSelectorObserver = observer
                     })
                 }
             }
@@ -64,6 +84,8 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_VIDEO
                         }
+
+                        onMediaSelectorObserver = observer
                     })
                 }
             }
@@ -76,8 +98,36 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_AUDIO
                         }
+
+                        onMediaSelectorObserver = observer
                     })
                 }
+            }
+        })
+
+        items.add(object : SingleItem(Type.TOP, "result") {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                holder.tv(R.id.text_view).textSize = 12f
+                if (RUtils.isListEmpty(mediaItemList)) {
+                    holder.tv(R.id.text_view).text = "nothing to show"
+                } else {
+                    val builder = StringBuilder()
+                    for (item in mediaItemList!!) {
+                        builder.append("\n")
+                        builder.append(item.mimeType)
+                        builder.append("\n")
+                        builder.append(item.displayName)
+                        builder.append("\n")
+                        builder.append(item.path)
+                        builder.append("\n")
+                    }
+
+                    holder.tv(R.id.text_view).text = builder.toString()
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_text_view
             }
         })
     }
