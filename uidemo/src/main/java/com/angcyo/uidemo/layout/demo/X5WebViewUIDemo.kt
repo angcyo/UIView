@@ -2,11 +2,15 @@ package com.angcyo.uidemo.layout.demo
 
 import android.graphics.Color
 import android.graphics.PixelFormat
+import android.net.Uri
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
 import com.angcyo.library.utils.L
+import com.angcyo.picker.media.OnMediaSelectorObserver
+import com.angcyo.picker.media.RPicker
+import com.angcyo.picker.media.bean.MediaItem
 import com.angcyo.rtbs.DownloadFileBean
 import com.angcyo.rtbs.X5FileDownloadUIView
 import com.angcyo.rtbs.X5WebUIView
@@ -23,6 +27,9 @@ import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.widget.ExEditText
 import com.github.lzyzsd.jsbridge.BridgeHandler
 import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.tencent.smtt.sdk.ValueCallback
+import com.tencent.smtt.sdk.WebView
+import java.io.File
 
 
 /**
@@ -80,6 +87,11 @@ class X5WebViewUIDemo : BaseContentUIView() {
             recyclerView.scrollToLastBottom(true)
         }
 
+        webView.registerHandler("onVideoPlay") { data, _ ->
+            L.e("registerHandler onVideoPlay ->$data")
+            T_.info(data)
+        }
+
         click(R.id.go_button) {
             webView.loadUrl(editView.string())
             addToLast("go->" + editView.string())
@@ -108,6 +120,12 @@ class X5WebViewUIDemo : BaseContentUIView() {
         }
         click(R.id.js_url) {
             editView.setInputText("http://wap.klgwl.com/static/android.html")
+            webView.loadUrl(editView.string())
+            addToLast("go->" + editView.string())
+        }
+
+        click(R.id.upload_file) {
+            editView.setInputText("http://wap.klgwl.com/feedback/add")
             webView.loadUrl(editView.string())
             addToLast("go->" + editView.string())
         }
@@ -159,6 +177,38 @@ class X5WebViewUIDemo : BaseContentUIView() {
                     }
                 }
                 mParentILayout.startIView(dialog)
+            }
+        }
+
+        webView.onWebViewListener = object : com.angcyo.rtbs.X5WebView.OnWebViewListener {
+            override fun onPageFinished(webView: WebView, url: String?) {
+
+            }
+
+            override fun onProgressChanged(webView: WebView, progress: Int) {
+            }
+
+            override fun onOpenFileChooser(uploadFile: ValueCallback<Uri>, acceptType: String?, captureType: String?): Boolean {
+                if (!TextUtils.isEmpty(acceptType)) {
+                    if (acceptType!!.startsWith("image")) {
+                        RPicker.pickerImage(mParentILayout, 1, object : OnMediaSelectorObserver {
+                            override fun onMediaSelector(mediaItemList: MutableList<MediaItem>) {
+                                uploadFile.onReceiveValue(Uri.fromFile(File(mediaItemList[0].path)))
+                            }
+                        })
+                        return true
+                    }
+                }
+                return false
+            }
+
+            override fun onOverScroll(scrollY: Int) {
+            }
+
+            override fun onScroll(left: Int, top: Int, dx: Int, dy: Int) {
+            }
+
+            override fun onReceivedTitle(webView: WebView, title: String?) {
             }
         }
     }

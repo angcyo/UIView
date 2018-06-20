@@ -68,6 +68,14 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="@dimen/base_hdpi"
                 android:text="js_call"/>
+
+            <com.angcyo.uiview.widget.Button
+                android:id="@+id/upload_file"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="@dimen/base_hdpi"
+                android:text="upload_file"/>
         </LinearLayout>
 
     </LinearLayout>
