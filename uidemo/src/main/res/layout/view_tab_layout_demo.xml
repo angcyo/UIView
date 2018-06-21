@@ -176,6 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_xhdpi"
         android:background="@color/transparent_dark20"
+        app:r_indicator_color="@color/transparent_dark80"
         app:r_indicator_offset_height="-8dp"
         app:r_indicator_round_size="45dp"
         app:r_indicator_type="TYPE_ROUND_RECT_BLOCK">

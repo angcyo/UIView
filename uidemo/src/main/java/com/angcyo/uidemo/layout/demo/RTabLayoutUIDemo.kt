@@ -89,6 +89,7 @@ class RTabLayoutUIDemo : BaseItemUIView() {
 
                     tabLayout.setupViewPager(this)
                     tabLayout2.setupViewPager(this)
+                    tabLayout3.setupViewPager(this)
                 }
 
                 tabLayout.setCurrentItem(1)
