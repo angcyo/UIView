@@ -42,8 +42,8 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_ALL
                             limitFileSizeModel = MediaLoaderConfig.SIZE_MODEL_MEDIA
-                            limitFileMinSize = 200f
-                            limitFileMaxSize = 400f
+//                            limitFileMinSize = 200f
+//                            limitFileMaxSize = 400f
                         }
 
                         onMediaSelectorObserver = observer
@@ -59,8 +59,8 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE_VIDEO
                             limitFileSizeModel = MediaLoaderConfig.SIZE_MODEL_SELECTOR
-                            limitFileMinSize = 200f
-                            limitFileMaxSize = 400f
+//                            limitFileMinSize = 200f
+//                            limitFileMaxSize = 400f
                         }
 
                         onMediaSelectorObserver = observer
@@ -76,7 +76,7 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                         mediaLoaderConfig = MediaLoaderConfig().apply {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE
                             limitFileSizeModel = MediaLoaderConfig.SIZE_MODEL_SELECTOR
-                            limitFileMaxSize = 400f
+                            limitFileMaxSize = 4000f
                             limitFileMinSize = 200f
                         }
 
@@ -94,7 +94,7 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
                             mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_VIDEO
 
                             limitFileSizeModel = MediaLoaderConfig.SIZE_MODEL_SELECTOR
-                            limitFileMinSize = 10 * 1024f
+                            limitFileMinSize = 3 * 1024f
                         }
 
                         onMediaSelectorObserver = observer
