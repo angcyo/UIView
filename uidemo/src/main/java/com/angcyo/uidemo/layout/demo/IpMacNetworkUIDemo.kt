@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.demo
 
 import android.content.Context
 import android.net.wifi.WifiManager
+import com.angcyo.github.utilcode.utils.DeviceUtils
 import com.angcyo.github.utilcode.utils.NetworkUtils
 import com.angcyo.github.utilcode.utils.SpannableStringUtils
 import com.angcyo.uidemo.R
@@ -69,11 +70,15 @@ class IpMacNetworkUIDemo : BaseItemUIView() {
                 builder.append("\n")
                 builder.append(NetworkUtil.getActiveMacAddress(mActivity))
                 builder.append("\n")
+                builder.append(DeviceUtils.getMacAddress())
+                builder.append("\n")
+                builder.append(DeviceUtils.getAndroidID())
+                builder.append("\n")
 
 //                if (dataBean.to == NetworkUtils.NetworkType.NETWORK_UNKNOWN) {
-                    builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.network, false))
-                    builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.networkCapabilities, false))
-                    builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.linkProperties, false))
+                builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.network, false))
+                builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.networkCapabilities, false))
+                builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.linkProperties, false))
 //                }
 
                 holder.tv(R.id.text_view).setTextSizeDp(12f)
