@@ -172,6 +172,10 @@ class DemoListUIView2 : BaseItemUIView() {
         L.e("call: onSynchronizedDemo([])-> synchronized end $tag")
     }
 
+    override fun getItemsInitialSize(): Int {
+        return 100
+    }
+
     override fun createItems(items: MutableList<SingleItem>) {
         items.add(object : SingleItem(SingleItem.Type.TOP) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
@@ -773,6 +777,14 @@ class DemoListUIView2 : BaseItemUIView() {
                 initItem(holder, (posInData + 1).toString() + ".RTabLayout Demo",
                         false, View.OnClickListener {
                     startIView(RTabLayoutUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, it))
+                })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                initItem(holder, (posInData + 1).toString() + ".TelephonyManager Demo",
+                        false, View.OnClickListener {
+                    startIView(TelephonyManagerUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, it))
                 })
             }
         })

@@ -9,6 +9,7 @@ import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
 import com.angcyo.uiview.container.UIParam
+import com.angcyo.uiview.kotlin.setTextSizeDp
 import com.angcyo.uiview.net.base.Network
 import com.angcyo.uiview.receiver.NetworkStateReceiver
 import com.angcyo.uiview.recycler.RBaseViewHolder
@@ -75,6 +76,7 @@ class IpMacNetworkUIDemo : BaseItemUIView() {
                     builder.append(Reflect.logObject(NetworkStateReceiver.sNetworkWrapper.linkProperties, false))
 //                }
 
+                holder.tv(R.id.text_view).setTextSizeDp(12f)
                 holder.tv(R.id.text_view).text = builder.create()
             }
 
