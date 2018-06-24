@@ -90,11 +90,99 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_xhdpi"
         android:visibility="visible"
+        app:r_border_fill_color="@color/base_link_color_dark"
         app:r_border_show="true"
         app:r_indicator_enable_anim="false"
         app:r_indicator_enable_anim_overshoot="false"
-        app:r_indicator_offset_height="-6dp"
-        app:r_indicator_offset_width="-6dp"
+        app:r_indicator_offset_height="-16dp"
+        app:r_indicator_offset_width="-16dp"
+        app:r_indicator_round_size="45dp"
+        app:r_indicator_type="TYPE_ROUND_RECT_BLOCK"
+        app:r_item_equ_width="true">
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Item1"
+            android:textColor="@color/base_orange" />
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="@color/base_orange" />
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Item3"
+            android:textColor="@color/base_orange" />
+
+    </com.angcyo.uiview.viewgroup.RTabLayout>
+
+    <com.angcyo.uiview.viewgroup.RTabLayout
+        android:id="@+id/base_tab_layout2_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:visibility="visible"
+        app:r_border_show="true"
+        app:r_indicator_drawable="@drawable/live_48_color"
+        app:r_indicator_enable_anim="true"
+        app:r_indicator_enable_anim_overshoot="false"
+        app:r_indicator_height="10dp"
+        app:r_indicator_offset_height="-10dp"
+        app:r_indicator_offset_width="-10dp"
+        app:r_indicator_offset_y="3dp"
+        app:r_indicator_round_size="45dp"
+        app:r_indicator_type="TYPE_BOTTOM_LINE"
+        app:r_indicator_width="20dp"
+        app:r_item_equ_width="true">
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Item1"
+            android:textColor="@color/base_orange" />
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView"
+            android:textColor="@color/base_orange" />
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Item3"
+            android:textColor="@color/base_orange" />
+
+    </com.angcyo.uiview.viewgroup.RTabLayout>
+
+    <com.angcyo.uiview.viewgroup.RTabLayout
+        android:id="@+id/base_tab_layout2_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:visibility="visible"
+        app:r_border_show="true"
+        app:r_indicator_drawable="@drawable/gradient_shape"
+        app:r_indicator_enable_anim="true"
+        app:r_indicator_enable_anim_overshoot="true"
+        app:r_indicator_offset_height="-10dp"
+        app:r_indicator_offset_width="-10dp"
         app:r_indicator_round_size="45dp"
         app:r_indicator_type="TYPE_ROUND_RECT_BLOCK"
         app:r_item_equ_width="true">
