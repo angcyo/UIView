@@ -51,6 +51,7 @@
         android:visibility="visible"
         app:r_border_round_size="10dp"
         app:r_border_show="true"
+        app:r_current_item="0"
         app:r_indicator_enable_anim_overshoot="false"
         app:r_indicator_offset_height="-6dp"
         app:r_indicator_offset_width="-6dp"
@@ -89,9 +90,11 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_xhdpi"
+        android:background="@color/base_gray"
         android:visibility="visible"
-        app:r_border_fill_color="@color/base_link_color_dark"
+        app:r_border_fill_color="@color/base_white"
         app:r_border_show="true"
+        app:r_current_item="0"
         app:r_indicator_enable_anim="false"
         app:r_indicator_enable_anim_overshoot="false"
         app:r_indicator_offset_height="-16dp"
@@ -133,6 +136,7 @@
         android:layout_marginTop="@dimen/base_xhdpi"
         android:visibility="visible"
         app:r_border_show="true"
+        app:r_current_item="1"
         app:r_indicator_drawable="@drawable/live_48_color"
         app:r_indicator_enable_anim="true"
         app:r_indicator_enable_anim_overshoot="false"
@@ -175,9 +179,12 @@
         android:id="@+id/base_tab_layout2_5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/base_xxxhdpi"
+        android:layout_marginStart="@dimen/base_xxxhdpi"
         android:layout_marginTop="@dimen/base_xhdpi"
         android:visibility="visible"
         app:r_border_show="true"
+        app:r_current_item="1"
         app:r_indicator_drawable="@drawable/gradient_shape"
         app:r_indicator_enable_anim="true"
         app:r_indicator_enable_anim_overshoot="true"
@@ -187,29 +194,44 @@
         app:r_indicator_type="TYPE_ROUND_RECT_BLOCK"
         app:r_item_equ_width="true">
 
-        <TextView
-            style="@style/BaseMainTextStyle"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Item1"
-            android:textColor="@color/base_orange" />
+            android:src="@drawable/live_48_color" />
 
-        <TextView
-            style="@style/BaseMainTextStyle"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="@color/base_orange" />
+            android:src="@drawable/live_48_color" />
 
-        <TextView
-            style="@style/BaseMainTextStyle"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Item3"
-            android:textColor="@color/base_orange" />
+            android:src="@drawable/live_48_color" />
+
+        <!--<TextView-->
+        <!--style="@style/BaseMainTextStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Item1"-->
+        <!--android:textColor="@color/base_orange" />-->
+
+        <!--<TextView-->
+        <!--style="@style/BaseMainTextStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="TextView"-->
+        <!--android:textColor="@color/base_orange" />-->
+
+        <!--<TextView-->
+        <!--style="@style/BaseMainTextStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:text="Item3"-->
+        <!--android:textColor="@color/base_orange" />-->
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -218,7 +240,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/base_xhdpi"
-        android:background="@color/transparent_dark20">
+        android:background="@color/transparent_dark20"
+        app:r_current_item="2">
 
         <TextView
             style="@style/BaseMainTextStyle"

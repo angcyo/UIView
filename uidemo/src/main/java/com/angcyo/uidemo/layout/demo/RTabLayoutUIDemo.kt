@@ -101,14 +101,15 @@ class RTabLayoutUIDemo : BaseItemUIView() {
                         }
                     }
 
-                    tabLayout.setupViewPager(this)
                     tabLayout2.setupViewPager(this)
                     tabLayout3.setupViewPager(this)
                     tabLayout2_1.setupViewPager(this)
+
+                    tabLayout.setupViewPager(this)
                 }
 
-                tabLayout.setCurrentItem(1)
-                tabLayout3.setCurrentItem(2)
+//                tabLayout.setCurrentItem(1)
+//                tabLayout3.setCurrentItem(2)
             }
 
             override fun getItemLayoutId(): Int {
