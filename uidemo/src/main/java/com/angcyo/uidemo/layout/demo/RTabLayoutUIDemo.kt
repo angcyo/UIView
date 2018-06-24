@@ -30,6 +30,8 @@ class RTabLayoutUIDemo : BaseItemUIView() {
 
                 val tabLayout: RTabLayout = holder.v(R.id.base_tab_layout)
                 val tabLayout2: RTabLayout = holder.v(R.id.base_tab_layout2)
+                val tabLayout2_1: RTabLayout = holder.v(R.id.base_tab_layout2_1)
+                val tabLayout2_2: RTabLayout = holder.v(R.id.base_tab_layout2_2)
                 val tabLayout3: RTabLayout = holder.v(R.id.base_tab_layout3)
 
                 val viewPager = holder.pager(R.id.view_pager)
@@ -41,10 +43,18 @@ class RTabLayoutUIDemo : BaseItemUIView() {
 
                     override fun onSelectorItemView(tabLayout: RTabLayout, itemView: View, index: Int) {
                         super.onSelectorItemView(tabLayout, itemView, index)
+                        if (itemView is TextView) {
+                            L.e("call: onSelectorItemView -> $index")
+                            itemView.setTextColor(Color.RED)
+                        }
                     }
 
                     override fun onUnSelectorItemView(tabLayout: RTabLayout, itemView: View, index: Int) {
                         super.onUnSelectorItemView(tabLayout, itemView, index)
+                        if (itemView is TextView) {
+                            L.e("call: onUnSelectorItemView -> $index")
+                            itemView.setTextColor(getColor(R.color.base_link_color_dark))
+                        }
                     }
 
                     override fun onTabSelector(tabLayout: RTabLayout, fromIndex: Int, toIndex: Int) {
@@ -58,6 +68,10 @@ class RTabLayoutUIDemo : BaseItemUIView() {
                         L.e("RTabLayout: onTabReSelector -> $index")
                     }
                 }
+                tabLayout2_1.onTabLayoutListener = tabLayout.onTabLayoutListener
+                tabLayout2_2.onTabLayoutListener = tabLayout.onTabLayoutListener
+                tabLayout2.onTabLayoutListener = tabLayout.onTabLayoutListener
+                tabLayout3.onTabLayoutListener = tabLayout.onTabLayoutListener
 
                 viewPager.apply {
                     adapter = object : RPagerAdapter() {
@@ -90,6 +104,7 @@ class RTabLayoutUIDemo : BaseItemUIView() {
                     tabLayout.setupViewPager(this)
                     tabLayout2.setupViewPager(this)
                     tabLayout3.setupViewPager(this)
+                    tabLayout2_1.setupViewPager(this)
                 }
 
                 tabLayout.setCurrentItem(1)
