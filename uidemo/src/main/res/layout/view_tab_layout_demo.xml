@@ -1,10 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <com.angcyo.uiview.viewgroup.RTabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:background="@color/transparent_dark20"
+        app:r_current_item="12">
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:text="Item0"/>
+
+        <ImageView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:src="@drawable/base_delete"
+            android:text="Item1"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/base_xxxhdpi"
+            android:paddingStart="@dimen/base_xxhdpi"
+            android:text="Item2"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:text="Item3"/>
+
+        <ImageView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:src="@drawable/base_delete"
+            android:text="Item4"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:text="Item5"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:text="Item6"/>
+
+        <ImageView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:src="@drawable/base_delete"
+            android:text="Item7"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:text="Item8"/>
+
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:text="Item9"/>
+
+        <ImageView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:src="@drawable/base_delete"
+            android:text="Item10"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:text="Item11"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_xhdpi"
+            android:text="Item12"/>
+
+        <ImageView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:src="@drawable/base_delete"
+            android:text="Item13"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_xhdpi"
+            android:text="Item14"/>
+
+    </com.angcyo.uiview.viewgroup.RTabLayout>
 
     <com.angcyo.uiview.viewgroup.RTabLayout
         android:id="@+id/base_tab_layout2_1"
@@ -23,7 +144,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item1"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -31,7 +152,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -39,7 +160,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item3"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -65,7 +186,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item1"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -73,7 +194,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -81,7 +202,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item3"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -109,7 +230,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item1"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -117,7 +238,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -125,7 +246,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item3"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -155,7 +276,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item1"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -163,7 +284,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="TextView"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -171,7 +292,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Item3"
-            android:textColor="@color/base_orange" />
+            android:textColor="@color/base_orange"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -197,17 +318,17 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/live_48_color" />
+            android:src="@drawable/live_48_color"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/live_48_color" />
+            android:src="@drawable/live_48_color"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/live_48_color" />
+            android:src="@drawable/live_48_color"/>
 
         <!--<TextView-->
         <!--style="@style/BaseMainTextStyle"-->
@@ -248,7 +369,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item0" />
+            android:text="Item0"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -256,7 +377,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item1" />
+            android:text="Item1"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -264,14 +385,14 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/base_xxxhdpi"
             android:paddingStart="@dimen/base_xxhdpi"
-            android:text="Item2" />
+            android:text="Item2"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item3" />
+            android:text="Item3"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -279,21 +400,21 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item4" />
+            android:text="Item4"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item5" />
+            android:text="Item5"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item6" />
+            android:text="Item6"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -301,14 +422,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item7" />
+            android:text="Item7"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item8" />
+            android:text="Item8"/>
 
 
         <TextView
@@ -316,7 +437,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item9" />
+            android:text="Item9"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -324,21 +445,21 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item10" />
+            android:text="Item10"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item11" />
+            android:text="Item11"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item12" />
+            android:text="Item12"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -346,14 +467,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item13" />
+            android:text="Item13"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item14" />
+            android:text="Item14"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -374,7 +495,7 @@
             android:background="#20FC3C38"
             android:padding="@dimen/base_xhdpi"
             android:text="Item1"
-            android:textColor="@color/base_white" />
+            android:textColor="@color/base_white"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -382,7 +503,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item1" />
+            android:text="Item1"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -391,7 +512,7 @@
             android:background="#20002AFF"
             android:padding="@dimen/base_xhdpi"
             android:text="Item3"
-            android:textColor="@color/base_white" />
+            android:textColor="@color/base_white"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -413,7 +534,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item0" />
+            android:text="Item0"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -421,7 +542,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item1" />
+            android:text="Item1"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
@@ -429,14 +550,14 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/base_xxxhdpi"
             android:paddingStart="@dimen/base_xxhdpi"
-            android:text="Item2" />
+            android:text="Item2"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item3" />
+            android:text="Item3"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -444,21 +565,21 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item4" />
+            android:text="Item4"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item5" />
+            android:text="Item5"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item6" />
+            android:text="Item6"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -466,14 +587,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item7" />
+            android:text="Item7"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item8" />
+            android:text="Item8"/>
 
 
         <TextView
@@ -481,7 +602,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item9" />
+            android:text="Item9"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -489,21 +610,21 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item10" />
+            android:text="Item10"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item11" />
+            android:text="Item11"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_xhdpi"
-            android:text="Item12" />
+            android:text="Item12"/>
 
         <ImageView
             style="@style/BaseMainTextStyle"
@@ -511,14 +632,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
             android:src="@drawable/base_delete"
-            android:text="Item13" />
+            android:text="Item13"/>
 
         <TextView
             style="@style/BaseMainTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_xhdpi"
-            android:text="Item14" />
+            android:text="Item14"/>
 
     </com.angcyo.uiview.viewgroup.RTabLayout>
 
@@ -528,5 +649,5 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/base_xhdpi"
-        android:background="@color/transparent_dark80" />
+        android:background="@color/transparent_dark80"/>
 </LinearLayout>

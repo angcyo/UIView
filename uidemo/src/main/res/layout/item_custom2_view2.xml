@@ -10,4 +10,27 @@
         android:layout_height="80dp"
         android:layout_margin="10dp"/>
 
+    <com.angcyo.uidemo.layout.view.TestViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/base_orange"/>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/base_link_color"/>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_dark40"/>
+    </com.angcyo.uidemo.layout.view.TestViewGroup>
+
 </LinearLayout>

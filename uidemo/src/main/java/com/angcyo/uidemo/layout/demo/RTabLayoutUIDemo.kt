@@ -3,7 +3,6 @@ package com.angcyo.uidemo.layout.demo
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
-import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
@@ -44,7 +43,7 @@ class RTabLayoutUIDemo : BaseItemUIView() {
                     override fun onSelectorItemView(tabLayout: RTabLayout, itemView: View, index: Int) {
                         super.onSelectorItemView(tabLayout, itemView, index)
                         if (itemView is TextView) {
-                            L.e("call: onSelectorItemView -> $index")
+                            //L.e("call: onSelectorItemView -> $index")
                             itemView.setTextColor(Color.RED)
                         }
                     }
@@ -52,20 +51,20 @@ class RTabLayoutUIDemo : BaseItemUIView() {
                     override fun onUnSelectorItemView(tabLayout: RTabLayout, itemView: View, index: Int) {
                         super.onUnSelectorItemView(tabLayout, itemView, index)
                         if (itemView is TextView) {
-                            L.e("call: onUnSelectorItemView -> $index")
+                            //L.e("call: onUnSelectorItemView -> $index")
                             itemView.setTextColor(getColor(R.color.base_link_color_dark))
                         }
                     }
 
                     override fun onTabSelector(tabLayout: RTabLayout, fromIndex: Int, toIndex: Int) {
                         super.onTabSelector(tabLayout, fromIndex, toIndex)
-                        L.e("RTabLayout: onTabSelector -> fo:$fromIndex to:$toIndex")
+                        //L.e("RTabLayout: onTabSelector -> fo:$fromIndex to:$toIndex")
                         viewPager.currentItem = toIndex
                     }
 
                     override fun onTabReSelector(tabLayout: RTabLayout, itemView: View, index: Int) {
                         super.onTabReSelector(tabLayout, itemView, index)
-                        L.e("RTabLayout: onTabReSelector -> $index")
+                        //L.e("RTabLayout: onTabReSelector -> $index")
                     }
                 }
                 tabLayout2_1.onTabLayoutListener = tabLayout.onTabLayoutListener

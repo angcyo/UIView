@@ -711,6 +711,16 @@ class DemoListUIView2 : BaseItemUIView() {
                         false, View.OnClickListener { startIView(UIChatViewPagerDemo().setAnimationType(IViewAnimationType.TRANSLATE_VERTICAL)) })
             }
         })
+
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
+                initItem(holder, (posInData + 1).toString() + ".UIChat TabLayout Demo",
+                        false, View.OnClickListener { startIView(UIChatTabLayoutDemo().setAnimationType(IViewAnimationType.NONE)) })
+            }
+        })
+
+
         items.add(object : SingleItem(SingleItem.Type.LINE) {
 
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
