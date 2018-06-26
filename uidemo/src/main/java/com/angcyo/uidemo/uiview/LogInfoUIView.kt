@@ -11,6 +11,7 @@ import com.angcyo.uiview.container.UIParam
 import com.angcyo.uiview.kotlin.nowTime
 import com.angcyo.uiview.kotlin.toFullDate
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.widget.viewpager.UIViewPager
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -71,6 +72,21 @@ class LogInfoUIView : BaseItemUIView() {
     override fun onViewReShow(bundle: Bundle?) {
         super.onViewReShow(bundle)
         append("onViewReShow:$viewShowCount $bundle ${bundle?.isEmpty}")
+    }
+
+    override fun onShowInPager(viewPager: UIViewPager) {
+        super.onShowInPager(viewPager)
+        append("onShowInPager:$showInPagerCount")
+    }
+
+    override fun onHideInPager(viewPager: UIViewPager) {
+        super.onHideInPager(viewPager)
+        append("onHideInPager")
+    }
+
+    override fun onViewHideFromDialog() {
+        super.onViewHideFromDialog()
+        append("onViewHideFromDialog")
     }
 
     fun append(text: String) {

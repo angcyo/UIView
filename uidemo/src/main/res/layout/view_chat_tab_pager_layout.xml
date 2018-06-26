@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <com.angcyo.uiview.widget.viewpager.UIViewPager
+        android:id="@+id/base_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"/>
+
+    <com.angcyo.uiview.viewgroup.RTabLayout
+        android:id="@+id/base_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        app:r_current_item="1"
+        app:r_indicator_type="TYPE_NONE"
+        app:r_item_equ_width="false">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:scaleType="center"
+            android:src="@drawable/skin_tab_icon_conversation_normal"
+            app:r_layout_width="0.3pw"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="居中Item文本"
+            app:r_layout_width="0.4pw"/>
+
+        <com.angcyo.uiview.widget.TouchMoveView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="center"
+            app:r_image_normal="@drawable/skin_tab_icon_contact_normal"
+            app:r_image_selected="@drawable/skin_tab_icon_contact_selected"
+            app:r_layout_width="0.3pw"
+            app:r_max_draw_offset="3dp"
+            app:r_sub_image_normal="@drawable/skin_tab_icon_contact_sub_normal"
+            app:r_sub_image_selected="@drawable/skin_tab_icon_contact_sub_selected"
+            app:r_text_normal="联系人"
+            app:r_text_selected="联系人"/>
+
+    </com.angcyo.uiview.viewgroup.RTabLayout>
+
+</FrameLayout>
