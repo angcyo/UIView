@@ -117,6 +117,25 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
             }
         })
 
+        items.add(object : SingleItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                UIItemUIView.baseInitItem(holder, "打开图片/视频 选择器 (不混合)") {
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_IMAGE_VIDEO
+                            limitFileSizeModel = MediaLoaderConfig.SIZE_MODEL_SELECTOR
+                            mixSelectorModel = MediaLoaderConfig.LOADER_TYPE_IMAGE
+                            maxSelectorVideoLimit = 2
+//                            limitFileMinSize = 200f
+//                            limitFileMaxSize = 400f
+                        }
+
+                        onMediaSelectorObserver = observer
+                    })
+                }
+            }
+        })
+
         items.add(object : SingleItem(Type.TOP, "result") {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 holder.tv(R.id.text_view).textSize = 12f
