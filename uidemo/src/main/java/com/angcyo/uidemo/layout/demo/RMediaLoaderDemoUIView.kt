@@ -136,6 +136,21 @@ class RMediaLoaderDemoUIView : BaseItemUIView() {
             }
         })
 
+        items.add(object : SingleItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                UIItemUIView.baseInitItem(holder, "打开图片/视频/音频 选择器 (单选)") {
+                    startIView(RMediaLoaderUIView().apply {
+                        mediaLoaderConfig = MediaLoaderConfig().apply {
+                            mediaLoaderType = MediaLoaderConfig.LOADER_TYPE_ALL
+                            selectorModel = MediaLoaderConfig.SELECTOR_MODEL_SINGLE
+                        }
+
+                        onMediaSelectorObserver = observer
+                    })
+                }
+            }
+        })
+
         items.add(object : SingleItem(Type.TOP, "result") {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 holder.tv(R.id.text_view).textSize = 12f
