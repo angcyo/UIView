@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.angcyo.uidemo.layout.qq.ScrollTestLayout
+        android:id="@+id/scroll_test_layout"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@color/transparent_dark40">
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:padding="@dimen/base_ldpi"
+            android:text="悬赏问诊"
+            android:textSize="12dp"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:padding="@dimen/base_ldpi"
+            android:text="悬赏问诊"
+            android:textSize="12dp"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:padding="@dimen/base_ldpi"
+            android:text="悬赏问诊"
+            android:textSize="12dp"/>
+
+        <TextView
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_shape"
+            android:drawableTop="@mipmap/ic_launcher"
+            android:gravity="center"
+            android:padding="@dimen/base_ldpi"
+            android:text="悬赏问诊"
+            android:textSize="12dp"/>
+
+        <!--<com.angcyo.uiview.widget.GlideImageView-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/image_demo"-->
+        <!--app:r_show_type="CIRCLE"/>-->
+
+        <!--<com.angcyo.uiview.widget.GlideImageView-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/image_demo"-->
+        <!--app:r_show_type="CIRCLE"/>-->
+
+        <!--<com.angcyo.uiview.widget.GlideImageView-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/image_demo"-->
+        <!--app:r_show_type="CIRCLE"/>-->
+
+        <!--<com.angcyo.uiview.widget.GlideImageView-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:src="@drawable/image_demo"-->
+        <!--app:r_show_type="CIRCLE"/>-->
+
+    </com.angcyo.uidemo.layout.qq.ScrollTestLayout>
+
+    <com.angcyo.uiview.widget.RSeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_hdpi"
+        app:r_thumb_circle_size="@dimen/base_xxhdpi"
+        app:r_thumb_type="CIRCLE"/>
+
+</LinearLayout>

@@ -10,7 +10,7 @@ import com.angcyo.uidemo.R
 import com.angcyo.uidemo.kotlin.cls.SingleClass2
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uidemo.layout.demo.*
-import com.angcyo.uidemo.layout.qq.QQGuideAnimationUIDemo
+import com.angcyo.uidemo.layout.qq.QQDemoListUIVIew
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo
 import com.angcyo.uidemo.uiview.ScrollerIView
 import com.angcyo.uidemo.uiview.TestDemo
@@ -31,7 +31,6 @@ import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.view.IView
 import com.angcyo.uiview.view.IViewAnimationType
 import com.angcyo.uiview.view.OnUIViewListener
-import com.angcyo.uiview.widget.ItemInfoLayout
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.functions.Action1
@@ -98,19 +97,6 @@ class DemoListUIView2 : BaseItemUIView() {
     //        }
     //        return super.createItemView(parent, position);
     //    }
-
-    internal fun initItem(holder: RBaseViewHolder, itemText: String, onClickListener: View.OnClickListener) {
-        initItem(holder, itemText, false, onClickListener)
-    }
-
-    internal fun initItem(holder: RBaseViewHolder, itemText: String, isDeprecated: Boolean, onClickListener: View.OnClickListener) {
-        val infoLayout = holder.v<ItemInfoLayout>(R.id.item_info_layout)
-        infoLayout.setItemText(itemText)
-
-        val textView = infoLayout.textView
-        textView.setDeleteLine(isDeprecated)
-        holder.click(infoLayout, onClickListener)
-    }
 
     internal fun onKotlinDemoClick() {
         lightStatusBar(false)
@@ -345,6 +331,13 @@ class DemoListUIView2 : BaseItemUIView() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
                 initItem(holder, (posInData + 1).toString() + ".Custom View Demo2",
                         View.OnClickListener { v -> startIView(CustomViewUIView2().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
+                initItem(holder, (posInData + 1).toString() + ".QQDemoListUIVIew",
+                        View.OnClickListener { v -> startIView(QQDemoListUIVIew().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
             }
         })
         items.add(object : SingleItem(SingleItem.Type.LINE) {
@@ -727,13 +720,7 @@ class DemoListUIView2 : BaseItemUIView() {
             }
         })
 
-        items.add(object : SingleItem(SingleItem.Type.LINE) {
 
-            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
-                initItem(holder, (posInData + 1).toString() + ".QQ Guide Animation Demo",
-                        false, View.OnClickListener { v -> startIView(QQGuideAnimationUIDemo().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
-            }
-        })
         items.add(object : SingleItem(SingleItem.Type.LINE) {
 
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
