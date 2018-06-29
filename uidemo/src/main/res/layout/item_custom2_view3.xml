@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/base_white"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/view_group"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/transparent_dark80">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="200dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:src="@drawable/image_demo"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_xhdpi">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/show"
+            style="@style/BaseSkinButtonNoPaddingStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_hdpi"
+            android:text="显示"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/hide"
+            style="@style/BaseSkinButtonNoPaddingStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_xhdpi"
+            android:padding="@dimen/base_hdpi"
+            android:text="隐藏"/>
+    </LinearLayout>
+
+</LinearLayout>

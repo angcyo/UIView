@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ScrollTestLayout_Layout">
+        <!--child 中点坐标, 记录父 左上角的距离-->
+        <attr name="r_layout_start_left" format="dimension"/>
+        <attr name="r_layout_start_top" format="dimension"/>
+
+        <!--过渡阶段, 需要到达的top距离-->
+        <attr name="r_layout_tran_top" format="dimension"/>
+
+        <!--child 需要放大到的倍数, 比如 1.3f  1.5f-->
+        <attr name="r_layout_max_scale" format="float"/>
+
+        <!--阶段变化是 0f > 1f-->
+        <!--这个比例之前, 属于过渡阶段, 比如 0.3 , 0.5 -->
+        <attr name="r_layout_first_step_ratio" format="float"/>
+
+    </declare-styleable>
+</resources>

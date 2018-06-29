@@ -4,11 +4,16 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.GradientDrawable.SWEEP_GRADIENT
 import android.view.View
+import android.view.ViewGroup
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
+import com.angcyo.uiview.kotlin.clickIt
+import com.angcyo.uiview.kotlin.hide
+import com.angcyo.uiview.kotlin.show
 import com.angcyo.uiview.recycler.RBaseViewHolder
+import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.utils.UI
 
@@ -79,6 +84,32 @@ class CustomViewUIView2 : BaseItemUIView() {
 
             override fun getItemLayoutId(): Int {
                 return R.layout.item_custom2_view2
+            }
+
+        })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                val viewGroup: ViewGroup = holder.v(R.id.view_group)
+
+                holder.click(R.id.image_view) {
+                    T_.show("image_view_click")
+                }
+
+                holder.click(R.id.hide) {
+                    viewGroup.hide(R.layout.view_test_layout)
+                }
+                holder.click(R.id.show) {
+                    viewGroup.show(R.layout.view_test_layout).apply {
+                        findViewById<View>(R.id.image_view).clickIt {
+                            T_.show("show_in_test_layout")
+                        }
+                    }
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_custom2_view3
             }
 
         })

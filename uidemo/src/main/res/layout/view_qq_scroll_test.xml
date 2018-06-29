@@ -8,7 +8,7 @@
     <com.angcyo.uidemo.layout.qq.ScrollTestLayout
         android:id="@+id/scroll_test_layout"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="360dp"
         android:background="@color/transparent_dark40">
 
         <TextView

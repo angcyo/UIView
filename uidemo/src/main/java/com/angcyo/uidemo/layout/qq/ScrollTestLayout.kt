@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import com.angcyo.library.utils.L
+import com.angcyo.uidemo.R
 import com.angcyo.uiview.kotlin.abs
 import com.angcyo.uiview.kotlin.density
 import com.angcyo.uiview.kotlin.exactlyMeasure
@@ -59,6 +60,7 @@ class ScrollTestLayout(context: Context, attributeSet: AttributeSet? = null) : V
                 lp.endLeft = (spaceSize * (i + 1) + child.measuredWidth / 2 + child.measuredWidth * i).toInt()
                 lp.endTop = (spaceSize + child.measuredHeight / 2).toInt()
 
+                //可以在这里强制重写属性, 测试代码可以注释
                 when (i) {
                     0 -> {
                         lp.startLeft = (40 * density + child.measuredWidth / 2).toInt()
@@ -130,14 +132,24 @@ class ScrollTestLayout(context: Context, attributeSet: AttributeSet? = null) : V
         var tranLeft = 0
         var tranTop = 0
 
-        var maxScale = 1.3f
+        var maxScale = 1f
 
         /**第一阶段的阈值*/
         var firstStepRatio = 0.3f
 
-        constructor(width: Int, height: Int) : super(width, height)
-        constructor(source: ViewGroup.LayoutParams?) : super(source)
-        constructor(c: Context, attrs: AttributeSet?) : super(c, attrs)
+        constructor(c: Context, attrs: AttributeSet?) : super(c, attrs) {
+            val typedArray = c.obtainStyledAttributes(attrs, R.styleable.ScrollTestLayout_Layout)
+
+            startLeft = typedArray.getDimensionPixelOffset(R.styleable.ScrollTestLayout_Layout_r_layout_start_left, startLeft)
+            startTop = typedArray.getDimensionPixelOffset(R.styleable.ScrollTestLayout_Layout_r_layout_start_top, startTop)
+
+            tranTop = typedArray.getDimensionPixelOffset(R.styleable.ScrollTestLayout_Layout_r_layout_tran_top, tranTop)
+
+            maxScale = typedArray.getFloat(R.styleable.ScrollTestLayout_Layout_r_layout_max_scale, maxScale)
+            firstStepRatio = typedArray.getFloat(R.styleable.ScrollTestLayout_Layout_r_layout_first_step_ratio, firstStepRatio)
+
+            typedArray.recycle()
+        }
 
         fun calc(layout: ScrollTestLayout, childView: View): IntArray {
             var f = (layout.curHeight.abs() * 1f / (layout.measuredHeight - layout.minHeight)).maxValue(1f)
