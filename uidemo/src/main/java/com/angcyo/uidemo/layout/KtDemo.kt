@@ -10,7 +10,10 @@ import com.angcyo.uiview.net.RSubscriber
 import com.angcyo.uiview.utils.Reflect
 import com.angcyo.uiview.view.UIIViewImpl
 import rx.Observable
+import rx.Observer
 import rx.android.schedulers.AndroidSchedulers
+import rx.observables.SyncOnSubscribe
+import rx.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
@@ -19,6 +22,8 @@ import java.util.concurrent.locks.ReentrantLock
  * Created by angcyo on 2018/01/25 08:02
  */
 object KtDemo {
+
+    var count = 0
 
     fun main() {
         val s1 = "我"
@@ -29,7 +34,8 @@ object KtDemo {
 //        threadDemo1()
 //        threadDemo2()
         //rxTest()
-        rxTest2()
+        //rxTest2()
+        rxTest3()
     }
 
     private fun threadDemo2() {
@@ -348,5 +354,57 @@ object KtDemo {
 
     fun rxLog(log: String) {
         L.i("rxTest", log)
+    }
+
+    fun getValue(): String {
+        val value = "value"
+        rxLog("getValue() $count")
+        count++
+        return value
+    }
+
+    /*2018-7-2*/
+    fun rxTest3() {
+        Observable.just(getValue())
+                .startWith(Observable.create(object : SyncOnSubscribe<Int, String>() {
+                    override fun generateState(): Int {
+                        return 1
+                    }
+
+                    override fun next(state: Int, observer: Observer<in String>): Int {
+                        if (state > 0) {
+                            Thread.sleep(2000)
+                            observer.onNext("create value:$count")
+                        } else {
+                            observer.onCompleted()
+                        }
+                        return 0
+                    }
+                }))
+                .map {
+                    rxLog(it)
+                    it
+                }
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber)
+
+        rxTest4()
+    }
+
+    fun rxTest4() {
+        Observable.just("1", "4", "6", "9")
+                .collect({
+                    ArrayList<String>()
+                }, { t1, t2 ->
+                    t1.add(t2)
+                })
+                .map {
+                    rxLog(it.toString())
+                }
+                .retryWhen {
+                    Observable.just("")
+                }
+                .subscribe()
     }
 }
