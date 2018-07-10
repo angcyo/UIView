@@ -16,6 +16,7 @@ import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.utils.T_
 import com.angcyo.uiview.utils.Tip
 import com.angcyo.uiview.utils.UI
+import com.angcyo.uiview.widget.RProgressBar
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -110,6 +111,25 @@ class CustomViewUIView2 : BaseItemUIView() {
 
             override fun getItemLayoutId(): Int {
                 return R.layout.item_custom2_view3
+            }
+
+        })
+
+        items.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                holder.click(R.id.progress_bar1) {
+                    (it as RProgressBar).rDrawProgress.setCurProgress(60, true)
+                }
+                holder.click(R.id.progress_bar2) {
+                    (it as RProgressBar).rDrawProgress.setCurProgress(80, true)
+                }
+                holder.click(R.id.progress_bar3) {
+                    (it as RProgressBar).rDrawProgress.setCurProgress(100, true)
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_custom2_view4
             }
 
         })

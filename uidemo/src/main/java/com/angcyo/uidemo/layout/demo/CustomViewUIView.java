@@ -10,6 +10,7 @@ import com.angcyo.uidemo.layout.demo.view.SegmentStepView2;
 import com.angcyo.uiview.anim.RotateAnimation;
 import com.angcyo.uiview.base.Item;
 import com.angcyo.uiview.base.SingleItem;
+import com.angcyo.uiview.draw.RDrawProgress;
 import com.angcyo.uiview.recycler.RBaseViewHolder;
 import com.angcyo.uiview.utils.T_;
 import com.angcyo.uiview.widget.BlockSeekBar;
@@ -204,8 +205,9 @@ public class CustomViewUIView extends BaseItemUIView {
                 ratingBar.setRatingSelectorDrawable(getDrawable(R.drawable.live_48_color));
 
                 com.angcyo.uiview.widget.RProgressBar rProgressBar = new com.angcyo.uiview.widget.RProgressBar(mActivity, null);
-                int progressBarType = rProgressBar.getProgressBarType();
-                rProgressBar.setProgressBarType(com.angcyo.uiview.widget.RProgressBar.Companion.getPROGRESS_TYPE_ROUND_INCERTITUDE());
+                int progressBarType = rProgressBar.getRDrawProgress().getProgressBarType();
+                rProgressBar.getRDrawProgress().setProgressBarType(RDrawProgress.Companion.getPROGRESS_TYPE_ROUND());
+                rProgressBar.getRDrawProgress().setIncertitudeProgress(true);
 
                 rProgressBar = holder.v(R.id.r_progress_bar);
                 rProgressBar.setCurProgress(0);

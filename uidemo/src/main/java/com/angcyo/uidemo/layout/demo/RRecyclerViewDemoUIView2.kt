@@ -81,7 +81,7 @@ class RRecyclerViewDemoUIView2 : BaseRecyclerUIView<String>() {
                 }
             }
 
-            override fun onChildViewDetachedFromWindow(view: View?, adapterPosition: Int, layoutPosition: Int) {
+            override fun onChildViewDetachedFromWindow(view: View, adapterPosition: Int, layoutPosition: Int) {
                 super.onChildViewDetachedFromWindow(view, adapterPosition, layoutPosition)
             }
         }
