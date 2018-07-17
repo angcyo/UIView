@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/top_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/base_red"
+        android:text="顶部____123456789_asdfghjkl"
+        app:layout_constraintBottom_toTopOf="@id/center_view"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/center_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/base_link_color_dark"
+        android:text="中部___123456789_asdfghjkl"
+        app:layout_constraintBottom_toTopOf="@id/bottom_view"
+        app:layout_constraintTop_toBottomOf="@id/top_view"/>
+
+    <TextView
+        android:id="@+id/bottom_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@color/base_orange"
+        android:text="尾部___123456789_asdfghjkl"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/center_view"/>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.angcyo.fragment.widget.layout.FragmentDebugLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.angcyo.fragment.widget.layout.FragmentDebugLayout>
+
+    <TextView
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="angcyo"/>
+
+    <com.angcyo.uiview.widget.RFlowLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/base_xxhdpi"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/add_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Add"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/replace_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Replace"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/replace_back_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Replace_Back"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/pop_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Pop"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/remove_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Remove"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/hide_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Hide"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/show_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="show"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/log_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Log"/>
+
+    </com.angcyo.uiview.widget.RFlowLayout>
+</android.support.constraint.ConstraintLayout>
