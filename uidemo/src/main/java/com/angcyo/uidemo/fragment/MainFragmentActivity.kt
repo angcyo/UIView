@@ -7,6 +7,7 @@ import com.angcyo.fragment.base.UIFragmentActivity
 import com.angcyo.fragment.widget.layout.FragmentDebugLayout
 import com.angcyo.library.utils.L
 import com.angcyo.uidemo.R
+import com.angcyo.uidemo.fragment.ui.Main2Fragment
 import com.angcyo.uidemo.fragment.ui.MainFragment
 
 /**
@@ -26,11 +27,21 @@ class MainFragmentActivity : UIFragmentActivity() {
         setContentView(R.layout.activity_main_fragment_layout)
 
         findViewById<View>(R.id.add_button).setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.top_in, R.anim.top_out, R.anim.top_in, R.anim.top_out)
-                    .add(R.id.content_layout, MainFragment(), MainFragment::class.java.simpleName)
-                    .addToBackStack(MainFragment::class.java.simpleName)
-                    .commit()
+            val lastFragment = supportFragmentManager.fragments.lastOrNull()
+            if (lastFragment == null) {
+                supportFragmentManager.beginTransaction()
+                        //.setCustomAnimations(R.anim.top_in, R.anim.top_out, R.anim.top_in, R.anim.top_out)
+                        .add(R.id.content_layout, MainFragment(), MainFragment::class.java.simpleName)
+                        .addToBackStack(MainFragment::class.java.simpleName)
+                        .commit()
+            } else {
+                supportFragmentManager.beginTransaction()
+                        //.setCustomAnimations(R.anim.right_in, R.anim.left_out, R.anim.left_in, R.anim.right_out)
+                        .hide(lastFragment)
+                        .add(R.id.content_layout, Main2Fragment(), MainFragment::class.java.simpleName)
+                        .addToBackStack(MainFragment::class.java.simpleName)
+                        .commit()
+            }
         }
 
         findViewById<View>(R.id.replace_button).setOnClickListener {
@@ -84,6 +95,32 @@ class MainFragmentActivity : UIFragmentActivity() {
             }
         }
 
+        findViewById<View>(R.id.remove_button).setOnClickListener {
+            supportFragmentManager.fragments.lastOrNull()?.let {
+                supportFragmentManager.beginTransaction()
+                        .remove(it)
+                        //.addToBackStack(MainFragment::class.java.simpleName)
+                        .commit()
+            }
+        }
+
+        findViewById<View>(R.id.detach_button).setOnClickListener {
+            supportFragmentManager.fragments.lastOrNull()?.let {
+                supportFragmentManager.beginTransaction()
+                        .detach(it)
+                        //.addToBackStack(MainFragment::class.java.simpleName)
+                        .commit()
+            }
+        }
+
+        findViewById<View>(R.id.attach_button).setOnClickListener {
+            supportFragmentManager.fragments.lastOrNull()?.let {
+                supportFragmentManager.beginTransaction()
+                        .attach(it)
+                        //.addToBackStack(MainFragment::class.java.simpleName)
+                        .commit()
+            }
+        }
 
         findViewById<View>(R.id.log_button).setOnClickListener {
             val build = StringBuilder()

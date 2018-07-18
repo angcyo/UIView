@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import com.angcyo.fragment.ui.RFragment
 import com.angcyo.library.utils.L
-import com.angcyo.uiview.resources.AnimUtil
 
 /**
  * Copyright (C) 2016,深圳市红鸟网络科技股份有限公司 All rights reserved.
@@ -88,17 +87,15 @@ open class LogInfoFragment : RFragment() {
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        log("call: onCreateAnimation -> $transit $enter $nextAnim")
-        if (enter) {
-            return AnimUtil.translateStartAnimation()
-        } else {
-            return AnimUtil.translateFinishAnimation()
-        }
+        log("call: onCreateAnimation ->$isSwipeBack $isHidden $isRemoving $transit $enter $nextAnim")
+        return super.onCreateAnimation(transit, enter, nextAnim)
+//        return null
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
         log("call: onCreateAnimator -> ")
         return super.onCreateAnimator(transit, enter, nextAnim)
+//        return null
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

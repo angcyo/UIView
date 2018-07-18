@@ -83,7 +83,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/base_ldpi"
-            android:text="show"/>
+            android:text="Show"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/attach_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Attach"/>
+
+        <com.angcyo.uiview.widget.Button
+            android:id="@+id/detach_button"
+            style="@style/BaseSkinButtonStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_ldpi"
+            android:text="Detach"/>
 
         <com.angcyo.uiview.widget.Button
             android:id="@+id/log_button"
