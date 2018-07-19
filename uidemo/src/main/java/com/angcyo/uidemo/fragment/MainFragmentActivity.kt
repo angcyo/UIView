@@ -66,6 +66,7 @@ class MainFragmentActivity : UIFragmentActivity() {
 
         findViewById<View>(R.id.pop_button).setOnClickListener {
             supportFragmentManager.popBackStack()
+            supportFragmentManager.popBackStack()
         }
 
         findViewById<View>(R.id.remove_button).setOnClickListener {
