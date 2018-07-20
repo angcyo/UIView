@@ -46,11 +46,11 @@
             </intent-filter>
         </activity>
 
-        <!--Fragment测试-->
+        <!--UIView测试-->
         <activity
-            android:name=".fragment.MainFragmentActivity"
+            android:name=".layout.LayoutDemoActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize"
-            android:label="@string/title_activity_fragment_demo"
+            android:label="@string/title_activity_layout_demo"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -60,11 +60,11 @@
             </intent-filter>
         </activity>
 
-        <!--UIView测试-->
+        <!--Fragment测试-->
         <activity
-            android:name=".layout.LayoutDemoActivity"
+            android:name=".fragment.MainFragmentActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize"
-            android:label="@string/title_activity_layout_demo"
+            android:label="@string/title_activity_fragment_demo"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
