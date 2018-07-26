@@ -11,6 +11,7 @@ import com.angcyo.uidemo.kotlin.cls.SingleClass2
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uidemo.layout.demo.*
 import com.angcyo.uidemo.layout.qq.QQDemoListUIVIew
+import com.angcyo.uidemo.layout.recycler.CustomLayoutManagerUIDemo
 import com.angcyo.uidemo.refresh.RefreshLayoutDemo
 import com.angcyo.uidemo.uiview.ScrollerIView
 import com.angcyo.uidemo.uiview.TestDemo
@@ -788,6 +789,14 @@ class DemoListUIView2 : BaseItemUIView() {
                 initItem(holder, (posInData + 1).toString() + ".TelephonyManager Demo",
                         false, View.OnClickListener {
                     startIView(TelephonyManagerUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, it))
+                })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                initItem(holder, (posInData + 1).toString() + ".Custom LayoutManager Demo",
+                        false, View.OnClickListener {
+                    startIView(CustomLayoutManagerUIDemo().setEnableClipMode(ClipMode.CLIP_BOTH, it))
                 })
             }
         })
