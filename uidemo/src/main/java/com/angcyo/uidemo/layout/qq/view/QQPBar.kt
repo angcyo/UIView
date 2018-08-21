@@ -19,14 +19,24 @@ class QQPBar : View {
 
     var progress = 0
 
+    var rectF = RectF()
+    var cPath = Path()
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        rectF.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
+        cPath.reset()
+        cPath.addRoundRect(rectF, r, r, Path.Direction.CW)
+
+        canvas.save()
+        canvas.clipPath(cPath)
+
         paint.shader = null
         paint.color = Color.GRAY
-        canvas.drawRoundRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), r, r, paint)
+        canvas.drawRoundRect(rectF, r, r, paint)
         //canvas.drawColor(Color.RED)
         val width = measuredWidth.toFloat() * progress / 100f
-        paint.shader = LinearGradient(0f, 0f, width, 0f, Color.YELLOW, Color.RED, Shader.TileMode.CLAMP)
+        paint.shader = LinearGradient(0f, 0f, measuredWidth.toFloat(), 0f, Color.YELLOW, Color.RED, Shader.TileMode.CLAMP)
         canvas.drawRoundRect(0f, 0f, width, measuredHeight.toFloat(), r, r, paint)
         postDelayed({
             progress++
@@ -35,5 +45,6 @@ class QQPBar : View {
             }
             invalidate()
         }, 16)
+        canvas.restore()
     }
 }
