@@ -2,6 +2,7 @@ package com.angcyo.uidemo.layout.qq
 
 import android.view.View
 import com.angcyo.uidemo.layout.base.BaseItemUIView
+import com.angcyo.uidemo.layout.qq.demo.QQProgressBarUIDemo
 import com.angcyo.uidemo.layout.qq.demo.QQScrollTestLayoutUIDemo
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
@@ -33,6 +34,13 @@ class QQDemoListUIVIew : BaseItemUIView() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
                 initItem(holder, (posInData + 1).toString() + ".QQ Scroll Test Demo",
                         false, View.OnClickListener { v -> startIView(QQScrollTestLayoutUIDemo().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
+            }
+        })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item) {
+                initItem(holder, (posInData + 1).toString() + ".QQ Progress Bar Demo",
+                        false, View.OnClickListener { v -> startIView(QQProgressBarUIDemo().setEnableClipMode(UIBaseView.ClipMode.CLIP_BOTH, v)) })
             }
         })
     }
