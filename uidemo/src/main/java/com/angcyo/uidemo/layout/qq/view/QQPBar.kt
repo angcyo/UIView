@@ -37,14 +37,22 @@ class QQPBar : View {
         //canvas.drawColor(Color.RED)
         val width = measuredWidth.toFloat() * progress / 100f
         paint.shader = LinearGradient(0f, 0f, measuredWidth.toFloat(), 0f, Color.YELLOW, Color.RED, Shader.TileMode.CLAMP)
-        canvas.drawRoundRect(0f, 0f, width, measuredHeight.toFloat(), r, r, paint)
+
+        var delay = 16L
+        if (progress < 10) {
+            delay = 700L
+            canvas.drawRoundRect(-r, 0f, width, measuredHeight.toFloat(), r, r, paint)
+        } else {
+            canvas.drawRoundRect(0f, 0f, width, measuredHeight.toFloat(), r, r, paint)
+        }
+
         postDelayed({
             progress++
             if (progress > 100) {
                 progress = 0
             }
             invalidate()
-        }, 16)
+        }, delay)
         canvas.restore()
     }
 }
