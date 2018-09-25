@@ -1,0 +1,1 @@
+D:\AndroidSdk\build-tools\28.0.2\apksigner.bat sign --ks F:\Project\UIView\angcyo.jks --ks-key-alias angcyo "%1" 
