@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/base_red">
+
+        <com.angcyo.uiview.widget.RImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_demo"
+            app:layout_scrollFlags="scroll|snap" />
+
+        <!--悬浮布局-->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            style="@style/BaseTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_60dpi" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.angcyo.uiview.widget.viewpager.UIViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_overlapTop="140dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>

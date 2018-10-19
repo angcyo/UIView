@@ -800,6 +800,14 @@ class DemoListUIView2 : BaseItemUIView() {
                 })
             }
         })
+        items.add(object : SingleItem(SingleItem.Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, dataBean: Item?) {
+                initItem(holder, (posInData + 1).toString() + ".CoordinatorLayout Demo",
+                        false, View.OnClickListener {
+                    startIView(CoordinatorLayoutDemoUIView().setEnableClipMode(ClipMode.CLIP_BOTH, it))
+                })
+            }
+        })
 
         //版本 编译时间
         items.add(object : SingleItem(SingleItem.Type.LINE) {
