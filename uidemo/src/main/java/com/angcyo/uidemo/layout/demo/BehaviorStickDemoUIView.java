@@ -120,9 +120,18 @@ public class BehaviorStickDemoUIView extends UIContentView {
     }
 
     public static class PagerAdapter extends UIPagerAdapter {
+        boolean showGithubView = true;
+
+        public PagerAdapter() {
+        }
+
+        public PagerAdapter(boolean showGithubView) {
+            this.showGithubView = showGithubView;
+        }
+
         @Override
         protected IView getIView(int position) {
-            if (position == 0) {
+            if (position == 0 && showGithubView) {
                 return new GithubDemoUIView().setInSubUIView(true);
             }
             return new BehaviorContentUIView();

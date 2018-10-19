@@ -1,32 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/root_layout"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@color/base_red">
+        android:background="@color/base_white">
 
-        <com.angcyo.uiview.widget.RImageView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:clickable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_demo"
-            app:layout_scrollFlags="scroll|snap" />
+            app:layout_scrollFlags="scroll|snap">
 
+            <com.angcyo.uiview.widget.RImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_demo"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:orientation="horizontal">
+
+                <com.angcyo.uidemo.layout.demo.view.TabRadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/home_radio_selector"
+                    android:drawablePadding="10dp"
+                    android:text="主页主页主页"/>
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/base_red"
+                    android:drawableTop="@drawable/live_radio_selector"
+                    android:drawablePadding="10dp"
+                    android:text="发现发现发现"/>
+
+                <com.angcyo.uidemo.layout.demo.view.TabRadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/me_radio_selector"
+                    android:drawablePadding="10dp"
+                    android:padding="10dp"
+                    android:text="我的"/>
+
+            </RadioGroup>
+        </FrameLayout>
         <!--悬浮布局-->
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             style="@style/BaseTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/base_60dpi" />
+            android:layout_height="@dimen/base_60dpi"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -35,5 +71,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_overlapTop="140dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 </android.support.design.widget.CoordinatorLayout>

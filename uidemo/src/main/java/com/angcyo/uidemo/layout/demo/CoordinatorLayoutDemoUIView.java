@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.angcyo.uidemo.R;
 import com.angcyo.uiview.base.UIContentView;
 import com.angcyo.uiview.container.ContentLayout;
-import com.angcyo.uiview.design.StickLayout;
 import com.angcyo.uiview.model.TitleBarPattern;
 import com.angcyo.uiview.widget.viewpager.UIViewPager;
 
@@ -58,7 +57,7 @@ public class CoordinatorLayoutDemoUIView extends UIContentView {
 
     void initPager() {
         mTabLayout.setupWithViewPager(mViewPager);
-        mViewPager.setAdapter(new BehaviorStickDemoUIView.PagerAdapter());
+        mViewPager.setAdapter(new BehaviorStickDemoUIView.PagerAdapter(false));
         //mViewPager.setSlowTouch(true);
     }
 }
