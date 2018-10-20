@@ -46,6 +46,12 @@ public class TabRadioButton extends android.support.v7.widget.AppCompatRadioButt
     }
 
     @Override
+    public boolean performClick() {
+        L.d("performClick");
+        return super.performClick();
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getActionMasked() == MotionEvent.ACTION_UP) {
             L.d("touch up");
