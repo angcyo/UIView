@@ -43,7 +43,7 @@ class RRecyclerViewDemoUIView3 : BaseRecyclerUIView<String>() {
         super.initRecyclerView(recyclerView, baseContentLayout)
         recyclerView?.let {
             it.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     L.e("call: onScrolled -> ")
                     it.localRefresh { viewHolder, _ ->
@@ -53,7 +53,7 @@ class RRecyclerViewDemoUIView3 : BaseRecyclerUIView<String>() {
                     }
                 }
 
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     L.e("call: onScrollStateChanged -> ")
                 }

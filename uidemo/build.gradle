@@ -22,12 +22,12 @@ android {
 }
 
 dependencies {
-    implementation project(':RLibrary:imagepicker')
-    implementation project(':RLibrary:filedownloader')
-    implementation project(':RLibrary:websocket')
-    implementation project(':RTbs')
-    implementation project(':RJpush')
-    implementation project(':RLibrary:rcode')
+    implementation project(allModule.imagepicker)
+    implementation project(allModule.filedownloader)
+    implementation project(allModule.websocket)
+    implementation project(allModule.RTbs)
+    implementation project(allModule.RJpush)
+    implementation project(allModule.rcode)
 
     //annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     //FPS显示库 https://github.com/wasabeef/Takt

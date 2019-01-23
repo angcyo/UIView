@@ -15,5 +15,5 @@ import android.view.View
  * Version: 1.0.0
  */
 class MyViewHolder : RecyclerView.ViewHolder {
-    constructor(itemView: View?) : super(itemView)
+    constructor(itemView: View) : super(itemView)
 }

@@ -1,10 +1,10 @@
 package com.angcyo.uidemo.layout.qq.demo
 
+import com.angcyo.animcheckviewdemo.RDrawGradientProgress
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseItemUIView
 import com.angcyo.uiview.base.Item
 import com.angcyo.uiview.base.SingleItem
-import com.angcyo.uiview.draw.RDrawGradientProgress
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.widget.AnimCheckView
 

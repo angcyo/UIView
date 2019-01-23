@@ -14,9 +14,9 @@ import com.angcyo.picker.media.bean.MediaItem
 import com.angcyo.rtbs.DownloadFileBean
 import com.angcyo.rtbs.X5FileDownloadUIView
 import com.angcyo.rtbs.X5WebUIView
+import com.angcyo.rtbs.X5WebView
 import com.angcyo.uidemo.R
 import com.angcyo.uidemo.layout.base.BaseContentUIView
-import com.angcyo.uidemo.x5.X5WebView
 import com.angcyo.uiview.container.ContentLayout
 import com.angcyo.uiview.recycler.RBaseViewHolder
 import com.angcyo.uiview.recycler.RRecyclerView
@@ -180,7 +180,8 @@ class X5WebViewUIDemo : BaseContentUIView() {
             }
         }
 
-        webView.onWebViewListener = object : com.angcyo.rtbs.X5WebView.OnWebViewListener {
+        webView.onWebViewListener = object : X5WebView.OnWebViewListener {
+
             override fun onPageFinished(webView: WebView, url: String?) {
 
             }
