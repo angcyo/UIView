@@ -5,6 +5,8 @@ apply from: './RLibrary/root.gradle'
 
 buildscript {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+
         google()
         jcenter()
     }
@@ -15,5 +17,16 @@ buildscript {
         // in the individual module build.gradle files...
 //        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+
+allprojects {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+
+        google()
+        jcenter()
+
     }
 }
