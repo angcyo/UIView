@@ -6,7 +6,7 @@
 
 
 ```
-git@github.com:angcyo/RTbs.git
-git@github.com:angcyo/RJpush.git
-git@github.com:angcyo/RLibrary.git
+git clone -b tbs_uiview git@github.com:angcyo/RTbs.git
+git clone -b uiview git@github.com:angcyo/RJpush.git
+git clone -b uiview git@github.com:angcyo/RLibrary.git
 ```
